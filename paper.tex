@@ -1,0 +1,114 @@
+% \PassOptionsToPackage{pdftex}{graphicx}
+\documentclass[journal,10pt,letterpaper,twocolumn]{IEEEtran}
+
+% begin packages
+% ==============
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[htt]{hyphenat}  % for linebreaks in texttt
+\usepackage[pdftex]{graphicx}
+\graphicspath{{./images/}{./plots/}{./figures}}
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{orcidlink}
+\usepackage[inline]{enumitem}
+\setlist[description]{font=\normalfont\underline}
+\usepackage{todonotes}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[newfloat=true]{minted}
+\setminted{breaklines=true, frame=lines}
+\usemintedstyle{xcode}
+% \SetupFloatingEnvironment{listing}{name=List.,within=none}
+% \captionsetup[table]{justification=centerlast,
+%                      labelsep=newline,
+%                      font=sf,
+%                      textfont=footnotesize}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage[detect-weight=true,detect-family=true,binary-units=true,list-units=single,range-units=single]{siunitx}
+\usepackage[nolist]{acronym}
+\input{acronyms.tex}
+
+% references
+\usepackage[
+  style=numeric-comp,
+  sorting=none,
+  sortcites,
+  hyperref,
+  mincitenames=1,
+  maxcitenames=2,
+  maxbibnames=2,
+  minbibnames=1,
+  citestyle=numeric-comp, % for [1, 2] instead of [1], [2]
+  backend=bibtex
+]{biblatex}
+\bibliography{bibliography.bib}
+\AtBeginBibliography{\small}
+\AtEveryBibitem{\clearfield{day}}
+\AtEveryBibitem{\clearfield{isbn}}
+% \AtEveryBibitem{\clearfield{url}}
+\AtEveryBibitem{\clearfield{series}}
+\AtEveryBibitem{\clearlist{location}}
+\AtEveryBibitem{\clearfield{doi}}
+
+% for dealing with ACM's stupid bibtex requirements
+% \usepackage{biblatex2bibitem}
+% \usepackage[nosort,compress]{cite}
+\usepackage{outline}
+\usepackage{orcidlink}
+\usepackage[all]{hypcap}
+\usepackage{makecell}
+\usepackage[capitalize,nameinlink,noabbrev]{cleveref}
+% \crefname{subfigure}{Subfigure}{Subfigures}
+% \Crefname{subfigure}{Subfigure}{Subfigures}
+% \crefname{listing}{Listing}{Listings}
+% \Crefname{listing}{Listing}{Listings}
+
+\hypersetup{
+  hidelinks,
+  colorlinks=true,
+  allcolors=black,
+  pdfstartview=Fit,
+  breaklinks=true
+}
+
+% \newcommand{\kthemail}[1]{\href{mailto:#1@kth.se}{#1}}
+\newcommand{\edgedroid}{EdgeDroid~\num{2}}
+
+\begin{document}
+\title{EdgeDroid 2 Paper}
+
+\author{%
+  \IEEEauthorblockN{%
+  Manuel {Olguín Muñoz}\IEEEauthorrefmark{1}~\orcidlink{0000-0002-3383-2335},
+  Roberta Klatzky\IEEEauthorrefmark{2}~\orcidlink{0000-0001-9701-9186},
+  Mahadev Satyanarayanan\IEEEauthorrefmark{3}~\orcidlink{0000-0002-2187-2049},
+  James Gross\IEEEauthorrefmark{4}~\orcidlink{0000-0001-6682-6559}%
+  }\\
+  \IEEEauthorblockA{%
+    \IEEEauthorrefmark{1}\IEEEauthorrefmark{4}School of Electrical Engineering and Computer Science\\
+    KTH Royal Institute of Technology, Sweden\\%
+    \IEEEauthorrefmark{1}\href{mailto:molguin@kth.se}{molguin@kth.se}, \IEEEauthorrefmark{4}\href{mailto:jamesgr@kth.se}{jamesgr@kth.se}%
+  }\vspace{0.5em}\\
+  \IEEEauthorblockA{%
+    \IEEEauthorrefmark{2}Department of Psychology\\
+    \IEEEauthorrefmark{3}School of Computer Science\\
+    Carnegie Mellon University, Pittsburgh, Pennsylvania\\
+    \IEEEauthorrefmark{2}\href{mailto:klatzky@cmu.edu}{klatzky@cmu.edu},
+    \IEEEauthorrefmark{3}\href{mailto:satya@cs.cmu.edu}{satya@cs.cmu.edu}%
+  }
+}
+\maketitle
+
+\input{abstract.tex}
+\input{intro.tex}
+\input{background.tex}
+\input{model.tex}
+\input{experiments.tex}
+\input{discussion.tex}
+\input{conclusion.tex}
+
+\printbibliography{}
+\end{document}
