@@ -1,0 +1,63 @@
+\section{Outline of paper}
+
+Key research question: 
+
+\emph{How do different sampling schemes affect system load and performance of WCA applications?}
+
+Secondary question answered:
+
+\emph{How can an artificial model of human behavior simplify reasearch in WCA?}
+
+\begin{enumerate}
+    \item Introduction
+    \item Background and related work
+        \begin{enumerate}
+            \item What is WCA?
+            \item Why is it interesting?
+            \item Example applications and systems.
+            \item Studying the impact of WCA on edge computing systems (why do we need a model for WCA?).
+            \item Sampling strategy as an important factor driving system load.
+            \item Impact of sampling schemes on system load.
+            \item Include examples from other systems (control theory).
+            \item Previous work on sampling in WCA.
+            \item Research on sampling is hampered by the lack of a model for WCA.
+            \item Previous approaches to understanding WCA behavior and modeling it.
+        \end{enumerate}
+    \item Model for WCA
+        \begin{enumerate}
+            \item Reiterate reasons for model
+            \item Discuss base data from PLOS paper
+                \begin{enumerate}
+                    \item Timing
+                    \item Frames
+                \end{enumerate}
+            \item Timing model
+            \item Frame statistics
+            \item Discuss effects of neuroticism (Bobby)
+            \item Implementation in Python
+        \end{enumerate}
+    \item Validation of WCA Model
+    \begin{enumerate}
+        \item Reference model implementation (naive model)
+        \item Plain comparison between naive, empirical, theoretical model using zero-wait sampling.
+        \item Scaling behavior? 
+    \end{enumerate}
+    
+    \item Sampling strategies
+    \begin{enumerate}
+        \item Reference strategies: zero-wait, ideal.
+        \item Basic strategies: periodic, hold.
+        \item Advanced strategy: adaptive aperiodic. Need to reference Vishnu's paper, indicate we're using a modified approximate solution.
+    \end{enumerate}
+
+    \item Experimental setup
+    \begin{enumerate}
+        \item Brief introduction to testbed
+        \item Architectural design of experiment
+    \end{enumerate}
+
+    \item Results
+    \item Discussion
+    \item Conclusion
+\end{enumerate}
+\newpage
