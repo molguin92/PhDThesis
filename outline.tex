@@ -1,12 +1,8 @@
 \section{Outline of paper}
 
-Key research question: 
+Main research question:
 
-\emph{How do different sampling schemes affect system load and performance of WCA applications?}
-
-Secondary question answered:
-
-\emph{How can an artificial model of human behavior simplify reasearch in WCA?}
+\emph{Implications of the interdependence between human behavior and system responsiveness in WCA applications}
 
 \begin{enumerate}
     \item Introduction
@@ -16,48 +12,62 @@ Secondary question answered:
             \item Why is it interesting?
             \item Example applications and systems.
             \item Studying the impact of WCA on edge computing systems (why do we need a model for WCA?).
-            \item Sampling strategy as an important factor driving system load.
-            \item Impact of sampling schemes on system load.
-            \item Include examples from other systems (control theory).
-            \item Previous work on sampling in WCA.
-            \item Research on sampling is hampered by the lack of a model for WCA.
-            \item Previous approaches to understanding WCA behavior and modeling it.
+            \item Trade-offs: responsiveness (i.e. sampling speed) vs network load.
+            \item Discuss how responsiveness relates to execution times and subsequently to system utilization.
+            \item How to study these effects? Experimentally, with a model.
+            \item Introduce model of WCA, refer back to PLOS paper. 
+            % \item Impact of sampling schemes on system load.
+            % \item Include examples from other systems (control theory).
+            % \item Previous work on sampling in WCA.
+            % \item Research on sampling is hampered by the lack of a model for WCA.
+            % \item Previous approaches to understanding WCA behavior and modeling it.
         \end{enumerate}
     \item Model for WCA
         \begin{enumerate}
-            \item Reiterate reasons for model
+            \item Reiterate reasons for model: correlations between step execution time and system responsiveness
             \item Discuss base data from PLOS paper
                 \begin{enumerate}
                     \item Timing
                     \item Frames
                 \end{enumerate}
             \item Timing model
-            \item Frame statistics
-            \item Discuss effects of neuroticism (Bobby)
+            \item Frame generation model
+            \item Discuss effects of neuroticism (? for this we would need Bobby I think)
             \item Implementation in Python
         \end{enumerate}
     \item Validation of WCA Model
     \begin{enumerate}
         \item Reference model implementation (naive model)
-        \item Plain comparison between naive, empirical, theoretical model using zero-wait sampling.
-        \item Scaling behavior? 
-    \end{enumerate}
-    
-    \item Sampling strategies
-    \begin{enumerate}
-        \item Reference strategies: zero-wait, ideal.
-        \item Basic strategies: periodic, hold.
-        \item Advanced strategy: adaptive aperiodic. Need to reference Vishnu's paper, indicate we're using a modified approximate solution.
+        \item Comparison between naive, empirical, theoretical model using zero-wait sampling.
+        \begin{enumerate}
+            \item Scaling behavior (1, 5, and 10 clients?)
+        \end{enumerate}
+        \item Highlight behaviors captured by realistic models that are not present in naive model.
+        \item Primarily, the spread in durations. Realistic models get faster in optimal conditions, but also react more strongly to lowered responsiveness.
     \end{enumerate}
 
-    \item Experimental setup
+    \item Studying implications of responsiveness-network load trade-offs using the model
     \begin{enumerate}
-        \item Brief introduction to testbed
-        \item Architectural design of experiment
+        \item Sampling strategies as a way to alter this trade-off.
+        \item Present basic strategies: zero-wait, ideal, hold, regular.
+        \begin{enumerate}
+            \item Only realistic models, not naive.
+            \item Present comparisons between basic strategies, without any additional load: total task duration, time-to-feedback breakdowns, total number of samples.
+        \end{enumerate}
+        \item Can we do better? Introduce and discuss advanced strategy: adaptive aperiodic approach.
+        \begin{enumerate}
+            \item Maybe fold in Vishnu's globecom paper here, with modifications to target responsiveness instead of power consumption.
+            \item Discuss parameters, and how values were settled on.
+            \item Compare adaptive aperiodic with 2 best basic strategies without additional load.
+            \item Introduce additional load to showcase the adaptability of the adaptive aperiodic approach.
+        \end{enumerate}
     \end{enumerate}
-
-    \item Results
-    \item Discussion
     \item Conclusion
+    \begin{enumerate}
+        \item Future work and open questions
+        \item Effects of individual differences (neuroticism, age, etc)
+        \item Extend to other WCAs
+        \item Extend to other applications
+    \end{enumerate}
 \end{enumerate}
 \newpage
