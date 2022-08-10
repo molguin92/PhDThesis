@@ -8,6 +8,7 @@ jobs:
         with:
           run: |
             apk add make
+            make
       - uses: actions/upload-artifact@v2
         with:
           name: PDF
