@@ -82,21 +82,21 @@
 
 \frontmatter % Pages i, ii, iii, iv, v etc.
 
-\include{chapters/abstract.tex}
-\include{chapters/papers.tex}
-\include{chapters/acks.tex}
-\include{chapters/acronyms.tex}
-
-%\input{Content/Dedication}\clearpage
+\include{body/abstract.tex}
+\include{body/papers.tex}
+\include{body/acks.tex}
+\include{body/acronyms.tex}
 
 \mainmatter % Pages 1, 2, 3...
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%% TABLE OF CONTENTS %%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\tableofcontents
 
-\include{chapters/introduction.tex}
-\include{chapters/references.tex}
+\tableofcontents*{}
+\part{Summary}
+\include{body/part1/introduction.tex}
+\include{body/part1/overview.tex}
+\include{body/part1/conclusions.tex}
+\include{body/part1/references.tex}
+
+\part{Publications}
 
 \end{document}
 \endinput
