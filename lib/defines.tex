@@ -1,0 +1,71 @@
+%%% custom definitions
+%% Coloring the links!
+\newcommand\myshade{75} % Usage: red!\myshade!black
+
+\definecolor{ForestGreen} {RGB}{34,  139,  34}
+\definecolor{HeraldRed2}   {rgb}{0.81, 0.12, 0.15}
+
+\newcommand{\refscolor} {blue}
+\newcommand{\linkscolor}{HeraldRed2}
+\newcommand{\urlscolor} {ForestGreen}
+
+\newcommand{\smartparagraph}[1]{\vspace{.05in}\noindent\textbf{#1}}
+
+\hypersetup{
+	colorlinks  = true,
+	breaklinks  = true,
+	linkcolor   = \linkscolor,
+	urlcolor    = \urlscolor,
+	citecolor   = \refscolor,
+	anchorcolor = black
+}
+
+
+%% My custom commands
+%\newcommand*{\eg}{e.g.,\@\xspace}
+%\newcommand*{\ie}{i.e.,\@\xspace}
+%\newcommand*{\etc}{etc.\@\xspace}
+%\newcommand*{\etal}{et al.\@\xspace}
+%\newcommand*{\addthinspace}{\hskip0.16667em\relax}
+
+\def\first {$(i)$\xspace}
+\def\second{$(ii)$\xspace}
+\def\third {$(iii)$\xspace}
+\def\fourth{$(iv)$\xspace}
+\def\fifth {$(v)$\xspace}
+\def\sixth {$(vi)$\xspace}
+
+%% Footnotes with symbols
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\if 0
+	\renewcommand{\thefootnote}{\arabic{footnote}}
+\fi
+\setlength{\skip\footins}{0.23cm}
+
+%% Limit hyphenation
+\hyphenpenalty=9000
+\tolerance=5000
+
+%% ToC depth 
+\setcounter{secnumdepth}{4} % how many sectioning levels to assign numbers to
+\setcounter{tocdepth}{4}    % how many sectioning levels to show in ToC
+
+\makeatletter
+\newcommand{\DeclareLatinAbbrev}[2]{%
+  \DeclareRobustCommand{#1}{%
+    \@ifnextchar{.}{\textit{#2}}{%
+      \@ifnextchar{,}{\textit{#2.}}{%
+        \@ifnextchar{!}{\textit{#2.}}{%
+          \@ifnextchar{?}{\textit{#2.}}{%
+            \@ifnextchar{)}{\textit{#2.}}{%
+              {\textit{#2.,\ }}}}}}}}%
+}
+\makeatother
+\DeclareLatinAbbrev{\eg}{e.g}
+\DeclareLatinAbbrev{\Eg}{E.g}
+\DeclareLatinAbbrev{\ie}{i.e}
+\DeclareLatinAbbrev{\Ie}{I.e}
+\DeclareLatinAbbrev{\etc}{etc}
+\DeclareLatinAbbrev{\etal}{et~al}
+
+\newcommand*{\todoinline}[1]{\textcolor{red}{TODO: #1}}
