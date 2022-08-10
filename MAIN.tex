@@ -3,7 +3,7 @@
 %%%%%%%%%%%%%%%%%
 %%%% PACKAGES %%%
 %%%%%%%%%%%%%%%%%
-\usepackage[utf8x]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[swedish,english]{babel}
 \usepackage{enumerate}  % for capital latin numbers in the list of papers
 \usepackage{caption}   % to align the table caption to the right/left
@@ -13,7 +13,20 @@
 \usepackage{amssymb}  % assumes amsmath package installed
 \usepackage{epstopdf}
 \usepackage{subfig}
-\usepackage{cite}
+% \usepackage{cite}
+\usepackage[
+  style=ieee,
+  sorting=none,
+  sortcites,
+  hyperref,
+  mincitenames=1,
+  maxcitenames=2,
+  maxbibnames=2,
+  minbibnames=1,
+  citestyle=numeric-comp, % for [1, 2] instead of [1], [2]
+  backend=bibtex
+]{biblatex}
+\bibliography{Refs.bib}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{bm}	%Command \bm{make bold}
@@ -23,6 +36,7 @@
 \usepackage{multicol}
 \usepackage[x11names]{xcolor}
 \usepackage{lipsum}
+\usepackage[printonlyused]{acronym}
 
 \usepackage{tikz}
 \usetikzlibrary{tikzmark,calc,decorations.pathreplacing}
@@ -43,15 +57,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{ Thesis Title }
 \subtitle{\textbf{sub-title}}
-\author{Author name}
-\date{date}
+\author{Manuel {Olguín Muñoz}}
+\date{\today}
 \thesistype{Doctoral Thesis}
-\imprint{Stockholm, Sweden, 2020}
+\imprint{Stockholm, Sweden, \the\year{}}
 \examen{Teknologie doktorexamen i elektroteknik}
 \disputationsdatum{fredagen den 18 januari 2020 klockan 14.00}
-\disputationslokal{Sal F3, Lindstedtsvägen 26, Kungliga Tekniska H\"{o}gskolan, Stockholm}
+\disputationslokal{Sal F3, Lindstedtsvägen 26, Kungliga Tekniska Högskolan, Stockholm}
 \publisher{Universitetsservice US AB}
-\address{KTH Royal Institute of Technology \\School of Electrical Engineering and Computer Science\\ Division of Fusion Plasma Physics \\ SE-10044 Stockholm\\ Sweden}
+\address{%
+	KTH Royal Institute of Technology\\%
+	School of Electrical Engineering and Computer Science\\%
+	Division of Information Science and Engineering\\%
+	SE-10044 Stockholm\\%
+	Sweden%
+}
 \isbn{ISBN 100-}
 %\issn{ISSN XXX} % No longer used at KTH
 \trita{TRITA-EECS-AVL-2020:4}
@@ -61,64 +81,11 @@
 \maketitle
 
 \frontmatter % Pages i, ii, iii, iv, v etc.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%% ABSTRACT %%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{abstract}
-\noindent \lipsum[1]
 
-\end{abstract}
-
-\bigskip \bigskip \bigskip \bigskip \bigskip
-
-\setlength{\leftskip}{0.3 cm} \textbf {Keywords:} Lorem, Ipsum, Dolor, Sit, Amet
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%% SWEDISH ABSTRACT %%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-\selectlanguage{swedish}
-\begin{abstract}
-\noindent \lipsum[1]
-\end{abstract}
-\selectlanguage{english}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%% List of papers %%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{List of Papers}
-
-\let\thefootnote\relax\footnote{Paper I and III are published under license in \textit{Journal of X}}
-\begin{enumerate}[I]
-	\item \textbf{\textit{Title of paper}} \\
-		\textbf{First author}, Second author \\
-		\textit{Journal (year)}
-\end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%% Papers NOT included in THESIS
-Other contributions by the author not included in the thesis.
-\begin{enumerate}[I]
-	\setcounter{enumi}{1}
-	\item \textbf{\textit{Title of paper}} \\
-		\textbf{First author}, Second author \\
-		\textit{Journal (year)}
-\end{enumerate}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%% ACKNOWLEDGMENT %%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Acknowledgement}
-\noindent \lipsum[1]
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%% ACRONYMS %%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Acronyms}
-List of commonly used acronyms: \\
-
-\begin{tabular}{llll}
-\textbf{AE}		&	Acronym examples \\
-
-\end{tabular}
+\include{chapters/abstract.tex}
+\include{chapters/papers.tex}
+\include{chapters/acks.tex}
+\include{chapters/acronyms.tex}
 
 %\input{Content/Dedication}\clearpage
 
@@ -128,94 +95,8 @@ List of commonly used acronyms: \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \tableofcontents
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%% CHAPTER 1: INTRODUCTION %%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Energy needs - an introduction}
-\label{Intro}
-Here is an example for referencing figure \ref{EnergySources}. Example of citing \cite{BP2019} and \cite{Chen2016}.
-%%%%%%%%%%%%%% Figure: Energy sources
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.6]{Figs/Ch1_EnergySources.png}
-	\caption{The world's energy consumption by fuel in 2017. }
-	\label{EnergySources}
-\end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Section}
-Example of a table
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Table: Tokamaks
-\begin{table}[t!]
-	\centering
-	\caption{List of experimental tokamaks worldwide. Note: ITER is currently under construction and the first plasma is predicted for 2025-2028.}
-		\begin{tabular}{ccccc}
-			\hline
-			\textbf{Name} & \textbf{Location} & \textbf{B-field} & \textbf{Major/minor radius}  \\
-			\hline
-			JET     & England      & 4.0 T & 3.0 m / 1.3 m \\
-			ITER    & France       & 5.3 T & 6.2 m / 2.0 m \\
-			AUG		& Germany      & 3.1 T & 1.7 m / 0.7 m \\
-			WEST	& France	   & 3.7 T & 2.5 m / 0.5 m \\
-			TCV     & Switzerland  & 1.5 T & 0.9 m / 0.3 m \\
-			DIII-D  & USA          & 2.2 T & 1.7 m / 0.7 m \\
-			TFTR 	& USA          & 6.0 T & 2.5 m / 0.9 m \\
-			JT-60   & Japan        & 4.0 T & 3.4 m / 1.0 m \\
-			K-STAR  & South Korea  & 3.5 T & 1.8 m / 0.5 m \\
-			EAST    & China        & 3.5 T & 1.9 m / 0.5 m \\
-			\hline
-		\end{tabular}
-	\label{TokamakTable}
-\end{table}
-
-
-\chapter{Chapter 2}
-\label{Ch2label}
-\noindent \lipsum[1]
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%% CHAPTER 6: Summary of the publications %%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Summary of the included papers}
-\label{Summary}
-\noindent \lipsum[1]
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Paper I - ...}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%% CHAPTER 7: Conclusions %%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Discussion and conclusions}
-\label{Conclusions}
-\noindent \lipsum[1]
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusions}
-\noindent \lipsum[1]
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%% CHAPTER 8: Personal reflections %%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Personal reflections}
-\label{PersonalReflections}
-\noindent \lipsum[1]
-
-%------------------------------------------------
-% CREATING THE BIBLIOGRAPHY
-%------------------------------------------------
-\bibliographystyle{ieeetr}
-\renewcommand{\bibname}{References}% changes default name Bibliography to References
-\bibliography{Refs} % References file
-
-%--------------------------------------------------
+\include{chapters/introduction.tex}
+\include{chapters/references.tex}
 
 \end{document}
 \endinput
