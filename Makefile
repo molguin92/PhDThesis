@@ -7,7 +7,7 @@ PDFTEX := pdflatex -synctex=1 -interaction=nonstopmode -file-line-error -shell-e
 
 MAIN.pdf : $(SOURCES)
 	$(PDFTEX) $<
-	bibtex $(DOCNAME)
+	biber $(DOCNAME)
 	$(PDFTEX) $<
 	$(PDFTEX) $<
 
