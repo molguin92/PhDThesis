@@ -5,7 +5,8 @@
 %%%%%%%%%%%%%%%%%
 \usepackage[utf8]{inputenc}
 \usepackage[swedish,english]{babel}
-\usepackage{enumerate}  % for capital latin numbers in the list of papers
+\usepackage{csquotes}
+\usepackage{enumitem}
 \usepackage{caption}   % to align the table caption to the right/left
 \usepackage{lscape}
 \usepackage{hyperref}  %for references
@@ -21,12 +22,21 @@
   hyperref,
   mincitenames=1,
   maxcitenames=2,
-  maxbibnames=2,
+  maxbibnames=10,
   minbibnames=1,
   citestyle=numeric-comp, % for [1, 2] instead of [1], [2]
   backend=bibtex
 ]{biblatex}
-\bibliography{Refs.bib}
+\bibliography{Refs.bib,bibliography/bibliography.bib}
+
+% included papers
+\DeclareBibliographyCategory{thesispapers}
+\addtocategory{thesispapers}{Olguin:DemoScaling2018}
+\addtocategory{thesispapers}{Olguin:EdgeDroid2019}
+\addtocategory{thesispapers}{Olguin:ImpactWCA2021}
+\addtocategory{thesispapers}{CLEAVE2022}
+
+
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{bm}	%Command \bm{make bold}
