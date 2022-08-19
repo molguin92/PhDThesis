@@ -63,6 +63,8 @@
 \DeclareSIUnit{\belmilliwatt}{Bm}
 \DeclareSIUnit{\dBm}{\deci\belmilliwatt}
 
+\usepackage{xcolor}
+\usepackage{pagecolor}
 \usepackage{tikz}
 \usetikzlibrary{tikzmark,calc,decorations.pathreplacing,shapes,arrows.meta,positioning,automata}
 \usepackage[export]{adjustbox}
@@ -90,6 +92,7 @@
 \newcommand\origtitle[1]{\\
   \parbox{\textwidth}{\normalsize\vspace*{2\baselineskip}#1}}
 
+
 \usepackage{appendix}
 \usepackage{hyperref}
 
@@ -114,9 +117,12 @@
 \newcommand{\suppauthtitle}{\AtNextCite{\int@suppauthtitle}}
 \makeatother
 
+\definecolor{titlecolor}{HTML}{CCB3FF}
+
 \newcommand{\thesispaper}[2]
 {%
 \begin{titlingpage*}
+\newpagecolor{titlecolor}
 \chapter[#1]{\citefield{#2}{title}}
 
 \begin{flushright}
@@ -128,9 +134,7 @@
 \end{flushright}
 
 \thispagestyle{empty}
-
 \clearpage%
-
 \hspace{0pt}\vfill%
 \noindent\textcopyright~{\citeyear{#2}~\citelist{#2}{publisher}}
 
@@ -138,6 +142,7 @@
 
 \vfill\hspace{0pt}%
 \end{titlingpage*}%
+\restorepagecolor%
 }
 
 
