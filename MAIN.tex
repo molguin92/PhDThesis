@@ -1,4 +1,4 @@
-\documentclass[electronic]{kthesis}
+\documentclass[electronic,oldfontcommands]{kthesis}
 
 %%%%%%%%%%%%%%%%%
 %%%% PACKAGES %%%
@@ -6,16 +6,27 @@
 \usepackage[utf8]{inputenc}
 \usepackage[swedish,english]{babel}
 \usepackage{csquotes}
-\usepackage{enumitem}
+\usepackage[inline]{enumitem}
 \usepackage{caption}   % to align the table caption to the right/left
+
+% headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\leftmark}
+\fancyhead[LO]{\rightmark}
+
 \usepackage{lscape}
 \usepackage{hyperref}  %for references
 \usepackage{amsmath,mathrsfs}
 \usepackage{amssymb}  % assumes amsmath package installed
 \usepackage{epstopdf}
 \usepackage{subfig}
+\usepackage{epigraph}
 % \usepackage{cite}
 \usepackage[
+  giveninits=false,
   style=ieee,
   sorting=none,
   sortcites,
@@ -36,8 +47,7 @@
 \addtocategory{thesispapers}{Olguin:ImpactWCA2021}
 \addtocategory{thesispapers}{CLEAVE2022}
 
-
-\usepackage{hyperref}
+\usepackage{cleveref}
 \usepackage{graphicx}
 \usepackage{bm}	%Command \bm{make bold}
 \usepackage{algorithm}
@@ -47,14 +57,88 @@
 \usepackage[x11names]{xcolor}
 \usepackage{lipsum}
 \usepackage[printonlyused]{acronym}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage[binary-units]{siunitx}
+\DeclareSIUnit{\belmilliwatt}{Bm}
+\DeclareSIUnit{\dBm}{\deci\belmilliwatt}
 
 \usepackage{tikz}
-\usetikzlibrary{tikzmark,calc,decorations.pathreplacing}
+\usetikzlibrary{tikzmark,calc,decorations.pathreplacing,shapes,arrows.meta,positioning,automata}
+\usepackage[export]{adjustbox}
+\usepackage{pgf-umlsd}
+\input{publications/2018DemoScalingOnTheEdge/pgf-umlsd-ex.tex}
+
 \newcommand{\Depth}{2}
 \newcommand{\Height}{2}
 \newcommand{\Width}{2}
 
 \renewcommand{\labelitemi}{\textcolor{IndianRed3}{\bfseries\textbullet}}
+
+% fancy chapters
+\usepackage[Sonny]{fncychap}
+\ChNameVar{\rmfamily\Large}
+\ChNumVar{\rmfamily\Huge\bfseries}
+\ChTitleVar{\normalfont\rmfamily\Huge}
+
+\usepackage{xparse}
+\NewDocumentCommand{\thesischapter}{o m m}{%
+   \IfNoValueTF{#1}
+     {\chapter[#2]{#2\origtitle{#3}}}
+     {\chapter[#1]{#2\origtitle{#3}}}%
+}
+\newcommand\origtitle[1]{\\
+  \parbox{\textwidth}{\normalsize\vspace*{2\baselineskip}#1}}
+
+\usepackage{appendix}
+\usepackage{hyperref}
+
+\newenvironment{dedication}{\cleardoublepage\null\vspace{\stretch{1}}\begin{flushright}\itshape}{\end{flushright}\vspace{\stretch{2}}\null}
+
+\newcommand{\citeallnames}
+{\AtNextCite{\defcounter{maxnames}{99}}\citename}
+
+\makeatletter
+\newcommand{\int@suppauthtitle}{%
+  \def\ifciteibid{\@secondoftwo}%
+  \renewbibmacro*{cite:name}{}%
+  \renewbibmacro*{cite:idem}{}%
+  \renewbibmacro*{author}{}%
+  \renewbibmacro*{editor+others}{}%
+  \renewbibmacro*{translator+others}{}%
+  \renewbibmacro*{url}{}%
+  \renewbibmacro*{in:}{Refereed article published in\\}%
+  \renewbibmacro*{title}{}%
+  \renewbibmacro*{annotation}{}}
+
+\newcommand{\suppauthtitle}{\AtNextCite{\int@suppauthtitle}}
+\makeatother
+
+\newcommand{\thesispaper}[2]
+{%
+\begin{titlingpage*}
+\chapter[#1]{\citefield{#2}{title}}
+
+\begin{flushright}
+{\citeallnames{#2}{author}}
+
+\vspace{3em}
+
+\suppauthtitle\fullcite{#2}
+\end{flushright}
+
+\thispagestyle{empty}
+
+\clearpage%
+
+\hspace{0pt}\vfill%
+\noindent\textcopyright~{\citeyear{#2}~\citelist{#2}{publisher}}
+
+\noindent{Layout has been revised for thesis consistency.}
+
+\vfill\hspace{0pt}%
+\end{titlingpage*}%
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -107,6 +191,11 @@
 \include{body/part1/references.tex}
 
 \part{Publications}
+\begin{appendices}
+\renewcommand{\appendixname}{Paper}
+\include{publications/2018DemoScaling.tex}
+\include{publications/2019EdgeDroid.tex}
+\end{appendices}
 
 \end{document}
 \endinput
