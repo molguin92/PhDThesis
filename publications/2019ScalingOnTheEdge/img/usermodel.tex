@@ -1,0 +1,25 @@
+\adjustbox{scale=0.7}{
+    \ttfamily\centering%\fbox{%
+    \begin{tikzpicture}[align=center,
+        node distance=.5cm and 1.5cm,
+        every initial by arrow/.style={-{Latex[length=2mm]}}]
+        % Place nodes              
+        \node [initial, state, minimum size=5em, initial text=] (play) {\textbf{Play}};
+        \node [state, above right=of play, minimum size=5em] (change) {\textbf{Change}\\\textbf{step}};
+        \node [state, below right=of play, minimum size=5em] (rewind) {\textbf{Rewind}};
+        \node [state, accepting, above right=of rewind, minimum size=5em] (shutdown) {\textbf{Shut}\\\textbf{down}};
+
+        % Draw edges
+        \path[draw, -{Latex[length=2mm]}]
+        (play) edge [out=270, in=180] node[below left] {Finished step but\\no feedback received} (rewind)
+        edge [out=90, in=180] node[above left] {Received feedback} (change)
+        edge [out=140, in=220,looseness=6] node[left] {Step\\not finished} (play)
+
+        (change) edge [bend left=5] node[below right] {Step changed} (play)
+        edge [out=0, in=90] node[above right] {All steps\\finished} (shutdown)
+
+        (rewind) edge [bend right=5] node[above right] {Rewound} (play)
+        edge [out=0, in=270] node[below right] {Too many\\rewinds} (shutdown);
+
+    \end{tikzpicture}
+}%}

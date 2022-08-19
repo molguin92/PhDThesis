@@ -1,0 +1,22 @@
+\adjustbox{scale=0.65}{
+    \ttfamily\centering%\fbox{%
+    \begin{tikzpicture}[align=center,
+    node distance=0.7cm and 0.7cm,
+    every initial by arrow/.style={draw=none, minimum size=0em}]
+    % Place nodes       
+    \node [state, draw=none, minimum size=0em] (input) {};       
+    \node [state, right=1cmof input, minimum size=7em] (detect) {Detection};               
+    \node [state, right=2cm of detect, minimum size=7em] (symb) {Symbolic\\Repr.};
+    \node [state, right=.5cm of symb, minimum size=7em] (feedback) {Feedback\\Gen.};
+    \node [state, accepting, draw=none, right=1cm of feedback, minimum size=0em] (output1) {};
+    \node [state, accepting, draw=none, below=1.4cm of output1, minimum size=0em] (output2) {};
+    
+    % Draw edges
+    \path[draw, -{Latex[length=3mm]}]
+    (input) edge node[above left] {Input} (detect)
+    (detect) edge node[above] {LEGO bricks\\in input} (symb)
+    (symb) edge node {} (feedback)
+    (feedback) edge node[above right] {Feedback} (output1)
+    (detect) edge [bend right=10] node[below left] {No LEGO bricks, thus no feedback} (output2) ;
+    \end{tikzpicture}
+}%}

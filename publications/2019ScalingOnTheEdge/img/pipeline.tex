@@ -1,0 +1,66 @@
+\adjustbox{scale=0.65}{
+        \ttfamily\centering%\fbox{%
+        \begin{tikzpicture}[align=center,
+                        node distance=0.7cm and 0.7cm,
+                        every initial by arrow/.style={draw=none, minimum size=0em},
+                        %node styles:
+                        block_center/.style ={rectangle, draw=black, thick, fill=white,
+                                        text width=8em, text centered, minimum height=4em},
+                        block_left/.style ={rectangle, draw=black, thick, fill=white,
+                                        text width=16em, text ragged, minimum height=4em, inner sep=6pt},
+                        block_noborder/.style ={rectangle, draw=none, thick, fill=none,
+                                        text width=18em, text centered, minimum height=1em},
+                        block_assign/.style ={rectangle, draw=black, thick, fill=white,
+                                        text width=18em, text ragged, minimum height=3em, inner sep=6pt},
+                        block_lost/.style ={rectangle, draw=black, thick, fill=white,
+                                        text width=16em, text ragged, minimum height=3em, inner sep=6pt},
+                        block_rounded/.style ={rectangle, draw=black, thick, fill=white,
+                                        text width=8em, text centered, rounded corners=.55cm, minimum height=4em},
+                        line/.style ={draw, thick, -{Latex[length=3mm]}, shorten >=0pt}
+                ]
+
+                \matrix [column sep=5mm,row sep=3mm] (top) {
+                        \node [block_center] (detect) {Detection};
+                         & \node [block_center] (repr) {Symbolic\\Repr.};
+                         & \node [block_center] (model) {Task Model\\$M\{S, E\}$};
+                         & \node [block_center] (feedback) {Feedback\\Generation}; \\[3ex]
+                };
+
+                \matrix [column sep=13mm,row sep=3mm, below=of top] (bottom) {
+                        \node [block_rounded] (sensors) {On-body\\Sensors};
+                         %& \node [block_rounded] (user) {Human User};
+                         %&\node[cloud, draw, black, text centered, cloud ignores aspect=false] (user) {Human User};
+                         & \node[maninblack, minimum height=5em] (user) {\Large Human User};
+                         & \node [block_rounded] (hud) {HUD, Speakers,\\etc.}; \\
+                };
+
+                %\Smiley[1, below of=bottom] (smiley);
+
+
+                \begin{scope}[every path/.style=line]
+                        \path (detect) -- (repr);
+                        \path (repr) -- (model);
+                        \path (model) -- (feedback);
+                        \path (feedback) -- (hud);
+                        \path (hud) -- (user);
+                        \path (user) -- (sensors);
+                        \path (sensors) -- (detect);
+                \end{scope}
+
+                % % Place nodes       
+                % \node [initial, state, draw=none, initial text=, minimum size=0em] (input) {};
+                % \node [state, right=1cmof input, minimum size=7em] (detect) {Detection};
+                % \node [state, right=2cm of detect, minimum size=7em] (symb) {Symbolic\\Repr.};
+                % \node [state, right=.5cm of symb, minimum size=7em] (feedback) {Feedback\\Gen.};
+                % \node [state, accepting, draw=none, right=1cm of feedback, minimum size=0em] (output1) {};
+                % \node [state, accepting, draw=none, below=1.4cm of output1, minimum size=0em] (output2) {};
+
+                % % Draw edges
+                % \path[draw, -{Latex[length=3mm]}]
+                % (input) edge node[above left] {Input} (detect)
+                % (detect) edge node[above] {LEGO bricks\\in input} (symb)
+                % (symb) edge node {} (feedback)
+                % (feedback) edge node[above right] {Feedback} (output1)
+                % (detect) edge [bend right=10] node[below left] {No LEGO bricks, thus no feedback} (output2) ;
+        \end{tikzpicture}
+}%}

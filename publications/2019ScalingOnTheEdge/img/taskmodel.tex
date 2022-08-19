@@ -1,0 +1,26 @@
+\adjustbox{scale=0.75}{
+    \ttfamily\centering%\fbox{%
+    \begin{tikzpicture}[align=center,
+        node distance=.5cm and 1cm,
+        every initial by arrow/.style={-{Latex[length=2mm]}},
+        line/.style ={draw, thick, -latex', shorten >=0pt}]
+        % Place nodes       
+        \node [state, minimum size=3em] (si) {\Large $s_{i}$};
+        \node [state, above right=of si, minimum size=3em] (sj) {\Large $s_{j}$};
+        \node [state, below right=of si, minimum size=3em] (se) {\Large $s^{e}_{k}$};
+
+        \path[draw, -{Latex[length=2mm]}]
+        (si)
+        edge [out=140,in=220,looseness=6] node[left] {\emph{In:} none\\\emph{Out:} positive feedback} (si)
+        edge [bend left=20] node[above left] {\emph{In:} correct action\\\emph{Out:} none} (sj)
+        edge [bend left=20] node[right] {\emph{In:} incorrect action\\\emph{Out:} none} (se)
+
+        (se)
+        edge [bend left=20] node[below left] {\emph{In:} undo action\\\emph{Out:} none} (si)
+        edge [out=230,in=310,looseness=6] node[below] {\emph{In:} none\\\emph{Out:} negative feedback} (se)
+
+        (sj) edge [out=50,in=130,looseness=6] node[above] {\emph{In:} none\\\emph{Out:} positive feedback} (sj)
+        ;
+
+    \end{tikzpicture}
+}%}
