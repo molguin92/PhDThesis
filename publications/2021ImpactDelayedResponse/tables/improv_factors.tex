@@ -1,0 +1,14 @@
+\setlength{\tabcolsep}{0pt} % let TeX compute the intercolumn space
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}rrrr@{}}
+\toprule
+Metric & Delay &  \makecell{\% change,\\slice 1 to 3} & \makecell{\% of best case} \\
+\midrule
+\multirow{3}{*}{\makecell[c]{Execution\\Time}} & 0.00 &                -34.28\% &                   100.00\% \\
+               & 1.65 &                -22.24\% &                    64.90\% \\
+               & 3.00 &                 -8.57\% &                    24.99\% \\
+\cline{1-4}
+\multirow{3}{*}{\makecell[c]{Movement\\Score}} & 0.00 &                 +0.37\% &                   100.00\% \\
+               & 1.65 &                 +0.06\% &                    16.16\% \\
+               & 3.00 &                 -0.04\% &                    -9.72\% \\
+\bottomrule
+\end{tabular*}

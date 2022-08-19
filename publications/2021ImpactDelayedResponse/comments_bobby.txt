@@ -1,0 +1,38 @@
+----------2021-01-19 09:31:53----------
+R1Q3: 
+
+- Do people change temporal profile in relation to system latency?
+- Do people show signals of arousal in physio responses to system latency?
+- Are response to delays effect cognitively/emotionally mediated?
+- Effects moderated by personality?
+
+Put around the aim.
+
+R1Q6:
+
+Mention hypothesis w.r.t. the previous questions.
+Critical delays.
+Continuous vs. discrete event.
+Changes in the pace vs. complete disruption. 
+
+Emotion vs cognition: we hypothesize both forms of disruption can ocur. It's not clear pacing is so strong to create emotional response.
+
+Neuriticism hypothesis.
+
+
+R1Q7:
+
+Overarching theo construct: people perform temp seq task in the framework of cognition and emotion and individual differences mediate response to delay. In particular we view cognition as described by models such as ACT-R as a seq of procedures.
+
+Section 2.
+Accordingly we review time perception...
+
+
+R1Q12:
+
+- Go back and look at previous versions of discussion.
+- In the context of synthetic model -> most important results.
+- We wanna move toward a synthetic model.
+- Change w.r.t. personality.
+
+A paragraph.

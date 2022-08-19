@@ -1,0 +1,1560 @@
+% Template for PLoS
+%DIF LATEXDIFF DIFFERENCE FILE
+%DIF DEL paper_old.tex   Tue Feb 16 11:48:29 2021
+%DIF ADD paper.tex       Tue Feb 16 11:47:32 2021
+% Version 3.5 March 2018
+%
+% % % % % % % % % % % % % % % % % % % % % %
+%
+% -- IMPORTANT NOTE
+%
+% This template contains comments intended 
+% to minimize problems and delays during our production 
+% process. Please follow the template instructions
+% whenever possible.
+%
+% % % % % % % % % % % % % % % % % % % % % % % 
+%
+% Once your paper is accepted for publication, 
+% PLEASE REMOVE ALL TRACKED CHANGES in this file 
+% and leave only the final text of your manuscript. 
+% PLOS recommends the use of latexdiff to track changes during review, as this will help to maintain a clean tex file.
+% Visit https://www.ctan.org/pkg/latexdiff?lang=en for info or contact us at latex@plos.org.
+%
+%
+% There are no restrictions on package use within the LaTeX files except that 
+% no packages listed in the template may be deleted.
+%
+% Please do not include colors or graphics in the text.
+%
+% The manuscript LaTeX source should be contained within a single file (do not use \input, \externaldocument, or similar commands).
+%
+% % % % % % % % % % % % % % % % % % % % % % %
+%
+% -- FIGURES AND TABLES
+%
+% Please include tables/figure captions directly after the paragraph where they are first cited in the text.
+%
+% DO NOT INCLUDE GRAPHICS IN YOUR MANUSCRIPT
+% - Figures should be uploaded separately from your manuscript file. 
+% - Figures generated using LaTeX should be extracted and removed from the PDF before submission. 
+% - Figures containing multiple panels/subfigures must be combined into one image file before submission.
+% For figure citations, please use "Fig" instead of "Figure".
+% See http://journals.plos.org/plosone/s/figures for PLOS figure guidelines.
+%
+% Tables should be cell-based and may not contain:
+% - spacing/line breaks within cells to alter layout or alignment
+% - do not nest tabular environments (no tabular environments within tabular environments)
+% - no graphics or colored text (cell background color/shading OK)
+% See http://journals.plos.org/plosone/s/tables for table guidelines.
+%
+% For tables that exceed the width of the text column, use the adjustwidth environment as illustrated in the example table in text below.
+%
+% % % % % % % % % % % % % % % % % % % % % % % %
+%
+% -- EQUATIONS, MATH SYMBOLS, SUBSCRIPTS, AND SUPERSCRIPTS
+%
+% IMPORTANT
+% Below are a few tips to help format your equations and other special characters according to our specifications. For more tips to help reduce the possibility of formatting errors during conversion, please see our LaTeX guidelines at http://journals.plos.org/plosone/s/latex
+%
+% For inline equations, please be sure to include all portions of an equation in the math environment.  For example, x$^2$ is incorrect; this should be formatted as $x^2$ (or $\mathrm{x}^2$ if the romanized font is desired).
+%
+% Do not include text that is not math in the math environment. For example, CO2 should be written as CO\textsubscript{2} instead of CO$_2$.
+%
+% Please add line breaks to long display equations when possible in order to fit size of the column. 
+%
+% For inline equations, please do not include punctuation (commas, etc) within the math environment unless this is part of the equation.
+%
+% When adding superscript or subscripts outside of brackets/braces, please group using {}.  For example, change "[U(D,E,\gamma)]^2" to "{[U(D,E,\gamma)]}^2". 
+%
+% Do not use \cal for caligraphic font.  Instead, use \mathcal{}
+%
+% % % % % % % % % % % % % % % % % % % % % % % % 
+%
+% Please contact latex@plos.org with any questions.
+%
+% % % % % % % % % % % % % % % % % % % % % % % %
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
+
+% amsmath and amssymb packages, useful for mathematical formulas and symbols
+\usepackage{amsmath,amssymb}
+
+% Use adjustwidth environment to exceed column width (see example table in text)
+\usepackage{changepage}
+
+% Use Unicode characters when possible
+\usepackage[utf8]{inputenc}
+
+% textcomp package and marvosym package for additional characters
+\usepackage{textcomp,marvosym}
+
+% cite package, to clean up citations in the main text. Do not remove.
+% \usepackage{cite}
+
+% Use nameref to cite supporting information files (see Supporting Information section for more info)
+\usepackage{nameref}
+
+% line numbers
+\usepackage[right]{lineno}
+
+% ligatures disabled
+\usepackage{microtype}
+\DisableLigatures[f]{encoding = *, family = * }
+
+% color can be used to apply background shading to table cells only
+\usepackage[table]{xcolor}
+\usepackage{tabularx}
+
+% array package and thick rules for tables
+\usepackage{array}
+
+% create "+" rule type for thick vertical lines
+\newcolumntype{+}{!{\vrule width 2pt}}
+
+% create \thickcline for thick horizontal lines of variable length
+\newlength\savedwidth
+\newcommand\thickcline[1]{%
+  \noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+  \cline{#1}%
+  \noalign{\vskip\arrayrulewidth}%
+  \noalign{\global\arrayrulewidth\savedwidth}%
+}
+
+% \thickhline command for thick horizontal lines that span the table
+\newcommand\thickhline{\noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+\hline
+\noalign{\global\arrayrulewidth\savedwidth}}
+
+
+% Remove comment for double spacing
+%\usepackage{setspace} 
+%\doublespacing
+
+% Text layout
+\raggedright
+\setlength{\parindent}{0.5cm}
+\textwidth 5.25in 
+\textheight 8.75in
+
+% Bold the 'Figure #' in the caption and separate it from the title/caption with a period
+% Captions will be left justified
+\usepackage[aboveskip=1pt,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=off]{caption}
+\renewcommand{\figurename}{Fig}
+
+% % Use the PLoS provided BiBTeX style
+% \bibliographystyle{plos2015}
+
+% % Remove brackets from numbering in List of References
+% \makeatletter
+% \renewcommand{\@biblabel}[1]{\quad#1.}
+% \makeatother
+
+% BibLatex and PLOS One hacks
+\usepackage[citestyle=numeric,
+            backend=bibtex,
+            bibstyle=authoryear,
+            sorting=none,
+            sortcites,
+            firstinits,
+            terseinits,
+            maxbibnames=6,
+            dashed=false]{biblatex}
+\bibliography{bibliography}
+\usepackage[colorlinks]{hyperref}
+
+% Name list format
+\renewcommand*{\labelnamepunct}{\addspace}
+\renewcommand*{\finalnamedelim}{%
+  \ifbibliography{\addcomma\space}{\addspace\&\space}}
+\renewcommand*{\revsdnamepunct}{}
+\DeclareNameAlias{sortname}{last-first}
+
+% No quotes or italics in titles
+\DeclareFieldFormat{title}{#1}
+\DeclareFieldFormat[article,inbook,incollection,inproceedings,patent,
+                    thesis,unpublished]{title}{#1}
+\DeclareFieldFormat{journaltitle}{#1}
+\DeclareFieldFormat{issuetitle}{#1}
+\DeclareFieldFormat{maintitle}{#1}
+
+\renewbibmacro*{in:}{%
+  \ifentrytype{article}{}{\printtext{\bibstring{in}\intitlepunct}}}
+
+% Remove page prefixes
+\DeclareFieldFormat{pages}{#1}
+
+% Only print journal volume
+\renewbibmacro*{volume+number+eid}{%
+  \setunit*{\addspace}%
+  \printfield{volume}}
+
+% Use colon for volume-pages delimiter
+\renewcommand*{\bibpagespunct}{%
+  \ifentrytype{article}{\addcolon\space}{\addcomma\space}}
+
+% Add labelnumbers to bibliography
+\DeclareFieldFormat{labelnumberwidth}{#1\adddot}
+\defbibenvironment{bibliography}
+  {\list
+     {\printtext[labelnumberwidth]{%
+      \printfield{prefixnumber}%
+      \printfield{labelnumber}}}
+     {\setlength{\labelwidth}{\labelnumberwidth}%
+      \setlength{\leftmargin}{\labelwidth}%
+      \setlength{\labelsep}{\biblabelsep}%
+      \addtolength{\leftmargin}{\labelsep}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}}%
+      \renewcommand*{\makelabel}[1]{\hss##1}}
+  {\endlist}
+  {\item}
+
+% Omit authoryear disambiguation
+\AtEveryBibitem{\clearfield{extrayear}}
+
+% Header and Footer with logo
+\usepackage{lastpage,fancyhdr,graphicx}
+\usepackage{epstopdf}
+%\pagestyle{myheadings}
+\pagestyle{fancy}
+\fancyhf{}
+%\setlength{\headheight}{27.023pt}
+%\lhead{\includegraphics[width=2.0in]{PLOS-submission.eps}}
+\rfoot{\thepage/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrule}{\hrule height 2pt \vspace{2mm}}
+\fancyheadoffset[L]{2.25in}
+\fancyfootoffset[L]{2.25in}
+\lfoot{\today}
+
+%% Include all macros below
+
+\newcommand{\lorem}{{\bf LOREM}}
+\newcommand{\ipsum}{{\bf IPSUM}}
+
+%% END MACROS SECTION
+
+% other packages
+\usepackage[capitalize, nameinlink]{cleveref}
+\usepackage[inline]{enumitem}
+\usepackage[binary-units, range-units=single, range-phrase=~to~, list-units=single]{siunitx}
+\sisetup{
+    detect-all,
+    detect-inline-family=math,
+    detect-inline-weight=math,
+    detect-display-math=true,
+    list-final-separator = {, and }
+}
+\usepackage{subcaption}
+\usepackage{amsthm}
+\usepackage{thmtools}
+
+\declaretheoremstyle[
+notefont=\bfseries, notebraces={}{},
+bodyfont=\normalfont,
+headformat=\NAME~\NUMBER~---~\NOTE%
+]{nopar}
+\declaretheorem[style=nopar]{definition}
+
+\usepackage[export]{adjustbox}
+\usepackage{multirow}
+\usepackage{booktabs}
+
+\usepackage{pgf-umlsd}
+\usepackage{tikz}
+\usepackage{tikzpeople}
+\usetikzlibrary{shapes,arrows.meta,positioning,automata,matrix,shapes.symbols,trees}
+\usepackage{tikz-qtree}
+\usepackage[]{todonotes}
+\reversemarginpar  % todonotes on left
+
+\newenvironment{acks}{
+  \section*{Acknowledgements}
+}{}
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF INVISIBLE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddtex}[1]{#1} %DIF PREAMBLE
+\providecommand{\DIFdeltex}[1]{} %DIF PREAMBLE
+%DIF COLOR PREAMBLE %DIF PREAMBLE
+\RequirePackage{color} %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{\protect\color{blue}} %DIF PREAMBLE
+\providecommand{\DIFaddend}{\protect\color{black}} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{\protect\color{red}} %DIF PREAMBLE
+\providecommand{\DIFdelend}{\protect\color{black}} %DIF PREAMBLE
+\providecommand{\DIFmodbegin}{} %DIF PREAMBLE
+\providecommand{\DIFmodend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF HYPERREF PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{\texorpdfstring{\DIFaddtex{#1}}{#1}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{\texorpdfstring{\DIFdeltex{#1}}{}} %DIF PREAMBLE
+\newcommand{\DIFscaledelfig}{0.5}
+%DIF HIGHLIGHTGRAPHICS PREAMBLE %DIF PREAMBLE
+\RequirePackage{settobox} %DIF PREAMBLE
+\RequirePackage{letltxmacro} %DIF PREAMBLE
+\newsavebox{\DIFdelgraphicsbox} %DIF PREAMBLE
+\newlength{\DIFdelgraphicswidth} %DIF PREAMBLE
+\newlength{\DIFdelgraphicsheight} %DIF PREAMBLE
+% store original definition of \includegraphics %DIF PREAMBLE
+\LetLtxMacro{\DIFOincludegraphics}{\includegraphics} %DIF PREAMBLE
+\newcommand{\DIFaddincludegraphics}[2][]{{\color{blue}\fbox{\DIFOincludegraphics[#1]{#2}}}} %DIF PREAMBLE
+\newcommand{\DIFdelincludegraphics}[2][]{% %DIF PREAMBLE
+\sbox{\DIFdelgraphicsbox}{\DIFOincludegraphics[#1]{#2}}% %DIF PREAMBLE
+\settoboxwidth{\DIFdelgraphicswidth}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\settoboxtotalheight{\DIFdelgraphicsheight}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\scalebox{\DIFscaledelfig}{% %DIF PREAMBLE
+\parbox[b]{\DIFdelgraphicswidth}{\usebox{\DIFdelgraphicsbox}\\[-\baselineskip] \rule{\DIFdelgraphicswidth}{0em}}\llap{\resizebox{\DIFdelgraphicswidth}{\DIFdelgraphicsheight}{% %DIF PREAMBLE
+\setlength{\unitlength}{\DIFdelgraphicswidth}% %DIF PREAMBLE
+\begin{picture}(1,1)% %DIF PREAMBLE
+\thicklines\linethickness{2pt} %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\framebox(1,1){}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\line( 1,1){1}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,1){\line(1,-1){1}}}% %DIF PREAMBLE
+\end{picture}% %DIF PREAMBLE
+}\hspace*{3pt}}} %DIF PREAMBLE
+} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbegin}{\DIFaddbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddend}{\DIFaddend} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbegin}{\DIFdelbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelend}{\DIFdelend} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbegin}{\DIFOaddbegin \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbegin}{\DIFOdelbegin \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbeginFL}{\DIFaddbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddendFL}{\DIFaddendFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbeginFL}{\DIFdelbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelendFL}{\DIFdelendFL} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbeginFL}{\DIFOaddbeginFL \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbeginFL}{\DIFOdelbeginFL \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+%DIF LISTINGS PREAMBLE %DIF PREAMBLE
+\RequirePackage{listings} %DIF PREAMBLE
+\RequirePackage{color} %DIF PREAMBLE
+\lstdefinelanguage{DIFcode}{ %DIF PREAMBLE
+%DIF DIFCODE_INVISIBLE %DIF PREAMBLE
+  moredelim=[il][\color{white}\tiny]{\%DIF\ <\ }, %DIF PREAMBLE
+  moredelim=[il]{\%DIF\ >\ } %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstdefinestyle{DIFverbatimstyle}{ %DIF PREAMBLE
+	language=DIFcode, %DIF PREAMBLE
+	basicstyle=\ttfamily, %DIF PREAMBLE
+	columns=fullflexible, %DIF PREAMBLE
+	keepspaces=true %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim}{\lstset{style=DIFverbatimstyle}}{} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim*}{\lstset{style=DIFverbatimstyle,showspaces=true}}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
+
+\begin{document}
+\vspace*{0.2in}
+
+% Title must be 250 characters or less.
+\begin{flushleft}
+{\Large
+\textbf\newline{Impact of delayed response on Wearable Cognitive Assistance} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
+}
+\newline
+% Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
+\\
+Manuel~{Olguín~Muñoz}\textsuperscript{1, *},
+Roberta~Klatzky\textsuperscript{2, 3},
+Junjue~Wang\textsuperscript{4},
+Padmanabhan~Pillai\textsuperscript{5},
+Mahadev~Satyanarayanan\textsuperscript{4},
+James~Gross\textsuperscript{1}
+\\
+\bigskip
+\begin{tabularx}{\textwidth}{lX}
+  \textbf{1} & Division of Information~Science and Engineering, School of Electrical~Engineering and Computer~Science, KTH Royal Institute~of~Technology, Stockholm, Sweden\\
+  \textbf{2} & Department of Psychology, Carnegie~Mellon~University, Pittsburgh, PA, USA\\
+  \textbf{3} & Human-Computer Interaction Institute, Carnegie~Mellon~University, Pittsburgh, PA, USA\\
+  \textbf{4} & School of Computer Science, Carnegie~Mellon~University, Pittsburgh, PA, USA\\
+  \textbf{5} & Intel Labs, Pittsburgh, PA, USA\\
+\end{tabularx}
+\bigskip
+
+\begin{tabularx}{\textwidth}{lX}
+  % \Yinyang & These authors contributed equally to this work.\\
+  % \ddag & Senior author.\\
+  * & Corresponding author: \href{mailto:molguin@kth.se}{\texttt{molguin@kth.se}}\\
+\end{tabularx}
+
+\end{flushleft}
+% Please keep the abstract below 300 words
+
+\section*{Abstract}
+
+Wearable Cognitive Assistants (WCA) are anticipated to become a widely-used application class, in conjunction with emerging network infrastructures like 5G that incorporate edge computing capabilities.
+While prototypical studies of such applications exist today, the relationship between infrastructure service provisioning and its implication for WCA usability is largely unexplored despite the relevance that these applications have for future networks.
+This paper presents an experimental study assessing how WCA users react to varying end-to-end delays induced by the application pipeline or infrastructure.
+Participants interacted directly with an instrumented task-guidance WCA as delays were introduced into the system in a controllable fashion.
+System and task state were tracked in real time, and biometric data from wearable sensors on the participants were recorded.
+Our results show that periods of extended system delay cause users to correspondingly (and substantially) slow down in their guided task execution, an effect that persists for a time after the system returns to a more responsive state.
+Furthermore, the slow-down in task execution is correlated with a personality trait, neuroticism, associated with intolerance for time delays.
+We show that our results implicate impaired cognitive planning, as contrasted with resource depletion or emotional arousal, as the reason for slowed user task executions under system delay.
+The findings have several implications for the design and operation of WCA applications as well as computational and communication infrastructure, and additionally for the development of performance analysis tools for WCA.\@
+
+
+\linenumbers%
+\section{Introduction}
+
+Wearable Cognitive Assistants, \DIFdelbegin \DIFdel{\emph{WCA} }\DIFdelend \DIFaddbegin \DIFadd{WCA }\DIFaddend for short, have recently started to garner attention from the research community~\autocite{Ha:TowardsWearableCogAssist,Chen:EarlyImplementation}.
+They represent a novel category of highly interactive and context-sensitive augmented reality applications, that aim to \DIFdelbegin \DIFdel{augment }\DIFdelend \DIFaddbegin \DIFadd{amplify }\DIFaddend human cognition in both day-to-day tasks and professional settings.
+Their mode of operation is analogous to how GPS navigation systems guide drivers, by seamlessly providing relevant instructions and feedback relating to the current task at hand.
+Note that this implies seamless interaction with the context of the user --- at no moment does the user need to trigger an update explicitly, as the application is constantly tracking the state of the target task.
+An example is an \textcite{IKEAAssistant} which monitors the assembly of a piece of furniture in real time, providing timely, step-by-step feedback to guide the user toward completion.
+
+WCA systems \DIFdelbegin \DIFdel{show great potential for two main use-cases.
+One is providing quality of life improvements to the millions of people around the world affected by }\DIFdelend \DIFaddbegin \DIFadd{were originally inspired by assistive use cases for people suffering from }\DIFaddend some form of cognitive decline\DIFdelbegin \DIFdel{. 
+WCA can, for instance, provide assistance to people recovering from }\DIFdelend \DIFaddbegin \DIFadd{, either through aging or because of }\DIFaddend traumatic brain injuries\DIFdelbegin \DIFdel{, smoothly guiding them through day-to-day interactions with the world which would otherwise be extremely challenging.
+} \DIFdel{The second use-case is as a companion tool for specialists and as a means for guiding their training}\DIFdelend \DIFaddbegin \DIFadd{~}\autocite{Ha:TowardsWearableCogAssist,satya2019augmenting}\DIFadd{.
+More recently, they have been applied to a broader range of use cases, including step-by-step guidance on complex assembly tasks~}\autocite{Chen:AnEmpiricalStudyOfLatency}\DIFaddend .
+Non-wearable augmented reality and cognitive assistance systems have already been proven to be valuable tools in the industrial workplace~\autocite{funk2015caworkplace,gorecky2011cognito}.
+Detethering this assistance from its current fixed location will surely make it available to many more fields. 
+
+Based on these use cases, we identify three main requirements for WCA:\@
+\begin{enumerate}
+    \item\label{item:pervasive} WCA systems should be available whenever the user requires them, without being tethered to a particular physical location. Assistants need to be pervasive and mobile.
+
+    \item\label{item:interaction} Interaction with the system should be immersive and seamless, i.e.\ the assistant should be able to analyze the current context and automatically provide relevant feedback without explicit commands from the user.
+    In this sense, WCA is expected to operate much like a human assistant would, by observing the performance of the user and offering guidance proactively.
+
+    \item\label{item:lowlatency} Feedback should be ``quick'', relative to the task at hand. 
+    This requirement is further strengthened by the previously mentioned ``seamless interaction'' characteristic of these systems.
+    This means that users will have expectations of constant, immediate feedback as they progress through the task.
+    In the case of a step-by-step task like IKEA, delayed feedback might simply confuse or distract the user.
+    However, in a highly interactive task like a \emph{Ping-Pong assistant}~\autocite{PingPongAssistant, Chen:EarlyImplementation} late guidance is at best a nuisance and at worst a severe handicap.
+\end{enumerate}
+
+\cref{item:pervasive} implies use of lightweight and low-power devices, preferably a wearable device that frees both hands for work.
+\cref{item:interaction}, on the other hand, suggests a level of context sensitivity and proactivity that can only be provided by real-time analysis of sensor inputs such as video and audio feeds.
+The compute-intensive processing suggested by \cref{item:interaction} cannot be met by the lightweight wearable devices suggested by \cref{item:pervasive}.
+Only by offloading computation from a wearable device to cloud-based or edge-based infrastructure can this circle be squared.
+However, offloading implies an extended end-to-end pipeline with many potential sources of queueing, transmission, and processing delays.
+\cref{item:lowlatency} therefore emerges as a key concern, requiring deep understanding of the impact of end-to-end delays on WCA users.
+
+% However, additional challenges remain in the path toward widespread adoption.
+\cref{item:lowlatency} forms the base motivation for the research presented in this paper.
+We still have a very limited understanding of how humans react to delays in these systems --- specifically, how changes in system responsiveness impact users.
+\emph{System responsiveness} here denotes a qualitative scale ranging from \emph{high} (that is, not subject to delay or subject to negligible delay with respect to human perception) to \emph{low} (i.e.\ subject to considerable delay).
+% Conversely, QoE is understood to range from \emph{good} (i.e.\ users enjoy interacting with the application) to bad (users dislike interacting with the application).
+Characterizing the relationships between system responsiveness and user behavior and \DIFaddbegin \DIFadd{quality of }\DIFaddend experience is of paramount importance for the design and evaluation of these applications.
+\DIFaddbegin \DIFadd{It is generally acknowledged, for instance, that a system going from a state of high responsiveness to one of low responsiveness can cause a drop in quality of experience~}\autocite{dabrowsky:2011:40years}\DIFadd{. 
+Furthermore, this could cause users to modify the temporal paramaters of their behavior when interacting with the system, generating a sort of \emph{feedback loop} between user and system.
+}\DIFaddend A clear understanding of these relationships would allow, for instance, for the development of strategies for load balancing and optimization for large-scale \DIFdelbegin \DIFdel{deployments }\DIFdelend \DIFaddbegin \DIFadd{deployment }\DIFaddend of WCA.\@
+% Although maximizing QoE through over-engineered systems and networks would be a ``simple'' solution to this problem, in practice, the prohibitive costs of infrastructure make finding the optimal trade-off between QoE and cost a valuable endeavor.
+
+This paper builds upon preliminary work in the field of time perception and delay characterization of WCA.\@
+We expand upon the findings of \textcite{Ha:TowardsWearableCogAssist}, who identified the need for low-latency offloading in WCA, and of \textcite{Chen:AnEmpiricalStudyOfLatency}, who outlined the bounds for ``noticeable'' and ``unbearable'' latencies in these systems.
+While these bounds present a general understanding of when it is likely that a user will \DIFdelbegin \DIFdel{drop }\DIFdelend \DIFaddbegin \DIFadd{stop using }\DIFaddend an application, they do not provide any insights as to what happens \emph{before} that --- i.e.\DIFaddbegin \DIFadd{\ }\DIFaddend how human behavior changes with system responsiveness.
+We aim to tackle this \DIFdelbegin \DIFdel{question }\DIFdelend \DIFaddbegin \DIFadd{gap in knowledge }\DIFaddend through the characterization of human responses to delays in the application pipeline, using latencies in the range defined by the previously established bounds.
+This is an important step toward a more systematic understanding of human behavior in this domain.
+
+We present in this paper \DIFaddbegin \DIFadd{the design and elaboration of }\DIFaddend an experimental WCA test-bed\DIFdelbegin \DIFdel{of our design and making}\DIFdelend .
+This test-bed was subsequently employed in a study in which undergraduate students \DIFaddbegin \DIFadd{of diverse fields of study, aged between 18 and 25 years old, }\DIFaddend were asked to interact with and follow the instructions given to them by a cognitive assistant.
+Unbeknownst to the participants, we altered the responsiveness of the system in real-time and recorded the resulting behavioral and physiological reactions. 
+The participants wore an array of biometric sensors measuring physiological responses that have proven useful in assessing cognitive workload during human-computer interaction~\autocite{haapalainen2010psycho,kumar2016measurement} such as heart rate and EEG.\@
+
+\DIFdelbegin \DIFdel{Our results indicate that reduced responsiveness in WCA systems leads to a disruption of participants' cognitive plan for the task.
+This is evidenced by an emergent pacing effect on user actions as system responsiveness is reduced.
+While it would seem self-evident that users take longer to complete a task while using a system with low responsiveness --- as they have to wait longer for new instructions --- our study found that user slow-down represents a source of substantial additional delay.
+To be more precise, the data indicate that users slow down not only because they have to wait for the system to catch up, but that their reactions to new instructions is also delayed.
+Furthermore, this effect persists for a while after system response improves and is modulated by intrinsic personality traits, in particular, \emph{neuroticism}~}%DIFDELCMD < \autocite{john1999:bfi}%%%
+\DIFdel{, which has previously been connected to intolerance for time delay~}%DIFDELCMD < \autocite{hirsh2008delay}%%%
+\DIFdel{. 
+}\DIFdelend \DIFaddbegin \DIFadd{Through this experimental set-up, we intended to answer four core research questions relating to human responses to decreased application responsiveness.
+}\DIFaddend 
+
+\DIFaddbegin \begin{itemize}
+  \item \emph{Do subjects change the temporal profile of their actions in relation to system latency?}
+
+  In line with previous research in this area, we expected subjects to change their temporal profiles as system responsiveness decreased.
+  The extent or form of these changes were however unknown.
+  We also hypothesized that large enough drops in responsiveness could lead to complete abandonment of the task by subjects.
+
+  Our results show an emergent pacing effect on user actions as system responsiveness is reduced.
+  While it would seem self-evident that users take longer to complete a task while using a system with low responsiveness --- as they have to wait longer for new instructions --- our study found that user slow-down represents a source of substantial additional delay.
+  To be more precise, the data indicate that users slow down not only because they have to wait for the system to catch up, but that their reactions to new instructions is also delayed.
+  Moreover, this effect scales with the decrease in responsiveness and remains for a while, even after system responsiveness improves.
+
+  \item \emph{Do subjects show signals of arousal in physiological responses to changes in system latency?}
+
+  We hypothesized subjects would show signs of stress and frustration as system latency increased, due to the added annoyance of dealing with an unresponsive system.
+
+  The results we present, however, seem to refute this hypothesis. 
+  We were not able to detect any significant effects on the physiological signals obtained from the biometric sensors as sytem responsiveness was altered.
+
+  \item \emph{Are responses to delay effects in subjects mediated by cognition and/or emotion?}
+
+  In line with previous items, we expected delay effects in subjects to be mediated primarily by emotion.
+  In particular, we expected emotional effects to be correlated with the strength of the added delay.
+
+  The results point in a different direction though, indicating that reduced responsiveness in WCA systems leads to a disruption of participants' cognitive plan for the task and not to an emotional response.
+  This is evidenced by the previously discussed pacing effect and the lack of significant physiological responses.
+
+  \item \emph{Are these effects mediated by personality indicators in any way?}
+
+  Finally, we hypothesized that the individual trait of \emph{neuroticism}~\autocite{john1999:bfi} would play a role in mediating these effects, as it has previously been connected to intolerance for time delay~\autocite{hirsh2008delay}.
+  We also expected \emph{focus} and \emph{involvement}~\autocite{witmer1998:itq} to play roles in this.
+
+  The results obtained agree with our hypothesis. 
+  We found significant effects of neuroticism on the responses exhibited by subjects, and all three traits were found to play a role through factor analysis.
+
+\end{itemize}
+
+%DIF >  Our results indicate that reduced responsiveness in WCA systems leads to a disruption of participants' cognitive plan for the task.
+%DIF >  This is evidenced by an emergent pacing effect on user actions as system responsiveness is reduced.
+%DIF >  While it would seem self-evident that users take longer to complete a task while using a system with low responsiveness --- as they have to wait longer for new instructions --- our study found that user slow-down represents a source of substantial additional delay.
+%DIF >  To be more precise, the data indicate that users slow down not only because they have to wait for the system to catch up, but that their reactions to new instructions is also delayed.
+%DIF >  Furthermore, this effect persists for a while after system response improves and is modulated by intrinsic personality traits, in particular, \emph{neuroticism}~\autocite{john1999:bfi}. 
+
+\DIFaddend We believe that these results provide concrete and relevant implications for WCA design, deployment, and optimization.
+One example is the behavioral slow-down, as it extends application runtime significantly, and thus has clear and direct implications for resource and power consumption.
+Another is the fact that the adverse effects of delay on users do not immediately subside as delay is diminished --- this has potential consequences for resource allocation strategies.
+Moreover, in multi-user scenarios, the dependency of user slow-down effects on delay mean efficient resource allocation across applications potentially looks different from what could be considered ``fair''.
+
+Our hope is that the results we provide might prove useful for the understanding and optimization of deployments of WCA.\@
+These results represent unexpected, valuable findings, which can be employed to model and understand how users interact with latency in applications and systems, and develop resource allocation and power optimization strategies.
+Additionally, we hope that the results we provide might pave the way for the improvement of performance evaluation tools such as our previous work in \textcite{olguin:2018, olguin:2019}.
+Such systems would greatly benefit from this knowledge, as it would allow for the design and implementation of realistic models of human behavior, making highly accurate benchmarks a reality in the domain of WCA.\@
+
+The structure of this paper is as follows.
+We describe the existing body of research around time perception and the effects of delay on human performance in \cref{sec:background}.
+\cref{sec:experimentaldesign} presents the experimental design, measures, and specific protocol.
+Then, in \cref{sec:results} we detail the results of our experiment.
+Implications for further modeling of the effects of delay are presented in \cref{sec:discussion} before finally concluding the paper in \cref{sec:conclusion}.
+
+\section{Background and Related Work}\label{sec:background}
+\DIFaddbegin 
+
+%DIF >  Overarching theo construct: people perform temp seq task in the framework of cognition and emotion and individual differences mediate response to delay. In particular we view cognition as described by models such as ACT-R as a seq of procedures.
+
+%DIF >  Section 2.
+%DIF >  Accordingly we review time perception...
+
+%DIF >  Our overarching theoretical construct is the idea that people perform temporally sequential tasks in the framework of cognition and emotion.
+%DIF >  Additionally, we hypothesize that individual diferences between subjects moderate responses to delays in the feedback during the execution of a task.
+%DIF >  In particular, we view cognition as described by models such as {ACT-R}~\autocite{neves1981knowledge}; i.e.\ as a sequence of procedures performed by the subject.
+
+\DIFadd{Our overarching theoretical construct is the idea that people perform temporally sequential tasks in the framework of cognition and emotion.
+In particular, we view cognition as described by models such as }{\DIFadd{ACT-R}}\DIFadd{~}\autocite{neves1981knowledge}\DIFadd{; i.e.\ as a sequence of procedures performed by the subject.
+Additionally, we hypothesize that individual diferences between subjects moderate responses to delays in the feedback during the execution of a task. 
+}
+
+\DIFadd{Accordingly, in the following we review background work in the areas of 
+}\begin{enumerate*}[label={}, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
+  \item[\DIFadd{(\cref{ssec:timeperception})}] time perception
+  \item[\DIFadd{(\cref{ssec:potentialmechs})}] mechanisms relating human performance to delay.
+\end{enumerate*}
+
+\DIFaddend \subsection{Time perception in computing systems}\DIFaddbegin \label{ssec:timeperception}
+\DIFaddend 
+
+The question of how people respond to delay in a computer system is grounded in how people perceive time.
+Time perception has been described as regulated by an attentional gate that, when opened, starts a cognitive pulse counter~\autocite{zakay1995attentional,zakay1996role}.
+More recent research indicates, however, that duration perception is highly malleable and the result of multiple timing mechanisms found in overlapping, flexible neural systems~\autocite{bruno2016multiple,wiener2011multiple}. 
+The estimation of an event's duration varies with context of various types
+\begin{enumerate*}[label={(\roman*)}, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
+    \item events subsequent to a long or short interval are contracted or extended, respectively~\autocite{heron2012duration}
+    \item repeated events tend to be perceived as shorter than novel ones~\autocite{matthews2011stimulus}
+    \item arousal can expand durations~\autocite{droit2011emotion}.
+\end{enumerate*}
+
+Expectations play a critical role in time perception as well~\autocite{zakay1995attentional,zakay1996role}.
+It has been shown that people have a general tendency to be hypersensitive to delays in worse-than-expected states, and under-sensitive to meeting or exceeding expectations~\autocite{Loewenstein1992anomaliesintertemporalchoice}.
+Accordingly, failures to meet expected fast response times tend to be experienced as highly negative, whereas fast latencies are not noticed.
+Violations of expectancy have a strong impact on the acceptability of computer systems.
+Users of a computer system anticipate the latency for events, for which the standards only become more stringent as systems improve in response time.
+In immersive systems like WCA, which aim to provide seamless interaction, delays are particularly noticeable.
+
+It has long been recognized that slow system response times can undermine cognitive processing, slow the pace of users, and lead to stereotyped behavior and errors, as well as cause negative emotional consequences~\autocite{dabrowsky:2011:40years}.
+However, standards for what constitute tolerable delays have changed dramatically compared to three decades ago, when delays on the order of \SI{10}{\second} were deemed acceptable~\autocite{nielsen1994usability, shneiderman2016designing, seow2008designing}.
+Today's user context, and WCA in particular, often demand response times orders of magnitude shorter.
+
+For WCA the acceptable range for latencies was explored by \textcite{Chen:AnEmpiricalStudyOfLatency}, by constructing assistants for tasks with a range of time constraints, including step-by-step tasks and more interactive contexts like playing Ping-Pong against a human opponent.
+They then proposed a latency tolerance zone according to the task demands.
+For an essentially self-paced task like LEGO assembly, they found two key ranges of latency; unnoticeable, \SIrange{0}{0.6}{\second}; and impaired, \SIrange{0.6}{2.7}{\second}. 
+Beyond that, users could begin to show the negative outcomes previously catalogued~\autocite{dabrowsky:2011:40years}.
+
+
+\subsection{\DIFdelbegin \DIFdel{Potential }\DIFdelend Mechanisms Relating Delay to Human Performance}\label{ssec:potentialmechs}
+
+While behavioral changes and negative interaction outcomes have been well documented in prior research on system delay, the specific mechanisms that mediate these outcomes are less well understood. 
+These mechanisms could be cognitive or emotional in origin.
+
+\DIFdelbegin \DIFdel{Research }\DIFdelend \DIFaddbegin \DIFadd{A first possible explanation comes from research }\DIFaddend on cognitive and motor planning\DIFdelbegin \DIFdel{suggests that delay }\DIFdelend \DIFaddbegin \DIFadd{. 
+Delay }\DIFaddend may move users from relatively automatic to more attention-demanding processing.
+Cognitive and motor tasks are commonly described as a hierarchical system, progressing from high-level goals to the sequence of commands that accomplishes them.
+\DIFdelbegin %DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend As competency in a task increases, execution of the hierarchy becomes increasingly automated.
+Automatization has been described from a computational perspective in {Anderson's ACT-R}~model as the compiling of multiple productions into one~\autocite{neves1981knowledge}.
+Neural measurements indicate that with automaticity, control moves from frontal brain areas to more posterior ones~\autocite{jeon2015degree,puttemans2005changes}, and similar distinctions have been related to temporal processing~\autocite{lewis2003distinct,koch2009neural,lee2019limiting}.
+
+Although activities guided by a WCA are not simple motor actions, immediate feedback after each of a series of repeated actions should promote development and automatic execution of a hierarchical plan.
+Delays, in contrast, would disrupt such a plan through the loss of automated control~\autocite{lee2019limiting}.
+
+\DIFdelbegin \DIFdel{An alternative view }\DIFdelend \DIFaddbegin \DIFadd{A second, alternative explanation }\DIFaddend of delay effects appeals to emotional systems rather than cognitive processes.
+As users of a system become emotionally aroused by delay, they may be subject to generalized arousal, causing decrements in performance~\autocite{lee2019limiting}.
+
+\DIFdelbegin \DIFdel{A }\DIFdelend \DIFaddbegin \DIFadd{Finally, a }\DIFaddend third potential explanation of delay effects is what has been called ``ego depletion'', the notion that expending effort on self-control eliminates resources needed for further effort~\autocite{baumeister74tice,lin2020strong}.
+
+The various processing accounts of delay effects predict different outcomes, which we will consider in the context of the current data.
+If delay increases attentional demands on cognitive processes, responses should be slowed and errors expected, particularly on time-critical tasks.
+Generalized arousal triggered by emotional stress from delay should emerge in physiological measures, such as increased heart rate or skin conductivity.
+Arousal can also reduce movement smoothness or add erratic gestures~\autocite{pijpers2003anxiety}.
+Ego depletion has been found to produce premature responses culminating in error~\autocite{lin2020strong}, or to lead to abandoning a task entirely~\autocite{baumeister74tice}. 
+
+Over-arching prescriptions for tolerable system response time have not tended to take into account individual differences in users with respect to salient variables like cognitive ability or personality. 
+Relevant research can be found in studies of delay discounting, the tendency to devalue rewards for which one must wait.
+High discounting rates, indicative of waiting intolerance, have been associated with negative social and academic outcomes.
+\textcite{hirsh2008delay} found that higher discounting was associated with extraversion among those with low cognitive function, whereas lower discounting was associated with emotional stability (low neuroticism) for people with high cognitive function.
+Among computer system users who tend to have relatively high cognitive ability (which presumably describes the present experimental population), this points to neuroticism as a personality factor that might modulate tolerance for waiting. Extraversion could also  be  a moderating factor among the broader target audience of WCA, which are intended for relatively inexperienced users of an application.
+These and other measures of individual variation were considered here.
+
+\section{Experimental Design}\label{sec:experimentaldesign}
+
+The core elements of our experiment are shown in \cref{fig:experimentaltestbed}:
+\begin{itemize}
+    \item Subjects interact with a WCA while wearing an array of biometric sensors.
+    \item The \emph{responsiveness} of the application, i.e.\ the interval of time between an input being provided to the system and the associated output returned to the user, is manipulated in real time. 
+    The effects of these manipulations on the subjects are recorded and subsequently analyzed.    
+\end{itemize}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{images/experiment_arch.pdf}
+  \caption{Experimental test-bed.
+  Participants interact with the cognitive assistant through task-related inputs and outputs --- in practice, these correspond to the video feed captured by the assistant and the instructions provided by it.
+  The assistant itself has been instrumented with a data collection layer, which collects and processes experiment-related data such as biometric signals from the participants (these are merely processed here and do not form part of the inputs to the cognitive assistant as such, however), and a delay buffer, which introduces controlled delays in the transit of information from the core processing component.}%
+  \label{fig:experimentaltestbed}
+\end{figure}
+
+This study was conducted with the approval of the Carnegie Mellon University Institutional Review Board.
+\DIFaddbegin 
+
+\DIFaddend Subjects were recruited from a pool of undergraduate students \DIFdelbegin \DIFdel{fulfilling a course requirement }\DIFdelend at Carnegie Mellon University.
+\DIFaddbegin \DIFadd{Students enrolled in an introductory-level psychology course fulfill a research requirement as part of the plan of study.
+This requirement may be fulfilled either through the elaboration of a written essay or by volunteering as a participant in a small number of research experiments.
+}
+
+\DIFaddend No particular exclusion criteria were applied\DIFaddbegin \DIFadd{, and as specified by our approved data-collection protocol, no gender- or sex-related statistics were collected}\DIFaddend .
+In total, 40 participants were recruited, all of them of college student age (\numrange{18}{25} years old).
+
+\subsection{The Cognitive Assistance Application}
+
+We used a modified version of the LEGO Assistant application introduced by \textcite{Chen:EarlyImplementation}.
+This application belongs to a category of \DIFdelbegin \DIFdel{\emph{WCA}s that are }\DIFdelend \DIFaddbegin \DIFadd{WCAs }\DIFaddend designed to guide users through the execution of a sequential task.
+\DIFdelbegin \DIFdel{Such applications constitute ``\emph{conversational computing tasks}'' in the taxonomy proposed by \textcite{dabrowsky:2011:40years}.
+A set of instructions are to be performed by }\DIFdelend %DIF >  Such applications constitute ``\emph{conversational computing tasks}'' in the taxonomy proposed by \textcite{dabrowsky:2011:40years}.
+\DIFaddbegin \DIFadd{The assistant presents a series of instructions to }\DIFaddend the user in a semi-predetermined order \DIFdelbegin \DIFdel{.
+The results of the user performing these instructions are provided as inputs to the system.
+These inputs may either be correct, in which case the system proceeds to output the next instruction, or incorrect , in which case }\DIFdelend \DIFaddbegin \DIFadd{while it monitors the progress in real-time.
+Whenever the application detects that the user has correctly performed an instruction, it provides a new one.
+In the case of an incorrect action by the user, }\DIFaddend a procedurally generated corrective \DIFdelbegin \DIFdel{step that fixes the mistake is provided to the user.
+}\DIFdelend \DIFaddbegin \DIFadd{instruction is provided instead.
+%DIF >  The results of the user performing these instructions are provided as inputs to the system.
+%DIF >  These inputs may either be correct, in which case the system proceeds to output the next instruction, or incorrect, in which case a procedurally generated corrective step that fixes the mistake is provided to the user.
+}\DIFaddend 
+
+\DIFdelbegin \DIFdel{In more formal terms, we can provide definitions for \emph{task}, \emph{subtask}, and \emph{step} in such an applicationas:
+}%DIFDELCMD < \theoremstyle{definition}
+%DIFDELCMD < \begin{definition}[Task and subtask]
+%DIFDELCMD <   %%%
+\DIFdelend %DIF >  In more formal terms, we can provide definitions for \emph{task}, \emph{subtask}, and \emph{step} in such an application as:
+\DIFaddbegin \DIFadd{In the following, we will provide some formal definitions relating to the WCA application.
+%DIF >  \theoremstyle{definition}
+%DIF >  \begin{definition}[Task and subtask]
+}\DIFaddend A \emph{task} will be understood as a finite sequence of instructions to be performed in order.
+\emph{\DIFdelbegin \DIFdel{Subtask}\DIFdelend \DIFaddbegin \DIFadd{Step}\DIFaddend } will refer to a specific action to be performed by the user, described by a single instruction\DIFaddbegin \DIFadd{; e.g. \emph{put a green \(1 \times 3\) brick on the board} (see \cref{fig:task:steps}).
+%DIF >  We will refer to the interval of time delimited by two consecutive instructions (see \cref{fig:task:steps,fig:cogassist:step}), characterized by the actions of both the user and the assistant.
+A step starts with an instruction being }\DIFaddend given to the user\DIFdelbegin \DIFdel{.
+  The user then proceeds to perform the subtask specified by the instruction, while the cognitive assistant is continuously sampling the subtask state at specified intervals.
+While the subtask remains unfinished, the results of the processing of the sampled inputs are discarded.
+  Once the user finishes the required action, the next sample taken will contain a valid input, and thus the cognitive assistant will provide }\DIFdelend \DIFaddbegin \DIFadd{, and ends when the assistant detects that the user has finished performing it.
+At that point, the assistant either provides }\DIFaddend a new instruction \DIFdelbegin \DIFdel{. 
+  This finishes the current step and potentially begins a new one if there remain instructions to be performed in the task.
+}%DIFDELCMD < \end{definition}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \DIFadd{to the user, or the task ends.
+  %DIF >  See for instance \cref{fig:task:steps}, which pictures the task of assembling a simple LEGO model, with each subtask corresponding to the addition of a specific LEGO piece to the current model.  
+%DIF >  \end{definition}
+}\DIFaddend 
+
+\DIFaddbegin \begin{figure*}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{images/step_task_description.pdf}
+  \caption{\DIFaddFL{Example of a Cognitive Assistance task and its component steps.}}\label{fig:task:steps}
+\end{figure*}
+
+%DIF >  \begin{definition}[Step]
+
+%DIF >  While the subtask remains unfinished, the assistant discards results of the processing of the sampled inputs.
+%DIF >  At the beginning of a step, an instruction is given to the user.
+%DIF >  The user then proceeds to perform the subtask specified by the instruction, while the cognitive assistant is continuously sampling the subtask state at specified intervals. 
+
+%DIF >  Once the user finishes the required action, the next sample taken will contain a valid input, and thus the cognitive assistant will provide a new instruction. 
+%DIF >  This finishes the current step and potentially begins a new one if there remain instructions to be performed in the task.
+%DIF >  \end{definition}
+
+\DIFaddend In the base LEGO Assistant, the task consists of \DIFdelbegin \DIFdel{steps leading the user through the }\DIFdelend \DIFaddbegin \DIFadd{the }\DIFaddend assembly of a LEGO model; each \DIFdelbegin \DIFdel{subtask }\DIFdelend \DIFaddbegin \DIFadd{step }\DIFaddend requires the user to append a LEGO brick to the model at a specific location and orientation.
+The system monitors progress through a video feed and provides timely feedback in the form of visual and textual instructions to guide the user\DIFdelbegin \DIFdel{towards the desired end result}\DIFdelend . 
+
+The LEGO assistant has features that make it a good target for assessment of delay effects in a cognitive assistant\DIFdelbegin \DIFdel{:
+}%DIFDELCMD < \begin{enumerate}
+%DIFDELCMD <     \item \ It is easily understood by users and requires essentially no training. 
+%DIFDELCMD <     \item\ The step-by-step nature of these applications simplifies the isolation of the relevant experimental variables and the effects of the delay.
+%DIFDELCMD <     \item The states of the display can be recognized by simple image processing algorithms and do not require extensive training as for machine-learning-based applications.
+%DIFDELCMD <     \item Each step has an intrinsic hierarchical cognitive structure (see \cref{fig:lego:hierarchical}), affording multiple levels of cognitive control. 
+%DIFDELCMD < \end{enumerate}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \DIFadd{.
+In particular
+}\begin{enumerate*}[itemjoin={{, }},
+                  itemjoin*={{, and }},
+                  label={{(\arabic*)}}]
+    \item it is easily understood by users and requires essentially no training
+    \item its step-by-step nature simplifies the isolation of the relevant experimental variables and the effects of the delay
+    % \item The states of the display can be recognized by simple image processing algorithms and do not require extensive training as for machine-learning-based applications.
+    \item each step has an intrinsic hierarchical cognitive structure (see \cref{fig:lego:hierarchical}), affording multiple levels of cognitive control. 
+\end{enumerate*}
+\DIFaddend 
+
+\begin{figure*}[h]
+  \centering
+  \DIFdelbeginFL %DIFDELCMD < \input{plots/lego_hierarchy_diagram.tex}
+%DIFDELCMD <   %%%
+\DIFdelendFL %DIF >  \input{plots/lego_hierarchy_diagram.tex}
+  \DIFaddbeginFL \includegraphics[width=\textwidth]{plots/lego_hierarchy_diagram_standalone.eps}
+  \DIFaddendFL \caption{Hierarchical cognitive structure of a step in the LEGO task.}
+  \label{fig:lego:hierarchical}
+\end{figure*}
+
+
+\DIFdelbegin \DIFdel{The original design of the LEGO assistance application was based on a client-server model communicating over a wireless network, with the client software running on a wearable device and the server software deployed on a cloudlet. 
+}\DIFdelend %DIF >  The original design of the LEGO assistance application was based on a client-server model communicating over a wireless network, with the client software running on a wearable device and the server software deployed on a cloudlet. 
+For the purposes of this study, \DIFdelbegin \DIFdel{this design }\DIFdelend \DIFaddbegin \DIFadd{the original client-server design of the LEGO Assistant }\DIFaddend was altered to be \DIFdelbegin \DIFdel{executable on a single, non-networked computer, }\DIFdelend \DIFaddbegin \DIFadd{locally executable.
+This was done }\DIFaddend in order to eliminate the stochastic effects of jitter and latency \DIFdelbegin \DIFdel{on }\DIFdelend \DIFaddbegin \DIFadd{from }\DIFaddend the network link\DIFdelbegin \DIFdel{.
+By this means, we achieve much more fine-grained control over the latencies to which the system is subject.
+Additionally, this greatly simplified the instrumentationof the application.
+}\DIFdelend \DIFaddbegin \DIFadd{, and greatly simplify instrumentation.
+%DIF >  By this means, we achieve much more fine-grained control over the latencies to which the system is subject.
+%DIF >  Additionally, this greatly simplified the instrumentation of the application.
+}\DIFaddend Instructions were output in image and text form to a computer display situated on a table directly in front of the participants.
+Participants performed the instructions on the table, these actions being captured by a high-definition camera located on top of the display.
+
+\DIFdelbegin \DIFdel{Finally, a data collection and experimental layer was implemented between the user interface and video capture and the core processing component of the LEGO Assistant.
+This layer controlled the manipulated experimental variables and recorded the measured biometric and task-related effects.
+}\DIFdelend %DIF >  Finally, a data collection and experimental layer was implemented between the user interface and video capture and the core processing component of the LEGO Assistant.
+%DIF >  This layer controlled the manipulated experimental variables and recorded the measured biometric and task-related effects.
+
+\subsection{The Experimental LEGO Task}
+
+For the experimental LEGO task, a key modification was made to the structure of the steps.
+After each the processing of each input \DIFdelbegin \DIFdel{frame }\DIFdelend is completed, the result is withheld for a variable period of time until a specific target \emph{delay} is reached, as illustrated in \DIFdelbegin \DIFdel{figure \cref{fig:cogassist:step:delay}}\DIFdelend \DIFaddbegin \DIFadd{\cref{fig:cogassist:step,fig:cogassist:step:delay}}\DIFaddend .
+The length of this delay is one of two independent variables we manipulated for the experiment.
+Seven levels of delay were used --- no added delay (which we will also refer to as \SI{0}{\second} delay), \SIlist{0.6;1.125;1.65;2.175;2.7;3.0}{\second} --- chosen based on the latency bounds found previously by \textcite{Chen:AnEmpiricalStudyOfLatency}.
+\DIFdelbegin \DIFdel{A value of  \SI{600}{\milli\second} was identified as the bound where users start noticing delays in the assistant.
+Conversely, \SI{2.7}{\second} was identified as the upper bound on delays after which the application is considered to be in such a degraded state it is basically ``unusable''.
+Thus, our }\DIFdelend %DIF >  A value of  \SI{600}{\milli\second} was identified as the bound where users start noticing delays in the assistant.
+%DIF >  Conversely, \SI{2.7}{\second} was identified as the upper bound on delays after which the application is considered to be in such a degraded state it is basically ``unusable''.
+\DIFaddbegin \DIFadd{Our }\DIFaddend selection of delays is centered around the range of delays where latency is noticeable to users, but the application remains in a ``usable'' state\DIFdelbegin \DIFdel{, while including one delay value in the unnoticeable range and one completely in the ``unusable'' range.
+}\DIFdelend \DIFaddbegin \DIFadd{.
+%DIF >  while including one delay value in the unnoticeable range and one completely in the ``unusable'' range.
+}\DIFaddend 
+
+\DIFdelbegin \DIFdel{Additionally, in }\DIFdelend \DIFaddbegin \DIFadd{In }\DIFaddend order to study the effects of a delay applied across multiple steps \DIFdelbegin \DIFdel{, we implemented }\DIFdelend \DIFaddbegin \DIFadd{we implement }\DIFaddend an experimental design component called a \emph{block}\DIFaddbegin \DIFadd{, corresponding to a }\DIFaddend sequence of consecutive steps within a task subject to the same delay; see \cref{fig:cogassist:block}.
+%DIF >  \begin{definition}[Block]
+%DIF >    A sequence of consecutive steps within a task subject to the same delay; see \cref{fig:cogassist:block}.
+The \emph{length} of \DIFdelbegin \DIFdel{a block corresponds to the number of steps it encompasses, and }\DIFdelend \DIFaddbegin \DIFadd{blocks }\DIFaddend is the second of the two independent variables manipulated in our experiment.
+We used values of \numlist{4;8;12} steps\DIFdelbegin \DIFdel{for the lengths, values }\DIFdelend \DIFaddbegin \DIFadd{, }\DIFaddend chosen as representative of the number of steps in tasks in the base LEGO Assistant application.
+Additionally, we define the \emph{duration} of a block, as the time elapsed between the start timestamp of the first step in the block and the end timestamp of the final step in the block\DIFdelbegin \DIFdel{; e.
+g.\ for \cref{fig:cogassist:block}, the duration of the pictured block would be \( t_{n+k} - t_{n} \)}\DIFdelend .
+\DIFdelbegin %DIFDELCMD < \end{definition}
+%DIFDELCMD < %%%
+\DIFdelend %DIF >  ; e.g.\ for \cref{fig:cogassist:block}, the duration of the pictured block would be \( t_{n+k} - t_{n} \).
+%DIF >  \end{definition}
+
+\DIFdelbegin %DIFDELCMD < \begin{figure}[hp]
+%DIFDELCMD <   \centering
+%DIFDELCMD <   \begin{subfigure}{\textwidth}
+%DIFDELCMD <     \centering
+%DIFDELCMD <     \includegraphics[width=.8\textwidth]{images/step_structure.pdf}
+%DIFDELCMD <     %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Structure of a step in a generic cognitive assistance application. 
+    The assistant provides an instruction to the user and continuously samples the subtask state; inputs captured while the subtask is unfinished are silently ``discarded'' (i.e.\ they do not cause the generation of a new instruction) by the assistant, as they do not contain relevant information.
+    However, once the user finishes performing the given instruction, the next input \emph{will} cause the generation of a new instruction, which will subsequently be provided to the user.}}%DIFAUXCMD
+%DIF < 
+    %DIFDELCMD < \label{fig:cogassist:step}
+%DIFDELCMD <   \end{subfigure}
+%DIFDELCMD <   \medskip%%%
+%DIF < 
+  %DIFDELCMD < \begin{subfigure}{\textwidth}
+%DIFDELCMD <     \centering
+%DIFDELCMD <     \includegraphics[width=.8\textwidth]{images/step_structure_delay.pdf}
+%DIFDELCMD <     %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Modified structure of a step in the experimental task. In contrast to \cref{fig:cogassist:step}, an additional variable segment of time is introduced immediately following the processing of the input frame in the cognitive assistant, in order to extend the perceived processing time of the input to a specific target delay.}}%DIFAUXCMD
+%DIF < 
+    %DIFDELCMD < \label{fig:cogassist:step:delay}
+%DIFDELCMD <   \end{subfigure}
+%DIFDELCMD <   \medskip%%%
+%DIF < 
+  %DIFDELCMD < \begin{subfigure}{\textwidth}
+%DIFDELCMD <     \centering
+%DIFDELCMD <     \includegraphics[width=.8\textwidth]{images/block.pdf}
+%DIFDELCMD <     %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Structure of a block in the experimental task.}}%DIFAUXCMD
+%DIF < 
+    %DIFDELCMD < \label{fig:cogassist:block}
+%DIFDELCMD <   \end{subfigure}%%%
+%DIF < 
+  %DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Components of the cognitive assistance task.}}
+%DIFAUXCMD
+%DIFDELCMD < \end{figure}
+%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend To assign tasks to the participants, a pseudo-random permutation of the combinations of block length and delay was first generated, and a unique sequence of steps assigned to each of these combinations to create 21 unique blocks.
+A \emph{Latin\DIFaddbegin \DIFadd{~}\DIFaddend square}-type design was then used to reorder this initial permutation in order to generate a task for each participant.
+This ensures a counterbalance of the order of the blocks across participants and avoids systematic learning effects. 
+\DIFdelbegin \DIFdel{The design rotates the block types (as defined by length and delay) across participants so that each type is tested in each ordinal position, but it only coarsely samples from the \( 21 \times 20 \) possible sequences from one block type to another.
+}\DIFdelend %DIF >  The design rotates the block types (as defined by length and delay) across participants so that each type is tested in each ordinal position, but it only coarsely samples from the \( 21 \times 20 \) possible sequences from one block type to another.
+Note that unlike the base LEGO assistant task, in which instructions led participants through the assembly of a specific model, the experimental LEGO task consisted of a sequence of instructions \DIFdelbegin \DIFdel{with no evident goal.
+Users were directed }\DIFdelend to either add \DIFdelbegin \DIFdel{a piece to the ongoing model or to remove a piece, and blocks were designed in such as way so as to ensure that the transitions between them were invisible to the user. 
+}\DIFdelend \DIFaddbegin \DIFadd{or remove pieces with no evident goal.
+%DIF >  Users were directed to either add a piece to the ongoing model or to remove a piece, and blocks were designed in such as way so as to ensure that the transitions between them were invisible to the user. 
+}\DIFaddend 
+
+\DIFdelbegin \DIFdel{In this paper we will thus consider blocks to be our basic element of study, and most aggregations will be done at this level (with a few exceptions).
+For this, we will need additional definitions:
+}\DIFdelend %DIF >  In this paper we will thus consider blocks to be our basic element of study, and most aggregations will be done at this level (with a few exceptions).
+%DIF >  For this, we will need additional definitions:
+
+\DIFdelbegin %DIFDELCMD < \begin{definition}[Delay associated with a block]
+%DIFDELCMD <   %%%
+\DIFdel{We will refer to the delay of a block as the delay applied to every frame of every step in that block.
+}%DIFDELCMD < \end{definition}
+%DIFDELCMD < %%%
+\DIFdelend %DIF >  \begin{definition}[Delay associated with a block]
+%DIF >    We will refer to the delay of a block as the delay applied to every frame of every step in that block.
+%DIF >  \end{definition}
+
+\DIFdelbegin %DIFDELCMD < \begin{definition}[Execution time]
+%DIFDELCMD < %%%
+\DIFdelend %DIF >  \begin{definition}[Execution time]
+
+Given the variability in the system latency to detect step completion, correcting step-completion time for system response time by a fixed amount would not enable sufficient precision.
+We therefore \DIFdelbegin \DIFdel{estimated }\DIFdelend \DIFaddbegin \DIFadd{define }\DIFaddend the \emph{execution time} empirically for an individual step as the total time between the user receiving the instruction for \DIFdelbegin \DIFdel{a subtask and their presenting the completed subtask to the system.
+}\DIFdelend \DIFaddbegin \DIFadd{the step and the time instant of the sample capturing the completed step.
+%DIF >  their presenting the completed subtask to the system.
+}\DIFaddend 
+
+% We define the \emph{execution time} of a step as the time between the user receiving an instruction for a subtask and them presenting the completed subtask to the system.
+% This, however, could not be measured directly and has to be inferred from the records of inputs processed by the system.
+
+\DIFdelbegin \DIFdel{Formally, for }\DIFdelend \DIFaddbegin \DIFadd{For }\DIFaddend an arbitrary step, we define the sequence \DIFdelbegin \DIFdel{\( S = \{ t_{0}, t_{1}, \ldots, t_{n} \} \) }\DIFdelend \DIFaddbegin \DIFadd{\( \{ t_{0}, t_{1}, \ldots, t_{n} \} \) }\DIFaddend as the sequence of timestamps corresponding to the sampling instants during the step \DIFaddbegin \DIFadd{(see \cref{fig:exectime:diagram})}\DIFaddend .
+\( t_{0} \) corresponds \DIFdelbegin \DIFdel{then }\DIFdelend to the instant \DIFdelbegin \DIFdel{where }\DIFdelend \DIFaddbegin \DIFadd{when }\DIFaddend the instruction for the step is given to the user (and the first sample is taken), and \( t_{n} \) to the timestamp of the last sample before a new instruction is given\DIFdelbegin \DIFdel{(or conversely, the sample which captured the finished subtask as presented by the user)}\DIFdelend .
+If we define \( t_{c} \) as the instant marking when the user \DIFdelbegin \DIFdel{finished and presented the task }\DIFdelend \DIFaddbegin \DIFadd{presented the finished step }\DIFaddend to the system, \DIFaddbegin \DIFadd{it must follow that }\DIFaddend \( t_{n-1} < t_{c} < t_{n} \)\DIFdelbegin \DIFdel{(see also \cref{fig:exectime:diagram})}\DIFdelend .
+Due to the discrete sampling of the task state, there remains some imprecision in the estimate of execution time relative to \( t_{c} \).
+However, this introduces no bias in the results, as we can \DIFdelbegin \DIFdel{infer }\DIFdelend \DIFaddbegin \DIFadd{assume }\DIFaddend that \( t_{c} \) is uniformly distributed in the range \( (t_{n-1}, t_{n}) \).
+We therefore calculate execution time for each step as \( t_{c} - t_{0},\; t_{c} \in U(t_{n-1}, t_{n}) \), which on average works out to an adjustment of the observed time by 1.5 times the mean sampling rate of the step.
+\DIFdelbegin \DIFdel{This is also aggregated into an average at the block level.
+}\DIFdelend %DIF >  This is also aggregated into an average at the block level.
+
+\DIFdelbegin %DIFDELCMD < \begin{figure}
+%DIFDELCMD <     %%%
+\DIFdelendFL %DIF >  \begin{figure}
+%DIF >    \centering
+%DIF >    \includegraphics[width=.85\textwidth]{images/exec_time_diagram.pdf}
+%DIF >    \caption{Visualization of the execution time of a step.}%
+%DIF >    \label{fig:exectime:diagram}
+%DIF >  \end{figure}
+\DIFaddbeginFL 
+
+%DIF >  \end{definition}
+
+\begin{figure}[h]
+  \DIFaddendFL \centering
+  \DIFdelbeginFL %DIFDELCMD < \includegraphics[width=.85\textwidth]{images/exec_time_diagram.pdf}
+%DIFDELCMD <     %%%
+\DIFdelendFL \DIFaddbeginFL \begin{subfigure}[t]{.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/step_structure.pdf}
+    \caption{\DIFaddbegin \DIFadd{Structure of a step in a generic cognitive assistance application. 
+    The assistant provides an instruction to the user and continuously samples the step state; inputs captured while the step is unfinished are silently ``discarded'' (i.e.\ they do not cause the generation of a new instruction).
+    %DIF >  by the assistant, as they do not contain relevant information.
+    Once the user finishes performing the step, the next sample \emph{will} cause the generation of a new instruction.
+    %DIF >  which will subsequently be provided to the user.}%
+    } \DIFaddend}
+    \label{fig:cogassist:step}
+  \end{subfigure}%DIF > 
+  %DIF >  \medskip%
+  \hfill%DIF > 
+  \begin{subfigure}[t]{.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/step_structure_delay.pdf}
+    \caption{\DIFaddFL{In the experimental task, an additional variable segment of time is introduced immediately following the processing of the input frame in order to extend the perceived processing time of the input to a specific target delay.}}%DIF > 
+    \label{fig:cogassist:step:delay}
+  \end{subfigure}
+  \medskip%DIF > 
+  \begin{subfigure}[t]{.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/block.pdf}
+    \caption{\DIFaddFL{Structure of a block in the experimental task.}}%DIF > 
+    \label{fig:cogassist:block}
+  \end{subfigure}%DIF > 
+  %DIF >  \medskip%
+  \hfill%DIF > 
+  \begin{subfigure}[t]{.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/exec_time_diagram.pdf}
+    \DIFaddendFL \caption{\DIFaddbegin \DIFadd{Visualization of the execution time of a step.} \DIFaddend}%
+    \label{fig:exectime:diagram}
+  \DIFaddbeginFL \end{subfigure}%DIF > 
+  %DIF >  \medskip%
+  \caption{\DIFaddFL{Components of the cognitive assistance task.}}
+\DIFaddendFL \end{figure}
+
+\DIFdelbegin %DIFDELCMD < \end{definition}
+%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend \subsection{Collected Data}
+
+The collected data from the experiments fall into four categories: behavioral and personality indicators, \emph{frame-to-frame} metrics, biometric data, and video recordings.
+
+\subsubsection{Behavioral and Personality Indicators}
+
+Before beginning the experimental procedure, participants were asked to fill out two questionnaires.
+
+The first of these, the Big Five Inventory of Personality (\emph{BFI}~\autocite{john1999:bfi}), consists of 44 questions to be answered on a 5-point \emph{Likert}-type scale, assessing the traits of \emph{agreeableness: detached to compassionate} (8 questions), \emph{conscientiousness: careless to organized} (9 questions), \emph{extroversion: reserved to outgoing} (8 questions), \emph{neuroticism: secure to sensitive} (8 questions), and \emph{openness: cautious to curious} (9 questions).
+Of these, extroversion and neuroticism have been related to tolerance for delay~\autocite{hirsh2008delay}. 
+
+The second survey, the Immersive Tendencies Questionnaire (\emph{ITQ}~\autocite{witmer1998:itq}), comprises 29 questions, 28 of which were used for the study (one categorical question was disregarded), assessing the sub-scales of \emph{involvement}, the tendency to become involved in activities; \emph{focus}, the tendency to maintain focus on current activities, and \emph{games}, the tendency to play games.
+These questions use a 7-point horizontal scale  with opposing descriptors anchoring  the ends.
+Participants were asked to mark the appropriate point in the scale, and these responses were converted to a numerical value between 1 and 7 for processing. 
+
+In post-processing, the obtained scores for both questionnaires were normalized to fall in the \( [0, 1] \) range for ease of interpretation. 
+See \cref{tab:qscores} for their means and standard deviations.
+
+\begin{table}[h]
+  \centering
+  \caption{Means and standard deviations of normalized questionnaire scores.}\label{tab:qscores}
+  \setlength{\tabcolsep}{0pt} 
+  \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}clrr@{}}
+    \toprule
+    \textbf{Questionnaire} & \textbf{Metric} & \textbf{Mean} & \textbf{SD}\\
+    \midrule
+    \multirow{5}{*}{BFI} 
+        & Agreeableness &               0.705 &                  0.136 \\
+        & Conscientiousness &               0.562 &                  0.149 \\
+        & Extroversion &               0.491 &                  0.180 \\
+        & Neuroticism &               0.524 &                  0.230 \\
+        & Openness &               0.677 &                  0.152 \\
+    \cline{1-4}
+    \multirow{4}{*}{ITQ} 
+        & Focus &               0.626 &                  0.126 \\
+        & Games &               0.463 &                  0.261 \\
+        & Involvement &               0.568 &                  0.175 \\
+        & Total &               0.540 &                  0.092 \\
+    \bottomrule
+  \end{tabular*}
+\end{table}
+
+
+\subsubsection{Frame-to-frame metrics}
+During the execution of the task, we logged every event occurring in the application pipeline.
+Each incoming frame (including frames discarded by the assistant), as well as its associated outputs, was logged at multiple points in the process along with associated metadata such as currently implemented delay as specified by the experimental design.
+This allowed us to extract metrics relating to the performance of the task, such as the time spent by participants on particular steps, any mistakes made, etc.
+In particular, it made possible the easy segmentation of the other time-series data we collected into our main unit of analysis, the aforementioned \emph{block}.
+
+\subsubsection{Biometric Data}
+The participant wore devices to acquire four physiological measures:
+\DIFaddbegin \begin{enumerate*}[itemjoin={{, }},
+                  itemjoin*={{, and }},
+                  label={{(\arabic*)}}]
+  \item galvanic skin response (\emph{GSR})
+  \item accelerometer data from the dominant wrist
+  \item brain activity in the form of electroencephalography (\emph{EEG})
+  \item heart rate.
+\end{enumerate*}
+\DIFaddend 
+
+\DIFdelbegin %DIFDELCMD < \begin{itemize}
+%DIFDELCMD <   \item galvanic skin response (\emph{GSR});
+%DIFDELCMD <   \item accelerometer data from the dominant wrist;
+%DIFDELCMD <   \item brain activity in the form of electroencephalography (\emph{EEG});
+%DIFDELCMD <   \item and heart rate.
+%DIFDELCMD < \end{itemize}
+%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend These metrics have been used as indicators of stress and cognitive load by an ample body of previous research~\autocite{khawadi2015:usinggsrtrust,kuikkaniemi2010:biofeedback,solovey2014:classifyingdriverworkload}.
+\DIFdelbegin \DIFdel{More specifically, galvanic skin response (\emph{GSR}, }\DIFdelend \DIFaddbegin \DIFadd{GSR (}\DIFaddend also known as electrodermal activity) \DIFdelbegin \DIFdel{is the measure of the variation of the conductive properties of human skin due to changes in the state of the sweat glands.
+It is }\DIFdelend \DIFaddbegin \DIFadd{can be }\DIFaddend interpreted as an indicator of physiological arousal and has long been a widely used metric in studies seeking to characterize mental workload~\autocite{peterson1907psycho,Healey2005,Son2010,khawadi2015:usinggsrtrust,kuikkaniemi2010:biofeedback,solovey2014:classifyingdriverworkload,}.
+\DIFdelbegin \DIFdel{Electroencephalography (\emph{EEG}) refers to the monitoring of brain activity through the measurement of the fluctuations of the electric field surrounding the brain.
+\emph{EEG} measures the voltage fluctuations due to electrical activity within neurons in the brain, which result in distinct waves of specific frequencies associated with different contexts, emotions and actions.
+\emph{EEG} has }\DIFdelend \DIFaddbegin \DIFadd{EEG on the other hand has previously }\DIFaddend been used to measure cognitive load in the context of human-computer interactions~\autocite{Antonenko2010,Grimes2008,kumar2016measurement}.
+
+Wrist acceleration, GSR and heart rate data were obtained using the \textcite{empatica:e4} biosensing wristband.
+Accelerometer data was sampled at \SI{32}{\hertz},
+GSR was sampled at \SI{4}{\hertz}, and instantaneous heart rate was calculated from a \emph{blood volume pulse} (BVP) signal sampled at \SI{64}{\hertz}.
+Participants were asked to wear the device for approximately 10--15 minutes before starting the experiment, in order to allow the sensors to reach \DIFdelbegin \DIFdel{an }\DIFdelend \DIFaddbegin \DIFadd{a }\DIFaddend stable equilibrium and establish a baseline for the signals.
+
+The E4 wristband was chosen due to its small, non-invasive\DIFaddbegin \DIFadd{, }\DIFaddend and wireless form factor (samples were streamed to the system over Bluetooth LE) and for the fact that its use in research has been experimentally validated in previous \DIFdelbegin \DIFdel{research}\DIFdelend \DIFaddbegin \DIFadd{studies}\DIFaddend ~\autocite{ragot2017emotion, mccarthy2016validation}.
+The E4 also includes a skin temperature thermometer\DIFdelbegin \DIFdel{; however, due to failure to reach equilibrium, }\DIFdelend \DIFaddbegin \DIFadd{, however }\DIFaddend the measure was not used for the present study.
+
+For the EEG data we employed the \textcite{openbci:headbandkit} \DIFdelbegin \DIFdel{, a kit }\DIFdelend consisting of a number of dry electrodes fastened to a Velcro headband.
+It \DIFdelbegin \DIFdel{thus }\DIFdelend provides a quick \DIFdelbegin \DIFdel{, easy }\DIFdelend and non-invasive way of obtaining EEG signals from participants.
+Electrodes were placed according to the \emph{10--20 Electrode System}~\autocite{eeg1020system:1961} on the \emph{Fp1} and \emph{Fp2} points, in order to capture brain activity in the frontal lobe\DIFdelbegin \DIFdel{.
+Ground }\DIFdelend \DIFaddbegin \DIFadd{, with ground }\DIFaddend and reference electrodes \DIFdelbegin \DIFdel{were positioned }\DIFdelend on the right and left earlobes\DIFaddbegin \DIFadd{, respectively.
+The signals }\DIFaddend were sampled at \SI{200}{\hertz} and \DIFaddbegin \DIFadd{postprocessed to 
+}\begin{enumerate*}[itemjoin={{, }},
+                  itemjoin*={{, and }},
+                  label={{(\arabic*)}}]
+  \item remove frequencies outside the \SIrange{0.1}{40}{\hertz} range
+  \item smooth out noise (using the technique proposed by~\textcite{agarwal2017eeg}).
+\end{enumerate*}
+\DIFaddend 
+
+\DIFdelbegin \DIFdel{Following capture, the  EEG signal was post-processed in the following fashion:
+%DIF <  
+}%DIFDELCMD < \begin{enumerate}
+%DIFDELCMD <   \item Since our main interest was in the \( \alpha \) (\SIrange{8}{12}{\hertz}) and \( \beta \) (\SIrange{12}{30}{\hertz}) bands, a low-pass Butterworth filter of order 8 and cutoff frequency \SI{40}{\hertz} was applied to filter out noise in the higher end of the spectrum (in particular, noise from the board power supply at \SI{60}{\hertz}).
+%DIFDELCMD <   \item A high-pass Butterworth filter of order 8 and cutoff frequency \SI{0.1}{\hertz} was then applied to filter out noise at the low end of the spectrum.
+%DIFDELCMD <   \item Subsequently, a pair of cascaded Savitsky-Golay filters~\autocite{savitzky1964smoothing}, both of order 8 and window size 21, were applied to the signal in order to smooth out noise, as proposed by \textcite{agarwal2017eeg}.
+%DIFDELCMD <   \item A spectrogram was then calculated for the signal.
+%DIFDELCMD <   \item Finally, the power over time for each EEG frequency band is obtained by integrating over the relevant frequencies for each time-step in the spectrogram.
+%DIFDELCMD < \end{enumerate}
+%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdel{An example of the effects of the filtering on the raw EEG signal can be observed in \cref{fig:eeg:raw_vs_filt}.
+}%DIFDELCMD < 
+
+%DIFDELCMD < \begin{figure}[h]
+%DIFDELCMD <   \centering
+%DIFDELCMD <   \includegraphics[width=.8\textwidth]{plots/raw_vs_filt_eeg.eps}
+%DIFDELCMD <   %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Comparison of an EEG signal before and after filtering.
+  Note in particular the artifact from the DC power supply of the capture board around \SI{60}{\hertz} in the raw signal, and how it essentially disappears after filtering.}}%DIFAUXCMD
+%DIF < 
+  %DIFDELCMD < \label{fig:eeg:raw_vs_filt}
+%DIFDELCMD < \end{figure}
+%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend \subsubsection{Video recordings}
+
+During the task, participants were recorded by two separate cameras.
+One camera was angled downwards, towards the table, the LEGO board, and the participant's hands.
+This camera was used to capture the necessary inputs for the LEGO assembly task as well as to record the actions performed by the user.
+The second camera was angled horizontally, towards the participant, in order to record their facial expressions during the execution of the task.
+
+Both video feeds were captured at a rate of \num{24}~FPS \DIFdelbegin \DIFdel{(i.e.\ with a sampling interval of \( \SI[parse-numbers=false,per-mode=symbol]{41.\overline{6}}{\milli\second} \)) }\DIFdelend in parallel processes to ensure a constant rate of capture.
+Examples of the captured frames can be seen in \cref{fig:sampleframes}.
+The video feeds were not used for the present study, but may be utilized in future analysis.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{.35\textwidth}
+    \centering
+    \includegraphics[height=140pt]{images/participant.eps}
+    \caption{Frame from the face recording of a random participant, clearly showing the locations of the EEG electrodes.}
+  \end{subfigure}%
+  % \par\bigskip
+  % \hspace{.04\textwidth}%
+  \hfill%
+  \begin{subfigure}[t]{.60\textwidth}
+    \centering
+    \includegraphics[height=140pt]{images/board_and_hand.eps}
+    \caption{Frame from the board recording of the same participant.}
+  \end{subfigure}
+  \caption{Sample frames captured during the experiment.}\label{fig:sampleframes}
+\end{figure}
+
+\section{Results}\label{sec:results}
+
+The results consist of execution time per step. and the outcome of physiological variables: heart rate, GSR, and EEG.\@
+Each will be discussed in turn.
+%The temperature data could not be analyzed due to a progressive increase in the sensor data over the course of the session, which obscured effects of the experimental variables.
+
+\subsection{Execution Time}
+
+% Before describing the analysis and results relating to execution time, it should be noted that accuracy for this metric was essentially perfect.
+% No mistakes were made by participants during the execution of the task and no major outliers could be identified in the samples.
+
+Before describing the analysis and results relating to execution time, it should be noted that participants' performance during the execution of the task was error free; all steps were completed as instructed. 
+
+\cref{fig:exectime} shows the mean per-step execution time per block, averaged over block length (number of steps) and artificial delay.
+We can clearly see a trend for the execution time to increase with the delay, increasingly so for longer blocks. 
+Since the per-step execution time  compensates for the added delay in the measure \emph{per se}, this trend must result from the participants' behavioral adjustment to the delay.
+This leads to one of the key outcomes from this study: 
+\emph{participants tend to act more slowly on steps affected by longer delays} --- i.e.\ there is evidence of a pacing effect in users' behavior with respect to the responsiveness of the system.
+
+We confirmed this effect through an \emph{analysis of variance} (ANOVA\DIFaddbegin \DIFadd{~}\autocite{FUJIKOSHI1993ANOVA}\DIFaddend ) with factors of block length and delay\DIFdelbegin \DIFdel{.
+An ANOVA test uses the \emph{F-test} statistic, which is a ratio of the variability in the data introduced by experimental manipulations (and their interactions) to the variability in the data attributable to randomness.
+The degrees of freedom represent the number of observations going into each of these variability measures.
+As we are using within-subject designs, the variability in the data due to randomness is estimated by the differences among subjects with respect to the effects of the experimental variables.
+The partial-\( \eta^2 \) (\(\eta_{p}^{2}\)) statistic is a measure of effect size, corresponding to the proportion of variance explained by the effect after excluding variance from others, and \( p \)-value, a measure of the probability of the effect under the null hypothesis.
+Conventionally \( p < .05 \) is the criterion for significance.
+The current length X delay ANOVA }\DIFdelend \DIFaddbegin \DIFadd{, and }\DIFaddend found significant main effects of both factors and the interaction, shown in \cref{tab:anova:exectime}.
+%DIF >  An ANOVA test uses the \emph{F-test} statistic, which is a ratio of the variability in the data introduced by experimental manipulations (and their interactions) to the variability in the data attributable to randomness.
+%DIF >  The degrees of freedom represent the number of observations going into each of these variability measures.
+%DIF >  As we are using within-subject designs, the variability in the data due to randomness is estimated by the differences among subjects with respect to the effects of the experimental variables.
+%DIF >  The partial-\( \eta^2 \) (\(\eta_{p}^{2}\)) statistic is a measure of effect size, corresponding to the proportion of variance explained by the effect after excluding variance from others, and \( p \)-value, a measure of the probability of the effect under the null hypothesis.
+%DIF >  Conventionally \( p < .05 \) is the criterion for significance.
+%DIF >  The current length \( \times \) delay ANOVA found significant main effects of both factors and the interaction, shown in \cref{tab:anova:exectime}.
+
+%DIF >  \begin{figure}[h]
+%DIF >      \centering
+%DIF >      \includegraphics[width=.8\textwidth]{plots/exec_time_delay_length.eps}
+%DIF >      \caption{Per-step execution time by block length vs.\ delay. Error bars indicate the Standard Error of the Mean (S.E.M.)}\label{fig:exectime}%    
+%DIF >  \end{figure}
+\DIFaddbegin 
+
+\DIFaddend \begin{figure}[h]
+    \centering
+    \includegraphics[width=.8\textwidth]{plots/exec_time_delay_length.eps}
+    \caption{Per-step execution time by block length vs.\ delay. Error bars indicate the Standard Error of the Mean (S.E.M.)}\label{fig:exectime}%    
+\end{figure}
+
+\begin{table}[h]
+  \centering
+  \caption{Significant effects on per-step execution time from ANOVA on factors delay and block length.}\label{tab:anova:exectime}
+  \setlength{\tabcolsep}{0pt}%
+  \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}lrrr@{}}
+    \toprule
+    \textbf{Factor} & \textbf{F-test} & \( p \) & \( \eta^{2}_{p} \) \\
+    \midrule
+    length         &    \(F(2, 78) = 9.59\) &   \(< 0.001\) &           \(0.20\) \\
+    delay          &  \(F(6, 234) = 15.52\) &  \(< 0.0001\) &           \(0.28\) \\
+    length \(\times\) delay &  \(F(12, 468) = 3.84\) &  \(< 0.0001\) &           \(0.09\) \\
+    \bottomrule
+  \end{tabular*}
+\end{table}
+
+Further analysis focused on the progressive effect on per-step execution time as additional steps occurred at a constant delay.
+For this purpose, the steps within a block were aggregated over sequences of 4, constituting a \emph{slice}.
+Note that the first slice within a block is procedurally identical for all block lengths, in the sense that a participant currently performing a step in the first slice of a block has no way of predicting if the block ends after step 4 or not.
+The same logic can be applied to slice 2 for blocks of length 8 and 12.
+Accordingly for each participant, slice 1 data (steps 1--4) were pooled over all 3 block lengths, slice 2 (steps 5--8) were combined for block lengths 8 and 12, and slice 3 comprised the last four steps in blocks of length 12.
+An ANOVA on slice number (1--3) and delay (7 values) yielded effects of slice number, delay, and the interaction, detailed in \cref{tab:anova:exectime:slice}.
+As shown in \cref{fig:exectime:delay:slice}, blocks with shorter delays showed a trend for the execution time to progressively decline over the course of the block (i.e., by slice number), indicating that the participant accommodated to the feedback pace with more efficiently timed responses.
+% We refer to the measure at slice 3 as a percentage of the measure at slice 1 as the ``change factor''.
+With the longest delays, where the execution time per step was longest, the slow-down persisted; that is, the system response time hindered the participant's execution throughout the course of the block.
+
+\begin{table}[h]
+  \centering
+  \caption{Significant effects on per-step execution time from ANOVA on factors block slice and delay.}\label{tab:anova:exectime:slice}
+  \setlength{\tabcolsep}{0pt} % let TeX compute the intercolumn space
+  \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}lrrr@{}}
+    \toprule
+    \textbf{Factor} & \textbf{F-test} & \( p \) & \( \eta^{2}_{p} \) \\
+    \midrule
+    slice         &   \( F(2, 78) = 88.79 \) &  \( < 0.0001 \) &         \( 0.69 \) \\
+    delay         &  \( F(6, 234) = 14.13 \) &  \( < 0.0001 \) &         \( 0.27 \) \\
+    slice \( \times \) delay &  \( F(12, 468) = 2.49 \) &    \( < 0.01 \) &         \( 0.06 \) \\
+    \bottomrule
+  \end{tabular*}%
+\end{table}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.8\textwidth]{plots/exec_time_delay_slice.eps}
+    \caption{Mean per-step execution time vs.\ delay, by step slice.
+    Error bars indicate S.E.M.}
+    \label{fig:exectime:delay:slice}
+\end{figure}
+
+The data also allowed us to perform sub-analyses to assess the effects of carryover from one delay to another.
+Specifically, we measured the per-step execution time for the first four steps of a block when participants transferred from a relatively long delay (\SIrange{2.175}{3.0}{\second}) versus a short delay (\SIrange{0}{1.65}{\second}).
+Note that use of the first four steps controls for block length.
+We performed analyses where participants transitioned from either a short- or long-delay block into a
+\begin{enumerate*}[label=(\roman*), before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
+  \item no delay block (36 subjects)
+  \item \SI{1.65}{\second} delay block (40 subjects)
+  \item \SI{2.7}{\second} delay block (40 subjects)
+  \item \SI{3.0}{\second} delay block (37 subjects).
+\end{enumerate*}
+The destination delays were chosen so as to maximize the number of participants which contributed samples to the analyses, the results of which are pictured in \cref{fig:exectime:transition}.
+We found that transitions from long-delay blocks carried over to significantly increase the per-step execution time of initial steps in the destination block for three of the four transitioned-into delays that were assessed (\SIlist{0;2.7;3.0}{\second}, all \( p < .025\)).
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{plots/exec_time_delay_change.eps}
+  \caption{Per-step execution time across the first four steps after a block transition from block \( B_{k-1} \) to \( B_k \). Error bars indicate S.E.M.}\label{fig:exectime:transition}%
+\end{figure}
+
+In summary, we observe two direct effects on execution time due to added delays.
+Firstly, we see a clear hampering of the improvement of execution time across steps that is otherwise evident across blocks.
+Secondly, we notice that this effect lingers on even after the delay is removed, affecting subsequent blocks in the task.
+
+\subsection{Acceleration}
+
+Acceleration data from the E4 wristband were taken in 3 axes defined relative to the device.
+As our interest was in the amount of movement rather than the direction in space, we calculated a ``movement score'' for each block which we defined as:
+\begin{equation}
+    M_B = \frac{ \sum_{A_B} |\: \overrightarrow{\alpha_j} \:| }{\Delta T_{B}}
+\end{equation}
+
+where \( B \) is an arbitrary block, and \(A_{B} = \{ \overrightarrow{\alpha_0}, \overrightarrow{\alpha_1}, \ldots, \overrightarrow{\alpha_k} \} \) represents the set of acceleration vector samples collected for said block.
+This score would include the time imposed by the delay and the time to decode the instructions and respond by moving the pieces so that the next state was recognized.
+It is only during the last part of the step that explicit movement is required, so any additional accelerations would derive from arbitrary movements while processing and waiting.
+We normalized the sum of the accelerations by the duration of the step to correct for differences in delay and the execution time, which tends to increase with delay as described above.
+An ANOVA on block length and delay showed a significant effect such that movement score decreased with delay, as shown in \cref{tab:anova:acc} and \cref{fig:acc:delaylength}.
+There was also a significant delay by length interaction, reflecting that delay effects occurred particularly for the longer lengths.
+
+\begin{table}[h]
+  \centering
+  \caption{Significant effects on accelerometer data from ANOVA on factors delay and block length.}\label{tab:anova:acc}
+  \setlength{\tabcolsep}{0pt} % let TeX compute the intercolumn space
+  \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}lrrr@{}}
+    \toprule
+    \textbf{Factor} & \textbf{F-test} & \textbf{\(p\)} & \textbf{\(\eta^{2}_{p}\)} \\ 
+    \midrule
+    delay & \(F(6, 234) = 18.56\) & \(<0.001\) & \(0.32\) \\
+    length \( \times \) delay & \(F(12, 468) = 3.04\) & \(<0.001\) & \(0.07\) \\ 
+    \bottomrule
+  \end{tabular*}%
+\end{table}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.8\textwidth]{plots/acc_vs_delay_per_length.eps}
+    \caption{Movement score vs.\ delay, per block length. Error bars indicate S.E.M.}\label{fig:acc:delaylength}
+\end{figure}
+
+We next conducted the same analysis as for execution time, dividing blocks into three ``slices'' of four steps each, such that slice 1 comprised the first four steps of all block lengths, slice 2 the second four steps of blocks of length 8 and 12, and slice 3 the last four steps of blocks 12 steps long.
+As shown in \cref{fig:acc:delayslice} the effect of delay was attributable only to the later slices, yielding main effect of slice number and delay and an interaction (\cref{tab:anova:acc:slice}). 
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{plots/acc_vs_delay_per_slice.eps}
+  \caption{Movement score vs.\ delay, per block slice. Error bars indicate S.E.M.}\label{fig:acc:delayslice}
+\end{figure}
+
+\begin{table}[h]
+  \centering
+  \caption{Significant effects on accelerometer data from ANOVA on factors delay and slice number.}\label{tab:anova:acc:slice}
+  \setlength{\tabcolsep}{0pt} % let TeX compute the intercolumn space
+  \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}lrrr@{}}
+    \toprule
+    \textbf{Factor} & \textbf{F-test} & \textbf{\(p\)} & \textbf{\(\eta^{2}_{p}\)} \\
+    \midrule 
+    slice & \(F(2, 78) = 8.39\) & \(<0.01\) & \(0.18\) \\
+    delay & \(F(6, 234) = 26.92\) & \(<0.001\) & \(0.41\) \\
+    delay \(\times\) slice & \(F(12, 468) = 4.08\) & \(<0.001\) & \(0.1\) \\
+    \bottomrule
+  \end{tabular*}%
+\end{table}
+
+These results present further evidence of the aforementioned pacing effect.
+As a sequence of steps with a long delay unfolds, more of the step duration is spent without moving.
+This can be interpreted in the context of the increased execution time at long delays demonstrated in the previous analysis.
+Assuming that adding or deleting a LEGO block takes essentially the same amount of time and accelerates the wrist similarly at any one step, it appears that the participant simply remains stationary during the extra time that is induced by a series of long delays.
+Accordingly, the acceleration per unit time, our movement score, is reduced.
+
+\subsection{EEG}
+Analyses were conducted on the log EEG power in the alpha band, beta band, and total of all bands measured.
+Readings from the two frontally placed poles were highly correlated and were pooled into an average.
+Logs were taken for analysis because the EEG distribution tended to have a rightward tail.
+Twelve participants were excluded from the analysis, 9 due to device failure and 3 because of extreme values (i.e., the participant mean of log total power was greater than 3 s.d.s.\ from the mean of all participants).
+
+The analyses then comprised 28 participants.\@
+Omnibus ANOVAs were conducted with delay and block length (number of steps) as factors, on the EEG data from the alpha and beta band.
+The analysis of alpha EEG found no significant effects.
+Beta EEG showed only an effect of block length, \( F(2,54) = 3.56 \), \( p = .035 \), \( \eta^{2}_{p} = .12 \), reflecting a tendency for the 4-step length to produce lower log power (mean 3.9 vs. 4.1 for lengths of 8 and 12).
+However, this effect was small and not consistent across delays.  
+
+Again the analysis dividing blocks into 4-step slices was conducted, with delay and slice number as factors.  
+For both the alpha and beta bands, ANOVAs  yielded effects only of slice number --- see \cref{tab:anova:egg:alphabeta}.
+Both bands showed the same tendency:  EEG declined as a sequence of steps with the same delay progressed.
+These effects are shown in \cref{fig:logeegpow:slices}.
+Thus, EEG taken from frontal locations mimics the execution time data in showing a decline over the course of a block, but unlike the execution time, there was no tendency for the decline in EEG to be reduced at longer delays.
+
+\begin{table}[h]
+  \centering
+  \caption{Significant effects on log EEG power from ANOVA on factors delay and block slice.}\label{tab:anova:egg:alphabeta}
+  \setlength{\tabcolsep}{0pt} % let TeX compute the intercolumn space
+  \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}llrrr}
+    \toprule
+    \textbf{Band} & \textbf{Factor} & \textbf{F-test} & \textbf{\(p\)} & \textbf{\( \eta^{2}_{p} \)} \\ \midrule
+    alpha   & slice & \( F(2, 78) = 28.26 \) & \( <0.001 \) & \( 0.51 \) \\ %\midrule
+    beta    & slice & \( F(2, 78) = 29.18 \) & \( <0.001 \) & \( 0.52 \) \\ 
+    \bottomrule
+  \end{tabular*}
+\end{table}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.8\textwidth]{plots/eeg_alpha_beta_vs_block_slice.eps}
+    \caption{\DIFdelbeginFL \DIFdelFL{Mean }\DIFdelendFL Log \DIFaddbeginFL \DIFaddFL{of the average }\DIFaddendFL EEG Power for alpha and beta bands per step slice. Error bars indicate S.E.M.}\label{fig:logeegpow:slices}
+\end{figure}
+
+\subsection{Galvanic Skin Response (GSR) and Heart Rate}
+The measure of GSR was the log of total amplitude in the signal.
+To control for effects of block length (steps~\( \times \)~delay) and the slow-down in execution time at longer delays, GSR data were normalized by the temporal duration of the block.
+Due to sensor failure and the elimination of one subject with extreme values of GSR amplitude using the same rule as for EEG, the analysis comprised 34 participants.
+No systematic trend due to delay or block length was observed.
+In addition, the same analysis of slice position within block length as was performed for the EEG revealed no effects, indicating that GSR was stable across step positions within a block. 
+
+Heart rate, measured in beats per minute, averaged \num{90.2}~BPM and showed no trend related to the experimental variables of delay and block length.
+The same was true of the variability in beats per minute (average standard deviation across conditions was \num{20.3}).
+
+The absence of systematic trends in both these results is interesting in the context of our initial suggestions of potential mechanisms relating delay in the application to human behavior.
+In section \cref{ssec:potentialmechs} we proposed that emotional arousal during the execution of the task was a potential explanation for the effects observed in the human.
+However, these results seem to refute this hypothesis, and will be further discussed in \cref{sec:discussion}.
+
+\subsection{Individual Difference Analysis}
+
+The Big 5 personality inventory and Immersive Tendencies Questionnaires (ITQ) were combined with outcome variables in an analysis of individual differences.
+Given the previous results, we initially considered the following outcome variables:
+\begin{itemize}
+    \item execution time in the most demanding block (length 12, delay \SI{3.0}{\second}); 
+    \item total of alpha and beta bands EEG in the first four steps at all lengths (``Slice 1'');
+    \item average heart rate;
+    \item and average log GSR.\@
+\end{itemize}
+
+Although the heart rate and GSR data had produced no significant effects in the analysis of experimental variables, they could in principle correlate with experimental outcomes across individuals. 
+A principal-components analysis (\emph{PCA}) on a subset of these variables, shown in \cref{tab:pca}, was ultimately conducted on the 28 participants for which there was EEG data. 
+Three of the personality measures were excluded after initial analyses indicated significant correlations among neuroticism, openness, agreeableness, and extroversion.
+Neuroticism (with poles of sensitivity and security) was selected as most relevant to the issue of response to system delay and was included along with conscientiousness.
+GSR was used in a subsidiary analysis, because only 25 participants had both EEG and GSR measures that were reliable.
+
+\begin{table}[h]
+  \centering
+  \caption{Principal Component Analysis}\label{tab:pca}
+  \begin{subtable}[h]{\textwidth}
+    \centering
+    \caption{Main components identified.}
+    \setlength{\tabcolsep}{0pt} % let TeX compute the intercolumn space
+    \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}lrrr@{}}
+      \toprule
+      \textbf{Factor} & \textbf{Comp. 1} & \textbf{Comp. 2} & \textbf{Comp. 3} \\
+      \midrule
+      BFI Conscientiousness                  & \textcolor{lightgray}{\( -0.022 \)} &                         \( 0.668 \) & \textcolor{lightgray}{\( -0.481 \)} \\
+      BFI Neuroticism                        &                         \( 0.600 \) &                        \( -0.678 \) & \textcolor{lightgray}{\( -0.118 \)} \\
+      ITQ Focus                              &                         \( 0.678 \) &  \textcolor{lightgray}{\( 0.203 \)} &                         \( 0.504 \) \\
+      ITQ Involvement                        &                         \( 0.573 \) &                         \( 0.540 \) &  \textcolor{lightgray}{\( 0.417 \)} \\
+      Exec. Time (delay 3.0 s, length 12)    &                         \( 0.758 \) & \textcolor{lightgray}{\( -0.178 \)} & \textcolor{lightgray}{\( -0.348 \)} \\
+      Log EEG power \( \alpha + \beta \) Slice 1 & \textcolor{lightgray}{\( -0.436 \)} & \textcolor{lightgray}{\( -0.251 \)} &                         \( 0.589 \) \\
+      \bottomrule
+    \end{tabular*}
+  \end{subtable}
+  \newline
+  \medskip
+  \newline
+  \begin{subtable}[h]{\textwidth}
+    \centering
+    \caption{Percentages of variance explained by the components.}
+    \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}lrrrr@{}}
+      \toprule
+      {} & \textbf{Comp. 1} & \textbf{Comp. 2} & \textbf{Comp. 3} & \textbf{Total} \\
+      \midrule
+      Explained Variance & \SI{31.88}{\percent} & \SI{22.22}{\percent} & \SI{19.03}{\percent} & \SI{73.13}{\percent} \\
+      \bottomrule
+    \end{tabular*}
+  \end{subtable}
+\end{table}
+
+The PCA produced three components that accounted for \SI{73.13}{\percent} of the variance in the six factors considered.
+Component 1 included neuroticism, both ITQ scores, and execution time, indicating that more sensitive and immersed individuals tended to slow their responses under extended delay.
+Component 2 included conscientiousness and the absence of neuroticism along with immersive involvement, indicating that efficient and secure participants tended to be more involved.
+The third component had positive loadings on EEG in Slice 1 (first four steps of a block) and the focus component of the ITQ.\@
+An additional analysis including heart rate added a component but improved the PCA fit by only \SI{4.5}{\percent}, indicating that any variability in this measure across individuals is unrelated to personality, immersiveness, or outcome.
+A further analysis including GSR produced a solution in which GSR loaded with the first component, along with execution time.
+% A further analysis including GSR again produced a three-component solution, in which GSR loaded with the first component (execution time, sensitivity, immersion). 
+
+\cref{fig:neuro:exectime:reg} shows the correlation between neuroticism and execution time for the block with extreme values of length (12 steps) and delay (\SI{3.0}{\second}), for the full set of 40 participants.
+It confirms the relationship indicated by the first component in the PCA using the smaller sample of 28 participants; that is, higher neuroticism is associated with more responsiveness to delay.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.8\textwidth]{plots/reg_exectime_vs_neuroticism.eps}
+    \caption{Correlation between neuroticism score of participants and their execution time in the longest block at the longest delay.
+    Pearson correlation coefficient \( r = .40 \); 2-tailed \( p = .01 \).}
+    \label{fig:neuro:exectime:reg}
+\end{figure}
+
+On the whole, these results suggest that individual differences in widely accepted personality variables and immersive tendencies moderate the response to delay.
+This fact could have practical implications in the future.
+It could, for instance, provide a tunable parameter for eventual models aiming to emulate human interaction with a WCA.\@
+In addition, physiological measures of heart rate and EEG appear not to be direct indicators of  behavioral response to delay, although GSR may be more promising in this regard.
+
+\section{Discussion}\label{sec:discussion}
+
+% First summarize the main findings
+We start our discussion with the main results of our experimentation presented in the previous section:
+
+\begin{itemize}
+  \item Firstly, and perhaps most importantly, we find that a system slow-down induces an \textit{additional} behavioral slow-down.
+  That is, as system responsiveness decreases, our data indicates that users significantly slow-down in their execution of the task.
+  This slow-down scales with the decrease in responsiveness; compared to the no-delay case, participants were on average \SI{12}{\percent} slower at \SI{1.65}{\second} delay and \SI{26}{\percent} at \SI{3.0}{\second} delay.
+  Moreover, there is a temporal component to this effect; users become progressively slower the more time passes with reduced system responsiveness.
+
+  \item Secondly, we find that the effects of behavioral slow-down due to impaired system responsiveness \emph{remain} for at least a few steps after system responsiveness improves.
+  This is evidenced by the longer per-step-execution times of the first four steps of blocks immediately following a high-delay block, as pictured in \cref{fig:exectime:transition}.
+  The question of whether any lingering effect can be measured after these four steps remains open.
+
+  \item Thirdly, we evidence a speed-up in execution time over a series of steps; that is, subjects get faster at performing steps as the task progresses.
+  However, the strength of this effect decreases as delay increases.
+  Whereas for blocks without delay users performed the last four steps of a 12-step block on average \SI{36}{\percent} faster than the first four, at the maximum delay this effect practically disappears.
+
+  \item Fourthly, in terms of inter-subject differences, PCA revealed three main factors governing users' response to delay. 
+  The first factor represents sensitivity to delay as moderated by the ``Big Five'' personality trait of neuroticism and both measures of immersion: focus and involvement.
+  Factor two and three represent dedication to the task as opposed to delay intolerance and reflect variables related to attentiveness, respectively.
+  In simple terms, these results suggest that the effects of delay are most potent in individuals who are sensitive and involved in the task.
+  The findings appear selective to cognitive assistance tasks like the present ones, inasmuch as the same measures did not correlate with outcomes in other computer-intensive environments such as immersive VR~\autocite{quesnel2018you}.
+  These correlations are also consistent with previous findings indicating that individuals scoring high in neuroticism tend to be intolerant to delayed reward~\autocite{hirsh2008delay}.
+\end{itemize}
+
+A central question therefore arises: to which physio- and psychological mechanisms can these findings, most importantly the substantial slow-down in task execution, be attributed?
+
+In \cref{sec:background}, we initially considered the possibility that delays might produce negative emotional reactions.
+These could in turn elicit generalized arousal.
+We also postulated that adapting to delay might progressively deplete cognitive resources in users.
+However, the present data provide relatively little support for these alternatives, in that \DIFaddbegin \DIFadd{the predicted measures did not produce the expected statistical trends.
+Specifically, }\DIFaddend physiological measures of GSR and HR failed to show evidence of differential arousal under long vs.\ short delays, and speed-induced errors and non-completions predicted by resource depletion were not observed.
+The acceleration data further \DIFdelbegin \DIFdel{do }\DIFdelend \DIFaddbegin \DIFadd{did }\DIFaddend not indicate that extended delay \DIFaddbegin \DIFadd{significantly }\DIFaddend increases erratic movement.
+%DIF >  physiological measures of GSR and HR failed to show evidence of differential arousal under long vs.\ short delays, and speed-induced errors and non-completions predicted by resource depletion were not observed.
+%DIF >  The acceleration data further do not indicate that extended delay increases erratic movement.
+To the contrary, the data suggest this effect results from a delay in movement after an instruction is introduced.
+That is, users fail to capitalize on the new information as quickly as they could.
+Thus, contrary to our preliminary postulations, behavioral effects seem to arise from impaired cognitive control mechanisms, and not from emotion or resource depletion.
+We hypothesize that the effects of feedback latency can best be understood as changes in the use of a cognitive plan.
+As was described in \cref{sec:experimentaldesign,fig:lego:hierarchical}, complex cognitive and motor tasks have been modeled as the unfolding of a hierarchy of command, from high-level plans to physical output.
+Long system latencies, we propose, disrupt the automating of such a plan, instead relegating it to attention-based control at the step-by-step level that is easily diverted.
+This also provides a possible explanation for the lingering effects of delay after an acceptable system responsiveness is restored, as users needs time re-adjust and re-automate their cognitive plans.
+
+As to the applicability of our findings to other applications, it must be noted that these results pertain to a specific class of applications, namely step-based task-guidance WCA.\@
+However, we would expect our findings to extend to similar applications, as long as they follow the same pattern of seamless interaction --- i.e.\ such that the user does not need explicitly interact with the application to advance the state.
+
+The results here presented provide a number of possible implications for WCA system design and optimization, both for single and multi-application flows.
+
+\DIFdelbegin %DIFDELCMD < \begin{itemize}
+%DIFDELCMD < 
+
+%DIFDELCMD <   \item Due to the behavioral slow-down in users, even short-term reductions in responsiveness will lead to significantly extended application lifetimes.
+%DIFDELCMD <   This has direct implications for resource and power consumption.
+%DIFDELCMD <   
+
+%DIFDELCMD <   \item The fact that the adverse effects of delay on users do not immediately disappear as the system returns to a high-responsive state could have unconventional consequences for resource allocation.
+%DIFDELCMD <   This is of particular importance, for instance, for cases where the user may be able to finish the task before these effects subside.
+%DIFDELCMD <   In such cases, the limited potential gains might not justify diverting valuable system resources to the impaired application.
+%DIFDELCMD < 
+
+%DIFDELCMD <   \item In multi-user environments, the time dependency of user slow-down effects mean that fair degradation of system responsiveness across applications may not ultimately be beneficial to the system as a whole.
+%DIFDELCMD <   Take for instance two applications on the same system which negatively interfere with each other. 
+%DIFDELCMD <   The longer they interfere with each other, the longer their respective lifetimes are going to be, which in turn causes them to interfere even longer, potentially entering a negative feedback loop. 
+%DIFDELCMD <   In such a case, prioritizing one over the other rather than trying to improve responsiveness for both might lead to resources being freed up faster system-wide.
+%DIFDELCMD < 
+
+%DIFDELCMD <   \item Based on our findings relating individual differences between users and their sensitivity to delays, it might also be possible to extrapolate user characteristic from measured execution times.
+%DIFDELCMD <   This could prove a valuable tool for load balancing, for instance by prioritizing resource allocation to users with a higher sensitivity to system-state degradation.
+%DIFDELCMD <   However, this remains an open challenge.
+%DIFDELCMD < 
+
+%DIFDELCMD < \end{itemize}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \begin{itemize}
+
+  \item Due to the behavioral slow-down in users, even short-term reductions in responsiveness will lead to significantly extended application lifetimes.
+  This has direct implications for resource and power consumption.
+
+  \item The fact that the adverse effects of delay on users do not immediately disappear as the system returns to a high-responsive state could have unconventional consequences for resource allocation.
+  This is of particular importance, for instance, for cases where the user may be able to finish the task before these effects subside.
+  In such cases, the limited potential gains might not justify diverting valuable system resources to the impaired application.
+
+  \item In multi-user environments, the time dependency of user slow-down effects mean that fair degradation of system responsiveness across applications may not ultimately be beneficial to the system as a whole.
+  Take for instance two applications on the same system which negatively interfere with each other. 
+  The longer they interfere with each other, the longer their respective lifetimes are going to be, which in turn causes them to interfere even longer, potentially entering a positive feedback loop. 
+  In such a case, prioritizing one over the other rather than trying to improve responsiveness for both might lead to resources being freed up faster system-wide.
+
+  \item Based on our findings relating individual differences between users and their sensitivity to delays, it might also be possible to extrapolate user characteristics from measured execution times.
+  This could prove a valuable tool for load balancing, for instance by prioritizing resource allocation to users with a higher sensitivity to system-state degradation.
+  However, this remains an open challenge.
+
+\end{itemize}
+\DIFaddend 
+
+To wrap up, we believe the present data provide novel and unexpected insights for the understanding and optimizing of WCA deployments.
+Although more subtle than expected, and in some cases somewhat counterintuitive, these insights represent a valuable tool to tackle inefficiencies in these systems.
+Moreover, we also argue these findings represent a first step towards a full-fledged understanding of the relationship between application responsiveness and human behavior.
+More research in this area will surely uncover more complex and interesting behaviors.
+Finally, we believe the data provide parameters that can usefully be integrated into cognitive models of WCA that might be constructed under existing architectures like ACT-R.
+These same parameters could be used to modulate the timing and generation of inputs in trace-based workload generation tools such as the EdgeDroid platform~\autocite{olguin:2018,olguin:2019}, allowing the tool to use the same trace to generate workloads for a multitude of different user profiles.
+
+\section{Conclusion}\label{sec:conclusion}
+
+In this paper, we presented the results of a study on the physiological and behavioral reactions of users of WCA to delays in the application pipeline.
+Our ultimate aim was to identify and categorize the ways in which humans react to low system responsiveness in step-based cognitive assistance systems.
+
+We approached this in an experimental manner, by having participants interact with an instrumented WCA setup, and found that delay appears to affect the cognitive plan of users, preventing them from automating the task they are performing.
+The results show that user interactions in a WCA slow down in the presence of delays in the application pipeline.
+When system responsiveness is high, the user responds quickly; when it is low, the user slows down.
+This was evidenced by an increase in task execution times, even after accounting for the artificially introduced delays, as well as accelerometer data from participants wrists.
+Additionally, we found that the strength of this effect is modulated by individual differences between subjects.
+
+These results are interesting as they open up hitherto unexplored opportunities for the design, optimization and benchmarking of WCA systems.
+In this context, we believe there are two direct and important next steps to be performed.
+The first of these relates to the implications for system optimization and resource allocation discussed in \cref{sec:discussion}.
+We believe these need to be implemented, tested and validated in real setups.
+In particular, we identify two of these implications to be prime candidates for their own experimental studies.
+One, our postulation that in cases where an impaired application is close to finishing, diverting resources to it might not be the most optimal course of action; and two, the possibility that ``fair'' degradation of system responsiveness across applications may be, in some cases, undesirable.
+Both of these questions could be answered with straightforward setups.
+
+The second step corresponds to the extension of existing tools for WCA benchmarking with the findings presented in this paper.
+These tools are of great usefulness for the study of WCA systems, as they allow for automated large-scale testing without having to resort to human users.
+However, they are still somewhat simplistic and unrealistic in their workload generation schemes.
+Incorporating the results presented here would allow for much more realistic workloads.
+For instance, our findings relating to the effects of delay on execution times could be directly adapted to modulate timings in the input stream.
+Another example would be employing the results linking neuroticism to a heightened sensibility for delays to provide a ``tuning knob'' for the user models in these workload generation schemes.
+Extending and perfecting these tools will allow for much more realistic benchmarking and testing of WCA systems, providing data of significantly better quality and ultimately leading to faster improvement, optimization and adoption of these systems.
+
+\begin{acks}
+  This research was supported in part by the Swedish Foundation for Strategic Research (SSF) under grant \texttt{ITM17-0246} (ExPECA) and the United States National Science Foundation (NSF) under grant number \texttt{CNS-1518865}.
+
+  Any opinions, findings, conclusions or recommendations expressed in this material are those of the authors and do not necessarily reflect the view(s) of their employers or the above-mentioned funding sources.
+\end{acks}
+
+\nolinenumbers%
+
+% Either type in your references using
+% \begin{thebibliography}{}
+% \bibitem{}
+% Text
+% \end{thebibliography}
+%
+% or
+%
+% Compile your BiBTeX database using our plos2015.bst
+% style file and paste the contents of your .bbl file
+% here. See http://journals.plos.org/plosone/s/latex for 
+% step-by-step instructions.
+% 
+
+\printbibliography%
+\end{document}
+

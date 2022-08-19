@@ -1,0 +1,16 @@
+{
+    "cSpell.enabled": false,
+    "spellright.language": [
+        "en",
+        "es"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "plaintext",
+        "latex"
+    ],
+    "python.pythonPath": "/home/molguin/.venvs/cogassistpaper/bin/python",
+    "cSpell.words": [
+        "subtask"
+    ]
+}

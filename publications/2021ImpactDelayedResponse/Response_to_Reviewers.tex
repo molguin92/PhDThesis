@@ -1,0 +1,431 @@
+\documentclass[10pt, letterpaper]{letter}
+\usepackage{hyperref}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[]{todonotes}
+\usepackage[]{geometry}
+\usepackage[inline]{enumitem}
+\usepackage[hang]{footmisc}
+\usepackage{todonotes}
+\usepackage{siunitx}
+\usepackage[capitalize]{cleveref}
+\usepackage{multicol}
+\usepackage{csquotes}
+
+\newcommand{\todoplaceholder}{\todo[inline]{TODO}}
+
+\makeatletter
+% Default:
+% \def\@makefnmark{\hbox{\@textsuperscript{\normalfont\@thefnmark}}}
+\renewcommand{\@makefnmark}{\makebox{\normalfont[\@thefnmark]}}
+\makeatother
+
+
+% \usepackage[citestyle=numeric,
+%             backend=bibtex,
+%             bibstyle=authoryear,
+%             sorting=none,
+%             sortcites,
+%             firstinits,
+%             terseinits,
+%             maxbibnames=6,
+%             autocite=footnote,
+%             dashed=false]{biblatex}
+\usepackage[
+    backend=bibtex,
+    style=ieee,
+    maxcitenames=3,
+    mincitenames=1,
+    % maxbibnames=3,
+    % minbibnames=1,
+    citestyle=numeric-comp % for [1, 2] instead of [1], [2]
+]{biblatex}
+\bibliography{bibliography.bib}
+\defbibheading{letterbib}[\refname]{#1}
+
+
+% question/answer environment
+\newenvironment{QandA}
+{\begin{enumerate}[
+    label={\bfseries Comment \arabic*:}, 
+    wide,
+    ref={Comment \arabic*}]}
+{\end{enumerate}}
+
+\newenvironment{revised}[2]
+{%
+\begin{displayquote}
+    \medskip
+    \begin{flushright}
+        \itshape{(Lines \numrange{#1}{#2} in the revised manuscript.)}\normalfont%
+    \end{flushright}
+    \medskip
+
+}
+{\end{displayquote}}
+
+\newenvironment{answered}
+{\medskip\par\bfseries Reply: \normalfont}
+{\par\noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}\bigskip}
+
+\signature{
+    Manuel {Olguín Muñoz}\\
+    Division of Information~Science and Engineering, EECS\\
+    KTH Royal Institute of Technology\\
+    Malvinas väg 10, 7th floor\\
+    100 44 Stockholm, Sweden\\
+    \href{mailto:molguin@kth.se}{\url{molguin@kth.se}}
+}
+% \address{}
+\begin{document}
+
+\begin{letter}{
+    M. Usman Ashraf, Ph.D\\
+    Academic Editor\\
+    PLOS ONE\\
+    \medskip
+    Manuscript PONE-D-20-32471\\
+    Response to reviewers\\
+}
+
+\opening{Dear Dr.\ Usman Ashraf:}
+
+We would like to begin by thanking you for giving us the opportunity to submit a revised version of our manuscript \emph{``Impact of delayed response on Wearable Cognitive Assistance''}.
+We also wish to thank you and the reviewers for the effort you have dedicated to providing us with relevant and insightful comments to improve the manuscript.
+
+After careful consideration, most of these recommendations have been included and highlighted in the revised paper.
+In particular, we have reworked extensive segments of the Introduction --- following Reviewer 1's comments --- as well as significantly summarized subsections 3.1, 3.2 and 3.3.3 --- as per the combined suggestions of both reviewers.
+Please see below for a detailed, point-by-point response to each of the comments and suggestions made by the reviewers.
+
+With regards to the dataset associated with this research, we have chosen to make it publicly available in full, as a repository on the Zenodo platform:
+\begin{itemize}
+    \item DOI: \texttt{10.5281/zenodo.4494912}
+    \item URL: \href{https://zenodo.org/record/4494912}{\url{https://zenodo.org/record/4494912}}
+\end{itemize}
+
+% \todo[inline]{Please ensure that your manuscript meets PLOS ONE's style requirements, including those for file naming.}
+
+% \todo[inline]{If there are no restrictions, please upload the minimal anonymized data set necessary to replicate your study findings as either Supporting Information files or to a stable, public repository and provide us with the relevant URLs, DOIs, or accession numbers.}
+
+Once again, we thank the reviewers for their comments and hope we have managed to sufficiently address their concerns in this revision.
+
+\closing{Sincerely,}
+
+\pagebreak
+
+\textbf{Responses to reviewers' comments:}
+
+\textit{Reviewer 1}
+\begin{QandA}
+    \item Please bring references for (page 2, lines 13--17):
+    \begin{itemize}
+        \item \emph{One is providing quality of life improvements to the millions of people around the world affected by some form of cognitive decline [\ldots]}
+        \item \emph{WCA can, for instance, provide assistance to people recovering from traumatic brain injuries, smoothly guiding them through day-to-day interactions with the world which would otherwise be extremely challenging [\ldots]}
+    \end{itemize}
+    \begin{answered}
+        We agree with the reviewer that these claims need further evidence.
+        As such we have decided to rework this segment to highlight the fact that these use cases inspire the work, but they are not everyday reality yet.
+        The paragraphs in question now read:
+
+        \begin{revised}{13}{19}
+            WCA systems were originally inspired by assistive use cases for people suffering from some form of cognitive decline, either through aging or because of traumatic brain injuries~\autocite{Ha:TowardsWearableCogAssist,satya2019augmenting}.
+            More recently, they have been applied to a broader range of use cases, including step-by-step guidance on complex assembly tasks~\autocite{Chen:AnEmpiricalStudyOfLatency}.
+            
+            These systems have also found success as companion tools for specialists and as a means for guiding their training. 
+            Non-wearable augmented reality and cognitive assistance systems have already been proven to be valuable tools in the industrial workplace~\autocite{funk2015caworkplace,gorecky2011cognito}.
+            Detethering this assistance from its current fixed location will surely make it available to many more fields.
+        \end{revised}
+    \end{answered}
+
+    \item \emph{Characterizing the relationships between system responsiveness and user behavior and experience is of paramount importance for the design and evaluation of these applications} (page 2, lines 54--56).
+    
+    This sentence needs some more clarifications regarding user behaviour and experience:
+    bringing some examples for user behaviour and specifying the experience may help to better understand it.
+    For instance, if the experience is an experience about the use of such applications then it needs to add ``use experience'' to make it clear.
+
+    \begin{answered}
+        We agree with the reviewer, and have thus modified this section of the text to make it more clear by adding some examples:
+
+        \begin{revised}{53}{59}
+            Characterizing the relationships between system responsiveness and user behavior and quality of experience is of paramount importance for the design and evaluation of these applications.
+            It is generally acknowledged, for instance, that a system going from a state of high responsiveness to one of low responsiveness can cause a drop in quality of experience~\autocite{dabrowsky:2011:40years}. 
+            Furthermore, this could cause users to modify the temporal paramaters of their behavior when interacting with the system, generating a sort of \emph{feedback loop} between user and system.
+            A clear understanding of these relationships would allow, for instance, for the development of strategies for load balancing and optimization for large-scale deployment of WCA.\@
+        \end{revised}
+    \end{answered}
+
+
+    \item\label{it:questions} The research questions cannot be found easily.
+    They should be explained.
+    The aim of the study is mentioned (p3, lines 64--65) i.e.\ how human behavior changes with system responsiveness. 
+    \emph{We aim to tackle this question…}, but the research questions need to be clarified too.
+
+    \begin{answered}
+        The reviewer is correct in noting that research questions were not explicitly mentioned in the manuscript.
+        We have chosen to address this comment together with \labelcref{it:hypothesis}.
+        Please refer to said comment for details.
+    \end{answered}
+
+    \item \emph{We present in this paper an experimental WCA test-bed of our design and making} (p3, line 70).
+    It seems the sentence is not complete: and making (??)
+
+    \begin{answered}
+        We accept that the sentence is unclear and strange.
+        In the revised manuscript it has been changed to:
+
+        \begin{revised}{71}{72}
+            We present in this paper the design and elaboration of an experimental WCA test-bed.
+        \end{revised}
+    \end{answered}
+
+    \item \emph{This test-bed was subsequently employed in a study in which undergraduate students were asked to interact with and follow the instructions given to them by a cognitive assistant} (p3, lines 71--73).
+    Please bring more information about undergraduate students for example in which field, gender\ldots
+
+    \begin{answered}
+        Yes, for purposes of clarity we have amended the sentence:
+
+        \begin{revised}{72}{74}
+            This test-bed was subsequently employed in a study in which undergraduate students of diverse fields of study, aged between 18 and 25 years old, were asked to interact with and follow the instructions given to them by a cognitive assistant.
+        \end{revised}
+
+        We also note that more detailed information about the participants is provided in Section 3.
+    \end{answered}
+
+
+    \item\label{it:hypothesis} Research hypotheses should be mentioned and explained in a clear way.
+    
+    \begin{answered}
+        We agree with the reviewer, and have addressed this comment, together with \labelcref{it:questions}, by reformulating a significant segment of the introduction and explicitly stating the research questions along with the associated hypotheses.
+    
+        \begin{revised}{8}{121}
+            Through this experimental set-up, we intended to answer four core research questions relating to human responses to decreased application responsiveness.\\
+
+            \begin{itemize}
+            \item \emph{Do subjects change the temporal profile of their actions in relation to system latency?}\\
+
+            In line with previous research in this area, we expected subjects to change their temporal profiles as system responsiveness decreased.
+            The extent or form of these changes were however unknown.
+            We also hypothesized that large enough drops in responsiveness could lead to complete abandonment of the task by subjects.\\
+
+            Our results show an emergent pacing effect on user actions as system responsiveness is reduced.
+            While it would seem self-evident that users take longer to complete a task while using a system with low responsiveness --- as they have to wait longer for new instructions --- our study found that user slow-down represents a source of substantial additional delay.
+            To be more precise, the data indicate that users slow down not only because they have to wait for the system to catch up, but that their reactions to new instructions is also delayed.
+            Moreover, this effect scales with the decrease in responsiveness and remains for a while, even after system responsiveness improves.\\
+            
+            \item \emph{Do subjects show signals of arousal in physiological responses to changes in system latency?}\\
+            
+            We hypothesized subjects would show signs of stress and frustration as system latency increased, due to the added annoyance of dealing with an unresponsive system.\\
+
+            The results we present, however, seem to refute this hypothesis. 
+            We were not able to detect any significant effects on the physiological signals obtained from the biometric sensors as sytem responsiveness was altered.\\
+            
+            \item \emph{Are responses to delay effects in subjects mediated by cognition and/or emotion?}\\
+            
+            In line with previous items, we expected delay effects in subjects to be mediated primarily by emotion.
+            In particular, we expected emotional effects to be correlated with the strength of the added delay.\\
+
+            The results point in a different direction though, indicating that reduced responsiveness in WCA systems leads to a disruption of participants' cognitive plan for the task and not to an emotional response.
+            This is evidenced by the previously discussed pacing effect and the lack of significant physiological responses.\\
+
+            \item \emph{Are these effects mediated by personality indicators in any way?}\\
+            
+            Finally, we hypothesized that the individual trait of \emph{neuroticism}~\autocite{john1999:bfi} would play a role in mediating these effects, as it has previously been connected to intolerance for time delay~\autocite{hirsh2008delay}.
+            We also expected \emph{focus} and \emph{involvement}~\autocite{witmer1998:itq} to play roles in this.\\
+
+            The results obtained agree with our hypothesis. 
+            We found significant effects of neuroticism on the responses exhibited by subjects, and all three traits were found to play a role through factor analysis.
+            \end{itemize}
+        \end{revised}
+    \end{answered}
+
+    \item The introduction part needs to be more elaborated with theoretical frame.
+    
+    \begin{answered}
+        Agreed.
+        We believe this is partly addressed by the changes made to the introduction according to \labelcref{it:questions,it:hypothesis}.
+        Additionally, we have included the following paragraph at the beginning of Section 2:
+        
+        \begin{revised}{146}{154}
+            Our overarching theoretical construct is the idea that people perform temporally sequential tasks in the framework of cognition and emotion.
+            In particular, we view cognition as described by models such as {ACT-R}~\autocite{neves1981knowledge}; i.e.\ as a sequence of procedures performed by the subject.
+            Additionally, we hypothesize that individual diferences between subjects moderate responses to delays in the feedback during the execution of a task.\\
+
+            Accordingly, in the following we review background work in the areas of 
+            \begin{enumerate*}[label={}, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
+            \item[(Section 2.1)] time perception
+            \item[(Section 2.2)] mechanisms relating human performance to delay.
+            \end{enumerate*}
+        \end{revised}
+    \end{answered}
+
+    \item As the authors wrote a \emph{third potential explanation of delay effects} (p5, line 167).
+    Similar types of writing for all three explanation may help readers grasp the messages easier: thus, I suggest that the authors bring at the beginning of previous relevant phrases ``first explanation'' and ``second explanation'' too.
+
+    \begin{answered}
+        Yes.
+        The explanations in question have been modified in the revised manuscript:
+
+        \begin{revised}{191}{192}
+            A first possible explanation comes from research on cognitive and motor planning. 
+            Delay may move users from relatively automatic to more attention-demanding processing. 
+            [\ldots]
+        \end{revised}
+
+        \begin{revised}{205}{206}
+            A second, alternative explanation of delay effects appeals to emotional systems rather than cognitive processes.
+            [\ldots]
+        \end{revised}
+            
+        \begin{revised}{208}{210}
+            Finally, a third potential explanation of delay effects is what has been called ``ego depletion'', the notion that expending effort on self-control eliminates resources needed for further effort.
+            [\ldots]
+        \end{revised}
+    \end{answered}
+
+    \item Key characteristics of the sample (Section 3) should be clarified.
+    
+    \begin{answered}
+        Agreed.
+        We assume here that by \emph{sample} the reviewer refers to the \emph{participant population}.
+        We have amended the text to specify that our participants correspond to undergraduate volunteers enrolled in an introductory-level psychology course at CMU:\@
+
+        \begin{revised}{240}{250}
+
+            This study was conducted with the approval of the Carnegie Mellon University Institutional Review Board under record number \texttt{STUDY2019\_00000247}.
+            Written consent was obtained.\\
+
+            Subjects were recruited from a pool of undergraduate students at Carnegie Mellon University.
+            Students enrolled in an introductory-level psychology course fulfill a research requirement as part of the plan of study.
+            This requirement may be fulfilled either through the elaboration of a written essay or by volunteering as a participant in a small number of research experiments.\\
+
+            No particular exclusion criteria were applied, and as specified by our approved data-collection protocol, no gender- or sex-related statistics were collected.
+            In total, 40 participants were recruited, all of them of college student age (\numrange{18}{25} years old).
+
+        \end{revised}
+    \end{answered}
+
+    \item\label{it:shorten31} Sections 3.1, 3.2 need to be summarized.
+    This part regarding definitions are too long and need to be shortened.
+
+    \begin{answered}
+        Yes, we agree with the reviewer, and have edited sections 3.1 and 3.2 to be more concise.
+        As the changes are too extensive to fully detail here, please refer to the revised manuscript, specifically lines \numrange{250}{324}.
+    \end{answered}
+
+    \item\label{it:shorten333} Subsection 3.3.3 also need to be shortened and summarized in a clearer way.
+    This part is very long too.
+    For instance, EEG is well known, it doesn't need to be defined very much.
+
+    \begin{answered}
+        We agree.
+        Subsection 3.3.3 has been shortened by summarizing descriptions and trimming away unnecessary details.
+        It now reads as follows:
+
+        \begin{revised}{357}{385}
+            The participants wore devices to acquire four physiological measures:
+            \begin{enumerate*}[itemjoin={{, }},
+                            itemjoin*={{, and }},
+                            label={{(\arabic*)}}]
+            \item galvanic skin response (\emph{GSR})
+            \item accelerometer data from the dominant wrist
+            \item brain activity in the form of electroencephalography (\emph{EEG})
+            \item heart rate.
+            \end{enumerate*}\\
+
+            These metrics have been used as indicators of stress and cognitive load by an ample body of previous research~\autocite{khawadi2015:usinggsrtrust,kuikkaniemi2010:biofeedback,solovey2014:classifyingdriverworkload}.
+            GSR (also known as electrodermal activity) can be interpreted as an indicator of physiological arousal and has long been a widely used metric in studies seeking to characterize mental workload~\autocite{peterson1907psycho,Healey2005,Son2010,khawadi2015:usinggsrtrust,kuikkaniemi2010:biofeedback,solovey2014:classifyingdriverworkload,}.
+            EEG on the other hand has previously been used to measure cognitive load in the context of human-computer interactions~\autocite{Antonenko2010,Grimes2008,kumar2016measurement}.\\
+
+            Wrist acceleration, GSR and heart rate data were obtained using the Empatica E4~\autocite{empatica:e4} biosensing wristband.
+            Accelerometer data was sampled at \SI{32}{\hertz},
+            GSR was sampled at \SI{4}{\hertz}, and instantaneous heart rate was calculated from a \emph{blood volume pulse} (BVP) signal sampled at \SI{64}{\hertz}.
+            Participants were asked to wear the device for approximately 10--15 minutes before starting the experiment, in order to allow the sensors to reach a stable equilibrium and establish a baseline for the signals.\\
+
+            The E4 wristband was chosen due to its small, non-invasive, and wireless form factor (samples were streamed to the system over Bluetooth LE) and for the fact that its use in research has been experimentally validated in previous studies~\autocite{ragot2017emotion, mccarthy2016validation}.
+            The E4 also includes a skin temperature thermometer, however the measure was not used for the present study.\\
+
+            For the EEG data we employed the OpenBCI EEG Headband Kit\autocite{openbci:headbandkit} consisting of a number of dry electrodes fastened to a Velcro headband.
+            It provides a quick and non-invasive way of obtaining EEG signals from participants.
+            Electrodes were placed according to the \emph{10--20 Electrode System}~\autocite{eeg1020system:1961} on the \emph{Fp1} and \emph{Fp2} points, in order to capture brain activity in the frontal lobe, with ground and reference electrodes on the right and left earlobes, respectively.
+            The signals were sampled at \SI{200}{\hertz} and postprocessed to 
+            \begin{enumerate*}[itemjoin={{, }},
+                            itemjoin*={{, and }},
+                            label={{(\arabic*)}}]
+            \item remove frequencies outside the \SIrange{0.1}{40}{\hertz} range
+            \item smooth out noise (using the technique proposed by Agarwal et al.~\cite{agarwal2017eeg}).
+            \end{enumerate*}
+        \end{revised}
+    \end{answered}
+
+    \item\ [The Discussion] part is very short in comparison to other parts of this study.
+    The reflection of the authors of the current paper on their results is missing (the reflection of authors regarding why some results were significant while other not are important).
+    Thus the authors should elaborate the Discussion part as well.
+    
+    \begin{answered}
+        We partially agree with the reviewer.
+        We believe that  this concern of the reviewer was addressed in the original discussion section (paragraph beginning with line 597 in the old manuscript), but apparently not with sufficient clarity.
+        We pointed out that the failure of the physiological measures to show effects of delay indicates that resource depletion and emotionally induced arousal  are not impacted.
+        We concluded, ``Thus, contrary to our preliminary postulations, behavioral effects seem to arise from impaired cognitive control mechanisms, and not from emotion or resource depletion.''
+
+        In response to the review, we have now expanded this paragraph to specifically point to the statistical outcomes.
+        That is, we now say:
+
+        \begin{revised}{596}{602}
+            However, the present data provide relatively little support for these alternatives, in that the predicted measures did not produce the expected statistical trends.
+            Specifically, physiological measures of GSR and HR failed to show evidence of differential arousal under long vs.\ short delays, and speed-induced errors and non-completions predicted by resource depletion were not observed.
+            The acceleration data further did not indicate that extended delay significantly increases erratic movement.
+        \end{revised}
+    \end{answered}
+    
+\end{QandA}
+
+\textit{Reviewer 2}
+\begin{QandA}
+    \item The explanations have been used too much in somewhere.
+    For example, it is not necessary to explain the ANOVA test.
+    This test is well known.
+
+    \begin{answered}
+        We agree with the reviewer.
+        The explanation of the ANOVA test has been removed, and the paragraph has been reworked with a new reference:
+
+        \begin{revised}{411}{413}
+            We confirmed this effect through an \emph{analysis of variance} (ANOVA~\autocite{FUJIKOSHI1993ANOVA}) with factors of block length and delay, and found significant main effects of both factors and the interaction, shown in Table 2.
+        \end{revised}
+        
+        We also understand this remark as relating to the same issues pointed out by \emph{Reviewer 1} in \labelcref{it:shorten31} and \labelcref{it:shorten333}.
+        As such, we refer to our responses to these comments.
+    \end{answered}
+
+    \item Use more resolution for figures.
+    
+    \begin{answered}
+        Yes, this has been addressed in the revised manuscript.
+    \end{answered}
+
+    \item Some figures can be inserted in a figure as subplots and or subpanels.
+    
+    \begin{answered}
+        Agreed.
+        This has been addressed in the revised manuscript.
+        In particular, figure 4 has been reorganized and merged with figure 5 (in the old manuscript).
+    \end{answered}
+
+    \item In line 286 at the end of line the ``A Latin'' is written, what is that?
+    
+    \begin{answered}
+        This is an artifact of the line-wrapping of the document.
+        The segment of text actually reads ``A \emph{Latin~square}-type design [\ldots]'', but \LaTeX decided to automatically wrap the line right after \emph{Latin}.
+        This has been fixed in the revised manuscript.
+    \end{answered}
+
+\end{QandA}
+
+\pagebreak
+
+\begingroup\setlength{\multicolsep}{0pt}
+\begin{multicols}{2}[]
+    \printbibliography[heading=letterbib]
+\end{multicols}\endgroup
+\end{letter}
+\end{document}
