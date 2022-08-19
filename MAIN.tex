@@ -112,7 +112,20 @@
   \renewbibmacro*{url}{}%
   \renewbibmacro*{in:}{Refereed article published in\\}%
   \renewbibmacro*{title}{}%
-  \renewbibmacro*{annotation}{}}
+  \renewbibmacro*{annotation}{}%
+  \renewbibmacro*{journal}{%
+    \ifboolexpr{
+      test {\iffieldundef{journaltitle}}
+      and
+      test {\iffieldundef{journalsubtitle}}
+    }
+    {}
+    {\printtext[journaltitle]{%
+       \normalfont{Refereed article published in}\\
+       \printfield[titlecase]{journaltitle}%
+       \setunit{\subtitlepunct}%
+       \printfield[titlecase]{journalsubtitle}}}}
+  }%
 
 \newcommand{\suppauthtitle}{\AtNextCite{\int@suppauthtitle}}
 \makeatother
@@ -205,6 +218,8 @@
 
 \include{publications/2018DemoScaling.tex}
 \include{publications/2019EdgeDroid.tex}
+\include{publications/2021Impact.tex}
+\include{publications/2022CLEAVE.tex}
 \end{appendices}
 
 \end{document}
