@@ -79,9 +79,9 @@
 
 % fancy chapters
 \usepackage[Sonny]{fncychap}
-\ChNameVar{\rmfamily\Large}
-\ChNumVar{\rmfamily\Huge\bfseries}
-\ChTitleVar{\normalfont\rmfamily\Huge}
+\ChNameVar{\normalfont\large\rmfamily}
+\ChNumVar{\normalfont\rmfamily\bfseries}
+\ChTitleVar{\normalfont\rmfamily\huge}
 
 \usepackage{xparse}
 \NewDocumentCommand{\thesischapter}{o m m}{%
@@ -117,7 +117,7 @@
 \newcommand{\suppauthtitle}{\AtNextCite{\int@suppauthtitle}}
 \makeatother
 
-\definecolor{titlecolor}{HTML}{CCB3FF}
+\definecolor{titlecolor}{HTML}{ECCEF5}
 
 \newcommand{\thesispaper}[2]
 {%
@@ -197,7 +197,12 @@
 
 \part{Publications}
 \begin{appendices}
+%style
+\ChNameVar{\rmfamily\Large}
+\ChNumVar{\rmfamily\Huge\bfseries}
+\ChTitleVar{\normalfont\rmfamily\Huge}
 \renewcommand{\appendixname}{Paper}
+
 \include{publications/2018DemoScaling.tex}
 \include{publications/2019EdgeDroid.tex}
 \end{appendices}
