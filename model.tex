@@ -14,7 +14,7 @@ In this section, we present and discuss our approaches to both these challenges.
 In our previous work~\cite{olguinmunoz:impact2021}, we identified four main results concerning the step execution times of humans in \ac{WCA}:
 
 \begin{enumerate}
-    \item System slow-down induces additional behavioral slow-down which scales with the decrease in system responsiveness.
+    \item System slow-down induces \emph{additional} behavioral slow-down which scales with the decrease in system responsiveness.
     Moreover, users become progressively slower the longer they spend in a degraded system state.
 
     \item The effects of system slow-down on human behavior remain for a while even after system responsiveness improves.
@@ -24,8 +24,47 @@ In our previous work~\cite{olguinmunoz:impact2021}, we identified four main resu
     \item The above effects seem to be modulated by the Big Five~\cite{oliver:bfi1999} trait of \emph{neuroticism}.
 \end{enumerate}
 
-Using these insights, we design a generator of realistic execution times for step-based \ac{WCA}.
-The generator further builds upon the original data collected for~\cite{olguinmunoz:impact2021}; this data is first preprocessed and then sampled according to a series of rules in order to produce novel,realistic sequences of execution times for a task.
+Based on these insights and the data collected for~\cite{olguinmunoz:impact2021}, we design a generator of realistic execution times for step-based \ac{WCA}.
+
+\todo[inline]{Diagram of model?}
+
+\begin{algorithm}
+    \caption{Timing model algorithm}
+    \KwIn{%
+        \begin{itemize}
+            \item $T_\text{start}$: start timestamp of the previous step.
+            \item $T_\text{success}$: capture timestamp of the succesful sample of the previous step.
+            \item $T_\text{end}$: end timestamp of the previous step.
+            \item $t_\text{exec}$: execution time (in seconds) of the previous step.
+        \end{itemize}%
+    }
+    \KwOut{$t_\text{exec}'$: execution time for the current step.}
+
+    \Comment{%
+        Initial values:\\
+        $d \leftarrow 0$\\
+        $I_\text{prev} \leftarrow \text{NULL}$
+    }
+    $t_\text{wait} \leftarrow T_\text{success} - (T_\text{start} + t_\text{exec})$\;
+    $t_\text{round-trip} \leftarrow T_\text{end} - T_\text{success}$\;
+    $i \leftarrow t_\text{wait} + t_\text{round-trip}$ \Comment*[r]{raw impairment}
+    $I \leftarrow \text{BIN}(i)$ \Comment*[r]{bin impairment into\\discrete levels}
+
+    \If{$I_\text{prev} == \text{NULL}$}{%
+        $d \leftarrow 1$\;
+        $T \leftarrow \text{NO TRANSITION}$\;
+    } \ElseIf{$I_\text{prev} < I$}{%
+        $d \leftarrow 1$\;
+        $T \leftarrow \text{LOWER TO HIGHER} $
+    } \ElseIf{$I_\text{prev} > I$}{%
+        $d \leftarrow 1$\;
+        $T \leftarrow \text{HIGHER TO LOWER} $  
+    }
+
+\end{algorithm}
+
+
+This data is first preprocessed and then sampled according to a series of rules in order to produce novel,realistic sequences of execution times for a task.
 Alternatively, instead of sampling directly from the preprocessed data, a theoretical distribution can be fitted, thus allowing for generation of realistic synthetic execution times.
 
 \subsubsection{Data pre-processing}

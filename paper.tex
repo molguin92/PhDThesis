@@ -17,6 +17,9 @@
 \usepackage{todonotes}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage[ruled]{algorithm2e}
+\SetKwComment{Comment}{// }{}
+
 \usepackage[newfloat=true]{minted}
 \setminted{breaklines=true, frame=lines}
 \usemintedstyle{xcode}
@@ -85,7 +88,8 @@
     \begin{tabular}{@{}ccc@{}}
       Manuel {Olguín Muñoz}\IEEEauthorrefmark{1}~\orcidlink{0000-0002-3383-2335} &
       Vishnu N. Moothedath\IEEEauthorrefmark{2}~\orcidlink{0000-0002-2739-5060} &
-      Roberta Klatzky\IEEEauthorrefmark{3}~\orcidlink{0000-0001-9701-9186}             
+      {Jaya Prakash} Champati\IEEEauthorrefmark{3}~\orcidlink{0000-0002-5127-8497}
+      % Roberta Klatzky\IEEEauthorrefmark{3}~\orcidlink{0000-0001-9701-9186}             
     \end{tabular}\\
     \begin{tabular}{@{}cc@{}}
       Mahadev Satyanarayanan\IEEEauthorrefmark{4}~\orcidlink{0000-0002-2187-2049} &
@@ -99,22 +103,28 @@
     \IEEEauthorrefmark{2}\href{mailto:vnmo@kth.se}{vnmo@kth.se}, \IEEEauthorrefmark{5}\href{mailto:jamesgr@kth.se}{jamesgr@kth.se}%
   }\vspace{0.5em}\\
   \IEEEauthorblockA{%
-    \IEEEauthorrefmark{3}Department of Psychology, 
+    \IEEEauthorrefmark{3}Edge Networks Group\\
+    IMDEA Networks Institute, Spain\\
+    \href{mailto:jaya.champati@imdea.org}{jaya.champati@imdea.org}%
+  }\vspace{0.5em}\\
+  \IEEEauthorblockA{%
+    % \IEEEauthorrefmark{3}Department of Psychology, 
     \IEEEauthorrefmark{4}School of Computer Science\\
-    Carnegie Mellon University, Pittsburgh, Pennsylvania\\
-    \IEEEauthorrefmark{3}\href{mailto:klatzky@cmu.edu}{klatzky@cmu.edu},
-    \IEEEauthorrefmark{4}\href{mailto:satya@cs.cmu.edu}{satya@cs.cmu.edu}%
+    Carnegie Mellon University, USA\\
+    % \IEEEauthorrefmark{3}\href{mailto:klatzky@cmu.edu}{klatzky@cmu.edu},
+    % \IEEEauthorrefmark{4}
+    \href{mailto:satya@cs.cmu.edu}{satya@cs.cmu.edu}%
   }
 }
 \maketitle
 
-\input{outline.tex}
+\include{outline.tex}
 \input{abstract.tex}
 \input{intro.tex}
 \input{background.tex}
 \input{model.tex}
-\input{experiments.tex}
-\input{discussion.tex}
+\input{validation.tex}
+\input{responsiveness-tradoffs.tex}
 \input{conclusion.tex}
 
 \printbibliography{}
