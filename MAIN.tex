@@ -60,14 +60,18 @@
 \usepackage[printonlyused]{acronym}
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{makecell}
 \usepackage[binary-units]{siunitx}
 \DeclareSIUnit{\belmilliwatt}{Bm}
 \DeclareSIUnit{\dBm}{\deci\belmilliwatt}
 
 \usepackage{xcolor}
 \usepackage{pagecolor}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
 \usepackage{tikz}
-\usetikzlibrary{tikzmark,calc,decorations.pathreplacing,shapes,arrows.meta,positioning,automata}
+\usepackage{tikzpeople}
+\usetikzlibrary{tikzmark,calc,decorations.pathreplacing,shapes,shapes.symbols,arrows.meta,positioning,automata}
 \usepackage[export]{adjustbox}
 \usepackage{pgf-umlsd}
 \input{publications/2018DemoScalingOnTheEdge/pgf-umlsd-ex.tex}
@@ -96,6 +100,8 @@
 
 \usepackage{appendix}
 \usepackage{hyperref}
+
+\newenvironment{acks}{\section*{Acknowledgments}}{}
 
 \newenvironment{dedication}{\cleardoublepage\null\vspace{\stretch{1}}\begin{flushright}\itshape}{\end{flushright}\vspace{\stretch{2}}\null}
 
