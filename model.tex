@@ -1,13 +1,73 @@
-\section{A model of human behavior for \ac{WCA}}\label{sec:model}
+\section{A model of human behavior for \acl*{WCA}}\label{sec:model}
 
-In order to accurately emulate the behavior of a human, a model for \ac{WCA} needs to implement two main behaviors.
+In~\cite{olguinmunoz:impact2021} we studied the effects of system responsiveness on human behavior in step-based \ac{WCA} through human-subject trials.
+We employed a modified and instrumented version of the LEGO Assistant application devised by~\textcite{Chen2015LEGO}, which belongs to a category of \acp{WCA} with the goal of guiding a user through a sequential task.
+The application monitors the progress of the task in ``realtime'' by repeatedly sampling the state of the physical system, most commonly through video frames.
+Whenever the applications detects that the user has correctly or incorrectly performed an instruction, it provides a new instruction to either advance the task or correct the detected mistake.
+Subjects interacted with this \ac{WCA} while the responsiveness of the system was altered in realtime and we captured key application and task performance metrics.
+Additionally, we also employed questionnaires to evaluate key personality traits of the participants, and correlated these results to the task performance metrics collected.
+
+From this experimentation, we identified four main results concerning the step execution times of humans in \ac{WCA}:
+
+\begin{enumerate}
+    \item System slow-down induces \emph{additional} behavioral slow-down which scales with the decrease in system responsiveness.
+    Moreover, users become progressively slower the longer they spend in a degraded system state.
+
+    \item The effects of system slow-down on human behavior remain for a while even after system responsiveness improves.
+    
+    \item Humans get faster at performing steps as the task progresses. However, this effect is dampened by reduced system responsiveness, even disappearing at higher levels of system impairment.
+    
+    \item The above effects seem to be modulated by the Big Five~\cite{oliver:bfi1999} trait of \emph{neuroticism}.
+\end{enumerate}
+
+In the following, we employ the above insights together with the actual data collected for~\cite{olguinmunoz:impact2021} to design and build a probabilistic model of human behavior for \ac{WCA}.
+In order to accurately emulate the behavior of a human, such a model for needs to implement two main behaviors.
 One, it needs to generate realistic \emph{execution times} for each step in the task, considering the current and historical impairment of the \ac{WCA} system.
 And two, it needs to produce sequences of video frames for each step which mimic what a human generate.
-\todo[inline]{Improve}
-
-In this section, we present and discuss our approaches to both these challenges.
 
 \subsection{Generating realistic timings}
+
+We begin by providing some formal definitions relating to step-based \acl{WCA}.
+\begin{description}
+    \item[Task:] understood as a finite sequence of instructions to be executed in order.
+    \item[Step:] specific action to be performed by the user, described by a single instruction; e.g. put a green $1 \times 3$ brick on the board.
+    \item[Step duration:] the time interval between 
+    \item[Step execution time:]
+    \item[Wait time:]
+    \item[\ac{TTF}:]   
+\end{description}
+
+The step starts at \(t_0\), when the instruction is presented to the user.
+We call the interval \(t_c - t_0\) the ``execution time'', corresponding to the time the user takes to complete the instruction.
+The final sample of the step is taken at \(t_n\) and it takes \( t_{n+1} - t_n \) time units for the user to receive a reply from the backend (``last sample \ac{RTT}'').
+Finally, we call the time interval between when the user finishes the instruction and the capturing of the final sample the ``wait time''; together with the last sample \ac{RTT} it composes the ``Time-to-Feedback'' of the step.%
+
+\begin{figure}
+    \centering
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{figs/task.png}
+        \caption{%
+            Overview of a task in a \ac{WCA}, composed of a series of steps.
+            Each steps starts with an instruction being provided to the user and ends with the instruction for the next step.
+            The \ac{WCA} continuously samples the task state, automatically triggering transitions between steps as correct (or incorrect) states are recognized.
+        }\label{}
+    \end{subfigure}\\
+    \begin{subfigure}{\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{figs/step_time.png}
+        \caption{%
+            Breakdown of a step into its timing components.
+            The instruction for step \( M \) and \( M + 1 \) are provided to the user at \( t_0 \) and \( t_{n+1} \), respectively.
+            \( t_k | k \in \{1, \ldots, n \} \) correspond to the \ac{WCA} sampling instants for step \( M \), and \( t_c \) marks the instant at which the user finishes performing the instruction.
+        }\label{}
+    \end{subfigure}
+    \caption{}
+\end{figure}
+
+
+A task will be understood as a finite sequence of instructions to be performed in order. Step will refer to a specific action to be performed by the user, described by a single instruction; e.g. put a green 1 × 3 brick on the board (see Fig 2). A step starts with an instruction being given to the user, and ends when the assistant detects that the user has finished performing it. At that point, the assistant either provides a new instruction to the user, or the task ends.
+
 
 \input{tables/empirical_exec_times.tex}
 
