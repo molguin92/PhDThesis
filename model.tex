@@ -1,68 +1,6 @@
-\section{A model of human behavior for \acl*{WCA}}\label{sec:model}
+\section{A model of human behavior for \ac{WCA}}\label{sec:model}
 
-In~\cite{olguinmunoz:impact2021} we studied the effects of system responsiveness on human behavior in step-based \ac{WCA} through human-subject trials.
-We employed a modified and instrumented version of the LEGO Assistant application devised by~\textcite{Chen2015LEGO}, which belongs to a category of \acp{WCA} with the goal of guiding a user through a sequential task.
-The application monitors the progress of the task in ``realtime'' by repeatedly sampling the state of the physical system, most commonly through video frames.
-Whenever the applications detects that the user has correctly or incorrectly performed an instruction, it provides a new instruction to either advance the task or correct the detected mistake.
-Subjects interacted with this \ac{WCA} while the responsiveness of the system was altered in realtime and we captured key application and task performance metrics.
-Additionally, we also employed questionnaires to evaluate key personality traits of the participants, and correlated these results to the task performance metrics collected.
 
-From this experimentation, we identified four main results concerning the step execution times of humans in \ac{WCA}:
-
-\begin{enumerate}
-    \item System slow-down induces \emph{additional} behavioral slow-down which scales with the decrease in system responsiveness.
-    Moreover, users become progressively slower the longer they spend in a degraded system state.
-
-    \item The effects of system slow-down on human behavior remain for a while even after system responsiveness improves.
-    
-    \item Humans get faster at performing steps as the task progresses. However, this effect is dampened by reduced system responsiveness, even disappearing at higher levels of system impairment.
-    
-    \item The above effects seem to be modulated by the Big Five~\cite{oliver:bfi1999} trait of \emph{neuroticism}.
-\end{enumerate}
-
-In the following, we employ the above insights together with the actual data collected for~\cite{olguinmunoz:impact2021} to design and build a probabilistic model of human behavior for \ac{WCA}.
-In order to accurately emulate the behavior of a human, such a model for needs to implement two main behaviors.
-One, it needs to generate realistic \emph{execution times} for each step in the task, considering the current and historical impairment of the \ac{WCA} system.
-And two, it needs to produce sequences of video frames for each step which mimic what a human generate.
-
-\subsection{Generating realistic timings}
-
-We begin by providing some definitions relating to step-based \acl{WCA}.
-First of all, a \emph{step} is understood as a specific action to be performed by the user, described by a single instruction; a \emph{task} consists of a series of steps to be executed in sequence (see \cref{fig:task}).
-More formally, a step starts when the corresponding instruction is provided to the user, and ends when the instruction for the next step is provided.
-We call the time interval between these two events the \emph{step duration}.
-
-Take \( \{ t_0, t_1, \ldots, t_{n + 1} \} \) a series of discrete and sequential sampling intervals at which the \ac{WCA} captures the state of the physical system --- see \cref{fig:step}.
-\( t_0 \) corresponds to the instant at which the instruction for step \( M \) is provided and the first sample for said step is taken, and \( t_{n+1} \) to the instant at which the instruction for step \( M + 1 \) is provided.
-Furthermore, \( t_c \) represents the instant at which the user finishes performing the instruction for step \( M \); the interval \( t_c - t_0 \) we call the \emph{execution time} of \( M \).
-From the discrete sampling nature of the \ac{WCA} application, it follows that 
-
-\begin{equation}\label{eq:tc}
-    t_{n - 1} \leq t_c \leq t_{n}
-\end{equation}
-
-In plain English, the final state of the step is --- by definition --- always reached \emph{before} the final sample of the step is taken but after the next-to-last sampling instant.
-We define the intervals \( t_n - t_c \) and \( t_{n + 1} - t_n \) as the \emph{wait time} and \emph{last sample \ac{RTT}}, respectively, for step \( M \).
-The sum of these two values (i.e. the interval \( t_{n + 1} - t_c \)) we call \emph{time-to-feedback}.
-
-In~\cite{olguinmunoz:impact2021} we used \emph{delay} and \emph{execution time} as our key variables of interest.
-\emph{Delay} corresponded to a set time duration the processing of each frame was padded to --- i.e. if during a series of steps delay was set to \( X \) seconds, the feedback for each frame was provided to the user at exactly \( X \) seconds after frame capture.
-The correlation between delay and execution time was then studied.
-Delay, however, was merely an experimental tool, and in the present paper we argue that the underlying metric driving the human behavior is rather \emph{time-to-feedback}.
-If we consider that
-\begin{enumerate*}[itemjoin={{; }}, itemjoin={{; and }}]
-    \item \( t_c \) is uniformly distributed in the interval \( [t_{n - 1}, t_{n}] \) (see \cref{eq:tc} above and~\cite{olguinmunoz:impact2021})
-    \item for a step subject to \emph{delay} \( X \), \( t_k - t_{k - 1} = X \) for all \( k \in \{1, 2, \ldots, n\} \)
-\end{enumerate*},
-then it must follow that, \emph{on average}, for all steps subject to a \emph{delay} \( X \):
-
-\begin{equation}\label{eq:ttf}
-    \text{\emph{time-to-feedback}} = \frac{3}{2}X
-\end{equation}
-
-Ergo, we can directly re-parameterize the data from~\cite{olguinmunoz:impact2021} to use time-to-feedback instead of delay by simply multiplying the delay value of each step by \( 1.5 \).
-
-\newpage
 \begin{figure}
     \centering
     \begin{subfigure}{\columnwidth}
@@ -87,6 +25,7 @@ Ergo, we can directly re-parameterize the data from~\cite{olguinmunoz:impact2021
 \end{figure}
 
 \todo[inline]{Diagram of model?}
+\todo[inline]{Verification: do we need the model? (Compare to naive)}
 
 \begin{algorithm}
     \caption{Timing model algorithm}
