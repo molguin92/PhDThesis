@@ -35,12 +35,34 @@ We call the time interval between these two events the \emph{step duration}.
 Take \( \{ t_0, t_1, \ldots, t_{n + 1} \} \) a series of discrete and sequential sampling intervals at which the \ac{WCA} captures the state of the physical system --- see \cref{fig:step}.
 \( t_0 \) corresponds to the instant at which the instruction for step \( M \) is provided and the first sample for said step is taken, and \( t_{n+1} \) to the instant at which the instruction for step \( M + 1 \) is provided.
 Furthermore, \( t_c \) represents the instant at which the user finishes performing the instruction for step \( M \); the interval \( t_c - t_0 \) we call the \emph{execution time} of \( M \).
-From the discrete sampling nature of the \ac{WCA} application, it follows that \( t_{n - 1} \leq t_c \leq t_{n} \); in plain English, the final state of the step is --- by definition --- always reached \emph{before} the final sample of the step is taken but after the next-to-last sampling instant.
+From the discrete sampling nature of the \ac{WCA} application, it follows that 
+
+\begin{equation}\label{eq:tc}
+    t_{n - 1} \leq t_c \leq t_{n}
+\end{equation}
+
+In plain English, the final state of the step is --- by definition --- always reached \emph{before} the final sample of the step is taken but after the next-to-last sampling instant.
 We define the intervals \( t_n - t_c \) and \( t_{n + 1} - t_n \) as the \emph{wait time} and \emph{last sample \ac{RTT}}, respectively, for step \( M \).
 The sum of these two values (i.e. the interval \( t_{n + 1} - t_c \)) we call \emph{time-to-feedback}.
 
-\emph{Execution time} and \emph{time-to-feedback} correspond to the two key metrics necessary to characterize the interactions between human behavior and system responsiveness.
+In~\cite{olguinmunoz:impact2021} we used \emph{delay} and \emph{execution time} as our key variables of interest.
+\emph{Delay} corresponded to a set time duration the processing of each frame was padded to --- i.e. if during a series of steps delay was set to \( X \) seconds, the feedback for each frame was provided to the user at exactly \( X \) seconds after frame capture.
+The correlation between delay and execution time was then studied.
+Delay, however, was merely an experimental tool, and in the present paper we argue that the underlying metric driving the human behavior is rather \emph{time-to-feedback}.
+If we consider that
+\begin{enumerate*}[itemjoin={{; }}, itemjoin={{; and }}]
+    \item \( t_c \) is uniformly distributed in the interval \( [t_{n - 1}, t_{n}] \) (see \cref{eq:tc} above and~\cite{olguinmunoz:impact2021})
+    \item for a step subject to \emph{delay} \( X \), \( t_k - t_{k - 1} = X \) for all \( k \in \{1, 2, \ldots, n\} \)
+\end{enumerate*},
+then it must follow that, \emph{on average}, for all steps subject to a \emph{delay} \( X \):
 
+\begin{equation}\label{eq:ttf}
+    \text{\emph{time-to-feedback}} = \frac{3}{2}X
+\end{equation}
+
+Ergo, we can directly re-parameterize the data from~\cite{olguinmunoz:impact2021} to use time-to-feedback instead of delay by simply multiplying the delay value of each step by \( 1.5 \).
+
+\newpage
 \begin{figure}
     \centering
     \begin{subfigure}{\columnwidth}
