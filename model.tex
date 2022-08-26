@@ -1,28 +1,7 @@
 \section{A model of human behavior for \ac{WCA}}\label{sec:model}
 
 
-\begin{figure}
-    \centering
-    \begin{subfigure}{\columnwidth}
-        \centering
-        \includegraphics[width=\columnwidth]{figs/task.png}
-        \caption{%
-            Overview of a task in a \ac{WCA}, composed of a series of steps.
-            Each steps starts with an instruction being provided to the user and ends with the instruction for the next step.
-            The \ac{WCA} continuously samples the task state, automatically triggering transitions between steps as correct (or incorrect) states are recognized.
-        }\label{fig:task}
-    \end{subfigure}\\
-    \begin{subfigure}{\columnwidth}
-        \centering
-        \includegraphics[width=\columnwidth]{figs/step_time.png}
-        \caption{%
-            Breakdown of a step into its timing components.
-            The instruction for step \( M \) and \( M + 1 \) are provided to the user at \( t_0 \) and \( t_{n+1} \), respectively.
-            \( t_k | k \in \{1, \ldots, n \} \) correspond to the \ac{WCA} sampling instants for step \( M \), and \( t_c \) marks the instant at which the user finishes performing the instruction.
-        }\label{fig:step}
-    \end{subfigure}
-    \caption{}
-\end{figure}
+
 
 \todo[inline]{Diagram of model?}
 \todo[inline]{Verification: do we need the model? (Compare to naive)}
