@@ -8,13 +8,32 @@ And two, it needs to produce sequences of input samples for each step mimicking 
 \subsection{Generating realistic execution times}
 
 For the sub-model for the generation of realistic execution times, we employ a cleaned and re-parameterized copy of the timing data collected for~\cite{olguinmunoz:impact2021}.
-This data consists of a table containing \num{6760} rows, where each row contains data for a single step and consists of four columns:
-\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
-    \item a unique identifier for the participant from which the data was recorded
-    \item the recorded \acl{TTF} for the current step
-    \item the recorded execution time for the current step
-    \item a normalized value for the neuroticism of the participant the data is from
-\end{enumerate*}.
+The data consists of timing information for each of the \num{169} steps performed by the \num{40} participants in the human-subject trials.
+The resulting \num{6760} data points are arranged in a table, a sample of which can be seen in \cref{tab:data:exectime}, together with identifiers for the subjects and a normalized value of their neuroticism.
+
+\begin{table}
+\centering
+\caption[A]{%
+    Sample of the execution time data  used for the elaboration of the timing model.
+    Rows contain the execution times and \acp{TTF} for each of the \num{169} steps performed by the \num{40} participants in \textcite{olguinmunoz:impact2021}, expressed in seconds, together with a unique identifier for the subject, their associated level of normalized neuroticism, and a sequence number identifying the position of the step in the task.
+}\label{tab:data:exectime}
+\begin{tabular}{rrrrrr}
+    \toprule
+    {seq} & {run\_id} & {exec\_time} & {ttf} & {neuroticism}\\
+    \midrule
+    1 & 134146 & 3.655 & 0.597 & 0.375\\
+    2 & 134146 & 4.439 & 0.554 & 0.375\\
+    3 & 134146 & 2.943 & 0.562 & 0.375\\
+    \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) \\
+    169 & 134146 & 3.532 & 4.571 & 0.375\\
+    1 & 134470 & 3.461 & 0.561 & 0.594\\
+    2 & 134470 & 6.678 & 0.572 & 0.594\\
+    \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) \\
+    \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) \\
+    169 & 137353 & 4.615 & 0.537 & 0.625\\
+    \bottomrule
+    \end{tabular}
+\end{table}  
 
 
 
