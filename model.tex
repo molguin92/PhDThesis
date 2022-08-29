@@ -7,9 +7,12 @@ And two, it needs to produce sequences of input samples for each step mimicking 
 
 \subsection{Generating realistic execution times}
 
-For the sub-model for the generation of realistic execution times, we employ a cleaned and re-parameterized copy of the timing data collected for~\cite{olguinmunoz:impact2021}.
-The data consists of timing information for each of the \num{169} steps performed by the \num{40} participants in the human-subject trials.
-The resulting \num{6760} data points are arranged in a table, a sample of which can be seen in \cref{tab:data:exectime}, together with identifiers for the subjects and a normalized value of their neuroticism.
+As expressed in \cref{ssec:plos}, for ~\cite{olguinmunoz:impact2021} we collected timing and task performance data for \num{40} participants performing a \num{169}-step task, guided by a \ac{WCA}, as well as personality trait scores for each participant.
+For this paper, we use this data to construct a probabilistic model for the generation of realistic execution times.
+The data is pre-processed to group execution time values by level of neuroticism, previous \acp{TTF}, and duration of impairment.
+The resulting collections of execution times represent the distributions of these values for users with specific levels of neuroticism, interacting with systems at specific states of impairment and recent histories of impairment.
+These distributions can then be sampled to produce new, realistic execution times.
+In the following, we detail the step-by-step processing of this data and construction of the probabilistic model.
 
 \begin{table}
 \centering
@@ -33,11 +36,54 @@ The resulting \num{6760} data points are arranged in a table, a sample of which 
     169 & 137353 & 4.615 & 0.537 & 0.625\\
     \bottomrule
     \end{tabular}
-\end{table}  
+\end{table}
 
+We employ a cleaned and re-parameterized copy of the aforementioned timing data.
+The \num{6760} data points are arranged in a table, a sample of which can be seen in \cref{tab:data:exectime}, together with identifiers for the subjects, their neuroticism score, and a sequence number for each step.
 
+We begin by discretizing neuroticism and \ac{TTF} each into terciles; we will refer to the first, second, and third terciles of neuroticism as \emph{low}, \emph{medium}, and \emph{high} neuroticism respectively, and to the corresponding terciles of \ac{TTF} as \emph{low}, \emph{medium}, and \emph{high impairment}.
 
-\subsection{Generating realistic frame samples}
+The next steps of processing are slightly more complex.
+For the data of each subject (which we will refer to as a \emph{run}), we shift the execution times by one sample such that each \ac{TTF} measurement (and therefore, impairment level) is associated with the execution time for the next step.
+This comes directly from our discussions in \cref{sec:background} and~\cite{olguinmunoz:impact2021}.
+Users notice the impairment of the current step only when they have finished it, and thus system impairment has no effect on the execution time of the current step, but directly affects the next one.
+
+We then assign a label to each sample indicating the class of the most recent transition in impairment level in the run.
+In other words, for each recorded step, we look back until we find a step with a different level of impairment and assign a label to the current step according to whether that change was from a higher to a lower level of impairment or vice-versa.
+However, if the current step is too far from the latest transition in impairment (by default, more than \num{8} steps), it is instead marked as \emph{no transition}; this label is also used for steps at the beginning of each run which have no previous transition in impairment.
+This labeling allows us to capture the behavior described in \cref{item:remain} of \cref{ssec:plos}.
+
+Finally, we assign a number to each sample corresponding to \emph{how long} the current combination of level of impairment and transition has been in effect, in number of steps.
+This count resets whenever this combination changes.
+This value is subsequently discretized into bins with edges \( [0, 5) \), \( [5, 10) \), and \( [10, \infty) \); we will refer to these discretized levels as \emph{short}, \emph{medium}, and \emph{long duration}, respectively.
+
+The results of this processing on the samples from \cref{tab:data:exectime} can be seen in \cref{tab:data:exectime:processed}
+
+\begin{table*}
+\caption{Sample of the processed execution time data table.}\label{tab:data:exectime:processed}
+\begin{tabular}{rrrrcrccrc}
+\toprule
+{seq} & {run\_id} & {next\_exec\_time} & {ttf} & {impairment} & {neuroticism\_raw} & {neuroticism} & {transition} & {duration\_raw} & {duration} \\
+\midrule
+1   & 134146 & 3.655 & 0.000 & low & 0.375  & low& NoTransition & 1 & short \\
+2   & 134146 & 4.439 & 0.597 & low & 0.375 & low & NoTransition & 2 & short \\
+3   & 134146 & 2.943 & 0.554 & low & 0.375 & low & NoTransition & 3 & short \\
+\( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \)\\
+169 & 134146 & 3.532 & 3.689 & high & 0.375 & low & Lower2Higher & 2 & short \\
+1   & 134470 & 3.461 & 0.000 & low & 0.594 & med & NoTransition & 1 & short \\
+2   & 134470 & 6.678 & 0.561 & low & 0.594 & med & NoTransition & 2 & short \\
+\( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \)\\
+\( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \)\\
+169 & 137353 & 4.615 & 0.579 & low & 0.625 & med & NoTransition & 2 & short \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{./model_data/duration_vs_exectime.png}
+    \caption{}\label{fig:timing:durvsetime}
+\end{figure}
 
 \todo[inline]{Diagram of model?}
 \todo[inline]{Verification: do we need the model? (Compare to naive)}
@@ -77,52 +123,6 @@ The resulting \num{6760} data points are arranged in a table, a sample of which 
 
 \end{algorithm}
 
-
-This data is first preprocessed and then sampled according to a series of rules in order to produce novel,realistic sequences of execution times for a task.
-Alternatively, instead of sampling directly from the preprocessed data, a theoretical distribution can be fitted, thus allowing for generation of realistic synthetic execution times.
-
-\subsubsection{Data pre-processing}
-
-A sample of the step timing data obtained for~\cite{olguinmunoz:impact2021} is presented in \cref{tab:exec_times:empirical}.
-This data corresponds to real step execution times for \num{40} repetitions, by different human subjects, of the same \num{169}-step task.
-During each repetition of the task, system responsiveness was altered in real time by setting the round-trip-times of all frames to a fixed value (corresponding to the \emph{delay} column in \cref{tab:exec_times:empirical}).
-For more details on the experimental design and data collection procedure, please see the original article~\cite{olguinmunoz:impact2021}.
-
-We process this data in the following manner:
-
-\input{tables/processed_exec_times.tex}
-
-\begin{enumerate}
-    \item Normalized neuroticism values are binned into predefined, contiguous bins.
-    We use three bins with edges
-    \( \left(-\infty, \frac{1}{3}\right) \),
-    \( \left[\frac{1}{3}, \frac{2}{3}\right) \),
-    and \( \left[\frac{2}{3}, \infty\right) \),
-    as these give the most even distribution of number of samples across bins.
-
-    \item System impairment (\emph{delay}) is binned into predefined, contiguous bins.
-    Once again, we use three bins giving a somewhat even distribution of samples:
-    \( \left(-\infty, 1.0\right) \),
-    \( \left[1.0, 2.0\right) \),
-    and \( \left[2.0, \infty\right) \) seconds.
-
-    \item A predefined number of steps (by default, \num{8}) immediately after each change in binned impairment are marked according to the relative change in impairment: \emph{low-to-high}, or \emph{high-to-low} impairment.
-    We label this value the \emph{transition tag}.
-    Steps at the beginning of the task (where there is no previous impairment), or too far away from a transition in impairment, are tagged as \emph{no transition}.
-
-    \item Each step in a sequence tagged with the same transition tag is assigned a sequential \emph{duration} number.
-    This value tracks how long the system has been in a specific state, and is in turn binned into three bins:
-    \( \left[0, 5\right) \),
-    \( \left[5, 10\right) \),
-    and \( \left[10, \infty\right) \) steps.
-
-    \item Finally, execution times are shifted by one step.
-    This is because the execution time of a step depends on the state of the previous step, and not the current one.
-    As explained previously, humans only becomes aware of the responsiveness of the system when they finish a step and have to wait for feedback from the system.
-\end{enumerate}
-
-
-\subsection{Generating a synthetic trace of frames}
 
 \subsection{Model implementation}
 

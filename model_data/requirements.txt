@@ -1,0 +1,10 @@
+jupyter
+notebook
+jupyterlab
+ipython
+pandas
+numpy
+matplotlib
+seaborn
+scipy
+pyarrow
