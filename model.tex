@@ -79,11 +79,20 @@ The results of this processing on the samples from \cref{tab:data:exectime} can 
 \end{tabular}
 \end{table*}
 
-\begin{figure}
+\begin{figure*}
     \centering
-    \includegraphics[width=\columnwidth]{./model_data/duration_vs_exectime.png}
-    \caption{}\label{fig:timing:durvsetime}
-\end{figure}
+    \begin{subfigure}[t]{\columnwidth}
+        \centering
+        \includegraphics[width=.8\columnwidth]{./model_data/duration_vs_exectime.png}
+        \caption{}\label{fig:timing:durvsetime}
+    \end{subfigure}%
+    \begin{subfigure}[t]{\columnwidth}
+        \centering
+        \includegraphics[width=.8\columnwidth]{./model_data/impairment_transition_vs_exectime.png}
+        \caption{}\label{fig:timing:imptransvsetime}
+    \end{subfigure}
+    \caption{\cref{fig:timing:durvsetime} shows how the model captures the speed-up and slow-down behaviors due to impairment and duration described in \textcite{olguinmunoz:impact2021}}
+\end{figure*}
 
 \todo[inline]{Diagram of model?}
 \todo[inline]{Verification: do we need the model? (Compare to naive)}
