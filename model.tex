@@ -41,8 +41,8 @@ In the following, we detail the step-by-step processing of this data and constru
 We employ a cleaned and re-parameterized copy of the aforementioned timing data.
 The \num{6760} data points are arranged in a table, a sample of which can be seen in \cref{tab:data:exectime}, together with identifiers for the subjects, their neuroticism score, and a sequence number for each step.
 
-We begin by discretizing normalized neuroticism into \emph{low} and \emph{high} ranges, \( [0.0, 0.5) \) and \( [0.5, 1.0) \) respectively. 
-We also bin \ac{TTF} into terciles; we will refer to the first, second, and third terciles of \ac{TTF} as \emph{low}, \emph{medium}, and \emph{high impairment}.
+We begin by discretizing normalized neuroticism into \emph{low} and \emph{high} ranges, \( [0.0, 0.5) \) and \( [0.5, 1.0] \) respectively. 
+We also bin \ac{TTF} into three ranges by splitting the data on the 3-quantiles; we will refer to these ranges of \ac{TTF} as \emph{low}, \emph{medium}, and \emph{high impairment}.
 
 The next steps of processing are slightly more complex.
 For the data of each subject (which we will refer to as a \emph{run}), we shift the execution times by one sample such that each \ac{TTF} measurement (and therefore, impairment level) is associated with the execution time for the next step.
@@ -109,40 +109,40 @@ Three examples of the effect of this discretization and processing on the data a
 \todo[inline]{Diagram of model?}
 \todo[inline]{Verification: do we need the model? (Compare to naive)}
 
-\begin{algorithm}
-    \caption{Timing model algorithm}
-    \KwIn{%
-        \begin{itemize}
-            \item $T_\text{start}$: start timestamp of the previous step.
-            \item $T_\text{success}$: capture timestamp of the succesful sample of the previous step.
-            \item $T_\text{end}$: end timestamp of the previous step.
-            \item $t_\text{exec}$: execution time (in seconds) of the previous step.
-        \end{itemize}%
-    }
-    \KwOut{$t_\text{exec}'$: execution time for the current step.}
+% \begin{algorithm}
+%     \caption{Timing model algorithm}
+%     \KwIn{%
+%         \begin{itemize}
+%             \item $T_\text{start}$: start timestamp of the previous step.
+%             \item $T_\text{success}$: capture timestamp of the succesful sample of the previous step.
+%             \item $T_\text{end}$: end timestamp of the previous step.
+%             \item $t_\text{exec}$: execution time (in seconds) of the previous step.
+%         \end{itemize}%
+%     }
+%     \KwOut{$t_\text{exec}'$: execution time for the current step.}
 
-    \Comment{%
-        Initial values:\\
-        $d \leftarrow 0$\\
-        $I_\text{prev} \leftarrow \text{NULL}$
-    }
-    $t_\text{wait} \leftarrow T_\text{success} - (T_\text{start} + t_\text{exec})$\;
-    $t_\text{round-trip} \leftarrow T_\text{end} - T_\text{success}$\;
-    $i \leftarrow t_\text{wait} + t_\text{round-trip}$ \Comment*[r]{raw impairment}
-    $I \leftarrow \text{BIN}(i)$ \Comment*[r]{bin impairment into\\discrete levels}
+%     \Comment{%
+%         Initial values:\\
+%         $d \leftarrow 0$\\
+%         $I_\text{prev} \leftarrow \text{NULL}$
+%     }
+%     $t_\text{wait} \leftarrow T_\text{success} - (T_\text{start} + t_\text{exec})$\;
+%     $t_\text{round-trip} \leftarrow T_\text{end} - T_\text{success}$\;
+%     $i \leftarrow t_\text{wait} + t_\text{round-trip}$ \Comment*[r]{raw impairment}
+%     $I \leftarrow \text{BIN}(i)$ \Comment*[r]{bin impairment into\\discrete levels}
 
-    \If{$I_\text{prev} == \text{NULL}$}{%
-        $d \leftarrow 1$\;
-        $T \leftarrow \text{NO TRANSITION}$\;
-    } \ElseIf{$I_\text{prev} < I$}{%
-        $d \leftarrow 1$\;
-        $T \leftarrow \text{LOWER TO HIGHER} $
-    } \ElseIf{$I_\text{prev} > I$}{%
-        $d \leftarrow 1$\;
-        $T \leftarrow \text{HIGHER TO LOWER} $  
-    }
+%     \If{$I_\text{prev} == \text{NULL}$}{%
+%         $d \leftarrow 1$\;
+%         $T \leftarrow \text{NO TRANSITION}$\;
+%     } \ElseIf{$I_\text{prev} < I$}{%
+%         $d \leftarrow 1$\;
+%         $T \leftarrow \text{LOWER TO HIGHER} $
+%     } \ElseIf{$I_\text{prev} > I$}{%
+%         $d \leftarrow 1$\;
+%         $T \leftarrow \text{HIGHER TO LOWER} $  
+%     }
 
-\end{algorithm}
+% \end{algorithm}
 
 
 \subsection{Model implementation}
