@@ -41,7 +41,8 @@ In the following, we detail the step-by-step processing of this data and constru
 We employ a cleaned and re-parameterized copy of the aforementioned timing data.
 The \num{6760} data points are arranged in a table, a sample of which can be seen in \cref{tab:data:exectime}, together with identifiers for the subjects, their neuroticism score, and a sequence number for each step.
 
-We begin by discretizing neuroticism and \ac{TTF} each into terciles; we will refer to the first, second, and third terciles of neuroticism as \emph{low}, \emph{medium}, and \emph{high} neuroticism respectively, and to the corresponding terciles of \ac{TTF} as \emph{low}, \emph{medium}, and \emph{high impairment}.
+We begin by discretizing normalized neuroticism into \emph{low} and \emph{high} ranges, \( [0.0, 0.5) \) and \( [0.5, 1.0) \) respectively. 
+We also bin \ac{TTF} into terciles; we will refer to the first, second, and third terciles of \ac{TTF} as \emph{low}, \emph{medium}, and \emph{high impairment}.
 
 The next steps of processing are slightly more complex.
 For the data of each subject (which we will refer to as a \emph{run}), we shift the execution times by one sample such that each \ac{TTF} measurement (and therefore, impairment level) is associated with the execution time for the next step.
@@ -57,7 +58,8 @@ Finally, we assign a number to each sample corresponding to \emph{how long} the 
 This count resets whenever this combination changes.
 This value is subsequently discretized into bins with edges \( [0, 5) \), \( [5, 10) \), and \( [10, \infty) \); we will refer to these discretized levels as \emph{short}, \emph{medium}, and \emph{long duration}, respectively.
 
-The results of this processing on the samples from \cref{tab:data:exectime} can be seen in \cref{tab:data:exectime:processed}
+The results of this processing on the samples from \cref{tab:data:exectime} can be seen in \cref{tab:data:exectime:processed}.
+Three examples of the effect of this discretization and processing on the data are also presented in \cref{fig:timing}.
 
 \begin{table*}
 \caption{Sample of the processed execution time data table.}\label{tab:data:exectime:processed}
@@ -65,22 +67,27 @@ The results of this processing on the samples from \cref{tab:data:exectime} can 
 \toprule
 {seq} & {run\_id} & {next\_exec\_time} & {ttf} & {impairment} & {neuroticism\_raw} & {neuroticism} & {transition} & {duration\_raw} & {duration} \\
 \midrule
-1   & 134146 & 3.655 & 0.000 & low & 0.375  & low& NoTransition & 1 & short \\
+1   & 134146 & 3.655 & 0.000 & low & 0.375  & low & NoTransition & 1 & short \\
 2   & 134146 & 4.439 & 0.597 & low & 0.375 & low & NoTransition & 2 & short \\
 3   & 134146 & 2.943 & 0.554 & low & 0.375 & low & NoTransition & 3 & short \\
 \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \)\\
 169 & 134146 & 3.532 & 3.689 & high & 0.375 & low & Lower2Higher & 2 & short \\
-1   & 134470 & 3.461 & 0.000 & low & 0.594 & med & NoTransition & 1 & short \\
-2   & 134470 & 6.678 & 0.561 & low & 0.594 & med & NoTransition & 2 & short \\
+1   & 134470 & 3.461 & 0.000 & low & 0.594 & high & NoTransition & 1 & short \\
+2   & 134470 & 6.678 & 0.561 & low & 0.594 & high & NoTransition & 2 & short \\
 \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \)\\
 \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \)\\
-169 & 137353 & 4.615 & 0.579 & low & 0.625 & med & NoTransition & 2 & short \\
+169 & 137353 & 4.615 & 0.579 & low & 0.625 & high & NoTransition & 2 & short \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
 \begin{figure*}
     \centering
+    \begin{subfigure}[t]{\columnwidth}
+        \centering
+        \includegraphics[width=.8\columnwidth]{./model_data/imp_neur_vs_exectime.png}
+        \caption{}\label{fig:timing:impneurvsetime}
+    \end{subfigure}\\
     \begin{subfigure}[t]{\columnwidth}
         \centering
         \includegraphics[width=.8\columnwidth]{./model_data/duration_vs_exectime.png}
@@ -91,7 +98,12 @@ The results of this processing on the samples from \cref{tab:data:exectime} can 
         \includegraphics[width=.8\columnwidth]{./model_data/impairment_transition_vs_exectime.png}
         \caption{}\label{fig:timing:imptransvsetime}
     \end{subfigure}
-    \caption{\cref{fig:timing:durvsetime} shows how the model captures the speed-up and slow-down behaviors due to impairment and duration described in \textcite{olguinmunoz:impact2021}}
+    \caption{%
+        Visualizations of the model data after discretization and post-processing.
+        \subref{fig:timing:impneurvsetime} illustrates the effect of impairment on execution times, and how neuroticism modulates this behavior;
+        \subref{fig:timing:durvsetime} exemplifies how the model captures the speed-up and slow-down behaviors due to impairment and duration described in \textcite{olguinmunoz:impact2021};
+        finally, \subref{fig:timing:imptransvsetime} shows the lingering effects of impairment after a transition.
+    }\label{fig:timing}
 \end{figure*}
 
 \todo[inline]{Diagram of model?}
