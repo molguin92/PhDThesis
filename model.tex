@@ -60,6 +60,66 @@ This value is subsequently discretized into bins with edges \( [0, 5) \), \( [5,
 
 The results of this processing on the samples from \cref{tab:data:exectime} can be seen in \cref{tab:data:exectime:processed}.
 Three examples of the effect of this discretization and processing on the data are also presented in \cref{fig:timing}.
+Finally, in \cref{alg:timings} we present a step-by-step breakdown of how this data is subsequently used to generate realistic execution times.
+In plain English, a model which uses this processed data to generate execution times needs to maintain variables for duration, previous impairment, and most recent transition.
+At the beginning of each step, the model
+\begin{enumerate}
+    \item Checks whether any change in impairment has occurred.
+    If it has, it resets duration to \num{1} and updates the transition variable accordingly.
+    If not, it increases the duration variable by one unless that increase causes it to exceed the threshold of steps required to forget a transition.
+    If that's the case, instead the model resets duration to \num{1} and sets the transition variable to ``no transition''.
+    \item Discretizes the updated duration value.
+    \item Finds all samples with binned neuroticism, impairment, duration, and transition values matching the current state of the system.
+    \item Randomly samples the filtered data to obtain a realistic execution time value.
+    \begin{itemize}
+        \item Alternatively, a distribution can be first be fitted to the filtered samples.
+        The model then samples the theoretical distribution instead of the empirical samples.
+    \end{itemize}
+    \item Finally, updates the stored impairment value with the new impairment and proceeds to the next step.
+\end{enumerate}
+
+\begin{algorithm}
+    \caption{Generating realistic execution times}\label{alg:timings}
+
+    \SetKwInput{KwState}{Initial State}
+
+    \KwIn{$\tau$: \ac{TTF} of the previous step.}
+    \KwOut{$t_\text{exec}$: next execution time.}
+    \KwState{%
+        \begin{itemize}
+            \item Binned neuroticism $N$.
+            \item Number of steps to remember transitions for: $\delta \leftarrow 8$.
+            \item Duration counter: $d \leftarrow 0$.
+            \item Previous impairment: $I' \leftarrow \varnothing$.
+            \item $B_\text{TTF}$ and $B_\text{duration}$ are functions for binning \ac{TTF} and duration into discrete levels, respectively.
+            \item $F_\text{data}$ is a function which filters the data and returns only execution time samples which match the given levels of binned neuroticism, binned impairment, binned duration, and transition label.
+        \end{itemize}
+    }
+
+    $I \leftarrow B_\text{TTF}(\tau)$ \tcc*{discretize \ac{TTF}}
+
+    \uIf{($I' == \varnothing$) {\normalfont\textbf{or}}\\\hspace{1em}($T \neq \text{``NO TRANSITION''}$ {\normalfont\textbf{and}} $d + 1 > \delta$)}{%
+        $d \leftarrow 1$\;
+        $T \leftarrow \text{``NO TRANSITION''}$\;
+    } \uElseIf{$I' < I$}{%
+        $d \leftarrow 1$\;
+        $T \leftarrow \text{``LOWER TO HIGHER''} $
+    } \uElseIf{$I' > I$}{%
+        $d \leftarrow 1$\;
+        $T \leftarrow \text{``HIGHER TO LOWER''} $  
+    } \Else {%
+        $d \leftarrow d + 1$\;
+    }
+    $I' \leftarrow I$ \tcc*{store impairment for later}
+    $D \leftarrow B_\text{duration}(d)$ \tcc*{discretize duration}
+
+    \tcc{next, filter the data to select only the matching samples}
+    $E \leftarrow F_\text{data}(N, I, D, T)$ \;
+    \tcc{finally, sample the data to return a realistic execution time}
+    $t_\text{exec} \leftarrow {SAMPLE}(E)$\;
+
+\end{algorithm}
+
 
 \begin{table*}
 \caption{Sample of the processed execution time data table.}\label{tab:data:exectime:processed}
@@ -106,43 +166,10 @@ Three examples of the effect of this discretization and processing on the data a
     }\label{fig:timing}
 \end{figure*}
 
+\subsection{Generating realistic samples}
+
 \todo[inline]{Diagram of model?}
 \todo[inline]{Verification: do we need the model? (Compare to naive)}
-
-% \begin{algorithm}
-%     \caption{Timing model algorithm}
-%     \KwIn{%
-%         \begin{itemize}
-%             \item $T_\text{start}$: start timestamp of the previous step.
-%             \item $T_\text{success}$: capture timestamp of the succesful sample of the previous step.
-%             \item $T_\text{end}$: end timestamp of the previous step.
-%             \item $t_\text{exec}$: execution time (in seconds) of the previous step.
-%         \end{itemize}%
-%     }
-%     \KwOut{$t_\text{exec}'$: execution time for the current step.}
-
-%     \Comment{%
-%         Initial values:\\
-%         $d \leftarrow 0$\\
-%         $I_\text{prev} \leftarrow \text{NULL}$
-%     }
-%     $t_\text{wait} \leftarrow T_\text{success} - (T_\text{start} + t_\text{exec})$\;
-%     $t_\text{round-trip} \leftarrow T_\text{end} - T_\text{success}$\;
-%     $i \leftarrow t_\text{wait} + t_\text{round-trip}$ \Comment*[r]{raw impairment}
-%     $I \leftarrow \text{BIN}(i)$ \Comment*[r]{bin impairment into\\discrete levels}
-
-%     \If{$I_\text{prev} == \text{NULL}$}{%
-%         $d \leftarrow 1$\;
-%         $T \leftarrow \text{NO TRANSITION}$\;
-%     } \ElseIf{$I_\text{prev} < I$}{%
-%         $d \leftarrow 1$\;
-%         $T \leftarrow \text{LOWER TO HIGHER} $
-%     } \ElseIf{$I_\text{prev} > I$}{%
-%         $d \leftarrow 1$\;
-%         $T \leftarrow \text{HIGHER TO LOWER} $  
-%     }
-
-% \end{algorithm}
 
 
 \subsection{Model implementation}
