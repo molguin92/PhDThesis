@@ -1,0 +1,78 @@
+\subsubsection{Workloads}\label{sec:workload}
+
+\begin{listing}[tb]
+\caption{Workload specification example.}\label{lst:compose}
+\begin{minted}{yaml}
+name: FooBar
+duration: '3h 15m'
+version: '1.2a'
+# ...
+compose:
+  version: '3.9'
+  services:
+  fooServer:
+    image: 'foo:server'
+    hostname: 'server.{{.Task.Slot}}'
+    command: '/usr/bin/server'
+    environment:
+      PORT: 5000
+    deploy:
+      replicas: 5
+      placement:
+        constraints:
+        - "node.labels.type==cloudlet"
+    volumes:
+    - type: volume
+      source: FooBar
+      target: /opt/foobar_data
+      volume:
+        nocopy: true
+    # ...
+\end{minted}
+\end{listing}
+
+% As previously explained, in the context of Ainur and ExPECA, we use the term \emph{workload} to refer to a collection of containerized, distributed applications deployed on the testbed for a specific amount of time.
+% Ainur employ Docker Swarm for this purpose, thus leveraging  
+
+Workloads in Ainur are defined using a dictionary of metadata containing a nested \verb|docker-compose| definition, usually provided as a YAML file.
+This dictionary is parsed into a \mintinline{python}{WorkloadSpecification} dataclass, which validates the structure of the definition, and which in turn is passed to a \mintinline{python}{DockerSwarm} class instance to actually deploy the workload.
+
+In terms of structure, the workload definition dictionary is expected to contain the following keys:
+
+\begin{description}
+    \item[name]
+    A string representing an identifier for the workload, used to tag logs and stored data, as well as to identify the generated dynamic distributed storage volumes.
+    All leading and trailing whitespace will be trimmed from this value at parse time.
+    \item[author]
+    An identifier for the author of the workload specification.
+    Optional, used in logs.
+    \item[email]
+    Contact email for the author.
+    Optional, used in logs.
+    \item[url]
+    URL for information related to the workload; optional.
+    \item[version]
+    String representing a version tag for this workload.
+    Optional, but defaults to \texttt{1.0} if not specified, and is parsed into a Python \mintinline{python}{LooseVersion}object for easy manipulation in code.
+    \item[max\_duration]
+    Represents the maximum duration for the workload, and can be specified as any string value supported by the \texttt{pytimeparse} library\footnote{\url{https://pypi.org/project/pytimeparse/}}.
+    For instance, a maximum duration of \SI{1}{\hour} and \SI{30}{\minute} could be specified as any of the following strings: \mintinline{python}{'1h 30m'}, \mintinline{python}{'1.5 h'}, \mintinline{python}{'90m'}, \mintinline{python}{'5400s'}, and so on --- see the \verb|pytimeparse| library documentation for more supported formats.
+    
+    This value is used as a timeout for the workload.
+    The \mintinline{python}{DockerSwarm} in charge of the execution and orchestration keeps track of the time the workload has been running, forcefully tearing it down if it does not exit cleanly before it the timeout.
+    This prevents workloads stuck in non-ending loops from running forever and hogging up testbed resources.
+
+    Optional, defaults to a very liberal \mintinline{python}{'1d'} (i.e.\ \SI{24}{\hour}) if not explicitly specified.
+    Note that users are strongly encouraged to explicitly define this value, as the default is subject to arbitrary change as the usage patterns of the testbed evolve.
+
+    \item[compose]
+    
+    Corresponds to a nested \texttt{docker-compose v3}\footnote{\url{https://docs.docker.com/compose/compose-file/compose-file-v3/}} definition, and is the single most important component of the workload specification.
+    This definition must be compliant with at least version 3 of the \texttt{docker-compose} file specification standard.
+    It must additionally be fully compatible with Docker Swarm service stacks\footnote{%
+        \url{https://docs.docker.com/engine/reference/commandline/stack_deploy/}%
+    }, as the underlying implementation of the \mintinline{python}{DockerSwarm} class uses the \texttt{docker stack deploy} command to deploy the workload on the cluster.
+    Each service in this compose specification must contain a \texttt{deploy} configuration segment detailing the scaling and placement requirements for it.
+    Finally, if distributed storage has been configured using the components detailed in \cref{sec:storage}, it should be mounted on the appropriate services.
+    Examples of these configurations can be seen in \cref{lst:compose}; for more details refer to the \texttt{docker-compose} online documentation.
+\end{description}

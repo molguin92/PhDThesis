@@ -1,0 +1,77 @@
+\subsubsection{\ac{IP} Layer Connectivity}\label{sec:layer3}
+
+Layer 3 connectivity, that is, \ac{IP} addressing and routing, is handled by two main components in Ainur: \mintinline{python}{LANLayer} and \mintinline{python}{VPNCloudMesh}.
+
+\mintinline{python}{LANLayer} handles local network connectivity.
+It can be used as a context manager for automatic network teardown, as well as an iterator over the hosts it manages.
+This class exposes two main \ac{API} methods, \mintinline{python}{self.add_hosts()} and \mintinline{python}{self.tear_down()}:
+\begin{description}[]
+    \item[\mintinline{python}{LANLayer.add_hosts(self, layer2)}]
+    This method takes a \mintinline{python}{PhysicalLayer} object instance and configures \ac{IP} layer connectivity on the hosts within.
+    This includes assigning \ac{IP} addresses to interfaces, configuring default and static routes, as well as authenticating and connecting to the desired access point in the case of WiFi.
+    The underlying implementation uses Ansible to write Netplan YAML configuration files on the target hosts and subsequently apply the network configuration.
+
+    \item[\mintinline{python}{LANLayer.tear_down(self)}]
+    Performs a clean teardown of \ac{IP} layer connectivity of the hosts managed by the instance, removing the created Netplan configuration files and reverting host network configuration to its initial state.
+    When \mintinline{python}{LANLayer} is used as a context manager, this method is automatically called the moment execution leaves the \mintinline{python}{with} block.
+\end{description}
+
+\mintinline{python}{VPNCloudMesh}\label{sec:vpn} handles \ac{VPN} connectivity to running cloud instances.
+It makes some strong assumptions about the presence of two preconfigured \ac{VPN} gateways on the testbed (some of these have been mentioned above, but we will repeat them here for clarity):
+
+\begin{itemize}
+    \item Two VPNCloud gateways, one for control connections and one for workload data streams, are configured and accessible on the control network.
+    \item One of these gateways is additionally connected to the workload data network through a separate interface.
+    \item These gateways are both listening on separate \ac{UDP} ports on a single public IP address.
+    In other words, both gateways access the public internet through a single \ac{NAT} gateway, on which appropriate \ac{UDP} port forwarding rules are configured to allow \ac{VPN} traffic back into the control network.
+    \item The VPNCloud connections configured on the the gateways share the same pre-shared key.
+    \item The VPNCloud links belong to mutually \emph{disjoint} \acs{IP}v4 address ranges.
+    % \item The gateways are assigned the first host address in the available address space of their respective \ac{VPN} links.
+    % For example, if the gateway \ac{VPN} link address space is \texttt{10.0.0.0/24}, the gateway has address \texttt{10.0.0.1} on the \ac{VPN} link.
+    \item Devices on the control network have been preconfigured with appropriate \ac{IP} routes to reach the control gateway and its associated \ac{VPN} link.
+    \item Finally, cloud instances intended to be used with this class have VPNCloud installed on them.
+\end{itemize}
+
+After spawning cloud instances with an instance of the \mintinline{python}{CloudInstances} class described in \cref{sec:cloud}, the \mintinline{python}{VPNCloudMesh} class can be used to connect said cloud instances to the control and workload data networks of the testbed.
+Instances of this class can further be used as context managers for automatic cleanup of stale links, and implement an iterator interface to access connected hosts.
+
+The \ac{API} of this class exposes the below relevant methods:
+
+\begin{description}[]
+    \item[The \mintinline{python}{VPNCloudMesh} constructor]
+    
+    The constructor takes the following arguments:
+
+    \begin{description}[font=\normalfont\ttfamily\underline]
+        \item[gateway\_ip] An \texttt{IPv4Address} object corresponding to the shared public \ac{IP}v4 address of the \ac{VPN} gateways (i.e.\ the public \ac{IP} address of the \ac{NAT} gateway.)
+         
+        \item[vpn\_psk]
+        The pre-shared key used to authenticate and encrypt traffic on the \ac{VPN} links.
+
+        \item[ansible\_ctx~\normalfont{and} ansible\_quiet]
+        Correspond to an Ansible context to use for the execution of this instances' methods (see above), and a boolean flag to suppress verbose debug output, respectively.
+
+        \item[gw\_mgmt\_ip~\normalfont{and} gw\_wkld\_ip]
+        Full \ac{IP} addresses of the \ac{VPN} links for the control and workload data networks, respectively, including subnet masks.
+        These values are passed as \mintinline[breakafter=4]{python}{IPv4Interface} objects, and are used to set up correct routing tables to the cloud instances.
+
+        \item[mgmt\_local\_net~\normalfont{and} wkld\_local\_net]
+        The base addresses of the local control and workload data networks, respectively, as \mintinline[breakafter=4]{python}{IPv4Network}.
+        Used to configure routing back from the cloud.
+
+        \item[mgmt\_port~\normalfont{and} wkld\_port]
+        \ac{UDP} ports on the \ac{NAT} gateway forwarded to the control and workload gateways, respectively.
+    \end{description}
+    
+    \item[\mintinline{python}{VPNCloudMesh.connect_cloud(self, ...)}]
+    
+    The full signature of this method is \mintinline[breakafter=.,breakafter=_]{python}{VPNCloudMesh.connect_cloud(self, cloud_layer, host_configs)}.
+    The \texttt{cloud\_layer} argument corresponds to a \mintinline{python}{CloudInstances} object instance, and the \texttt{host\_configs} to a collection of host configuration dataclasses.
+    This method matches the host configurations to cloud instances in the \mintinline{python}{CloudInstances} object and connects them to to the local control and workload data networks through the two aforementioned separate \ac{VPN} links.
+    The underlying implementation uses a combination of the \texttt{boto3} library and Ansible to configure appropriate security groups on the instances and subsequently initialize and connect the \ac{VPN} links.
+
+    \item[\mintinline{python}{VPNCloudMesh.tear_down(self)}]
+    This method tears down the \ac{VPN} links, disconnecting the remote instances from the gateways and removing any created routes to the cloud from local devices.
+    When an instance of this class is used as a context manager, this method is automatically called at the end of the \mintinline{python}{with} block, ensuring automatic cleanup of resources.
+    
+\end{description}

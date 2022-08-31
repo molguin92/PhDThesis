@@ -1,0 +1,26 @@
+\subsubsection{Storage}\label{sec:storage}
+
+Dynamic, distributed storage shared across testbed hosts is managed by the \mintinline{python}{ExperimentStorage} class.
+This class exposes a very simple \ac{API}:
+\begin{itemize}
+    \item At instantiation time, the instance deploys a samba\footnote{\url{https://www.samba.org/}} server container on a specified host, using a host folder mounted inside the container for persistent storage.
+    Then, on each host configured on the workload data network, it configures a Docker Volume\footnote{\url{https://docs.docker.com/storage/volumes/}} pointing to the samba server.
+    These Docker Volumes are only locally available, but since they all share the same identifier, they can be included in deployment configurations and mounted on applications orchestrated with Docker Swarm (see \cref{sec:swarm} below).
+
+    The above operations are achieved using a combination of Ansible and the \texttt{docker-py} library.
+
+    \item The server and local volumes can all be cleanly torn down using the \mintinline{python}{tear_down()} method of the class.
+    This method is also automatically called at the end of the block if this class is used in a \mintinline{python}{with} statement.
+\end{itemize}
+
+
+\subsubsection{Logging}\label{sec:logging}
+
+Logging of the experiment is carried out using a containerized approach.
+This is achieved through the combination of \texttt{docker-py} and \textit{FluentBit} -- an open-source and multi-platform log processor and forwarding tool.
+At deployment time, Ainur configures a FluentBit client container in each workload host which captures logs produced by the workload.
+These FluentBit clients are configured to listen on a \ac{TCP} port to which workload logs are forwarded by Dockers built-in FluentD logging driver\footnote{\url{https://docs.docker.com/config/containers/logging/fluentd/}}.
+This means that logs are automatically captured by Docker from the \emph{standard output} of the containerized workload process.
+The FluentBit client containers append metadata such as timestamp, workload name, workload host ID, to the collected logs and forward them to a central FluentBit or FluentD server.
+
+% On the other hand, the Fluent Bit server container is configured to run persistently in the background at the logging server, unless and until a restart is necessary for some development, debug or error handling purposes. They listen to a pre-defined fluent forward port for log messages from arbitrary number of fluent clients. These logs are then segregated based on various parameters like the workload name, client name and/or log category, and are accordingly written to files in a directory structure determined by the metadata.

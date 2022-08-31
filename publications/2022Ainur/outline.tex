@@ -1,0 +1,178 @@
+\section{Proposed Paper Outline}
+
+\begin{outline}
+    \item Introduction
+    \begin{outline}
+        \item What is Edge computing?
+        \item Introduction to Testbeds
+        \item Present the ExPECA Testbed
+        \item Introduce Ainur
+        \begin{outline}
+            \item Goals
+            \item Challenges
+        \end{outline}
+    \end{outline}
+    \item Related work
+    \begin{outline}
+        \item Wireless communication testbeds
+        \item Cloud testbeds
+        \item Other testbeds (V2X)?
+        \item Associated software toolkits
+    \end{outline}
+    \item Ainur
+    \begin{outline}
+        \item Goals and Challenges
+        \begin{outline}
+            \item Goals
+            \begin{outline}
+                \item Flexible benchmarking of networking architectures.
+                \item Flexible experimentation on \emph{distributed systems}.
+                \item Automated deployment
+                \item Automated data collection
+                \item Automated scaling
+                \item Automated cleanup
+            \end{outline}
+            \item Challenges
+            \begin{outline}
+                \item Obtaining 100\% clean, repeatable measurements.
+                \item Defining networks from software.
+                \begin{outline}
+                    \item Managed switch
+                    \item Fully reconfigurable network
+                    \item Software-defined radios
+                \end{outline}
+                \item How to deploy applications -> Containers
+                \item How to scale applications -> Orchestrator (Docker Swarm)
+                \item How to collect data from distributed applications -> Logging and distributed storage 
+            \end{outline}
+        \end{outline}
+        \item Overview of software architecture and general guidelines
+        \begin{outline}
+            \item Execution flow
+            \begin{outline}
+                \item Higher level overview of architecture
+                \item General description of software layers
+                \item Step-by-step operation of a workload deployment
+            \end{outline}
+            \item Underlying  assumptions
+            \begin{outline}
+                \item Time synchronization
+                \item Split network architecture
+                \item Separate management node
+                \item Managed switch
+                \item Management network bidirectional ping
+                \item Workload network bidirectional ping
+                \item Supported networks on nodes
+                \begin{outline}
+                    \item Ethernet
+                    \item WiFi
+                    \item We use ethernet to plug into the SDRs when needed
+                \end{outline}
+                \item Authentication
+                \begin{outline}
+                    \item SSH access
+                    \item Passwordless sudo
+                \end{outline}
+                \item Software prerequisites
+                \begin{outline}
+                    \item Nodes need to be running a variant of Ubuntu
+                    \begin{outline}
+                        \item Netplan
+                        \item Systemd
+                    \end{outline}
+                    \item Each node needs to have Docker configured
+                    \begin{outline}
+                        \item Listening on unencrypted TCP port 2375
+                    \end{outline}
+                \end{outline}
+                \item Fluentbit service
+                \item Cloud services
+                \begin{outline}
+                    \item AWS
+                    \item Authentication (AWS access key)
+                    \item Preconfigured EC2 instances (AMIs)
+                    \item VPN tunnels to instances
+                    \item Routes to tunnels
+                    \item Separate VPN gateways for workload and management
+                \end{outline}
+                \item Internet access
+            \end{outline}
+            \item Software Layer Implementations
+            \begin{outline}
+                \item Physical Layers
+                \begin{outline}
+                    \item Managed switch, VLANs
+                    \item SDR setups
+                    \begin{outline}
+                        \item WiFi
+                        \item LTE
+                        \item 5G
+                    \end{outline}
+                \end{outline}
+                \item Cloud instances
+                \begin{outline}
+                    \item Amazon Machine Images
+                    \item Docker, VPN installed.
+                    \item Security groups (firewall)
+                    \item Ephemeral access keys
+                \end{outline}
+                \item IP layer, VPN, and routing
+                \begin{outline}
+                    \item Assign static IP addresses
+                    \item Assign static routes
+                    \item Connect VPN tunnels
+                \end{outline}
+                \item Docker Swarm
+                \begin{outline}
+                    \item Select a management node
+                    \item Split network traffic
+                    \item Connect workload nodes
+                \end{outline}
+                \item Storage and logging
+                \begin{outline}
+                    \item Storage
+                    \begin{outline}
+                        \item Deploy SAMBA server
+                        \item Creates a distributed Docker volume
+                    \end{outline}
+                    \item Logging
+                \end{outline}
+                \item Workload
+                \begin{outline}
+                    \item Parse Docker-Compose
+                    \item Pull container images
+                    \item Create distributed storage volumes
+                    \item Deploye logging containers
+                    \item Deploy and scale workload
+                \end{outline}
+                \item Teardown
+            \end{outline}
+            \item (Proposed) Workload configuration structure
+            \item Workflow (how to run it?)
+        \end{outline}
+    \end{outline}
+    \item Use cases
+    \begin{outline}
+        \item CLEAVE
+        \item EdgeDroid
+        \item Other use cases (Samie?)
+    \end{outline}
+    \item{Conclusion and Future Work}
+    \begin{outline}
+        \item ExPECA 2.0
+        \begin{outline}
+            \item Hardware
+            \begin{outline}
+                \item Server Racks
+                \item Software Defined Radios
+            \end{outline}
+            \item Ainur 2.0?
+            \begin{outline}
+                \item Redesign around even more cloud-native tools?
+                \item Terraform
+                \item OpenStack
+                \item Kubernetes
+            \end{outline}
+        \end{outline}
+    \end{outline}
+\end{outline}

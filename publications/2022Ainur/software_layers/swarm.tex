@@ -1,0 +1,54 @@
+\subsubsection{Swarm Layer}\label{sec:swarm}
+
+\begin{listing}[tb]
+\caption{Example usage of the \mintinline{python}{DockerSwarm} class.}\label{lst:swarm:example}
+\begin{minted}{python}
+with DockerSwarm() as swarm:
+    swarm.deploy_managers(
+        hosts={
+            cloudlet: {'location': 'edge'},
+            aws01: {'location': 'cloud'}
+        }
+    )
+    swarm.deploy_workers(
+        hosts={
+            client1: {},
+            client2: {}
+        },
+        location='user'
+    )
+    swarm.pull_image('ubuntu', tag='20.04')
+    swarm.deploy_workload(
+        specification=workload_spec
+    )
+\end{minted}
+\end{listing}
+    
+
+This layer handles the configuration and deployment of a Docker Swarm over the controlled hosts (including cloud instances) for the orchestration of containerized workloads.
+It is implemented as a class \mintinline{python}{DockerSwarm} with appropriate methods for
+\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
+    \item connecting and configuring manager and worker nodes to the Swarm
+    \item fetching required Docker container images to all configured nodes
+    \item finally, deploying distributed workloads as stacks of Docker containers
+\end{enumerate*}.
+Additionally, the class defines appropriate \mintinline{python}{__enter__} and \mintinline{python}{__exit__} magic methods allowing it to be used as a context manager.
+
+A simple example of the usage of this class and its basic \ac{API} can be observed in \cref{lst:swarm:example}, and in the following we will detail the major steps in operating this class:
+\begin{description}[]
+    \item[Instantiating a \mintinline{python}{DockerSwarm} object.]
+    Obtaining an instance of a Swarm object is straightforward, as the constructor takes no parameters.
+    \item[Adding Swarm nodes.]
+    Swarm manager and worker nodes are added through the \mintinline{python}{deploy_managers()} and \mintinline{python}{deploy_workers()} methods respectively.
+    These methods take a single mandatory parameter \mintinline{python}{hosts}, corresponding a mapping from \mintinline{python}{AinurHost} instances to dictionaries of node variables in the form \mintinline[breaklines, breakafter={_}]{python}{{'label_name': 'label_value'}}.
+    Additional keyword arguments are parsed as default values for labels which are assigned to all nodes.
+
+    Note that the actual underlying Docker Swarm cluster is created on-demand at the time of the first call to \mintinline{python}{deploy_managers()}.
+    This means that at least one call to \mintinline{python}{deploy_managers()} \emph{must} be made before any call to any other method of the Swarm.
+    \item[Fetching required container images.]
+    \mintinline{python}{DockerSwarm} provides a \mintinline{python}{pull_images()} method which takes a mandatory repository parameter, as well as an optional tag identifier, and triggers a download of the specified container image on all nodes in the Swarm.
+    This method supports all repository and tag formats supported by the \verb|docker-py| library, and defaults to fetching from Docker Hub\footnote{\url{https://hub.docker.com/}} when the given repository name string does not include remote registry information.
+    \item[Workload Deployment.]
+    Finally the Swarm object also provides a method \mintinline[breaklines, breakafter={_}]{python}{deploy_workload()}, which takes a \emph{workload definition} and deploys the workload on the Swarm.
+    Details on the workload definition and running workloads are given in \cref{sec:workload} 
+\end{description}

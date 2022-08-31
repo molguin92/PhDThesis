@@ -1,0 +1,66 @@
+James comments:
+
+  - Abstract: most testbeds that are deployed are still small- to 
+  midscale. Avoid talking about large scale.
+
+  - Abstract: The "wide array of use-cases and scenarios" can be perhaps 
+  specified more concretely into lower-layer aspects, as well as 
+  use-cases/application-layer aspects.
+
+  - Abstract: The sentence starting with "However" doesn't make too much 
+  sense. I think you want to point out that despite the new efforts in 
+  establishing anf using such testbeds, the degree of automating 
+  experimental trials in such testbeds is still not at the same levels, as 
+  it is for instance for simulation tools. Make that sentence sharper.
+
+  - Abstract: Is the main advantage of Ainur really lowering the barrier? 
+  One has to find usually something like 100 000 - 200000 usd to establish a 
+  testbed, and get signficant man power to run the experimentation. I 
+  think those are much higher barriers to enter testbed-based research. 
+  Ainur is not really addressing the entry barrier, I feel. We need a 
+  different type of argumentation here. I think the major arguments for 
+  Ainur would rather be flexibility, reproducability and higher testbed 
+  utilization.
+
+  - Abstract: Can you be more specific on the demo, what is it that will 
+  really showcase the flexibility?
+
+  - Introduction: The first sentence is weirdly formulated.
+
+  - Introduction, second paragraph: The discussion on the four testbeds 
+  should be mostly with respect to their automation frameworks.
+
+  - Introduction, COSMOS discussion: It is unclear to which degree OMF 
+  provides the same level of automation as Ainur.
+
+  - Introduction, CloudRAFT: Same comment as on COSMOS, we need to make a 
+  statement on the difference to Ainur.
+
+  - Introduction, DrexelGrid: Same as above.
+
+  - Introduction, page 2, 2nd paragraph: Here you sell the advantage of 
+  Ainur in comparison to the other automation frameworks and testbeds. You 
+  essentially make the argument that with respect to experimental life 
+  cycle, the related work relies on manual operation. We must be sure that 
+  this argument is really correct (see the other comments above on the the 
+  three testbeds, except POWDER).
+
+  - Introduction: page 2, third paragraph: Could Ainur also be used for 
+  pure SDR experimentation? My point is that you put Ainur in the context 
+  of edge computing experimentation, which limits its scope. I think it is 
+  more to the point that we Ainur demonstrate Ainur in the edge computing 
+  context, but the usage scope could be much larger.
+
+  - Section 2: Could we make a drawing of the experiment life cycle in Ainur? (Done!)
+
+  - Section 2: We need to mention the Git repo of Ainur earlier in the 
+  paper, to make clear that others can use it. Ideally, we say that it is 
+  made available in the abstract, intro, section 2 and the conclusions. 
+  For the moment, if I am not mistaken, I only see the mentioning in the 
+  conclusion. (Almost done, just missing introduction.)
+
+  - Section 3.b: The testbed setup description does not speak much of the 
+  used radio technologies. (Samie!)
+
+  - Section 3: Yes, a few more figures on the demo (like screenshots) 
+  would be good. (Screenshot of what?)
