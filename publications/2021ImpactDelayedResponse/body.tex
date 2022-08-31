@@ -221,7 +221,7 @@ The core elements of our experiment are shown in \cref{fig:experimentaltestbed}:
 
 \begin{figure}[h]
   \centering
-%   \includegraphics[width=.8\textwidth]{Fig1.eps}
+  \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig1.eps}
   \caption{Experimental test-bed.
   Participants interact with the cognitive assistant through task-related inputs and outputs --- in practice, these correspond to the video feed captured by the assistant and the instructions provided by it.
   The assistant itself has been instrumented with a data collection layer, which collects and processes experiment-related data such as biometric signals from the participants (these are merely processed here and do not form part of the inputs to the cognitive assistant as such, however), and a delay buffer, which introduces controlled delays in the transit of information from the core processing component.}%
@@ -263,7 +263,7 @@ At that point, the assistant either provides a new instruction to the user, or t
 
 \begin{figure*}[h]
   \centering
-%   \includegraphics[width=.8\textwidth]{Fig2.eps}
+  \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig2.eps}
   \caption{Example of a Cognitive Assistance task and its component steps.}\label{fig:task:steps}
 \end{figure*}
 
@@ -294,7 +294,7 @@ In particular
 \begin{figure*}[h]
   \centering
   % \input{plots/lego_hierarchy_diagram.tex}
-%   \includegraphics[width=\textwidth]{Fig3.eps}
+  \includegraphics[width=\textwidth]{publications/2021ImpactDelayedResponse/Fig3.eps}
   \caption{Hierarchical cognitive structure of a step in the LEGO task.}
   \label{fig:lego:hierarchical}
 \end{figure*}
@@ -375,7 +375,7 @@ We therefore calculate execution time for each step as \( t_{c} - t_{0},\; t_{c}
   \centering
   \begin{subfigure}[t]{.49\textwidth}
     \centering
-%     \includegraphics[width=\textwidth]{Fig4a.eps}
+    \includegraphics[width=\textwidth]{publications/2021ImpactDelayedResponse/Fig4a.eps}
     \caption{Structure of a step in a generic cognitive assistance application. 
     The assistant provides an instruction to the user and continuously samples the step state; inputs captured while the step is unfinished are silently ``discarded'' (i.e.\ they do not cause the generation of a new instruction).
     % by the assistant, as they do not contain relevant information.
@@ -388,14 +388,14 @@ We therefore calculate execution time for each step as \( t_{c} - t_{0},\; t_{c}
   \hfill%
   \begin{subfigure}[t]{.49\textwidth}
     \centering
-%     \includegraphics[width=\textwidth]{Fig4b.eps}
+    \includegraphics[width=\textwidth]{publications/2021ImpactDelayedResponse/Fig4b.eps}
     \caption{In the experimental task, an additional variable segment of time is introduced immediately following the processing of the input frame in order to extend the perceived processing time of the input to a specific target delay.}%
     \label{fig:cogassist:step:delay}
   \end{subfigure}
   \medskip%
   \begin{subfigure}[t]{.49\textwidth}
     \centering
-%     \includegraphics[width=\textwidth]{Fig4c.eps}
+    \includegraphics[width=\textwidth]{publications/2021ImpactDelayedResponse/Fig4c.eps}
     \caption{Structure of a block in the experimental task.}%
     \label{fig:cogassist:block}
   \end{subfigure}%
@@ -403,7 +403,7 @@ We therefore calculate execution time for each step as \( t_{c} - t_{0},\; t_{c}
   \hfill%
   \begin{subfigure}[t]{.49\textwidth}
     \centering
-%     \includegraphics[width=\textwidth]{Fig4d.eps}
+    \includegraphics[width=\textwidth]{publications/2021ImpactDelayedResponse/Fig4d.eps}
     \caption{Visualization of the execution time of a step.}%
     \label{fig:exectime:diagram}
   \end{subfigure}%
@@ -509,7 +509,7 @@ The video feeds were not used for the present study, but may be utilized in futu
   \centering
   \begin{subfigure}[t]{.35\textwidth}
     \centering
-%     \includegraphics[height=140pt]{Fig5a.eps}
+    \includegraphics[height=140pt]{publications/2021ImpactDelayedResponse/Fig5a.eps}
     \caption{Frame from the face recording of a random participant, clearly showing the locations of the EEG electrodes.}
   \end{subfigure}%
   % \par\bigskip
@@ -517,7 +517,7 @@ The video feeds were not used for the present study, but may be utilized in futu
   \hfill%
   \begin{subfigure}[t]{.60\textwidth}
     \centering
-%     \includegraphics[height=140pt]{Fig5b.eps}
+    \includegraphics[height=140pt]{publications/2021ImpactDelayedResponse/Fig5b.eps}
     \caption{Frame from the board recording of the same participant.}
   \end{subfigure}
   \caption{Sample frames captured during the experiment.}\label{fig:sampleframes}
@@ -558,7 +558,7 @@ We confirmed this effect through an \emph{analysis of variance} (ANOVA~\cite{FUJ
 
 \begin{figure}[h]
     \centering
-%     \includegraphics[width=.8\textwidth]{Fig6.eps}
+    \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig6.eps}
     \caption{Per-step execution time by block length vs.\ delay. Error bars indicate the Standard Error of the Mean (S.E.M.)}\label{fig:exectime}%    
 \end{figure}
 
@@ -604,7 +604,7 @@ With the longest delays, where the execution time per step was longest, the slow
 
 \begin{figure}[h]
     \centering
-%     \includegraphics[width=.8\textwidth]{Fig7.eps}
+    \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig7.eps}
     \caption{Mean per-step execution time vs.\ delay, by step slice.
     Error bars indicate S.E.M.}
     \label{fig:exectime:delay:slice}
@@ -625,7 +625,7 @@ We found that transitions from long-delay blocks carried over to significantly i
 
 \begin{figure}[h]
   \centering
-%   \includegraphics[width=.8\textwidth]{Fig8.eps}
+  \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig8.eps}
   \caption{Per-step execution time across the first four steps after a block transition from block \( B_{k-1} \) to \( B_k \). Error bars indicate S.E.M.}\label{fig:exectime:transition}%
 \end{figure}
 
@@ -664,7 +664,7 @@ There was also a significant delay by length interaction, reflecting that delay 
 
 \begin{figure}[h]
     \centering
-%     \includegraphics[width=.8\textwidth]{Fig9.eps}
+    \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig9.eps}
     \caption{Movement score vs.\ delay, per block length. Error bars indicate S.E.M.}\label{fig:acc:delaylength}
 \end{figure}
 
@@ -673,7 +673,7 @@ As shown in \cref{fig:acc:delayslice} the effect of delay was attributable only 
 
 \begin{figure}[h]
   \centering
-%   \includegraphics[width=.8\textwidth]{Fig10.eps}
+  \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig10.eps}
   \caption{Movement score vs.\ delay, per block slice. Error bars indicate S.E.M.}\label{fig:acc:delayslice}
 \end{figure}
 
@@ -731,7 +731,7 @@ Thus, EEG taken from frontal locations mimics the execution time data in showing
 
 \begin{figure}[h]
     \centering
-%     \includegraphics[width=.8\textwidth]{Fig11.eps}
+    \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig11.eps}
     \caption{Log of the average EEG Power for alpha and beta bands per step slice. Error bars indicate S.E.M.}\label{fig:logeegpow:slices}
 \end{figure}
 
@@ -815,7 +815,7 @@ It confirms the relationship indicated by the first component in the PCA using t
 
 \begin{figure}[h]
     \centering
-%     \includegraphics[width=.8\textwidth]{Fig12.eps}
+    \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig12.eps}
     \caption{Correlation between neuroticism score of participants and their execution time in the longest block at the longest delay.
     Pearson correlation coefficient \( r = .40 \); 2-tailed \( p = .01 \).}
     \label{fig:neuro:exectime:reg}
@@ -931,6 +931,6 @@ Another example would be employing the results linking neuroticism to a heighten
 Extending and perfecting these tools will allow for much more realistic benchmarking and testing of WCA systems, providing data of significantly better quality and ultimately leading to faster improvement, optimization and adoption of these systems.
 
 \begin{acks}
-  % This research was supported in part by the Swedish Foundation for Strategic Research (SSF) under grant \texttt{ITM17-0246} (ExPECA) and the United States National Science Foundation (NSF) under grant number \texttt{CNS-1518865}.
+  This research was supported in part by the Swedish Foundation for Strategic Research (SSF) under grant \texttt{ITM17-0246} (ExPECA) and the United States National Science Foundation (NSF) under grant number \texttt{CNS-1518865}.
   Any opinions, findings, conclusions or recommendations expressed in this material are those of the authors and do not necessarily reflect the view(s) of their employers or funding sources.
 \end{acks}
