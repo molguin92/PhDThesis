@@ -43,7 +43,10 @@ The \num{6760} data points are arranged in a table, a sample of which can be see
 
 \begin{table}[]
 \centering
-\caption{Default bins used for model parameter levels.}
+\caption{%
+    Default bins used for model parameter levels.
+    For impairment, values were rounded to three decimal places.
+}
 \label{tab:defaultbins}
 % \resizebox{\columnwidth}{!}{%
 \begin{tabular}{@{}lccc@{}}
@@ -75,6 +78,14 @@ This value is subsequently discretized into three levels; \emph{short}, \emph{me
 
 The results of this processing on the samples from \cref{tab:data:exectime} can be seen in \cref{tab:data:exectime:processed}.
 Three examples of the effect of this discretization and processing on the data are also presented in \cref{fig:timing}.
+Specifically, we showcase how
+\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and}}]
+    \item higher neuroticism leads to higher mean execution times as impairment goes up (\cref{fig:timing:impneurvsetime})
+    \item duration has both a speed-up and slow-down effect on execution times, depending on the level of impairment (\cref{fig:timing:durvsetime})
+    \item transitions from higher to lower levels of impairment lead to higher mean execution times when compared to steps far away from a transition, or from a transition from lower to higher levels of impairment (\cref{fig:timing:imptransvsetime})
+\end{enumerate*}.
+
+
 Finally, in \cref{alg:timings} we present a step-by-step breakdown of how this data is subsequently used to generate realistic execution times.
 In plain English, a model which uses this processed data to generate execution times needs to maintain variables for duration, previous impairment, and most recent transition.
 At the beginning of each step, the model
@@ -158,19 +169,21 @@ At the beginning of each step, the model
 
 \begin{figure*}
     \centering
-    \begin{subfigure}[t]{\columnwidth}
+    \begin{subfigure}[t]{.28\textwidth}
         \centering
-        \includegraphics[width=.8\columnwidth]{./model_data/imp_neur_vs_exectime.png}
+        \includegraphics[width=\textwidth]{./model_data/imp_neur_vs_exectime.png}
         \caption{}\label{fig:timing:impneurvsetime}
-    \end{subfigure}\\
-    \begin{subfigure}[t]{\columnwidth}
+    \end{subfigure}%
+    \hspace{.05\textwidth}%
+    \begin{subfigure}[t]{.28\textwidth}
         \centering
-        \includegraphics[width=.8\columnwidth]{./model_data/duration_vs_exectime.png}
+        \includegraphics[width=\textwidth]{./model_data/duration_vs_exectime.png}
         \caption{}\label{fig:timing:durvsetime}
     \end{subfigure}%
-    \begin{subfigure}[t]{\columnwidth}
+    \hspace{.05\textwidth}%
+    \begin{subfigure}[t]{.28\textwidth}
         \centering
-        \includegraphics[width=.8\columnwidth]{./model_data/impairment_transition_vs_exectime.png}
+        \includegraphics[width=\textwidth]{./model_data/impairment_transition_vs_exectime.png}
         \caption{}\label{fig:timing:imptransvsetime}
     \end{subfigure}
     \caption{%
