@@ -41,8 +41,23 @@ In the following, we detail the step-by-step processing of this data and constru
 We employ a cleaned and re-parameterized copy of the aforementioned timing data.
 The \num{6760} data points are arranged in a table, a sample of which can be seen in \cref{tab:data:exectime}, together with identifiers for the subjects, their neuroticism score, and a sequence number for each step.
 
-We begin by discretizing normalized neuroticism into \emph{low} and \emph{high} ranges, \( [0.0, 0.5) \) and \( [0.5, 1.0] \) respectively. 
-We also bin \ac{TTF} into three ranges by splitting the data on the 3-quantiles; we will refer to these ranges of \ac{TTF} as \emph{low}, \emph{medium}, and \emph{high impairment}.
+\begin{table}[]
+\centering
+\caption{Default bins used for model parameter levels.}
+\label{tab:defaultbins}
+% \resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Parameter} & \textbf{Low}     & \textbf{Medium}      & \textbf{High}         \\ \midrule
+Neuroticism        & \( [0, 0.5) \)   &                      & \( [0.5, 1.0] \)      \\
+Impairment         & \( [0, 1.482) \) & \( [1.482, 3.198) \) & \( [3.198, \infty) \) \\
+Duration           & \( [0, 5) \)     & \( [5, 10) \)        & \( [10, \infty) \)    \\ \bottomrule
+\end{tabular}%
+% }
+\end{table}
+
+We begin by discretizing normalized neuroticism into \emph{low} and \emph{high} ranges, and \ac{TTF} into three ranges by splitting the data on the 3-quantiles; we will refer to these ranges of \ac{TTF} as \emph{low}, \emph{medium}, and \emph{high impairment}.
+\cref{tab:defaultbins} shows the exact values used for these ranges.
 
 The next steps of processing are slightly more complex.
 For the data of each subject (which we will refer to as a \emph{run}), we shift the execution times by one sample such that each \ac{TTF} measurement (and therefore, impairment level) is associated with the execution time for the next step.
@@ -56,7 +71,7 @@ This labeling allows us to capture the behavior described in \cref{item:remain} 
 
 Finally, we assign a number to each sample corresponding to \emph{how long} the current combination of level of impairment and transition has been in effect, in number of steps.
 This count resets whenever this combination changes.
-This value is subsequently discretized into bins with edges \( [0, 5) \), \( [5, 10) \), and \( [10, \infty) \); we will refer to these discretized levels as \emph{short}, \emph{medium}, and \emph{long duration}, respectively.
+This value is subsequently discretized into three levels; \emph{short}, \emph{medium}, and \emph{long duration} (again, refer to \cref{tab:defaultbins} for the exact values used).
 
 The results of this processing on the samples from \cref{tab:data:exectime} can be seen in \cref{tab:data:exectime:processed}.
 Three examples of the effect of this discretization and processing on the data are also presented in \cref{fig:timing}.
