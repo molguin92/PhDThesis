@@ -249,6 +249,26 @@ That is, any frame captured immediately at or after the execution time has been 
     }\label{fig:frameprobs}
 \end{figure}
 
+Using the above insights, together with the corresponding recorded video frames, we devise an scheme for the procedural generation of a synthetic trace for any step in \ac{WCA} task in the same category as those used in~\cite{olguinmunoz:impact2021}.
+We first prepare a discretized representation of the probability density map in \cref{fig:frameprobs}.
+We segment the normalized instant value into a number of discrete bins (\num{25} in this work), and calculate the relative fraction of frames for each category in each bin.
+Then, given
+\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
+    \item a step execution time \( t_\text{exec} \)
+    \item a collection of random non-\texttt{SUCCESS}, non-\texttt{REPEAT} frames (at least one frame for each of the \texttt{BLANK} and \texttt{LOW\_CONFIDENCE} categories)
+    \item an appropriate \texttt{SUCCESS} video frame containing the correct state for the step
+    \item an appropriate \texttt{REPEAT} video frame containing the correct state for the \emph{previous} step
+\end{enumerate*},
+we can procedurally generate a trace.
+For each sampling instant in the step:
+\begin{enumerate}
+    \item We calculate the normalized instant value \( t_\text{norm} = \frac{\tau}{t_\text{exec}} \).
+    \item If \( t_\text{norm} \ge 1.0 \), we select the \texttt{SUCCESS} frame and finish the trace.
+    \item If instead \( t_\text{norm} < 1.0 \), we find the appropriate bin for \( t_\text{norm} \) and then select a frame by performing a weighted random sampling of the frame categories in the normalized instant bin using the relative proportions for each category.
+\end{enumerate}
+
+
+
 
 \todo[inline]{Diagram of model?}
 \todo[inline]{Verification: do we need the model? (Compare to naive)}
