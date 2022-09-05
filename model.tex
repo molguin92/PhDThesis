@@ -252,30 +252,28 @@ That is, any frame captured immediately at or after the execution time has been 
 Using the above insights, together with the corresponding recorded video frames, we devise an scheme for the procedural generation of a synthetic trace for any step in \ac{WCA} task in the same category as those used in~\cite{olguinmunoz:impact2021}.
 We first prepare a discretized representation of the probability density map in \cref{fig:frameprobs}.
 We segment the normalized instant value into a number of discrete bins (\num{25} in this work), and calculate the relative fraction of frames for each category in each bin.
-Then, given
+For each step, given
 \begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
-    \item a step execution time \( t_\text{exec} \)
     \item a collection of random non-\texttt{SUCCESS}, non-\texttt{REPEAT} frames (at least one frame for each of the \texttt{BLANK} and \texttt{LOW\_CONFIDENCE} categories)
     \item an appropriate \texttt{SUCCESS} video frame containing the correct state for the step
     \item an appropriate \texttt{REPEAT} video frame containing the correct state for the \emph{previous} step
 \end{enumerate*},
-we can procedurally generate a trace.
-For each sampling instant in the step:
+we can then procedurally generate a trace by randomly selecting appropriate frames according to the distributions presented in \cref{fig:frameprobs}.
+In other words, for each sampling instant in a step with a given execution time \( t_\text{exec} \):
 \begin{enumerate}
     \item We calculate the normalized instant value \( t_\text{norm} = \frac{\tau}{t_\text{exec}} \).
     \item If \( t_\text{norm} \ge 1.0 \), we select the \texttt{SUCCESS} frame and finish the trace.
     \item If instead \( t_\text{norm} < 1.0 \), we find the appropriate bin for \( t_\text{norm} \) and then select a frame by performing a weighted random sampling of the frame categories in the normalized instant bin using the relative proportions for each category.
 \end{enumerate}
 
-
-
-
-\todo[inline]{Diagram of model?}
-\todo[inline]{Verification: do we need the model? (Compare to naive)}
-
-
 \subsection{Model implementation}
 
-The model is provided as a Python~\num{3.10} library which includes \acp{API} for the generation of realistic execution times and synthetic traces of video frames.
+We provide this model as a Python~\num{3.10} library which includes \acp{API} for the generation of realistic execution times and synthetic traces of video frames.
+We also include a reference implementation of a server-client loop for realistic load generation using the model.
+
+We have made this code available online as \ac{FOSS} --- under a permissive Apache version 2 license --- at the \href{https://github.com/KTH-EXPECA/EdgeDroid2}{\texttt{KTH-EXPECA/EdgeDroid2}} repository on GitHub.
+Furthermore, we provide the reference load generator component implementations as pre-packaged Docker containers available on Docker Hub, at the \href{https://hub.docker.com/r/expeca/edgedroid2}{\texttt{expeca/edgedroid2}} repository.
 
 \subsection{Verifying the model}
+
+\todo[inline]{Verification: do we need the model? (Compare to naive)}
