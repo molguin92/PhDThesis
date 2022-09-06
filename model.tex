@@ -272,7 +272,12 @@ In other words, for each sampling instant in a step with a given execution time 
 \subsection{Model verification}
 \todo[inline]{Needs better name.}
 
-
+We use Python~\num{3.10} to implement two variants of the above described model.
+The first of these samples execution times directly from the empirical data from~\cite{olguinmunoz:impact2021}; we will refer to it hereafter as the \emph{empirical model}.
+The second corresponds to one which first fits a theoretical \ac{exGaussian} distribution to the data before sampling; we will refer to this one as the \emph{theoretical model}.
+We also implement a reference model which uses a constant execution time of \SI{5.23}{\second}, which we in turn call the \emph{naive model}.
+This value of \SI{5.23}{\second} corresponds to the mean execution time of steps with the lowest level of impairment and a transition tag of \emph{no transition}.
+\todo[inline]{Transition fade distance was 4 instead of 8, need to mention?}
 
 \subsection{Model implementation}\label{ssec:model:impl}
 
