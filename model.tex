@@ -276,8 +276,28 @@ We use Python~\num{3.10} to implement two variants of the above described model.
 The first of these samples execution times directly from the empirical data from~\cite{olguinmunoz:impact2021}; we will refer to it hereafter as the \emph{empirical model}.
 The second corresponds to one which first fits a theoretical \ac{exGaussian} distribution to the data before sampling; we will refer to this one as the \emph{theoretical model}.
 We also implement a reference model which uses a constant execution time of \SI{5.23}{\second}, which we in turn call the \emph{naive model}.
-This value of \SI{5.23}{\second} corresponds to the mean execution time of steps with the lowest level of impairment and a transition tag of \emph{no transition}.
+This value corresponds to the mean execution time of steps with the lowest level of impairment and a transition tag of \emph{no transition}.
 \todo[inline]{Transition fade distance was 4 instead of 8, need to mention?}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{figs/EdgeDroid2ExperimentalSetup.png}
+    \caption{%
+        Experimental setup we used to study the implications of the realistic models of human behavior for \ac{WCA}.
+        We deploy containerized instances of the client-server loop running the models on a testbed consisting of \num{10} Raspberry Pi clients connected to a cloudlet over a \ac{COTS} \acs{IEEE} \num{802.11}n access point.
+    }\label{fig:expsetup}
+\end{figure}
+
+
+These models are integrated into client software for communicating with an adapted and instrumented version of the Gabriel~\cite{Chen2015LEGO,Chen2018application} \ac{WCA} backend running variants of the LEGO task.
+We use these client-server loops to illustrate the implications of the realistic timing models, which react to changes in system responsiveness in real-time, when compared to the static, naive model.
+Up to \num{10} of these loops are deployed on the testbed shown in \cref{fig:expsetup}, consisting of \num{10} Raspberry Pi clients connected to a cloudlet over a \ac{COTS} \acs{IEEE} \num{802.11}n link.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.8\columnwidth]{figs/numclients_vs_duration.png}
+    \caption{}\label{fig:scaling_duration}
+\end{figure}
 
 \subsection{Model implementation}\label{ssec:model:impl}
 
