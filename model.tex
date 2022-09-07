@@ -7,7 +7,8 @@ We detail this in \cref{ssec:model:exectimes}.
 And two, it needs to produce sequences of input samples for each step mimicking what a real human would generate; this is explained in \cref{ssec:model:frames}.
 
 In the following subsections, \cref{ssec:model:exectimes,ssec:model:frames}, we explain how we design a model which fulfills these requirements.
-We briefly discuss where implementations of this model can be obtained in \cref{ssec:model:impl}
+We briefly discuss where implementations of this model can be obtained in \cref{ssec:model:obtaining}
+\todo[inline]{Finish}
 
 \subsection{Generating realistic execution times}\label{ssec:model:exectimes}
 
@@ -315,16 +316,20 @@ Both scenarios described above use a variant of one of the \num{169}-step tasks 
     \begin{subfigure}[t]{\columnwidth}
         \centering
         \includegraphics[width=.8\textwidth]{figs/numclients_vs_duration.png}
-        \caption{
+        \caption{%
             Consequences of decreased system responsiveness due to resource and network congestion.
-            We can evidence both how the realistic models speed up with respect to the naive model when completely unimpaired, and how these same models strongly slow down as system impairment increases.
+            At lower levels of resource contention, the realistic models outperform the naive one due to the speed-up effect described in \cref{sec:background}.
+            However, at higher levels of contention, the behavioral slow-down of the realistic models due to higher \acp{TTF} takes over.
         }\label{fig:scaling_duration}
     \end{subfigure}%
     \hspace{\fill}%
     \begin{subfigure}[t]{\columnwidth}
         \centering
         \includegraphics[width=.8\textwidth]{figs/neuroticism_vs_duration.png}
-        \caption{}\label{fig:neuro_duration}
+        \caption{%
+            Modulating effects of neuroticism on task duration.
+            Realistic models parameterized with high neuroticism are on average \SI{7.3}{\percent} slower than the reference model, and \SI{3.37}{\percent} slower than the same models instead parameterized with low neuroticism.
+        }\label{fig:neuro_duration}
     \end{subfigure}%
     \caption{Results for both scenarios described in \cref{ssec:model:verification}. Error bars indicate the \SI{95}{\percent} \ac{CI}.}
 \end{figure*}
@@ -340,15 +345,18 @@ This showcases that the additional user slow-down due to reduced system responsi
 
 \medskip
 
-We illustrate the results of scenario \labelcref{verification:neuro} in \cref{fig:neuro_duration}.
+We illustrate the results of scenario \labelcref{verification:neuro} in \cref{fig:neuro_duration}, showcasing the modulating effects of neuroticism in a medium-impairment setup.
+The realistic models were on average \SI{3.8}{\percent} slower than the reference naive model when configured with a low level of neuroticism, and \SI{7.3}{\percent} slower when configured with a high neuroticism.
 
-\subsection{Model implementation}\label{ssec:model:impl}
+\medskip
 
-We provide this model as a Python~\num{3.10} library which includes \acp{API} for the generation of realistic execution times and synthetic traces of video frames.
-We also include a reference implementation of a server-client loop for realistic load generation using the model.
+The results for scenarios \labelcref{verification:scaling,verification:neuro} showcase the importance and potential impact of realistic models for the study of \ac{WCA} applications.
 
-We have made this code available online as \ac{FOSS} --- under a permissive Apache version 2 license --- at the \href{https://github.com/KTH-EXPECA/EdgeDroid2}{\texttt{KTH-EXPECA/EdgeDroid2}} repository on GitHub.
-Furthermore, we provide the reference load generator component implementations as pre-packaged Docker containers available on Docker Hub, at the \href{https://hub.docker.com/r/expeca/edgedroid2}{\texttt{expeca/edgedroid2}} repository.
+\todo[inline]{Finish this subsection.}
 
-\todo[inline]{Variants?}
+\subsection{Obtaining the model}\label{ssec:model:obtaining}
+
+We provide the model implementations in Python~\num{3.10}, the base data, as well as the client and server implementations used for \cref{ssec:model:verification} to the community as \ac{FOSS}.
+All of these are published on the \href{https://github.com/KTH-EXPECA/EdgeDroid2}{\texttt{KTH-EXPECA/EdgeDroid2}} repository on GitHub under a permissive Apache version 2 license.
+Furthermore, the client and server implementations are also made available as pre-packaged Docker containers on Docker Hub, under the \href{https://hub.docker.com/r/expeca/edgedroid2}{\texttt{expeca/edgedroid2}} repository.
 
