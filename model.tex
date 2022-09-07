@@ -307,6 +307,7 @@ Two scenarios are studied, using the testbed shown in \cref{fig:expsetup}:
 \end{enumerate}
 
 Both scenarios described above use a variant of one of the \num{169}-step tasks used in~\cite{olguinmunoz:impact2021}, truncated to \num{45} steps.
+
 \medskip
 
 \begin{figure*}
@@ -329,14 +330,17 @@ Both scenarios described above use a variant of one of the \num{169}-step tasks 
 \end{figure*}
 
 \cref{fig:scaling_duration} illustrates the results for scenario \labelcref{verification:scaling}. 
-It showcases the important behaviors of the realistic models which are not captured by naive, non-adaptive model.
-On one hand, the realistic models (and by extension, humans) are actually faster than the naive model by up to \SI{4.37}{\percent} at the lowest level of impairment.
+It showcases the important behaviors of the realistic models which are not captured by the naive, non-adaptive model.
+On one hand, the realistic models (and by extension, humans) are actually faster than the naive model by up to \SI{4.37}{\percent} in a deployment with no resource contention.
 This is due to the speed-up effect described in \textcite{olguinmunoz:impact2021} --- humans get faster as a task progresses with a high system responsiveness.
 
-On the other, the realistic models experience a slowdown of about \SI{5.13}{\percent} at the highest levels of impairment when compared to the naive model.
-This is explained by the reduced system responsiveness either negating the speed-up effect, or directly leading to the \emph{additional} behavioral slowdown previously described~\cite{olguinmunoz:impact2021}.
-It should be noted that for the \numlist{7;10} client setups only about \SI{6}{\percent} and \SI{22}{\percent} of \acp{TTF} fell into the medium impairment level, and practically no \acp{TTF}
+On the other, the realistic models experience a mean slowdown of about \SI{5.13}{\percent} at the highest level of resource contention (\num{10} concurrent loops) when compared to the naive model, even though only about \SI{22}{\percent} of \acp{TTF} in this scenario reach the medium impairment level and practically no \acp{TTF} pass threshold for the highest level of impairment.
+This showcases that the additional user slow-down due to reduced system responsiveness described in \textcite{olguinmunoz:impact2021} causes a noticeable and significant  even at lower and medium levels of impairment.
+\todo[inline]{Add another setup with additional load and discuss}
 
+\medskip
+
+We illustrate the results of scenario \labelcref{verification:neuro} in \cref{fig:neuro_duration}.
 
 \subsection{Model implementation}\label{ssec:model:impl}
 
