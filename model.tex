@@ -283,21 +283,39 @@ This value corresponds to the mean execution time of steps with the lowest level
     \centering
     \includegraphics[width=\columnwidth]{figs/EdgeDroid2ExperimentalSetup.png}
     \caption{%
-        Experimental setup we used to study the implications of the realistic models of human behavior for \ac{WCA}.
+        Experimental setup used to study the implications of the realistic models of human behavior for \ac{WCA}.
         We deploy containerized instances of the client-server loop running the models on a testbed consisting of \num{10} Raspberry Pi clients connected to a cloudlet over a \ac{COTS} \acs{IEEE} \num{802.11}n access point.
     }\label{fig:expsetup}
 \end{figure}
 
 
 These models are integrated into client software for communicating with an adapted and instrumented version of the Gabriel~\cite{Chen2015LEGO,Chen2018application} \ac{WCA} backend running variants of the LEGO task.
-We use these client-server loops to illustrate the implications of the realistic timing models, which react to changes in system responsiveness in real-time, when compared to the static, naive model.
-Up to \num{10} of these loops are deployed on the testbed shown in \cref{fig:expsetup}, consisting of \num{10} Raspberry Pi clients connected to a cloudlet over a \ac{COTS} \acs{IEEE} \num{802.11}n link.
+In the following, we use these client-server loops to illustrate the implications of the realistic timing models, which react to changes in system responsiveness in real-time, when compared to the static, naive model.
+Two scenarios are studied, using the testbed shown in \cref{fig:expsetup}:
+\begin{enumerate}
+    \item\label{verification:scaling} A scenario to study the effects of decreasing system responsiveness due to resource and network congestion.
+    An increasing number of client-server loops (\numlist{1;4;7;10} loops) are deployed in parallel for each model.
+    Neuroticism is set to a constant value of \num{0.5}, and each combination of model and number of clients is repeated \num{5} times for better statistical representativeness.
+    \item\label{verification:neuro} A scenario in which the effects of neuroticism are studied.
+    Two different configurations of the realistic models, with neuroticism values of \num{0.0} (\emph{low}) and \num{1.0} (\emph{high}), are compared to a reference setup using the naive model.
+    In all these setups, \num{9} loops are deployed in parallel, and an \emph{iperf3}\footnote{\href{https://iperf.fr/}{https://iperf.fr/}} client-server pair is deployed between the tenth Raspberry Pi client and the cloudlet.
+    The \emph{iperf3} deployment is configured to generate additional network load by constantly sending \SI{1460}{\byte} \ac{UDP} datagrams on the uplink; the rate at which these datagrams are sent is being limited by the \acs{CPU} of the Raspberry Pi client.
+
+    We repeat each (model, neuroticism value) configuration --- (naive, \acs{N/A}), (empirical, low), (empirical, high), (theoretical, low), and (theoretical, high) --- \num{5} times for better statistical accuracy.
+\end{enumerate}
+
+Both scenarios described above use a variant of one of the \num{169}-step tasks used in~\cite{olguinmunoz:impact2021}, truncated to \num{45} steps.
 
 \begin{figure}
     \centering
     \includegraphics[width=.8\columnwidth]{figs/numclients_vs_duration.png}
-    \caption{}\label{fig:scaling_duration}
+    \caption{
+        Consequences of decreased system responsiveness due to resource and network congestion.
+        We can evidence both how the realistic models speed up at with respect to the naive model when completely unimpaired, and how these same models strongly slow down as system impairment increases.
+    }\label{fig:scaling_duration}
 \end{figure}
+
+\cref{fig:scaling_duration} shows the results for scenario \labelcref{verification:scaling}.
 
 \subsection{Model implementation}\label{ssec:model:impl}
 
