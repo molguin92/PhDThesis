@@ -37,12 +37,12 @@ In order to discuss these applications with precision and fully understand them,
 First of all, a \emph{step} is formally understood as a specific action to be performed by the user, described by a single instruction, and a \emph{task} consists of a series of steps to be executed in sequence (see \cref{fig:task}).
 A step begins when the corresponding instruction is provided to the user, and ends when the instruction for the next step is provided; we call the time interval between these two events the \emph{step duration}.
 
-Current implementations, such as those in~\cite{Chen2015LEGO,Chen2018application}, employ \emph{zero-wait} sampling.
+Current implementations, such as those in~\cite{Chen2015LEGO,Chen2018application}, employ \emph{greedy} sampling.
 In this scheme, a new sample is immediately taken as soon as an acknowledgement is received for the previous sample.
 This means that the interval between these sampling instants is not necessarily constant, as it is subject to fluctuations due to resource contention on both the network and compute side.
 It also has as a consequence that acknowledgements must be provided even for those samples which do not cause the generation of a new instruction --- these acknowledgements are simply used for flow control and do not generate user-noticeable feedback.
 
-Take \( \{ t_0, t_1, \ldots, t_{n + 1} \} \) a series of discrete and sequential sampling intervals (following a zero-wait scheme) at which the \ac{WCA} captures the state of the physical system, as illustrated in \cref{fig:step}.
+Take \( \{ t_0, t_1, \ldots, t_{n + 1} \} \) a series of discrete and sequential sampling intervals (following a greedy scheme) at which the \ac{WCA} captures the state of the physical system, as illustrated in \cref{fig:step}.
 \( t_0 \) corresponds to the instant at which the instruction for step \( M \) is provided and the first sample is taken, and \( t_n \) to the instant at which the final sample (i.e. which captures the final state of step \( M \)) is taken. 
 \( t_{n + 1} \) is then the instant at which the result for sample \( t_n \) is returned and the instruction for step \( M + 1 \) is provided.
 If we define \( t_c \) as the point in time at which the user finishes performing the instruction for step \( M \), it must follow that (see also~\cite{olguinmunoz:impact2021})\footnote{\( U(a, b) \) represents the continuous uniform distribution in the open interval \( (a, b) \).}

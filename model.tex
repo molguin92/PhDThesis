@@ -195,6 +195,7 @@ At the beginning of each step, the model
         \subref{fig:timing:impneurvsetime} illustrates the effect of impairment on execution times, and how neuroticism modulates this behavior;
         \subref{fig:timing:durvsetime} exemplifies how the model captures the speed-up and slow-down behaviors due to impairment and duration described in \textcite{olguinmunoz:impact2021};
         finally, \subref{fig:timing:imptransvsetime} shows the lingering effects of impairment after a transition.
+        Error bars indicate the \SI{95}{\percent} \ac{CI}.
     }\label{fig:timing}
 \end{figure*}
 
@@ -269,7 +270,7 @@ In other words, for each sampling instant in a step with a given execution time 
     \item If instead \( t_\text{norm} < 1.0 \), we find the appropriate bin for \( t_\text{norm} \) and then select a frame by performing a weighted random sampling of the frame categories in the normalized instant bin using the relative proportions for each category.
 \end{enumerate}
 
-\subsection{Model verification}
+\subsection{Model verification}\label{ssec:model:verification}
 \todo[inline]{Needs better name.}
 
 We use Python~\num{3.10} to implement two variants of the above described model.
@@ -299,23 +300,43 @@ Two scenarios are studied, using the testbed shown in \cref{fig:expsetup}:
     \item\label{verification:neuro} A scenario in which the effects of neuroticism are studied.
     Two different configurations of the realistic models, with neuroticism values of \num{0.0} (\emph{low}) and \num{1.0} (\emph{high}), are compared to a reference setup using the naive model.
     In all these setups, \num{9} loops are deployed in parallel, and an \emph{iperf3}\footnote{\href{https://iperf.fr/}{https://iperf.fr/}} client-server pair is deployed between the tenth Raspberry Pi client and the cloudlet.
-    The \emph{iperf3} deployment is configured to generate additional network load by constantly sending \SI{1460}{\byte} \ac{UDP} datagrams on the uplink; the rate at which these datagrams are sent is being limited by the \acs{CPU} of the Raspberry Pi client.
+    This \emph{iperf3} deployment starts \SI{120}{\second} after the start of the \num{9} model loops, and is configured to generate additional network load by constantly sending a stream of \SI{1460}{\byte} \ac{UDP} datagrams on the uplink; the rate at which these datagrams are sent is only limited by the \acs{CPU} of the Raspberry Pi client.
+
 
     We repeat each (model, neuroticism value) configuration --- (naive, \acs{N/A}), (empirical, low), (empirical, high), (theoretical, low), and (theoretical, high) --- \num{5} times for better statistical accuracy.
 \end{enumerate}
 
 Both scenarios described above use a variant of one of the \num{169}-step tasks used in~\cite{olguinmunoz:impact2021}, truncated to \num{45} steps.
+\medskip
 
-\begin{figure}
+\begin{figure*}
     \centering
-    \includegraphics[width=.8\columnwidth]{figs/numclients_vs_duration.png}
-    \caption{
-        Consequences of decreased system responsiveness due to resource and network congestion.
-        We can evidence both how the realistic models speed up at with respect to the naive model when completely unimpaired, and how these same models strongly slow down as system impairment increases.
-    }\label{fig:scaling_duration}
-\end{figure}
+    \begin{subfigure}[t]{\columnwidth}
+        \centering
+        \includegraphics[width=.8\textwidth]{figs/numclients_vs_duration.png}
+        \caption{
+            Consequences of decreased system responsiveness due to resource and network congestion.
+            We can evidence both how the realistic models speed up with respect to the naive model when completely unimpaired, and how these same models strongly slow down as system impairment increases.
+        }\label{fig:scaling_duration}
+    \end{subfigure}%
+    \hspace{\fill}%
+    \begin{subfigure}[t]{\columnwidth}
+        \centering
+        \includegraphics[width=.8\textwidth]{figs/neuroticism_vs_duration.png}
+        \caption{}\label{fig:neuro_duration}
+    \end{subfigure}%
+    \caption{Results for both scenarios described in \cref{ssec:model:verification}. Error bars indicate the \SI{95}{\percent} \ac{CI}.}
+\end{figure*}
 
-\cref{fig:scaling_duration} shows the results for scenario \labelcref{verification:scaling}.
+\cref{fig:scaling_duration} illustrates the results for scenario \labelcref{verification:scaling}. 
+It showcases the important behaviors of the realistic models which are not captured by naive, non-adaptive model.
+On one hand, the realistic models (and by extension, humans) are actually faster than the naive model by up to \SI{4.37}{\percent} at the lowest level of impairment.
+This is due to the speed-up effect described in \textcite{olguinmunoz:impact2021} --- humans get faster as a task progresses with a high system responsiveness.
+
+On the other, the realistic models experience a slowdown of about \SI{5.13}{\percent} at the highest levels of impairment when compared to the naive model.
+This is explained by the reduced system responsiveness either negating the speed-up effect, or directly leading to the \emph{additional} behavioral slowdown previously described~\cite{olguinmunoz:impact2021}.
+It should be noted that for the \numlist{7;10} client setups only about \SI{6}{\percent} and \SI{22}{\percent} of \acp{TTF} fell into the medium impairment level, and practically no \acp{TTF}
+
 
 \subsection{Model implementation}\label{ssec:model:impl}
 
