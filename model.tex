@@ -20,26 +20,26 @@ These distributions can then be sampled to produce new, realistic execution time
 In the following, we detail the step-by-step processing of this data and construction of the probabilistic model.
 
 \begin{table}
-\centering
-\caption[A]{%
-    Sample of the execution time data  used for the elaboration of the timing model.
-    Rows contain the execution times and \acp{TTF} for each of the \num{169} steps performed by the \num{40} participants in \textcite{olguinmunoz:impact2021}, expressed in seconds, together with a unique identifier for the subject, their associated level of normalized neuroticism, and a sequence number identifying the position of the step in the task.
-}\label{tab:data:exectime}
-\begin{tabular}{rrrrrr}
-    \toprule
-    {seq} & {run\_id} & {exec\_time} & {ttf} & {neuroticism}\\
-    \midrule
-    1 & 134146 & 3.655 & 0.597 & 0.375\\
-    2 & 134146 & 4.439 & 0.554 & 0.375\\
-    3 & 134146 & 2.943 & 0.562 & 0.375\\
-    \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) \\
-    169 & 134146 & 3.532 & 4.571 & 0.375\\
-    1 & 134470 & 3.461 & 0.561 & 0.594\\
-    2 & 134470 & 6.678 & 0.572 & 0.594\\
-    \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) \\
-    \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) \\
-    169 & 137353 & 4.615 & 0.537 & 0.625\\
-    \bottomrule
+    \centering
+    \caption[A]{%
+        Sample of the execution time data  used for the elaboration of the timing model.
+        Rows contain the execution times and \acp{TTF} for each of the \num{169} steps performed by the \num{40} participants in \textcite{olguinmunoz:impact2021}, expressed in seconds, together with a unique identifier for the subject, their associated level of normalized neuroticism, and a sequence number identifying the position of the step in the task.
+    }\label{tab:data:exectime}
+    \begin{tabular}{rrrrrr}
+        \toprule
+        {seq}        & {run\_id}    & {exec\_time} & {ttf}        & {neuroticism} \\
+        \midrule
+        1            & 134146       & 3.655        & 0.597        & 0.375         \\
+        2            & 134146       & 4.439        & 0.554        & 0.375         \\
+        3            & 134146       & 2.943        & 0.562        & 0.375         \\
+        \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \)  \\
+        169          & 134146       & 3.532        & 4.571        & 0.375         \\
+        1            & 134470       & 3.461        & 0.561        & 0.594         \\
+        2            & 134470       & 6.678        & 0.572        & 0.594         \\
+        \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \)  \\
+        \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \)  \\
+        169          & 137353       & 4.615        & 0.537        & 0.625         \\
+        \bottomrule
     \end{tabular}
 \end{table}
 
@@ -47,21 +47,21 @@ We employ a cleaned and re-parameterized copy of the aforementioned timing data.
 The \num{6760} data points are arranged in a table, a sample of which can be seen in \cref{tab:data:exectime}, together with identifiers for the subjects, their neuroticism score, and a sequence number for each step.
 
 \begin{table}[]
-\centering
-\caption{%
-    Default bins used for model parameter levels.
-    For impairment, values were rounded to three decimal places.
-}
-\label{tab:defaultbins}
-% \resizebox{\columnwidth}{!}{%
-\begin{tabular}{@{}lccc@{}}
-\toprule
-\textbf{Parameter} & \textbf{Low}     & \textbf{Medium}      & \textbf{High}         \\ \midrule
-Neuroticism        & \( [0, 0.5) \)   &                      & \( [0.5, 1.0] \)      \\
-Impairment         & \( [0, 1.482) \) & \( [1.482, 3.198) \) & \( [3.198, \infty) \) \\
-Duration           & \( [0, 5) \)     & \( [5, 10) \)        & \( [10, \infty) \)    \\ \bottomrule
-\end{tabular}%
-% }
+    \centering
+    \caption{%
+        Default bins used for model parameter levels.
+        For impairment, values were rounded to three decimal places.
+    }
+    \label{tab:defaultbins}
+    % \resizebox{\columnwidth}{!}{%
+    \begin{tabular}{@{}lccc@{}}
+        \toprule
+        \textbf{Parameter} & \textbf{Low}     & \textbf{Medium}      & \textbf{High}         \\ \midrule
+        Neuroticism        & \( [0, 0.5) \)   &                      & \( [0.5, 1.0] \)      \\
+        Impairment         & \( [0, 1.482) \) & \( [1.482, 3.198) \) & \( [3.198, \infty) \) \\
+        Duration           & \( [0, 5) \)     & \( [5, 10) \)        & \( [10, \infty) \)    \\ \bottomrule
+    \end{tabular}%
+    % }
 \end{table}
 
 We begin by discretizing normalized neuroticism into \emph{low} and \emph{high} ranges, and \ac{TTF} into three ranges by splitting the data on the 3-quantiles; we will refer to these ranges of \ac{TTF} as \emph{low}, \emph{medium}, and \emph{high impairment}.
@@ -96,16 +96,16 @@ In plain English, a model which uses this processed data to generate execution t
 At the beginning of each step, the model
 \begin{enumerate}
     \item Checks whether any change in impairment has occurred.
-    If it has, it resets duration to \num{1} and updates the transition variable accordingly.
-    If not, it increases the duration variable by one unless that increase causes it to exceed the threshold of steps required to forget a transition.
-    If that's the case, instead the model resets duration to \num{1} and sets the transition variable to ``no transition''.
+          If it has, it resets duration to \num{1} and updates the transition variable accordingly.
+          If not, it increases the duration variable by one unless that increase causes it to exceed the threshold of steps required to forget a transition.
+          If that's the case, instead the model resets duration to \num{1} and sets the transition variable to ``no transition''.
     \item Discretizes the updated duration value.
     \item Finds all samples with binned neuroticism, impairment, duration, and transition values matching the current state of the system.
     \item Randomly samples the filtered data to obtain a realistic execution time value.
-    \begin{itemize}
-        \item Alternatively, a distribution can be first be fitted to the filtered samples.
-        The model then samples the theoretical distribution instead of the empirical samples.
-    \end{itemize}
+          \begin{itemize}
+              \item Alternatively, a distribution can be first be fitted to the filtered samples.
+                    The model then samples the theoretical distribution instead of the empirical samples.
+          \end{itemize}
     \item Finally, updates the stored impairment value with the new impairment and proceeds to the next step.
 \end{enumerate}
 
@@ -137,7 +137,7 @@ At the beginning of each step, the model
         $T \leftarrow \text{``LOWER TO HIGHER''} $
     } \uElseIf{$I' > I$}{%
         $d \leftarrow 1$\;
-        $T \leftarrow \text{``HIGHER TO LOWER''} $  
+        $T \leftarrow \text{``HIGHER TO LOWER''} $
     } \Else {%
         $d \leftarrow d + 1$\;
     }
@@ -153,44 +153,46 @@ At the beginning of each step, the model
 
 
 \begin{table*}
-\caption{Sample of the processed execution time data table.}\label{tab:data:exectime:processed}
-\begin{tabular}{rrrrcrccrc}
-\toprule
-{seq} & {run\_id} & {next\_exec\_time} & {ttf} & {impairment} & {neuroticism\_raw} & {neuroticism} & {transition} & {duration\_raw} & {duration} \\
-\midrule
-1   & 134146 & 3.655 & 0.000 & low & 0.375  & low & NoTransition & 1 & short \\
-2   & 134146 & 4.439 & 0.597 & low & 0.375 & low & NoTransition & 2 & short \\
-3   & 134146 & 2.943 & 0.554 & low & 0.375 & low & NoTransition & 3 & short \\
-\( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \)\\
-169 & 134146 & 3.532 & 3.689 & high & 0.375 & low & Lower2Higher & 2 & short \\
-1   & 134470 & 3.461 & 0.000 & low & 0.594 & high & NoTransition & 1 & short \\
-2   & 134470 & 6.678 & 0.561 & low & 0.594 & high & NoTransition & 2 & short \\
-\( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \)\\
-\( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \)\\
-169 & 137353 & 4.615 & 0.579 & low & 0.625 & high & NoTransition & 2 & short \\
-\bottomrule
-\end{tabular}
+    \caption{Sample of the processed execution time data table.}\label{tab:data:exectime:processed}
+    \begin{tabular}{rrrrcrccrc}
+        \toprule
+        {seq}        & {run\_id}    & {next\_exec\_time} & {ttf}        & {impairment} & {neuroticism\_raw} & {neuroticism} & {transition} & {duration\_raw} & {duration}   \\
+        \midrule
+        1            & 134146       & 3.655              & 0.000        & low          & 0.375              & low           & NoTransition & 1               & short        \\
+        2            & 134146       & 4.439              & 0.597        & low          & 0.375              & low           & NoTransition & 2               & short        \\
+        3            & 134146       & 2.943              & 0.554        & low          & 0.375              & low           & NoTransition & 3               & short        \\
+        \( \cdots \) & \( \cdots \) & \( \cdots \)       & \( \cdots \) & \( \cdots \) & \( \cdots \)       & \( \cdots \)  & \( \cdots \) & \( \cdots \)    & \( \cdots \) \\
+        169          & 134146       & 3.532              & 3.689        & high         & 0.375              & low           & Lower2Higher & 2               & short        \\
+        1            & 134470       & 3.461              & 0.000        & low          & 0.594              & high          & NoTransition & 1               & short        \\
+        2            & 134470       & 6.678              & 0.561        & low          & 0.594              & high          & NoTransition & 2               & short        \\
+        \( \cdots \) & \( \cdots \) & \( \cdots \)       & \( \cdots \) & \( \cdots \) & \( \cdots \)       & \( \cdots \)  & \( \cdots \) & \( \cdots \)    & \( \cdots \) \\
+        \( \cdots \) & \( \cdots \) & \( \cdots \)       & \( \cdots \) & \( \cdots \) & \( \cdots \)       & \( \cdots \)  & \( \cdots \) & \( \cdots \)    & \( \cdots \) \\
+        169          & 137353       & 4.615              & 0.579        & low          & 0.625              & high          & NoTransition & 2               & short        \\
+        \bottomrule
+    \end{tabular}
 \end{table*}
 
 \begin{figure*}
-    \centering
+    \centering%
+    % \hspace{\fill}%
     \begin{subfigure}[t]{.28\textwidth}
         \centering
         \includegraphics[width=\textwidth]{./model_data/imp_neur_vs_exectime.png}
         \caption{}\label{fig:timing:impneurvsetime}
     \end{subfigure}%
-    \hspace{.05\textwidth}%
+    \hspace{\fill}%
     \begin{subfigure}[t]{.28\textwidth}
         \centering
         \includegraphics[width=\textwidth]{./model_data/duration_vs_exectime.png}
         \caption{}\label{fig:timing:durvsetime}
     \end{subfigure}%
-    \hspace{.05\textwidth}%
+    \hspace{\fill}%
     \begin{subfigure}[t]{.28\textwidth}
         \centering
         \includegraphics[width=\textwidth]{./model_data/impairment_transition_vs_exectime.png}
         \caption{}\label{fig:timing:imptransvsetime}
-    \end{subfigure}
+    \end{subfigure}%
+    % \hspace{\fill}%
     \caption{%
         Visualizations of the model data after discretization and post-processing.
         \subref{fig:timing:impneurvsetime} illustrates the effect of impairment on execution times, and how neuroticism modulates this behavior;
@@ -214,14 +216,14 @@ For each video frame submitted to the \ac{WCA} during the tasks, we recorded
 The tags assigned corresponded to:
 \begin{description}[font={\bfseries\ttfamily}]
     \item[SUCCESS:] frames which triggered a transition to a new step in the logical task model of the \ac{WCA}, and thus cause the generation of feedback to the user.
-    This tag is also used for frames which corrected a previous mistake.
+        This tag is also used for frames which corrected a previous mistake.
     \item[REPEAT:] frames which contained the same board state as the previous successful frame, and thus produced no feedback.
     \item[LOW\_CONFIDENCE] frames for which the image recognition algorithm in the \ac{WCA} did not reach the necessary confidence threshold to interpret it as a valid board state.
-    These frames also produce no feedback.
+        These frames also produce no feedback.
     \item[BLANK] frames in which not enough of the board is visible due to noise, movement, occlusion, etc.
-    These frames produce no feedback either.
+        These frames produce no feedback either.
     \item[TASK\_ERROR] frames which contained an incorrect board state and thus triggered a transition to a procedural corrective step and the generation of feedback to the user.
-    However, it must be noted that none of the \num{40} participants made any mistakes during the task, and thus no such frames were encountered in the data.
+        However, it must be noted that none of the \num{40} participants made any mistakes during the task, and thus no such frames were encountered in the data.
 \end{description}
 
 We correlate this frame data with the step timing data described in \cref{ssec:model:exectimes} to match frames with their corresponding step execution times.
@@ -232,15 +234,15 @@ To exemplify, for a step with execution time \( t_\text{exec} = \SI{10}{\second}
 \end{align}
 
 This allows us to then analyze the distribution of frame tag probabilities as a step progresses, independently of execution times.
-This is illustrated in \cref{fig:frameprobs}. 
+This is illustrated in \cref{fig:frameprobs}.
 Intuitively, \texttt{REPEAT} frames dominate the early instants after a step transition, as the user has not had time to start performing the new instruction and thus the \ac{WCA} keeps capturing frames representing the previous state of the board.
 As the user starts moving and performing actions, \texttt{BLANK} frames start to dominate, as this activity prevents the \ac{WCA} from capturing ``clean'' frames.
 Finally, it must be noted that \texttt{SUCCESS} frames are not included in this probability density plot, as, by definition (\( t_\text{norm} \) represents the normalized instant value):
 \begin{equation}
     P(\text{\texttt{SUCCESS}} | t_\text{norm}) =
     \left\{ \begin{array}{ll}
-        0 & t_\text{norm} < 1.0 \\
-        1 & t_\text{norm} \geq 1.0    
+        0 & t_\text{norm} < 1.0    \\
+        1 & t_\text{norm} \geq 1.0
     \end{array} \right.
 \end{equation}
 That is, any frame captured immediately at or after the execution time has been reached will contain the finished board state and thus correspond to a \texttt{SUCCESS} frame.
@@ -334,7 +336,7 @@ Both scenarios described above use a variant of one of the \num{169}-step tasks 
     \caption{Results for both scenarios described in \cref{ssec:model:verification}. Error bars indicate the \SI{95}{\percent} \ac{CI}.}
 \end{figure*}
 
-\cref{fig:scaling_duration} illustrates the results for scenario \labelcref{verification:scaling}. 
+\cref{fig:scaling_duration} illustrates the results for scenario \labelcref{verification:scaling}.
 It showcases the important behaviors of the realistic models which are not captured by the naive, non-adaptive model.
 On one hand, the realistic models (and by extension, humans) are actually faster than the naive model by up to \SI{4.37}{\percent} in a deployment with no resource contention.
 This is due to the speed-up effect described in \textcite{olguinmunoz:impact2021} --- humans get faster as a task progresses with a high system responsiveness.
@@ -359,4 +361,3 @@ The results for scenarios \labelcref{verification:scaling,verification:neuro} sh
 We provide the model implementations in Python~\num{3.10}, the base data, as well as the client and server implementations used for \cref{ssec:model:verification} to the community as \ac{FOSS}.
 All of these are published on the \href{https://github.com/KTH-EXPECA/EdgeDroid2}{\texttt{KTH-EXPECA/EdgeDroid2}} repository on GitHub under a permissive Apache version 2 license.
 Furthermore, the client and server implementations are also made available as pre-packaged Docker containers on Docker Hub, under the \href{https://hub.docker.com/r/expeca/edgedroid2}{\texttt{expeca/edgedroid2}} repository.
-
