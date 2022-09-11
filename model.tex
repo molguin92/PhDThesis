@@ -342,13 +342,14 @@ On one hand, the realistic models (and by extension, humans) are actually faster
 This is due to the speed-up effect described in \textcite{olguinmunoz:impact2021} --- humans get faster as a task progresses with a high system responsiveness.
 
 On the other, the realistic models experience a mean slowdown of about \SI{5.13}{\percent} at the highest level of resource contention (\num{10} concurrent loops) when compared to the naive model, even though only about \SI{22}{\percent} of \acp{TTF} in this scenario reach the medium impairment level and practically no \acp{TTF} pass threshold for the highest level of impairment.
-This showcases that the additional user slow-down due to reduced system responsiveness described in \textcite{olguinmunoz:impact2021} causes a noticeable and significant  even at lower and medium levels of impairment.
+This showcases that the additional user slow-down due to reduced system responsiveness, originally described in \textcite{olguinmunoz:impact2021}, causes a noticeable and significant extension of system utilization time, even at lower and medium levels of impairment.
 \todo[inline]{Add another setup with additional load and discuss}
 
 \medskip
 
 We illustrate the results of scenario \labelcref{verification:neuro} in \cref{fig:neuro_duration}, showcasing the modulating effects of neuroticism in a medium-impairment setup.
 The realistic models were on average \SI{3.8}{\percent} slower than the reference naive model when configured with a low level of neuroticism, and \SI{7.3}{\percent} slower when configured with a high neuroticism.
+In this scenario, an average of \SI{50}{\percent} of all recorded \acp{TTF} fell within the medium impairment range, and about \SI{26.6}{\percent} within the high impairment range, showing that the effects of behavioral slow-down are considerable even in moderately impaired systems.
 
 \medskip
 
