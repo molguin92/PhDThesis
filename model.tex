@@ -11,6 +11,7 @@ We briefly discuss where implementations of this model can be obtained in \cref{
 \todo[inline]{Finish}
 
 \subsection{Generating realistic execution times}\label{ssec:model:exectimes}
+\todo[inline]{Rework with new tweaked model.}
 
 As expressed in \cref{ssec:plos}, for ~\cite{olguinmunoz:impact2021} we collected timing and task performance data for \num{40} participants performing a \num{169}-step task, guided by a \ac{WCA}, as well as personality trait scores for each participant.
 For this paper, we use this data to construct a probabilistic model for the generation of realistic execution times.
@@ -153,6 +154,7 @@ At the beginning of each step, the model
 
 
 \begin{table*}
+    \todo[inline]{Remove this table, or re-do it.}
     \caption{Sample of the processed execution time data table.}\label{tab:data:exectime:processed}
     \begin{tabular}{rrrrcrccrc}
         \toprule
@@ -275,6 +277,7 @@ In other words, for each sampling instant in a step with a given execution time 
 
 \subsection{Model verification}\label{ssec:model:verification}
 \todo[inline]{Needs better name.}
+\todo[inline]{Rework with new tweaked models.}
 
 We use Python~\num{3.10} to implement two variants of the above described model.
 The first of these samples execution times directly from the empirical data from~\cite{olguinmunoz:impact2021}; we will refer to it hereafter as the \emph{empirical model}.
@@ -349,7 +352,7 @@ This showcases that the additional user slow-down due to reduced system responsi
 
 We illustrate the results of scenario \labelcref{verification:neuro} in \cref{fig:neuro_duration}, showcasing the modulating effects of neuroticism in a medium-impairment setup.
 The realistic models were on average \SI{3.8}{\percent} slower than the reference naive model when configured with a low level of neuroticism, and \SI{7.3}{\percent} slower when configured with a high neuroticism.
-In this scenario, an average of \SI{50}{\percent} of all recorded \acp{TTF} fell within the medium impairment range, and about \SI{26.6}{\percent} within the high impairment range, showing that the effects of behavioral slow-down are considerable even in moderately impaired systems.
+In this scenario, an average of \SI{50}{\percent} of all recorded \acp{TTF} fell within the medium impairment range, and about \SI{26.6}{\percent} within the high impairment range, showing that the effects of behavioral slow-down are considerable even in moderately impaired systems. 
 
 \medskip
 
