@@ -75,8 +75,8 @@ Users notice the impairment of the current step only when they have finished it,
 
 We then assign a label to each sample indicating the class of the most recent transition in impairment level in the run.
 In other words, for each recorded step, we look back until we find a step with a different level of impairment and assign a label to the current step according to whether that change was from a higher to a lower level of impairment or vice-versa.
-However, if the current step is too far from the latest transition in impairment (by default, more than \num{8} steps), it is instead marked as \emph{no transition}; this label is also used for steps at the beginning of each run which have no previous transition in impairment.
-This labeling allows us to capture the behavior described in \cref{item:remain} of \cref{ssec:plos}.
+% However, if the current step is too far from the latest transition in impairment (by default, more than \num{8} steps), it is instead marked as \emph{no transition}; this label is also used for steps at the beginning of each run which have no previous transition in impairment.
+% This labeling allows us to capture the behavior described in \cref{item:remain} of \cref{ssec:plos}.
 
 Finally, we assign a number to each sample corresponding to \emph{how long} the current combination of level of impairment and transition has been in effect, in number of steps.
 This count resets whenever this combination changes.
@@ -98,10 +98,12 @@ At the beginning of each step, the model
 \begin{enumerate}
     \item Checks whether any change in impairment has occurred.
           If it has, it resets duration to \num{1} and updates the transition variable accordingly.
-          If not, it increases the duration variable by one unless that increase causes it to exceed the threshold of steps required to forget a transition.
-          If that's the case, instead the model resets duration to \num{1} and sets the transition variable to ``no transition''.
+          If not, it increases the duration variable by one.
+        %   unless that increase causes it to exceed the threshold of steps required to forget a transition.
+        %   If that's the case, instead the model resets duration to \num{1} and sets the transition variable to ``no transition''.
     \item Discretizes the updated duration value.
-    \item Finds all samples with binned neuroticism, impairment, duration, and transition values matching the current state of the system.
+    \item Finds all samples with binned neuroticism, impairment and duration matching the state of the system.
+    If, and only if, the current duration falls within the \emph{short} duration bin, this data is further bisected according to the current value of the transition variable.
     \item Randomly samples the filtered data to obtain a realistic execution time value.
           \begin{itemize}
               \item Alternatively, a distribution can be first be fitted to the filtered samples.
@@ -111,6 +113,7 @@ At the beginning of each step, the model
 \end{enumerate}
 
 \begin{algorithm}
+    \todo[inline]{Update algorithm.}
     \caption{Generating realistic execution times}\label{alg:timings}
 
     \SetKwInput{KwState}{Initial State}
@@ -199,7 +202,7 @@ At the beginning of each step, the model
         Visualizations of the model data after discretization and post-processing.
         \subref{fig:timing:impneurvsetime} illustrates the effect of impairment on execution times, and how neuroticism modulates this behavior;
         \subref{fig:timing:durvsetime} exemplifies how the model captures the speed-up and slow-down behaviors due to impairment and duration described in \textcite{olguinmunoz:impact2021};
-        finally, \subref{fig:timing:imptransvsetime} shows the lingering effects of impairment after a transition.
+        finally, \subref{fig:timing:imptransvsetime} shows the lingering effects of impairment after a transition, by comparing the mean execution times of the steps in the first bin of duration after a transition.
         Error bars indicate the \SI{95}{\percent} \ac{CI}.
     }\label{fig:timing}
 \end{figure*}
