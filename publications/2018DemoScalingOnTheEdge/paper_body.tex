@@ -1,11 +1,11 @@
 \section{Introduction}
 
-Previous works on cloudlets~\cite{satya2009case,Ha:ImpactMobile}, one of the earliest incarnation of edge computing, enable small data-centers at the edge of the Internet. 
+Previous works on cloudlets~\cite{Satya2009Case,Ha2013Impact}, one of the earliest incarnation of edge computing, enable small data-centers at the edge of the Internet. 
 Many futuristic applications become viable with these clusters that are only one wireless hop away. 
-One of the most promising genres of these emerging applications is human-in-the-loop applications such as wearable cognitive assistance~\cite{Ha:TowardsWearableCogAssist}. 
+One of the most promising genres of these emerging applications is human-in-the-loop applications such as wearable cognitive assistance~\cite{Ha2014Towards}. 
 
 In these applications, sensor data, for example video and audio, are continuously streamed to a cloudlet, where they are analyzed in realtime in order to assist users to complete a particular task. 
-Researchers have built prototypes of these applications to help users assemble LEGO models and IKEA furniture, and even learn how to play ping-pong~\cite{satya2009case,Chen:EarlyImplementation}.
+Researchers have built prototypes of these applications to help users assemble LEGO models and IKEA furniture, and even learn how to play ping-pong~\cite{Satya2009Case,Chen2015Early}.
 % In general, all human-in-the-loop applications capture in some form user and environment information and typically leverage compute-intensive algorithms to analyze the data in order to provide feedback to the user.
 % On the side of the sensory input, typically video, but also audio as well as further user-related data (like orientation and movement) is captured.
 % This  data is forwarded to the processing unit where the first step is usually to run detection algorithms on the sensory input.
@@ -29,7 +29,7 @@ These principles result in the following characteristics of human-in-the-loop ap
 
 \begin{description}[labelindent=\parindent, listparindent=\parindent, style=unboxed, leftmargin=0cm]
 	\item[Latency Sensitive:] Given their tight interaction with the physical world, the quality of human-in-the-loop applications is determined by the latencies experienced by users. 
-    These applications are different from conventional mobile applications by the low latency requirements inherent to the applications themselves~\cite{Suzuki,Chen:AnEmpiricalStudyOfLatency}. 
+    These applications are different from conventional mobile applications by the low latency requirements inherent to the applications themselves~\cite{Suzuki2016Vehicle,Chen2017Empirical}. 
     For example, consider a Ping-Pong Assistance application that instructs a user where to hit a ball -- any instruction delivered after the user has made a hit is useless.
   Hence, the average and the distribution of end-to-end latency, in particular for \emph{feedback-rich} inputs, can serve as good metrics for a benchmark tool. 
 % Previous work has shown that offload to cloudlet reduces 100ms to 200ms in end-to-end latency from offload to the cloud \cite{Suzuki,Chen:AnEmpiricalStudyOfLatency}.
@@ -37,7 +37,7 @@ These principles result in the following characteristics of human-in-the-loop ap
 % Therefore, low latency is a salient characteristic of cloudlet-enabled applications.
 	
     \item[Compute Intensive:] Cognitive Assistance applications aim to enhance the cognitive capabilities of users, and are thus compute intensive as well due to widespread use of the state-of-art computer vision and machine learning algorithms, particularly Deep Neural Networks (DNNs). 
-    Although mobile devices are becoming increasingly powerful, the gap between mobile and static elements continues to exist~\cite{flinn2012cyber}. 
+    Although mobile devices are becoming increasingly powerful, the gap between mobile and static elements continues to exist~\cite{Flinn2012Cyber}. 
     While state-of-the-art DNN object detectors can run at more than 20 FPS on a server GPU, their performances are much worse on mobile GPUs - some models cannot even be loaded due to memory constraints. 
     Cloudlet-based applications overcome these challenges by offloading the computation. 
 %    Offloading makes sense when the computation is intensive or special hardwares are needed. 
@@ -149,7 +149,7 @@ The suite has three elements, as shown in Figure~\ref{fig:TraceReplayArch}:
 % the \emph{application backend}, the \emph{client emulator}, and the \emph{control backend} or \emph{server}, which interact in the following ways:
 
 \begin{description}[labelindent=\parindent, listparindent=\parindent, style=unboxed, leftmargin=0cm]
-  \item [The application backend] consists of instances of the target application running on \textcite{docker} containers. 
+  \item [The application backend] consists of instances of the target application running on Docker containers. 
   These correspond to real, unaltered instances of said cognitive assistance applications -- we do not model or emulate them in any way -- and they are containerized in order to be able to execute an arbitrary number of them on the same cloudlet.
   \item [The client emulator] consists of an Android application which emulates the behavior of a user operating the target cognitive assistance application while following the previously discussed user model.
   This Android app replays the previously recorded sensory data over the network to a specific \emph{application backend}, while collecting statistics and measurements of the system status. 
@@ -166,10 +166,10 @@ The suite has three elements, as shown in Figure~\ref{fig:TraceReplayArch}:
 
 \section{Demo Overview}
 
-We will demonstrate the benchmarking framework using the \emph{LEGO Task Guidance} application previously developed by \textcite{Chen:EarlyImplementation}.
+We will demonstrate the benchmarking framework using the \emph{LEGO Task Guidance} application previously developed by \textcite{Chen2015Early}.
 This application guides a user step by step in the assembly of a LEGO model; input consists exclusively of video feed of the current state of the assembly, whereas feedback includes visual and auditory components in the form of animations and speech, respectively.
 
-The benchmarking tool will be employed to extract key real-time metrics from this application, \emph{e.g.} average computation and network times, as well as the estimated \emph{user experience} level of the system as a whole (\emph{flawless}, \emph{impaired} or \emph{unusable}, based on the categorization in \cite{Chen:AnEmpiricalStudyOfLatency}).
+The benchmarking tool will be employed to extract key real-time metrics from this application, \emph{e.g.} average computation and network times, as well as the estimated \emph{user experience} level of the system as a whole (\emph{flawless}, \emph{impaired} or \emph{unusable}, based on the categorization in \cite{Chen2017Empirical}).
 
 \section{Discussion and Future Work}
 
