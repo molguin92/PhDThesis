@@ -36,9 +36,9 @@ These principles result in the following characteristics of human-in-the-loop ap
 % Thus, the low latency benefits provided by cloudlets distinguish human-in-the-loop applications from conventional mobile or web applications. 
 % Therefore, low latency is a salient characteristic of cloudlet-enabled applications.
 	
-    \item[Compute Intensive:] Cognitive Assistance applications aim to enhance the cognitive capabilities of users, and are thus compute intensive as well due to widespread use of the state-of-art computer vision and machine learning algorithms, particularly Deep Neural Networks (DNNs). 
+    \item[Compute Intensive:] Cognitive Assistance applications aim to enhance the cognitive capabilities of users, and are thus compute intensive as well due to widespread use of the state-of-art computer vision and machine learning algorithms, particularly \acp{DNN}. 
     Although mobile devices are becoming increasingly powerful, the gap between mobile and static elements continues to exist~\cite{Flinn2012Cyber}. 
-    While state-of-the-art DNN object detectors can run at more than 20 FPS on a server GPU, their performances are much worse on mobile GPUs - some models cannot even be loaded due to memory constraints. 
+    While state-of-the-art DNN object detectors can run at more than 20 \acs{FPS} on a server \acs{GPU}, their performances are much worse on mobile \acsp{GPU} - some models cannot even be loaded due to memory constraints. 
     Cloudlet-based applications overcome these challenges by offloading the computation. 
 %    Offloading makes sense when the computation is intensive or special hardwares are needed. 
 
@@ -176,7 +176,7 @@ The benchmarking tool will be employed to extract key real-time metrics from thi
 Some open questions and challenges remain to be tackled in the design and development of the presented tool.
 To start with, the benchmarking suite is relatively narrow in the types of applications it can be applied to, currently only targeting event based cognitive assistance applications.
 The tool needs to be extended to work on a much a broader spectrum of applications, in particular those that do not have a clear task model.
-Furthermore, the current implementation does not support hardware accelerators (e.g. GPUs) that are commonly used for DNN inference.
+Furthermore, the current implementation does not support hardware accelerators (e.g. \acsp*{GPU}) that are commonly used for \ac{DNN} inference.
 
 In addition, our current user model is simplistic. 
 This model could be expanded to emulate a human user more accurately and realistically, e.g. making mistakes and responding to feedback to correct them.
