@@ -20,32 +20,8 @@ The resulting collections of execution times represent the distributions of thes
 These distributions can then be sampled to produce new, realistic execution times.
 In the following, we detail the step-by-step processing of this data and construction of the probabilistic model.
 
-\begin{table}
-    \centering
-    \caption[A]{%
-        Sample of the execution time data  used for the elaboration of the timing model.
-        Rows contain the execution times and \acp{TTF} for each of the \num{169} steps performed by the \num{40} participants in \textcite{olguinmunoz:impact2021}, expressed in seconds, together with a unique identifier for the subject, their associated level of normalized neuroticism, and a sequence number identifying the position of the step in the task.
-    }\label{tab:data:exectime}
-    \begin{tabular}{rrrrrr}
-        \toprule
-        {seq}        & {run\_id}    & {exec\_time} & {ttf}        & {neuroticism} \\
-        \midrule
-        1            & 134146       & 3.655        & 0.597        & 0.375         \\
-        2            & 134146       & 4.439        & 0.554        & 0.375         \\
-        3            & 134146       & 2.943        & 0.562        & 0.375         \\
-        \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \)  \\
-        169          & 134146       & 3.532        & 4.571        & 0.375         \\
-        1            & 134470       & 3.461        & 0.561        & 0.594         \\
-        2            & 134470       & 6.678        & 0.572        & 0.594         \\
-        \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \)  \\
-        \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \) & \( \cdots \)  \\
-        169          & 137353       & 4.615        & 0.537        & 0.625         \\
-        \bottomrule
-    \end{tabular}
-\end{table}
-
 We employ a cleaned and re-parameterized copy of the aforementioned timing data.
-The \num{6760} data points are arranged in a table, a sample of which can be seen in \cref{tab:data:exectime}, together with identifiers for the subjects, their neuroticism score, and a sequence number for each step.
+The \num{6760} data points are arranged in a table together with identifiers for the subjects, their neuroticism score, and a sequence number for each step.
 
 \begin{table}[]
     \centering
@@ -78,12 +54,12 @@ In other words, for each recorded step, we look back until we find a step with a
 % However, if the current step is too far from the latest transition in impairment (by default, more than \num{8} steps), it is instead marked as \emph{no transition}; this label is also used for steps at the beginning of each run which have no previous transition in impairment.
 % This labeling allows us to capture the behavior described in \cref{item:remain} of \cref{ssec:plos}.
 
-Finally, we assign a number to each sample corresponding to \emph{how long} the current combination of level of impairment and transition has been in effect, in number of steps.
-This count resets whenever this combination changes.
+Finally, we assign a number to each sample corresponding to \emph{how long} the system has been under the current level of impairment, in number of steps.
+% This count resets whenever this combination changes.
 This value is subsequently discretized into three levels; \emph{short}, \emph{medium}, and \emph{long duration} (again, refer to \cref{tab:defaultbins} for the exact values used).
 
-The results of this processing on the samples from \cref{tab:data:exectime} can be seen in \cref{tab:data:exectime:processed}.
-Three examples of the effect of this discretization and processing on the data are also presented in \cref{fig:timing}.
+% The results of this processing on the samples from \cref{tab:data:exectime} can be seen in \cref{tab:data:exectime:processed}.
+Three examples of the effect of this discretization and processing on the data are presented in \cref{fig:timing}.
 Specifically, we showcase how
 \begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and}}]
     \item higher neuroticism leads to higher mean execution times as impairment goes up (\cref{fig:timing:impneurvsetime})
@@ -154,28 +130,6 @@ At the beginning of each step, the model
     $t_\text{exec} \leftarrow {SAMPLE}(E)$\;
 
 \end{algorithm}
-
-
-\begin{table*}
-    \todo[inline]{Remove this table, or re-do it.}
-    \caption{Sample of the processed execution time data table.}\label{tab:data:exectime:processed}
-    \begin{tabular}{rrrrcrccrc}
-        \toprule
-        {seq}        & {run\_id}    & {next\_exec\_time} & {ttf}        & {impairment} & {neuroticism\_raw} & {neuroticism} & {transition} & {duration\_raw} & {duration}   \\
-        \midrule
-        1            & 134146       & 3.655              & 0.000        & low          & 0.375              & low           & NoTransition & 1               & short        \\
-        2            & 134146       & 4.439              & 0.597        & low          & 0.375              & low           & NoTransition & 2               & short        \\
-        3            & 134146       & 2.943              & 0.554        & low          & 0.375              & low           & NoTransition & 3               & short        \\
-        \( \cdots \) & \( \cdots \) & \( \cdots \)       & \( \cdots \) & \( \cdots \) & \( \cdots \)       & \( \cdots \)  & \( \cdots \) & \( \cdots \)    & \( \cdots \) \\
-        169          & 134146       & 3.532              & 3.689        & high         & 0.375              & low           & Lower2Higher & 2               & short        \\
-        1            & 134470       & 3.461              & 0.000        & low          & 0.594              & high          & NoTransition & 1               & short        \\
-        2            & 134470       & 6.678              & 0.561        & low          & 0.594              & high          & NoTransition & 2               & short        \\
-        \( \cdots \) & \( \cdots \) & \( \cdots \)       & \( \cdots \) & \( \cdots \) & \( \cdots \)       & \( \cdots \)  & \( \cdots \) & \( \cdots \)    & \( \cdots \) \\
-        \( \cdots \) & \( \cdots \) & \( \cdots \)       & \( \cdots \) & \( \cdots \) & \( \cdots \)       & \( \cdots \)  & \( \cdots \) & \( \cdots \)    & \( \cdots \) \\
-        169          & 137353       & 4.615              & 0.579        & low          & 0.625              & high          & NoTransition & 2               & short        \\
-        \bottomrule
-    \end{tabular}
-\end{table*}
 
 \begin{figure*}
     \centering%
@@ -281,6 +235,7 @@ In other words, for each sampling instant in a step with a given execution time 
 \subsection{Model verification}\label{ssec:model:verification}
 \todo[inline]{Needs better name.}
 \todo[inline]{Rework with new tweaked models.}
+\todo[inline]{Needs to include first the synthetic setup, then "real" setup.}
 
 We use Python~\num{3.10} to implement two variants of the above described model.
 The first of these samples execution times directly from the empirical data from~\cite{olguinmunoz:impact2021}; we will refer to it hereafter as the \emph{empirical model}.
