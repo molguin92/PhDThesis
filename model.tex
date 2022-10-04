@@ -68,9 +68,9 @@ Specifically, we showcase how
 \end{enumerate*}.
 
 
-Finally, in \cref{alg:timings} we present a step-by-step breakdown of how this data is subsequently used to generate realistic execution times.
-In plain English, a model which uses this processed data to generate execution times needs to maintain variables for duration, previous impairment, and most recent transition.
-At the beginning of each step, the model
+Finally, we present a step-by-step breakdown of how this data is subsequently used to generate realistic execution times.
+A model which uses this processed data to generate execution times needs to maintain variables for duration, previous impairment, and most recent transition.
+At the beginning of each step, it:
 \begin{enumerate}
     \item Checks whether any change in impairment has occurred.
           If it has, it resets duration to \num{1} and updates the transition variable accordingly.
@@ -88,48 +88,48 @@ At the beginning of each step, the model
     \item Finally, updates the stored impairment value with the new impairment and proceeds to the next step.
 \end{enumerate}
 
-\begin{algorithm}
-    \todo[inline]{Update algorithm.}
-    \caption{Generating realistic execution times}\label{alg:timings}
+% \begin{algorithm}
+%     \todo[inline]{Update algorithm.}
+%     \caption{Generating realistic execution times}\label{alg:timings}
 
-    \SetKwInput{KwState}{Initial State}
+%     \SetKwInput{KwState}{Initial State}
 
-    \KwIn{$\tau$: \ac{TTF} of the previous step.}
-    \KwOut{$t_\text{exec}$: next execution time.}
-    \KwState{%
-        \begin{itemize}
-            \item Binned neuroticism $N$.
-            \item Number of steps to remember transitions for: $\delta \leftarrow 8$.
-            \item Duration counter: $d \leftarrow 0$.
-            \item Previous impairment: $I' \leftarrow \varnothing$.
-            \item $B_\text{TTF}$ and $B_\text{duration}$ are functions for binning \ac{TTF} and duration into discrete levels, respectively.
-            \item $F_\text{data}$ is a function which filters the data and returns only execution time samples which match the given levels of binned neuroticism, binned impairment, binned duration, and transition label.
-        \end{itemize}
-    }
+%     \KwIn{$\tau$: \ac{TTF} of the previous step.}
+%     \KwOut{$t_\text{exec}$: next execution time.}
+%     \KwState{%
+%         \begin{itemize}
+%             \item Binned neuroticism $N$.
+%             % \item Number of steps to remember transitions for: $\delta \leftarrow 8$.
+%             \item Duration counter: $d \leftarrow 0$.
+%             \item Previous impairment: $I' \leftarrow \varnothing$.
+%             \item $B_\text{TTF}$ and $B_\text{duration}$ are functions for binning \ac{TTF} and duration into discrete levels, respectively.
+%             \item $F_\text{data}$ is a function which filters the data and returns only execution time samples which match the given levels of binned neuroticism, binned impairment, binned duration, and transition label.
+%         \end{itemize}
+%     }
 
-    $I \leftarrow B_\text{TTF}(\tau)$ \tcc*{discretize \ac{TTF}}
+%     $I \leftarrow B_\text{TTF}(\tau)$ \tcc*{discretize \ac{TTF}}
 
-    \uIf{($I' == \varnothing$) {\normalfont\textbf{or}}\\\hspace{1em}($T \neq \text{``NO TRANSITION''}$ {\normalfont\textbf{and}} $d + 1 > \delta$)}{%
-        $d \leftarrow 1$\;
-        $T \leftarrow \text{``NO TRANSITION''}$\;
-    } \uElseIf{$I' < I$}{%
-        $d \leftarrow 1$\;
-        $T \leftarrow \text{``LOWER TO HIGHER''} $
-    } \uElseIf{$I' > I$}{%
-        $d \leftarrow 1$\;
-        $T \leftarrow \text{``HIGHER TO LOWER''} $
-    } \Else {%
-        $d \leftarrow d + 1$\;
-    }
-    $I' \leftarrow I$ \tcc*{store impairment for later}
-    $D \leftarrow B_\text{duration}(d)$ \tcc*{discretize duration}
+%     \uIf{($I' == \varnothing$) {\normalfont\textbf{or}}\\\hspace{1em}($T \neq \text{``NO TRANSITION''}$ {\normalfont\textbf{and}} $d + 1 > \delta$)}{%
+%         $d \leftarrow 1$\;
+%         $T \leftarrow \text{``NO TRANSITION''}$\;
+%     } \uElseIf{$I' < I$}{%
+%         $d \leftarrow 1$\;
+%         $T \leftarrow \text{``LOWER TO HIGHER''} $
+%     } \uElseIf{$I' > I$}{%
+%         $d \leftarrow 1$\;
+%         $T \leftarrow \text{``HIGHER TO LOWER''} $
+%     } \Else {%
+%         $d \leftarrow d + 1$\;
+%     }
+%     $I' \leftarrow I$ \tcc*{store impairment for later}
+%     $D \leftarrow B_\text{duration}(d)$ \tcc*{discretize duration}
 
-    \tcc{next, filter the data to select only the matching samples}
-    $E \leftarrow F_\text{data}(N, I, D, T)$ \;
-    \tcc{finally, sample the data to return a realistic execution time}
-    $t_\text{exec} \leftarrow {SAMPLE}(E)$\;
+%     \tcc{next, filter the data to select only the matching samples}
+%     $E \leftarrow F_\text{data}(N, I, D, T)$ \;
+%     \tcc{finally, sample the data to return a realistic execution time}
+%     $t_\text{exec} \leftarrow {SAMPLE}(E)$\;
 
-\end{algorithm}
+% \end{algorithm}
 
 \begin{figure*}
     \centering%
@@ -237,12 +237,48 @@ In other words, for each sampling instant in a step with a given execution time 
 \todo[inline]{Rework with new tweaked models.}
 \todo[inline]{Needs to include first the synthetic setup, then "real" setup.}
 
-We use Python~\num{3.10} to implement two variants of the above described model.
+We use Python~\num{3.10} to implement two variants of the above described timing model.
 The first of these samples execution times directly from the empirical data from~\cite{olguinmunoz:impact2021}; we will refer to it hereafter as the \emph{empirical model}.
 The second corresponds to one which first fits a theoretical \ac{exGaussian} distribution to the data before sampling; we will refer to this one as the \emph{theoretical model}.
-We also implement a reference model which uses a constant execution time of \SI{5.23}{\second}, which we in turn call the \emph{naive model}.
-This value corresponds to the mean execution time of steps with the lowest level of impairment and a transition tag of \emph{no transition}.
-\todo[inline]{Transition fade distance was 4 instead of 8, need to mention?}
+We also implement three simpler reference timing models:
+\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
+    \item a model which returns a constant execution time, corresponding to the mean execution time of all samples associated with the lowest impairment and the shortest duration
+    % \item a model which randomly samples from the raw data without any grouping
+    \item a model which fits an \ac{exGaussian} distribution to the raw data, without any grouping, and then randomly samples from it  
+\end{enumerate*}.
+We will refer to these models as the \emph{constant} and \emph{fitted-naive} model, respectively.
+
+\todo[inline]{Insert synthetic, controlled setup here.}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=.9\textwidth]{figs/model_comp_controlled_ttf.png}
+    \begin{tabular}{ll >{\columncolor[HTML]{EAEAEA}}r >{\columncolor[HTML]{EAEAEA}}r rr}
+    \toprule
+    {} & {} & \multicolumn{2}{>{\columncolor[HTML]{EAEAEA}}c}{\ac{TTF} \( = \) \SI{0}{\second}} & \multicolumn{2}{c}{\ac{TTF} \( = \) \SI{5}{\second}} \\
+    {Model} & {Neuroticism} & {Total Duration} & {Diff.\ w.r.t.\ fitted-naive} & {Total Duration} & {Diff.\ w.r.t.\ fitted-naive} \\
+    \midrule
+    fitted-naive & n/a & \SI{576.74}{\second} & & \SI{1084.57}{\second} & \\
+    \multirow[c]{2}{*}{empirical} & low & \SI{511.18}{\second} & \SI{-11.37}{\percent} & \SI{1083.40}{\second} & \SI{-0.11}{\percent} \\
+    & high & \SI{533.29}{\second} & \SI{-7.53}{\percent} & \SI{1245.46}{\second} & +\SI{14.84}{\percent} \\
+    \multirow[c]{2}{*}{theoretical} & low & \SI{504.73}{\second} & \SI{-12.49}{\percent} & \SI{1080.16}{\second} & \SI{-0.41}{\percent} \\
+    & high & \SI{539.00}{\second} & \SI{-6.54}{\percent} & \SI{1225.68}{\second} & +\SI{13.01}{\percent} \\
+    \bottomrule
+    \end{tabular}
+    \caption{
+        Comparison of the total duration of \num{100}-step tasks for different models in the controlled \ac{TTF} setup.
+        The results are separated for clarity, with the top plot showing the results for the realistic models, and the bottom one for the reference models.
+    }\label{fig:ctrlttf}
+\end{figure*}
+
+
+We first compare these models using a controlled, ideal setup with \num{25} constant, linearly distributed \acp{TTF} in the \SIrange[]{0}{5}{\second} range.
+For each \ac{TTF}, the models execute \num{30} independent repetitions of a \num{100} step task.
+
+We show the result of these runs in \cref{fig:ctrlttf}.
+At the highest level of neuroticism, the realistic models result in \textasciitilde{}\SI{14}{\percent} longer total durations when compared to the \emph{fitted-naive} reference model. 
+
+
 
 \begin{figure}
     \centering
@@ -252,7 +288,6 @@ This value corresponds to the mean execution time of steps with the lowest level
         We deploy containerized instances of the client-server loop running the models on a testbed consisting of \num{10} Raspberry Pi clients connected to a cloudlet over a \ac{COTS} \acs{IEEE} \num{802.11}n access point.
     }\label{fig:expsetup}
 \end{figure}
-
 
 These models are integrated into client software for communicating with an adapted and instrumented version of the Gabriel~\cite{Chen2015LEGO,Chen2018application} \ac{WCA} backend running variants of the LEGO task.
 In the following, we use these client-server loops to illustrate the implications of the realistic timing models, which react to changes in system responsiveness in real-time, when compared to the static, naive model.
