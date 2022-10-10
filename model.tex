@@ -258,16 +258,15 @@ We will refer to these models as the \emph{constant} and \emph{fitted-naive} mod
     {} & {} & \multicolumn{2}{>{\columncolor[HTML]{EAEAEA}}c}{\ac{TTF} \( = \) \SI{0}{\second}} & \multicolumn{2}{c}{\ac{TTF} \( = \) \SI{5}{\second}} \\
     {Model} & {Neuroticism} & {Total Duration} & {Diff.\ w.r.t.\ fitted-naive} & {Total Duration} & {Diff.\ w.r.t.\ fitted-naive} \\
     \midrule
-    fitted-naive & n/a & \SI{576.74}{\second} & & \SI{1084.57}{\second} & \\
-    \multirow[c]{2}{*}{empirical} & low & \SI{511.18}{\second} & \SI{-11.37}{\percent} & \SI{1083.40}{\second} & \SI{-0.11}{\percent} \\
-    & high & \SI{533.29}{\second} & \SI{-7.53}{\percent} & \SI{1245.46}{\second} & +\SI{14.84}{\percent} \\
-    \multirow[c]{2}{*}{theoretical} & low & \SI{504.73}{\second} & \SI{-12.49}{\percent} & \SI{1080.16}{\second} & \SI{-0.41}{\percent} \\
-    & high & \SI{539.00}{\second} & \SI{-6.54}{\percent} & \SI{1225.68}{\second} & +\SI{13.01}{\percent} \\
+    fitted-naive & & \SI{575.54}{\second} & & \SI{1082.28}{\second} & \\
+    \multirow[c]{2}{*}{empirical} & low & \SI{509.39}{\second} & \SI{-11.49}{\percent} & \SI{1071.99}{\second} & \SI{-0.95}{\percent} \\
+    & high & \SI{536.48}{\second} & \SI{-6.79}{\percent} & \SI{1235.65}{\second} & +\SI{14.17}{\percent} \\
+    \multirow[c]{2}{*}{theoretical} & low & \SI{505.22}{\second} & \SI{-12.22}{\percent} & \SI{1073.49}{\second} & \SI{-0.81}{\percent} \\
+    & high & \SI{536.31}{\second} & \SI{-6.82}{\percent} & \SI{1235.70}{\second} & +\SI{14.18}{\percent} \\
     \bottomrule
     \end{tabular}
     \caption{
         Comparison of the total duration of \num{100}-step tasks for different models in the controlled \ac{TTF} setup.
-        The results are separated for clarity, with the left plot showing the results for the realistic models, and the right the reference models.
         The table shows a detailed breakdown of durations for the fitted-naive, empirical, and theoretical models at the lowest and highest \acp{TTF}, as well as relative differences with respect to the corresponding fitted-naive baseline for each case.
     }\label{fig:ctrlttf}
 \end{figure*}
@@ -276,10 +275,14 @@ We will refer to these models as the \emph{constant} and \emph{fitted-naive} mod
 We first compare these models using a controlled, ideal setup with \num{25} constant, linearly distributed \acp{TTF} in the \SIrange[]{0}{5}{\second} range.
 For each \ac{TTF}, the models execute \num{30} independent repetitions of a \num{100} step task.
 
-We show the result of these runs in \cref{fig:ctrlttf}.
-At the highest level of neuroticism, the realistic models result in \textasciitilde{}\SI{14}{\percent} longer total durations when compared to the \emph{fitted-naive} reference model. 
+We show the results of these runs in \cref{fig:ctrlttf}, and we can notice two interesting behaviors of the realistic models.
+One, all realistic models are faster than the reference models at the lowest \ac{TTF}.
+When compared to the fitted-naive model, the reduction in total duration was on average \textasciitilde\SI{12}{\percent} for realistic models with low neuroticism, and \textasciitilde\SI{6.8}{\percent} for the same models with high neuroticism.
 
+Two, at the highest \ac{TTF}, \emph{only} the high neuroticism models show any significant difference in duration with respect to the reference models.
+For \ac{TTF} \(=\) \SI{5.0}{s}, the high neuroticism realistic models were on average \textasciitilde\SI{14.18}{\percent} slower than the fitted-naive model, whereas the low neuroticism models showed no significant relative difference in duration.
 
+\todo[inline]{explain whyyyyy}
 
 \begin{figure}
     \centering
