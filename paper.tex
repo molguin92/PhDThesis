@@ -15,8 +15,7 @@
 \usepackage{amssymb}
 \usepackage{url}
 \usepackage{orcidlink}
-\usepackage[inline]{enumitem}
-\setlist[description]{font=\normalfont\underline}
+
 \usepackage{todonotes}
 \usepackage{caption}
 \usepackage[subrefformat=parens]{subcaption}
@@ -62,11 +61,15 @@
 % for dealing with ACM's stupid bibtex requirements
 % \usepackage{biblatex2bibitem}
 % \usepackage[nosort,compress]{cite}
+
 \usepackage{outline}
 \usepackage{orcidlink}
 \usepackage[all]{hypcap}
 \usepackage{makecell}
 \usepackage[capitalize,nameinlink,noabbrev]{cleveref}
+\usepackage[inline]{enumitem}
+\setlist[description]{font=\normalfont\underline}
+
 % \crefname{subfigure}{Subfigure}{Subfigures}
 % \Crefname{subfigure}{Subfigure}{Subfigures}
 % \crefname{listing}{Listing}{Listings}
@@ -126,7 +129,8 @@
 \input{intro.tex}
 \input{background.tex}
 \input{model.tex}
-\input{responsiveness-tradoffs.tex}
+% \input{responsiveness-tradoffs.tex}
+\input{implications_optimization.tex}
 \input{conclusion.tex}
 
 \printbibliography{}

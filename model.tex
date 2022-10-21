@@ -233,22 +233,22 @@ In other words, for each sampling instant in a step with a given execution time 
 \end{enumerate}
 
 \subsection{Model verification}\label{ssec:model:verification}
-\todo[inline]{Needs better name.}
-\todo[inline]{Rework with new tweaked models.}
-\todo[inline]{Needs to include first the synthetic setup, then "real" setup.}
+\todo[inline]{Needs better name?}
 
 We use Python~\num{3.10} to implement two variants of the above described timing model.
 The first of these samples execution times directly from the empirical data from~\cite{olguinmunoz:impact2021}; we will refer to it hereafter as the \emph{empirical model}.
 The second corresponds to one which first fits a theoretical \ac{exGaussian} distribution to the data before sampling; we will refer to this one as the \emph{theoretical model}.
-We also implement three simpler reference timing models:
+The \ac{exGaussian} distribution was chosen due to the vast body of research supporting its suitability for the modeling of the timing of human actions~\cite{Rohrer1994analysis,Palmer2011shapes,Marmolejo2022generalised}.
+Collectively, we will refer to both these models interchangeably as the \emph{realistic models} or \emph{second-order models}.
+\todo[inline]{Explain why using ExGaussian?}
+
+We also implement two simpler reference timing models:
 \begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
-    \item a model which returns a constant execution time, corresponding to the mean execution time of all samples associated with the lowest impairment and the shortest duration
-    % \item a model which randomly samples from the raw data without any grouping
+    % \item a model which returns a constant execution time, corresponding to the mean execution time of all samples associated with the lowest impairment and the shortest duration
+    \item a model which randomly samples from the raw data without any grouping
     \item a model which fits an \ac{exGaussian} distribution to the raw data, without any grouping, and then randomly samples from it  
 \end{enumerate*}.
-We will refer to these models as the \emph{constant} and \emph{fitted-naive} model, respectively.
-
-\todo[inline]{Insert synthetic, controlled setup here.}
+We will refer to these models individually as the \emph{naive} and \emph{fitted-naive} model, respectively, and collectively as the \emph{firt-order models}.
 
 \begin{figure*}
     \centering
@@ -275,14 +275,20 @@ We will refer to these models as the \emph{constant} and \emph{fitted-naive} mod
 We first compare these models using a controlled, ideal setup with \num{25} constant, linearly distributed \acp{TTF} in the \SIrange[]{0}{5}{\second} range.
 For each \ac{TTF}, the models execute \num{30} independent repetitions of a \num{100} step task.
 
-We show the results of these runs in \cref{fig:ctrlttf}, and we can notice two interesting behaviors of the realistic models.
+We show the results of these runs in \cref{fig:ctrlttf}.
+Two interesting behaviors of the realistic models can be noticed in this plot.
 One, all realistic models are faster than the reference models at the lowest \ac{TTF}.
 When compared to the fitted-naive model, the reduction in total duration was on average \textasciitilde\SI{12}{\percent} for realistic models with low neuroticism, and \textasciitilde\SI{6.8}{\percent} for the same models with high neuroticism.
 
 Two, at the highest \ac{TTF}, \emph{only} the high neuroticism models show any significant difference in duration with respect to the reference models.
 For \ac{TTF} \(=\) \SI{5.0}{s}, the high neuroticism realistic models were on average \textasciitilde\SI{14.18}{\percent} slower than the fitted-naive model, whereas the low neuroticism models showed no significant relative difference in duration.
 
-\todo[inline]{explain whyyyyy}
+These behaviors clearly stem from the effects identified in \textcite{olguinmunoz:impact2021}, described in \cref{ssec:plos}.
+At low levels of impairments, i.e.\ small \acp{TTF}, the speed-up effect dominates, bringing execution times to a minimum and consequently resulting in shorter total durations.
+On the other hand, at high levels of impairment, the slow-down (pacing) effect starts to take over, pushing step execution times and total durations up.
+However, only in the high neuroticism case do execution times eventually surpass the reference model, which is in line with our findings with respect to the modulating effects of neuroticism.
+
+\medskip
 
 \begin{figure}
     \centering
@@ -293,23 +299,15 @@ For \ac{TTF} \(=\) \SI{5.0}{s}, the high neuroticism realistic models were on av
     }\label{fig:expsetup}
 \end{figure}
 
-These models are integrated into client software for communicating with an adapted and instrumented version of the Gabriel~\cite{Chen2015LEGO,Chen2018application} \ac{WCA} backend running variants of the LEGO task.
-In the following, we use these client-server loops to illustrate the implications of the realistic timing models, which react to changes in system responsiveness in real-time, when compared to the static, naive model.
-Two scenarios are studied, using the testbed shown in \cref{fig:expsetup}:
-\begin{enumerate}
-    \item\label{verification:scaling} A scenario to study the effects of decreasing system responsiveness due to resource and network congestion.
-    An increasing number of client-server loops (\numlist{1;4;7;10} loops) are deployed in parallel for each model.
-    Neuroticism is set to a constant value of \num{0.5}, and each combination of model and number of clients is repeated \num{5} times for better statistical representativeness.
-    \item\label{verification:neuro} A scenario in which the effects of neuroticism are studied.
-    Two different configurations of the realistic models, with neuroticism values of \num{0.0} (\emph{low}) and \num{1.0} (\emph{high}), are compared to a reference setup using the naive model.
-    In all these setups, \num{9} loops are deployed in parallel, and an \emph{iperf3}\footnote{\href{https://iperf.fr/}{https://iperf.fr/}} client-server pair is deployed between the tenth Raspberry Pi client and the cloudlet.
-    This \emph{iperf3} deployment starts \SI{120}{\second} after the start of the \num{9} model loops, and is configured to generate additional network load by constantly sending a stream of \SI{1460}{\byte} \ac{UDP} datagrams on the uplink; the rate at which these datagrams are sent is only limited by the \acs{CPU} of the Raspberry Pi client.
+These models are then integrated into client software for communicating with an adapted and instrumented version of the Gabriel~\cite{Chen2015LEGO,Chen2018application} \ac{WCA} backend running variants of the LEGO task.
+In the following we use these client-server loops together with the testbed show in \cref{fig:expsetup} to illustrate the implications of the realistic timing models.
+Our goal is to understand the consequences of taking second order effects into consideration when modeling execution times, versus simply relying on first-order statistics.
 
+\todo[inline]{Update with new deployment, 802.11b/g wifi.}
 
-    We repeat each (model, neuroticism value) configuration --- (naive, \acs{N/A}), (empirical, low), (empirical, high), (theoretical, low), and (theoretical, high) --- \num{5} times for better statistical accuracy.
-\end{enumerate}
-
-Both scenarios described above use a variant of one of the \num{169}-step tasks used in~\cite{olguinmunoz:impact2021}, truncated to \num{45} steps.
+We deploy an increasing number of client-server loops (\numlist{1;4;7;10} loops) in parallel on the testbed and record the resulting timing metrics.
+These setups are repeated \num{5} times per model for better statistical representativeness; realistic models parameterized with \emph{low} (\num{0.0}) and \emph{high} (\num{1.0}) neuroticism are considered separate models for the purpose of this experiment.
+The task used for all repetitions corresponds to a variant of the \num{169}-step tasks used in~\cite{olguinmunoz:impact2021}, truncated to \num{45} steps plus a special initial trigger step. 
 
 \medskip
 
@@ -343,7 +341,6 @@ This is due to the speed-up effect described in \textcite{olguinmunoz:impact2021
 
 On the other, the realistic models experience a mean slowdown of about \SI{5.13}{\percent} at the highest level of resource contention (\num{10} concurrent loops) when compared to the naive model, even though only about \SI{22}{\percent} of \acp{TTF} in this scenario reach the medium impairment level and practically no \acp{TTF} pass threshold for the highest level of impairment.
 This showcases that the additional user slow-down due to reduced system responsiveness, originally described in \textcite{olguinmunoz:impact2021}, causes a noticeable and significant extension of system utilization time, even at lower and medium levels of impairment.
-\todo[inline]{Add another setup with additional load and discuss}
 
 \medskip
 
