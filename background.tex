@@ -77,19 +77,17 @@ then it follows that, \emph{on average}, for \emph{all} steps subject to a delay
 
 Ergo, we can directly re-parameterize the data from~\cite{olguinmunoz:impact2021} to use \ac{TTF} instead of delay by simply multiplying the delay value of each step by \num{1.5} without loss of accuracy.
 
-With this in mind, we can reformulate the conclusions of this work as follows:
-\todo[inline]{Reformulate}
+With this in mind, we can reformulate the conclusions of this previous work as follows:
 \begin{enumerate}
     \item System slow-down induces \emph{additional} behavioral slow-down which scales with the decrease in system responsiveness.
     Compared to the unimpaired case, participants were on average \SI{12}{\percent} slower when subject to a mean \ac{TTF} of \SI{2.475}{\second}, and a further \num{14} percentage points slower at a mean \ac{TTF} of \SI{4.5}{\second}.
-    Users also become progressively slower the longer they spend in a degraded system state.
+
+    \item\label{item:speedup} At lower \acp{TTF}, humans get faster at performing steps as the task progresses, 
+    For sequences of \num{12} steps in an unimpaired application state, humans executed the final four steps on average \SI{36}{\percent} faster than they did the first four.
+    However, this effect is dampened by reduced system responsiveness, and actually inverts at the highest levels of system impairment; humans actually become progressively slower the longer they spend in a degraded system state.
 
     \item\label{item:remain} The effects of system slow-down on human behavior remain for a while even after system responsiveness improves.
     These effects are noticeable for at least \num{4} steps after the return to a high-responsiveness state. 
-    
-    \item\label{item:speedup} Humans get faster at performing steps as the task progresses.
-    For sequences of \num{12} steps in an unimpaired application state, humans executed the final four steps on average \SI{36}{\percent} faster than they did the first four.
-    However, this effect is dampened by reduced system responsiveness, and disappears at the highest levels of system impairment.
     
     \item The above effects are modulated by the Big Five~\cite{oliver:bfi1999} trait of \emph{neuroticism}, as evidenced by a \ac{PCA}.
 \end{enumerate}

@@ -11,13 +11,73 @@ We briefly discuss where implementations of this model can be obtained in \cref{
 \todo[inline]{Finish}
 
 \subsection{Generating realistic execution times}\label{ssec:model:exectimes}
-\todo[inline]{Rewrite! New model!}
 
-\medskip{}
-Two versions of the aforementioned model for the generation of execution times are implemented in Python 3.10.
-Apart from a version which follows the above description exactly, we also implement a version which after grouping the data fits an \ac{exGaussian} distribution to each group.
-Execution times are then sampled directly from these distributions instead of from the empirical data.
-The \ac{exGaussian} distribution was chosen due to the vast body of research supporting its suitability for the modeling of the timing of human actions~\cite{Rohrer1994analysis,Palmer2011shapes,Marmolejo2022generalised}.
+As expressed in \cref{ssec:plos}, for ~\cite{olguinmunoz:impact2021} we collected timing and task performance data for \num{40} participants performing a \num{169}-step task, guided by a \ac{WCA}, as well as personality trait scores for each participant.
+For this paper, we use this data to construct a probabilistic model for the generation of realistic execution times.
+We group the data previously collected according to discretized levels of neuroticism and a weighted rolling average of \ac{TTF}.
+The resulting collections of execution times represent the distributions of these values for users with specific levels of neuroticism, interacting with systems at specific states of impairment and recent histories of impairment.
+These distributions can then be sampled to produce new, realistic execution times.
+In the following, we detail the step-by-step processing of this data and construction of the probabilistic model.
+
+We employ a cleaned and re-parameterized copy of the aforementioned timing data.
+The \num{6760} data points are arranged in a table together with identifiers for the subjects, their neuroticism score, and a sequence number for each step.
+
+\begin{table*}[]
+    \centering
+    \caption{%
+        Default bins used for model parameter levels.
+        Values have been rounded to two decimal places.
+    }
+    \label{tab:defaultbins}
+    \begin{tabular}{@{}lccccccc@{}}
+        \toprule
+        \textbf{Parameter} & \textbf{Low} & & & \textbf{Medium} & & & \textbf{High}         \\ \midrule
+        Neuroticism        & \( [0, 0.5) \) & & & & & & \( [0.5, 1.0] \)      \\
+        Weighted TTF & \((-\infty, 0.82]\) & \((0.82, 1.53]\) & \((1.53, 2.08]\) & \((2.08, 2.67]\) & \((2.67, 3.45]\) & \((3.45, 4.13]\) & \((4.13, \infty]\)
+    \end{tabular}
+\end{table*}
+
+We begin by calculating rolling weighted averages of the \acp{TTF} of each of the \num{40} individual repetitions of the data.
+We use exponentially decaying weights for the most recent \num{12} steps, defined in \cref{eq:weights}, such that the most recent \ac{TTF} accounts for roughly \SI{50}{\percent} of the rolling average, the second-most recent for \textasciitilde\SI{25}{\percent}, the third-most \textasciitilde\SI{12}{\percent}, and so on.
+We additionally pad the data for each run with \num{12} copies of the first \ac{TTF} in order to ensure sensible values for the first twelve steps; this padding is removed after the weighted values have been calculated.
+This weighing ensures that drastic changes in \ac{TTF} are significantly remembered by the model for at least \num{4} steps --- in line with our previous findings on human behavior --- and are subsequently quickly forgotten.
+
+\begin{equation}\label{eq:weights}
+    w_{n - i} = 
+    \left\{ \begin{array}{ll}
+        \frac{e^{0.7 i}}{\sum\limits^{12}_{j=1} e^{0.7 j}} & 1 \leq i \leq 12 \\
+        & \\
+        0 & i > 12
+    \end{array} \right.
+\end{equation}
+
+The resulting weighted \acp{TTF} are then binned into continuous ranges by splitting the data on the \num{7}-quantiles.
+The exact resulting bins of this operation on the data can be seen in \cref{tab:defaultbins}.
+
+Next, the data is further tagged according to its associated level of normalized neuroticism.
+For this work, we use two levels, \emph{low} and \emph{high}, the exact values for which can be seen in \cref{tab:defaultbins}.
+
+After this preprocessing has been finished, the data is ready to be used for the generation of execution times by applying the above steps in real-time to measured \acp{TTF}.
+We devise two variants of a model which uses the above-described pre-processed data to generate realistic timings for \ac{WCA}.
+These models operate as follows:
+
+\begin{enumerate}
+    \item At the beginning of each step, the model is fed the measured \ac{TTF} for the previous step.
+    \item The model calculates a weighted average over the latest \num{12} steps recorded using the weights defined in \cref{eq:weights}.
+    \item The resulting weighted \ac{TTF} is binned into the corresponding range (\cref{tab:defaultbins}).
+    \item The model then filters the pre-processed data to find execution time samples associated with this same discretized weighted \ac{TTF}.
+    \item The selected samples are further filtered to match the desired level of neuroticism.
+    \item The remaining samples are then used to output a realistic execution time, either by
+    \begin{itemize}
+        \item directly sampling the empirical execution time values;
+        \item or, first fitting a distribution to the execution time samples and then sampling the distribution instead.
+    \end{itemize}
+\end{enumerate}
+
+The distribution chosen for the second variant described above corresponds to the \ac{exGaussian} distribution.
+We've chosen this distribution due to the vast body of research supporting its suitability for the modeling of the timing of human actions~\cite{Rohrer1994analysis,Palmer2011shapes,Marmolejo2022generalised}.
+
+We implement these models in Python 3.10, and verify their correct behavior in the following.
 
 \subsubsection{Verifying the behavior of the timing model}\label{ssec:model:verification}
 % \todo[inline]{Based on the 4 main conclusions of the PLOS paper.}
