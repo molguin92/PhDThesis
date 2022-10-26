@@ -1,2 +1,14 @@
-\section{Implications for the optimization of \acs{WCA}}\label{sec:implications}
+\section{Implications for the study and optimization of \acs{WCA}}\label{sec:implications}
+\todo[inline]{Implications for task durations, wrt to naive scheme.}
 \todo[inline]{Implications for optimization in terms of sampling, energy.}
+\todo[inline]{Introduction to this section}
+
+We begin by studying the implications of such a model on the estimation of application lifetimes.
+In the context of \ac{WCA}, we will understand \emph{application lifetime} as the time it takes a user to complete a specified task.
+This is an important metric for \ac{WCA} optimization, as it directly relates to system resource utilization and contention, and to energy consumption.
+
+In order to illustrate the consequences of using a less realistic, less accurate model for this kind of research, we introduce here a reference model to which we will compare our results.
+This reference model represents one of the most crude possible approximations the empirical execution time modeling.
+It consist simply of an \ac{exGaussian} distribution fitted to all execution time samples collected for \textcite{olguinmunoz:impact2021} which is randomly sampled at runtime without any sort of adjustment to the current state of the system.
+
+We start by studying application lifetimes in a controlled setup.

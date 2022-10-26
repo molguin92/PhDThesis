@@ -223,14 +223,7 @@ In other words, for each sampling instant in a step with a given execution time 
     \item If instead \( t_\text{norm} < 1.0 \), we find the appropriate bin for \( t_\text{norm} \) and then select a frame by performing a weighted random sampling of the frame categories in the normalized instant bin using the relative proportions for each category.
 \end{enumerate}
 
-\subsection{Implementation}
-\todo[inline]{Maybe not needed.}
-
-\subsection{Model validation}
-\todo[inline]{Implications for task durations, wrt to naive scheme.}
-
 \subsection{Obtaining the model}\label{ssec:model:obtaining}
 
-We provide the model implementations in Python~\num{3.10}, the base data, as well as the client and server implementations used for \cref{ssec:model:verification} to the community as \ac{FOSS}.
+We provide the model implementations in Python~\num{3.10} as well as the base data to the community as \ac{FOSS}.
 All of these are published on the \href{https://github.com/KTH-EXPECA/EdgeDroid2}{\texttt{KTH-EXPECA/EdgeDroid2}} repository on GitHub under a permissive Apache version 2 license.
-Furthermore, the client and server implementations are also made available as pre-packaged Docker containers on Docker Hub, under the \href{https://hub.docker.com/r/expeca/edgedroid2}{\texttt{expeca/edgedroid2}} repository.
