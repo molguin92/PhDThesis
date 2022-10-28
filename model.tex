@@ -76,6 +76,7 @@ These models operate as follows:
 
 The distribution chosen for the second variant described above corresponds to the \ac{exGaussian} distribution.
 We've chosen this distribution due to the vast body of research supporting its suitability for the modeling of the timing of human actions~\cite{Rohrer1994analysis,Palmer2011shapes,Marmolejo2022generalised}.
+Fitting is done using \ac{MLE}.
 
 We implement these models in Python 3.10, and verify their correct behavior in the following.
 
@@ -93,7 +94,7 @@ These are reformulated as objectives below:
         \item At medium \acp{TTF}, execution times should remain more or less the same.
         \item At high \acp{TTF}, execution times should progressively increase.
     \end{enumerate}
-    \item The effects on execution times due to past reductions or improvements in system responsiveness should linger for at least a few steps whenever system responsiveness changes/
+    \item The effects on execution times due to past reductions or improvements in system responsiveness should linger for at least a few steps whenever system responsiveness changes.
     \item\label{it:neuro} Finally, neuroticism should act as a modulating factor for the above effects.
 \end{enumerate}
 
