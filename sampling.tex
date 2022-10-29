@@ -1,0 +1,29 @@
+\section{Aperiodic Sampling}
+
+For sampling the system, we use the optimal aperiodic sampling policy proposed in \cite{sec2022}. The approach followed by the authors is to first express the energy in terms of the expected number of samples and expected wait time experienced by the users and then find the optimum sampling interval that minimises this energy analytically and algorithmically.
+The authors express the energy $\mathrm{E}$ required at the terminal to detect an event as \cite{optSampling_tmc}
+\begin{alignat}{2}
+    \mathrm{E}&=\mathcal{S}\tau_{\text{c}} (P_{\text{c}} -P_0)+\mathcal{W}P_0+(\mathcal{T}+\tau_{\text{c}} +\tau_{\text{s}} ) P_0+\tau_{\text{c}} P_{\text{c}}\,,\nonumber
+\end{alignat}
+and the relevant part of the energy, or energy penalty $\mathcal{E}$ as 
+\begin{alignat}{1}
+\Rightarrow\mathcal{E}=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}],\;\label{eq:epsilon_terminal}
+% \\
+% % \intertext{where we use the constants $\alpha$ and $\beta$ for mathematical tractability in the upcoming sections. Here,}
+% \text{where}\quad\alpha&=\tau_{\text{c}} (P_{\text{c}} -P_0) \;\text{ and }\;\beta=P_0\,.\label{eq:alphaBeta}
+\end{alignat}
+Here the parameters XYZ corresponds to XYZ \todo[inline]{Need to read the full paper and fill the parameters that are not explained already.} 
+
+The authors first prove the two properties that need to be satisfied by the set of sampling instants, $\{t_n,\, n=1,2,\dots,n\}$, which are 
+\begin{subequations}\label{cond}
+\begin{alignat*}{3}
+\!\!&(a)\text{ positive sampling intervals}\,&:&\, t_{n+1}\!-\!t_n\!>\!0,\text{ and}\\
+\!\!&(b)\text{ decreasing sampling intervals}\,&:&\, t_{n+1}\!-\!t_n\!<\!t_{n}\!-\!t_{n-1}.
+\end{alignat*}
+The authors then derive a recursive solution to find the optimum sampling intervals $t_2,t_3\dots$ for a given $t_1$, given by
+\begin{alignat}{1}
+t_{n+1}=t_n+\dfrac{\sigma^2}{t_n}\Big(\mathrm{exp}\big({\tfrac{t_n^2-t_{n-1}^2}{2\sigma^2}}\big)-1\Big)-\dfrac{\alpha}{\beta},\quad\forall n\geq1.
+\end{alignat}
+Finally, to find the optimum $t_1$, an algorithm that resembles a simple bisection algorithm is used. In each iteration of the algorithm, the validity of the sequence is repeatedly checked using the above properties and the $t_1$ is updated based on the property that is being violated. The algorithm converges as the power of two and is omitted due to space constraints.
+\end{subequations}
+
