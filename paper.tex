@@ -12,6 +12,7 @@
 \graphicspath{{./images/}{./plots/}{./figures}}
 \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
 \usepackage{amsmath}
+\usepackage{mathtools}
 \usepackage{amssymb}
 \usepackage[d]{esvect}
 \usepackage{url}
@@ -36,7 +37,9 @@
 \usepackage[detect-weight=true,detect-family=true,binary-units=true,list-units=single,range-units=single]{siunitx}
 \usepackage[nolist]{acronym}
 \input{acronyms.tex}
-
+\newcommand*\dif{\,\mathrm{d}}
+\newcommand*\df{\mathrm{d}}
+\newcommand*\ts{T_{\text{s}}}
 % references
 \usepackage[
   style=numeric-comp,

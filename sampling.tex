@@ -1,29 +1,77 @@
 \section{Aperiodic Sampling}
+% !TEX root = 00_main.tex
+In this section we will explain the method that we used to find the optimum set of sampling instants (or equivalently sampling intervals) for the given distribution of TTE, denoted by $\mathcal{T}$. \todo[inline]{aka execution times. Need to recheck the terminologies used in this section and make it consistent with the paper.} We take the modelling and partial solution approach from the recent works on energy efficient sampling of edge-based feedback systems. In \cite{ICCperiodic1,TMCperiodic}, the authors model the energy in terms of the expected number of samples $\mathbb{E}[\mathcal{S}]$ and the expected wait time $\mathbb{E}[\mathcal{W}]$ experienced by the user, where the wait time $\mathcal{W}$ -- in the terminology of the authors -- is the time between the event completion and the immediate next sample taken. The authors then find the optimum periodic sampling interval that minimises this energy, or equivalently the non-constant parts of this energy termed as \textit{Energy Penalty} $\mathcal{E}$. In this optimisation, the constant parts are excluded as it does not affect the optimisation. With a value much smaller than the execution time of the event or TTE, the RTT of the final sample is included in this constant part, which is the reason why $\mathcal{W}$ is computed without including this RTT. Next, in \cite{secAperiodic}, the authors use this exact model and find the optimum aperiodic sampling instants $\{t_n,\,n=1,2,\dots\}$ that minimises the same energy penalty. In this work, we use the modelling from \cite{secAperiodic} to find the optimum aperiodic sampling interval. However, instead of using their two-step approach to find the solution which include a recursive solution followed by an algorithm, we develop a novel approximate but easier solution to finding the set of optimum aperiodic sampling interval. In what follows, we first recap the system modelling used by the authors \cite{secAperiodic} in and then give our independent approximate solution. 
 
-For sampling the system, we use the optimal aperiodic sampling policy proposed in \cite{sec2022}. The approach followed by the authors is to first express the energy in terms of the expected number of samples and expected wait time experienced by the users and then find the optimum sampling interval that minimises this energy analytically and algorithmically.
-The authors express the energy $\mathrm{E}$ required at the terminal to detect an event as \cite{optSampling_tmc}
-\begin{alignat}{2}
-    \mathrm{E}&=\mathcal{S}\tau_{\text{c}} (P_{\text{c}} -P_0)+\mathcal{W}P_0+(\mathcal{T}+\tau_{\text{c}} +\tau_{\text{s}} ) P_0+\tau_{\text{c}} P_{\text{c}}\,,\nonumber
-\end{alignat}
-and the relevant part of the energy, or energy penalty $\mathcal{E}$ as 
+The energy penalty can be expressed as \cite{secAperiodic}
 \begin{alignat}{1}
-\Rightarrow\mathcal{E}=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}],\;\label{eq:epsilon_terminal}
-% \\
-% % \intertext{where we use the constants $\alpha$ and $\beta$ for mathematical tractability in the upcoming sections. Here,}
-% \text{where}\quad\alpha&=\tau_{\text{c}} (P_{\text{c}} -P_0) \;\text{ and }\;\beta=P_0\,.\label{eq:alphaBeta}
+\Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}],\;\label{eq:epsilon_terminal}
 \end{alignat}
-Here the parameters XYZ corresponds to XYZ \todo[inline]{Need to read the full paper and fill the parameters that are not explained already.} 
-
-The authors first prove the two properties that need to be satisfied by the set of sampling instants, $\{t_n,\, n=1,2,\dots,n\}$, which are 
-\begin{subequations}\label{cond}
-\begin{alignat*}{3}
-\!\!&(a)\text{ positive sampling intervals}\,&:&\, t_{n+1}\!-\!t_n\!>\!0,\text{ and}\\
-\!\!&(b)\text{ decreasing sampling intervals}\,&:&\, t_{n+1}\!-\!t_n\!<\!t_{n}\!-\!t_{n-1}.
+where $\alpha\!=\!\tau_{\text{c}} (P_{\text{c}}\!-\!P_0)$ and $\beta\!=\!P_0$ are constants. \todo[inline]{Define and explain the parameters if this is not done earlier in other sections.}
+Here, note that $\alpha\mathbb{E}[\mathcal{S}]$ and $\beta\,\mathbb{E}[\mathcal{W}]$ corresponds to the energy wasted per discarded sample and the additional energy expended for waiting, respectively. As noted down by the authors, it is important to note that this optimisation approach can also be applied to optimise metrics other than energy, simply by formulating this new metrics in the same format as follows, that is by expressing the metric as a linear combination of the expected number of samples $\mathbb{E}[\mathcal{S}]$ and expected wait time $\mathbb{E}[\mathcal{W}]$. Using this model, we find the approximate, near-optimal set of sampling instants $\{t_n^*\}$ that minimises the energy penalty given in \eqref{eq:epsilon_terminal}.
+\subsection{Optimum sampling instants}\label{sec:aprxSol}
+First, we borrow the idea of checkpointing density from \cite{CP_C,CP_C} and call it instantaneous sampling rate function $r(t)$ which is
+related to $\{t_n\}$ such that,
+\begin{alignat}{1}
+{\int_{t_{n-1}}^{t_n}}r(t)\dif t=1,\;\forall n\geq1.\label{rt}
+\end{alignat}
+We find $r^*(t)$, the $r(t)$ that minimises $\mathcal{E}$. Note that, by construction, the number of samples taken up to any time instant can be computed directly by finding the area under $r(t)$. Thus, we get the expected number of samples $\mathbb{E}[\mathcal{S}]$ as
+\begin{alignat}{1}
+\mathbb{E}[\mathcal{S}]&=\int_{t=0}^{\infty}\bigg(\!\int_{x=0}^{t}\!\!\!\!r(x)\,\mathrm{d}x\bigg)f_{\mathcal{T}}(t)\,\mathrm{d}t.\label{Es}
+\end{alignat}
+To find 
+% the expected wait 
+$\mathbb{E}[\mathcal{W}]$, we use the TTE conditional CDF. We get,
+\begin{multline*}
+\mathbb{P}(\mathcal{W}=t_n-\mathcal{T}\leq t\,\big\vert\,t_{n-1}<\mathcal{T}\leq t_n)\\=\dfrac{\mathbb{P}(\mathcal{T}\geq t_n-t\,,\,t_{n-1}<\mathcal{T}\leq t_n)}{\mathbb{P}(t_{n-1}<\mathcal{T}\leq t_n)}.
+\end{multline*}
+The numerator is degenerate when $t\!<\!0$ or $t\!>\!(t_n\!-\!t_{n-1})$. Thus, we are only interested in $0\!\leq\!t\!\leq\! (t_n-t_{n-1})$. Let $F_{\mathcal{T}}$, $\bar{F}_{\mathcal{T}}$ and $f_{\mathcal{T}}$ corresponds to the CDF, CCDF and pdf of the TTE distribution.
+\begin{alignat*}{1}
+\!\!\!\Rightarrow\mathbb{P}(\mathcal{W}\leq t\,\big\vert\,t_{n-1}<\mathcal{T}\leq t_n)&=\dfrac{\mathbb{P}(t_n-t\leq\mathcal{T}\leq t_n)}{F_\mathcal{T}(t_n)-F_\mathcal{T}(t_{n-1})}\\
+&\approx\dfrac{F_\mathcal{T}(t_n)-F_\mathcal{T}(t_{n}-t)}{F_\mathcal{T}(t_n)-F_\mathcal{T}(t_{n-1})}\tag{$A_1$}\label{Apx1}
 \end{alignat*}
-The authors then derive a recursive solution to find the optimum sampling intervals $t_2,t_3\dots$ for a given $t_1$, given by
+Here, \ref{Apx1} is an approximation merely for mathematical maturity due to the slackness of the first inequality in the numerator. Expanding the CDF using Taylor series, 
+\begin{multline*}
+    =\Big(F_\mathcal{T}(t_n)-\big(F_\mathcal{T}(t_n)+f_\mathcal{T}(t_n)(-t)+f'_\mathcal{T}(t_n)(-t)^2/2!+\dots\big)\Big)\\
+    \div \Big(F_\mathcal{T}(t_n)-\big(F_\mathcal{T}(t_n)+f_\mathcal{T}(t_n)(t_{n-1}-t_n)\\+f'_\mathcal{T}(t_n)(t_{n-1}-t_n)^2/2!+\dots\big)\Big).
+\end{multline*}
+Simplifying and using the first order approximation, we get
+\begin{alignat*}{1}
+% &=\dfrac{F_\mathcal{T}(t_n)-\big(F_\mathcal{T}(t_n)+f_\mathcal{T}(t_n)(-t)+f'_\mathcal{T}(t_n)(-t)^2/2!+\dots\big)}{F_\mathcal{T}(t_n)-\big(F_\mathcal{T}(t_n)+f_\mathcal{T}(t_n)(t_{n-1}-t_n)+f'_\mathcal{T}(t_n)(t_{n-1}-t_n)^2/2!+\dots\big)}\\&
+\mathbb{P}(\mathcal{W}\leq t\,\big\vert\,t_{n-1}<\mathcal{T}\leq t_n)&\approx\dfrac{tf_\mathcal{T}(t_n)}{(t_{n}-t_{n-1})f_\mathcal{T}(t_n)}\tag{$A_2$}\label{Apx2}\\
+\Rightarrow\mathbb{P}(\mathcal{W}> t\,|\,t_{n-1}<\mathcal{T}\leq t_n)&= 1-\dfrac{t}{(t_{n}-t_{n-1})}.
+\end{alignat*}
+Using this CCDF, we find the conditional expectation of $\mathcal{W}$.
+\begin{alignat*}{1}
+% \mathbb{P}(\mathcal{W}> t\,|\,t_{n-1}<\mathcal{T}\leq t_n)&\approx 1-\dfrac{t}{(t_{n}-t_{n-1})}\\
+\Rightarrow \mathbb{E}[\mathcal{W}\,|\,t_{n-1}<\mathcal{T}\leq t_n]&=\smashoperator[r]{\int_{0}^{t_n-t_{n-1}}}\Big(1-\dfrac{t}{(t_{n}-t_{n-1})}\Big)\,\mathrm{d}t\\
+&=\dfrac{(t_n-t_{n-1})}{2}.
+\end{alignat*}
+% However, we can also approximate $(t_n-t_{n-1})$, the sampling interval to the inverse of the instantaneous sampling frequency $r(t)$. This approximation (\ref{Apx3}) is valid as long as $r(t)$ is varying slowly between two consecutive sampling instants. That is,
+If $r(t)$ is varying slowly between two consecutive sampling instants, we can approximate the sampling interval $t_n\!-\!t_{n-1}$ as,
 \begin{alignat}{1}
-t_{n+1}=t_n+\dfrac{\sigma^2}{t_n}\Big(\mathrm{exp}\big({\tfrac{t_n^2-t_{n-1}^2}{2\sigma^2}}\big)-1\Big)-\dfrac{\alpha}{\beta},\quad\forall n\geq1.
+ (t_n-t_{n-1})&\approx\dfrac{1}{r(t)},\;\forall t,n:t_{n-1}\!<\!t\!\leq\!t_n.\tag{$A_3$}\label{Apx3}\\
+% \end{alignat}
+% As a result, we can compute the expected wait as,
+% \begin{alignat}{1}
+\Rightarrow \mathbb{E}[\mathcal{W}]&=\int_{0}^{\infty}\mathbb{E}[\mathcal{W}\,|\,t_{n-1}<\mathcal{T}\leq t_n]f_\mathcal{T}(t)\,\mathrm{d}t\nonumber\\
+&=\int_{0}^{\infty}\dfrac{1}{2r(t)}f_\mathcal{T}(t)\,\mathrm{d}t.\label{Ew}
 \end{alignat}
-Finally, to find the optimum $t_1$, an algorithm that resembles a simple bisection algorithm is used. In each iteration of the algorithm, the validity of the sequence is repeatedly checked using the above properties and the $t_1$ is updated based on the property that is being violated. The algorithm converges as the power of two and is omitted due to space constraints.
-\end{subequations}
+We can thus find the energy penalty using \eqref{Es} and \eqref{Ew} as
+\begin{alignat*}{1}
+\mathcal{E}&=\int_{0}^{\infty}\Big(\alpha\int_{x=0}^{t}r(x)\,\mathrm{d}x+\beta\dfrac{1}{2r(t)}\Big)f_{\mathcal{T}}(t)\,\mathrm{d}t.\label{epsilon_eulerForm}\\
+\intertext{Let $g(t)=\int_{0}^{t}r(x)\dif x$. Then  $g'(t)=\tfrac{\mathrm{d}}{\mathrm{d}t}g(t)=r(t)$. That is,}
+\vspace{-4cm}\mathcal{E}&=\int_{0}^{\infty}\Big(\alpha g(t)+\dfrac{\beta}{2g'(t)}\Big)f_{\mathcal{T}}(t)\,\mathrm{d}t.
+\end{alignat*}
+As per the Euler-Lagrange equation from the calculus of variations\cite{calcVariation2,calcVariation1}, the extreme value of $\mathcal{E}$ is obtained at 
+\begin{alignat}{1}
+r^*(t)&=\sqrt{\dfrac{\beta f_\mathcal{T}(t)}{2\alpha\bar{F}_\mathcal{T}(t)}}.\\
+\intertext{Thus, for a Rayleigh distributed $\mathcal{T}$ with parameter $\sigma$,}
+r^*(t)&=\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\\
+\Rightarrow &\int_{t_n}^{t_{n+1}}\!\!\!\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\,\mathrm{d}t=1,\;\forall n\geq1\nonumber\tag{from \eqref{rt}}\\
+\Rightarrow &\;t_{n+1}^{\frac{3}{2}}-t_{n}^{\frac{3}{2}}=3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\nonumber\\
+\Rightarrow &\;t_n=\Big(3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\Big)^{\frac{2}{3}}n^{\frac{2}{3}}.
+\end{alignat}
+
+
+
 
