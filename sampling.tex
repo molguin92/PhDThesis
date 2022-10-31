@@ -9,6 +9,7 @@ The energy penalty can be expressed as \cite{secAperiodic}
 where $\alpha\!=\!\tau_{\text{c}} (P_{\text{c}}\!-\!P_0)$ and $\beta\!=\!P_0$ are constants. \todo[inline]{Define and explain the parameters if this is not done earlier in other sections.}
 Here, note that $\alpha\mathbb{E}[\mathcal{S}]$ and $\beta\,\mathbb{E}[\mathcal{W}]$ corresponds to the energy wasted per discarded sample and the additional energy expended for waiting, respectively. As noted down by the authors, it is important to note that this optimisation approach can also be applied to optimise metrics other than energy, simply by formulating this new metrics in the same format as follows, that is by expressing the metric as a linear combination of the expected number of samples $\mathbb{E}[\mathcal{S}]$ and expected wait time $\mathbb{E}[\mathcal{W}]$. Using this model, we find the approximate, near-optimal set of sampling instants $\{t_n^*\}$ that minimises the energy penalty given in \eqref{eq:epsilon_terminal}.
 \subsection{Optimum sampling instants}\label{sec:aprxSol}
+
 First, we borrow the idea of checkpointing density from \cite{CP_C,CP_C} and call it instantaneous sampling rate function $r(t)$ which is
 related to $\{t_n\}$ such that,
 \begin{alignat}{1}
