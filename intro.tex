@@ -3,35 +3,38 @@
 \acf{WCA} applications are a novel category of wearable, edge-native applications aiming to amplify human cognition in both daily activities and professional settings.
 These systems aim to seamlessly integrate into the day-to-day of users to provide real-time, context-aware information and feedback.
 They do so by capturing user and environment information, and leveraging compute-intensive algorithms to analyze the data and produce timely context-dependent feedback.
-A defining characteristic of these applications is their lack of reliance on intentional user inputs to trigger responses --- they are intended to operate as autonomous guides, much akin to how \ac{GPS} systems guide drivers by tracking their progress and providing feedback and instructions at appropriate times.
-
 \ac{WCA} applications originally emerged as assistive use-cases for individuals suffering from cognitive decline due to aging or traumatic brain injuries~\cite{Ha2014towards,Satya2019augmenting}, and have since then expanded to a greater range of use cases.
 In particular, following the success of non-wearable \ac{XR} and cognitive assistance in industrial settings~\cite{Funk2015Cognitive,Wang2022Comprehensive}, there is increasing interest in the research community in the application of \ac{WCA} for step-by-step assistance for complex assembly tasks~\cite{Chen2017Empirical}.
 
-As their name suggests, a defining characteristic of these applications is their wearability, which implies the use of lightweight, battery-powered, low-energy consumption devices.
+A defining characteristic of these applications is their lack of reliance on intentional user inputs to trigger responses --- they are intended to operate as autonomous guides, much akin to how \ac{GPS} systems guide drivers by tracking their progress and providing feedback and instructions at appropriate times.
+Moreover, as their name suggests, another key attribute of these applications is their wearability, which implies the use of lightweight, battery-powered, low-energy consumption devices.
 On the other hand, their context-sensitivity and proactivity in providing user feedback translates into a reliance on high-dimensional, complex, unstructured inputs such as real-time video feeds which require intensive compute capabilities to process.
 Furthermore, as with any \ac{AR} application, \ac{WCA} systems are sensitive to latency.
-Delays and jitter can be jarring to the user, causing them discomfort, leading them to make mistakes and potentially even give up on the application altogether.
+Delays and jitter can be jarring to the user, causing them discomfort, leading to make mistakes and potentially even to abandonment of the application altogether.
 
 The combination of these characteristic has led to \ac{WCA} applications being identified in research literature as prime candidates for offloading to the edge~\cite{Ha2014towards,Chen2017Empirical,Chen2018application}.
-
-\todo[inline]{WIP}
-
-This paper builds on previous work on the characterization of human perception of delay in \ac{WCA} systems.
-We expand upon the findings of \textcite{Ha2014towards,Chen2017Empirical}, who identified the need and opportunities for edge offloading of \ac{WCA} and characterized latency bounds in these systems.
-Furthermore, we directly build upon and expand on our previous work on the modeling of human behavior and characterization of human timings in \ac{WCA}
-In \textcite{olguin2018scaling,olguin2019edgedroid} we introduced a coarse approximation to human behavior modeling in \ac{WCA} we called \emph{EdgeDroid}.
-We used a trace-driven approach, where a pre-recorded and pre-processed ``ideal'' trace of steps for a specific \ac{WCA} step-based task is replayed to a Gabriel~\cite{Chen2018application} backend.
-In order to adapt to potential mismatches between system responsiveness at trace-capture time and trace-replay time, we use a simple \ac{FSM} to adapt the trace at the latter by replaying or skipping certain segments.
-In \textcite{olguinmunoz:impact2021} we studied the effects of reduced system responsiveness on human behavior in \ac{WCA} applications through human-subject studies.
-We found that humans generally pace themselves according to the perceived system responsiveness.
-When interacting with a highly responsive system, humans tended to speed up with each step; conversely, humans tended to slow down in highly unresponsive states.
+However, many unknowns still remain before consumer-scale adoption of these applications can become a reality.
+One key gap in knowledge pertains to the current lack of tools and methodologies for scalable and repeatable study of \ac{WCA} application performance and resource utilization in realistic deployments.
+Due to their human-in-the-loop nature, these applications present a challenge to benchmark and characterize, in particular in real-scale deployments where dozens or even hundreds of users might concurrently use the system.
+Recruiting a large enough cohort of subjects for realistic benchmarking and study of \ac{WCA} systems can be prohibitively cumbersome and expensive for many research groups and system designers.
+Furthermore, humans are unpredictable, and human-subject research is thus often hard to repeat and replicate.
+There exists therefore a real need for scalable tools for \ac{WCA} benchmarking which do away with the human-the-loop.
 
 In this paper, we introduce the first, to our knowledge, data-driven model for human timings in \ac{WCA} applications.
 Using the data collected for \textcite{olguinmunoz:impact2021} as a base, we build a stochastic model which takes as input past measurements of system responsiveness and produces realistic step execution times.
 Furthermore, we introduce a novel way to generate dynamic traces of frames for \ac{WCA} applications which can be combined with the timing model for a full end-to-end emulation of a human.
-We name this model \emph{EdgeDroid \num{2.0}}, as it corresponds to a direct, more realistic evolution of our initial EdgeDroid approach.
 
+Our contributions build on previous work on the characterization of human perception of delay in \ac{WCA} systems.
+We expand upon the findings of \textcite{Ha2014towards,Chen2017Empirical}, who identified the need and opportunities for edge offloading of \ac{WCA} and characterized latency bounds in these systems.
+Furthermore, we directly build upon and expand on our previous work on the modeling of human behavior and characterization of human timings in \ac{WCA}
+In \textcite{olguin2018scaling,olguin2019edgedroid} we introduced a coarse approximation to human behavior modeling in \ac{WCA} we called \emph{EdgeDroid}.
+We used a trace-driven approach, where a pre-recorded and pre-processed ``ideal'' trace of steps for a specific \ac{WCA} step-based task is replayed to a Gabriel~\cite{Chen2018application} backend.
+In order to adapt to potential mismatches between system responsiveness at trace-capture time and trace-replay time, we used a simple \ac{FSM} to adapt the trace at the latter by replaying or skipping certain segments.
+In \textcite{olguinmunoz:impact2021} we studied the effects of reduced system responsiveness on human behavior in \ac{WCA} applications through human-subject studies.
+We found that humans generally pace themselves according to the perceived system responsiveness.
+When interacting with a highly responsive system, humans tended to speed up with each step; conversely, humans tended to slow down in highly unresponsive states.
+
+We name the new model presented in this paper \emph{EdgeDroid \num{2.0}}; a direct, more realistic evolution of our initial EdgeDroid approach.
 \todo[inline]{What is our goal with this?}
 
 This paper is structured as follows.
