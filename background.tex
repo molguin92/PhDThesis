@@ -89,16 +89,13 @@ With this in mind, we can reformulate the conclusions of this previous work as f
     \item\label{item:remain} The effects of system slow-down on human behavior remain for a while even after system responsiveness improves.
     These effects are noticeable for at least \num{4} steps after the return to a high-responsiveness state. 
     
-    \item The above effects are modulated by the \acs*{BFI}~\cite{oliver:bfi1999} trait of \emph{neuroticism}.
-    This is discussed in more detail below in \cref{ssec:moderationeffects}
-    
-    % , as evidenced by a \ac{PCA}.
+    \item The above effects are modulated by an individual personality trait.
+    We will discuss this in detail below in \cref{ssec:moderationeffects}
 \end{enumerate}
 
 \subsubsection{Moderation of effects by individual characteristics}\label{ssec:moderationeffects}
 
-As mentioned above, we collected variables related to well-known individual differences.
-These encompassed both the \acf{BFI}, introduced by \textcite{oliver:bfi1999}, and the \acf{ITQ}, described by \textcite{witmer1998measuring}.
+We recorded variables related to well-known individual differences, encompassing both the \acf{BFI}, introduced by \textcite{oliver:bfi1999}, and the \acf{ITQ}, described by \textcite{witmer1998measuring}.
 Out of the collected individual-difference variables, the most salient one corresponded to \emph{neuroticism}, a \ac{BFI} trait linked to low tolerance for stress and high emotional reactivity, and which has previously been linked to higher \emph{delay discounting} rates~\cite{hirsh2008delay}.
 Delay discounting is the tendency to devalue rewards for which one must wait; high rates, indicative of waiting intolerance, have been associated with negative social and academic outcomes.
 
@@ -106,19 +103,36 @@ Delay discounting is the tendency to devalue rewards for which one must wait; hi
     \centering
     \includegraphics[width=.9\columnwidth]{figs/new_model/correlation_neuro_exectime.png}
     \caption{%
-        Correlation between neuroticism and the mean execution time of the last four steps in blocks of \num{12} steps subject to the same \ac{TTF} in ~\textcite{olguinmunoz:impact2021}.
+        Correlation between neuroticism and the mean execution time of the last four steps in segments of \num{12} steps subject to the same \ac{TTF} in~\textcite{olguinmunoz:impact2021}.
+        Pearson correlation coefficient \( \rho = 0.418 \), 2-tailed \( p < 0.05 \).
     }\label{fig:neuroexectimecorrel}
 \end{figure}
 
-Neuroticism was identified as a modulating factor for the previously discussed pacing effects through a \ac{PCA}.
+Neuroticism was identified as a modulating factor for the pacing effects through a \ac{PCA}.
 Out of the three identified components, which cumulatively accounted for \SI{73.13}{\percent} of the variance in the results, neuroticism was included in the first two.
-The effect of neuroticism was transversal to all \acp{TTF} and impairment durations in the tasks, and we show an example of this correlation between execution time and neuroticism in \cref{fig:neuroexectimecorrel}
+The effect of neuroticism was transversal to all \acp{TTF} and impairment durations in the tasks --- we show an example of the correlation between execution time and neuroticism in \cref{fig:neuroexectimecorrel}
 
-Furthermore, we found that execution times were well-fit by an \ac{exGaussian} distribution, a distribution with ample body of research supporting its suitability for the modeling of the timing of human actions and reaction times~\cite{Rohrer1994analysis,Palmer2011shapes,Marmolejo2022generalised}.
-Fits were performed using the \ac{MLE} method.
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\columnwidth]{figs/new_model/mu_fits_exgaussian_slice0.png}
+    \caption{%
+        \( \mu \) parameter of \acs*{exGaussian} distributions fitted to execution times of the first four steps of segments of steps subject to the same \ac{TTF} in \textcite{olguinmunoz:impact2021}.
+        Fits were performed using the \ac{MLE} method.
+    }\label{fig:muexgaussian}
+\end{figure}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\textwidth]{figs/new_model/dist_fits_neuro.png}
+    \caption{%
+        Example \ac{exGaussian} fits on execution times from steps \numrange{4}{8} in a segment of steps at the maximum experimental \ac{TTF}.
+        The effects of neuroticism are clearly visible in the tail and the mean of the distributions.
+    }\label{fig:fitsneuro}
+\end{figure*}
+
+Furthermore, we found that execution times, when grouping by experimental variables such as neuroticism, \ac{TTF}, and continuous segments of steps subject to the same \ac{TTF}, were well-fit by an \ac{exGaussian} distribution, as verified using Kolmogorov-Smirnov goodness-of-fit tests~\cite{massey1951kolmogorov}.
+This distribution has an ample body of research supporting its suitability for the modeling of the timing of human actions and reaction times~\cite{Rohrer1994analysis,Palmer2011shapes,Marmolejo2022generalised}.
 We found that the effects of neuroticism on execution times were clearly identifiable in the fitted distributions, in particular in their means and tails.
-\todo[inline]{Finish}
-
-\medskip
-
-In the following, we employ the above insights together with the actual data collected for~\cite{olguinmunoz:impact2021} to design and build a probabilistic model of human behavior for \ac{WCA}.
+\cref{fig:muexgaussian} shows an example of this modulating effect, illustrating the behavior of the mean (\( \mu \) parameter) of \ac{exGaussian} distributions fitted to the execution times of the first four steps of segments of steps subject to the same \ac{TTF}.
+Finally, \cref{fig:fitsneuro} shows an example of the effects of neuroticism on the fitted \ac{exGaussian} distributions for a specific group of execution times.
+Higher neuroticism directly translates into a higher mean and longer tail.
