@@ -89,8 +89,33 @@ With this in mind, we can reformulate the conclusions of this previous work as f
     \item\label{item:remain} The effects of system slow-down on human behavior remain for a while even after system responsiveness improves.
     These effects are noticeable for at least \num{4} steps after the return to a high-responsiveness state. 
     
-    \item The above effects are modulated by the Big Five~\cite{oliver:bfi1999} trait of \emph{neuroticism}, as evidenced by a \ac{PCA}.
+    \item The above effects are modulated by the \acs*{BFI}~\cite{oliver:bfi1999} trait of \emph{neuroticism}.
+    This is discussed in more detail below in \cref{ssec:moderationeffects}
+    
+    % , as evidenced by a \ac{PCA}.
 \end{enumerate}
+
+\subsubsection{Moderation of effects by individual characteristics}\label{ssec:moderationeffects}
+
+As mentioned above, we collected variables related to well-known individual differences.
+These encompassed both the \acf{BFI}, introduced by \textcite{oliver:bfi1999}, and the \acf{ITQ}, described by \textcite{witmer1998measuring}.
+Out of the collected individual-difference variables, the most salient one corresponded to \emph{neuroticism}, a \ac{BFI} trait linked to low tolerance for stress and high emotional reactivity, and which has previously been linked to higher \emph{delay discounting} rates~\cite{hirsh2008delay}.
+Delay discounting is the tendency to devalue rewards for which one must wait; high rates, indicative of waiting intolerance, have been associated with negative social and academic outcomes.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\columnwidth]{figs/new_model/correlation_neuro_exectime.png}
+    \caption{%
+        Correlation between neuroticism and the mean execution time of the last four steps in blocks of \num{12} steps subject to the same \ac{TTF} in ~\textcite{olguinmunoz:impact2021}.
+    }\label{fig:neuroexectimecorrel}
+\end{figure}
+
+Neuroticism was identified as a modulating factor for the previously discussed pacing effects through a \ac{PCA}.
+Out of the three identified components, which cumulatively accounted for \SI{73.13}{\percent} of the variance in the results, neuroticism was included in the first two.
+The effect of neuroticism was transversal to all \acp{TTF} and impairment durations in the tasks, and we show an example of this correlation between execution time and neuroticism in \cref{fig:neuroexectimecorrel}
+
+Furthermore, we found that execution times were well-fit by an \ac{exGaussian} distribution, a distribution with ample body of research supporting its suitability for the modeling of the timing of human actions and reaction times~\cite{Rohrer1994analysis,Palmer2011shapes,Marmolejo2022generalised}.
+Fits were performed using the \ac{MLE} method.
 
 In the following, we employ the above insights together with the actual data collected for~\cite{olguinmunoz:impact2021} to design and build a probabilistic model of human behavior for \ac{WCA}.
 
