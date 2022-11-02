@@ -46,6 +46,7 @@ Take \( \{ t_0, t_1, \ldots, t_{n + 1} \} \) a series of discrete and sequential
 \( t_0 \) corresponds to the instant at which the instruction for step \( M \) is provided and the first sample is taken, and \( t_n \) to the instant at which the final sample (i.e. which captures the final state of step \( M \)) is taken. 
 \( t_{n + 1} \) is then the instant at which the result for sample \( t_n \) is returned and the instruction for step \( M + 1 \) is provided.
 If we define \( t_c \) as the point in time at which the user finishes performing the instruction for step \( M \), it must follow that (see also~\cite{olguinmunoz:impact2021})\footnote{\( U(a, b) \) represents the continuous uniform distribution in the open interval \( (a, b) \).}
+% \todo[inline]{I think it's an assumption rather than a must. Specifically, it is not uniform if the general execution time distribution is Rayleigh/ExpGaussian -vishnu}
 \begin{align}\label{eq:tc}
     t_c &\thicksim U(t_{n - 1}, t_n)
 \end{align}
