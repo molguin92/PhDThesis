@@ -20,7 +20,7 @@ This is done for \num{25} linearly distributed \acp{TTF} in the \SIrange[]{0}{5}
     \centering
     \begin{subfigure}[]{\columnwidth}
         \centering
-        \includegraphics[width=.9\textwidth]{figs/new_model/lifetime_all_ttfs.png}
+        \includegraphics[width=\textwidth]{figs/new_model/lifetime_all_ttfs.png}
         \caption{%
             Evolution of mean application lifetimes as \acp{TTF} increase.
             Error bars indicate \SI{95}{\percent} \acp{CI}.
@@ -28,10 +28,10 @@ This is done for \num{25} linearly distributed \acp{TTF} in the \SIrange[]{0}{5}
     \end{subfigure}
     \begin{subfigure}[]{\columnwidth}
         \centering
-        \includegraphics[width=.9\textwidth]{figs/new_model/lifetime_diff.png}
+        \includegraphics[width=\textwidth]{figs/new_model/lifetime_diff.png}
         \caption{%
             Percentage difference in mean application lifetimes with respect to the reference model at select \acp{TTF}.
-            Error bars indicate the \SI{95}{\percent} \acp{CI}, calculated using a two-sided T-test.
+            Error bars indicate the \SI{95}{\percent} \acp{CI}, calculated using a two-sample T-test.
         }
     \end{subfigure}
     \caption{\acl{TTF} versus application lifetime.}\label{fig:lifetimes}
@@ -63,7 +63,7 @@ Our choice of wireless standard is simply motivated by a desire to amplify the p
     \centering
     \begin{subfigure}[]{\columnwidth}
         \centering
-        \includegraphics[width=.9\textwidth]{figs/new_model/lifetime_testbed.png}
+        \includegraphics[width=\textwidth]{figs/new_model/lifetime_testbed.png}
         \caption{%
             Mean application lifetimes per testbed configuration.
             Note that due to the low number of samples, means have been calculated using the geometric instead of arithmetic average. 
@@ -84,7 +84,7 @@ Our choice of wireless standard is simply motivated by a desire to amplify the p
     \par\bigskip
     \begin{subfigure}[]{\columnwidth}
         \centering
-        \includegraphics[width=.9\textwidth]{figs/new_model/lifetime_testbed_diff.png}
+        \includegraphics[width=\textwidth]{figs/new_model/lifetime_testbed_diff.png}
         \caption{%
             Percentage difference in mean application lifetimes with respect to the reference model.
             Confidence intervals have been omitted due to the low number of samples and the use of the geometric mean.
@@ -108,6 +108,10 @@ Imagine thus a system designer studying resource consumption optimization in a \
 If they were to employ the reference model for their study on an unimpaired system, it could lead them to significantly underestimate the potential for optimization of resource consumption, leaving performance (and, potentially, monetary) gains on the table.
 On the other hand, under heavy load, they would instead underestimate system resource occupation, again leading to performance losses.
 
+\todo[inline]{%
+    Ergo we need a second order model. Everything that comes afterwards is only with second order model. Play with RTT.
+}
+
 
 % .as well as an additional setup with \num{10} clients during which an instance of the \emph{iperf3}\footnote{\href{https://iperf.fr/}{https://iperf.fr/}} network load generator is also running on each client.
 % The \emph{iperf3} instances each generate \SI{1.5}{Mbps} of upstream \ac{TCP} traffic, further congesting the wireless network.
@@ -123,16 +127,21 @@ following the formula
 \end{equation}
 
 \( R_\text{max} \) and \( R_\text{min} \) correspond to the maximum and minimum sampling rates of the system, respectively.
-\( R_\text{max} \) can directly be assumed to correspond to one over the mean \ac{RTT} of the system, whereas \( R_\text{min} \) needs to either be calculated according to the latency bounds of the system or specified manually.
-\( \alpha \) corresponds to a scaling factor and \( t \) to the time of the current sampling instant with respect to the start of the step.
-Finally, \( CDF \) corresponds to the \acl*{CDF} of a distribution describing the execution times for the current step; \citeauthor{Wang2019Towards} used a single static Gaussian distribution for all steps in their work.
+\( R_\text{max} \) can directly be assumed to correspond to \( 1 / \text{\ac{RTT}}_\mu \), where \( \text{\ac{RTT}}_\mu \) corresponds to the mean \ac{RTT} of the system.
+\( R_\text{min} \) needs to either be calculated according to the latency bounds of the system or specified manually, and \( \alpha \) corresponds to a scaling factor and \( t \) to the time of the current sampling instant with respect to the start of the step.
+Finally, \( CDF \) corresponds to the \ac{CDF} of a distribution describing the execution times for the current step; \citeauthor{Wang2019Towards} used a single static Gaussian distribution for all steps in their work.
 
 In the following, we will show the effects of more accurate execution time estimation using our timing models on the performance of this adaptive scheme.
 For this, we implement two variants of the adaptive scheme.
-The first one corresponds to \citeauthor{Wang2019Towards}'s original design, using a Gaussian distribution fitted to all the execution times collected for~\cite{olguinmunoz:impact2021} for \ac{CDF} calculation.
+The first one corresponds a reference implementation using \citeauthor{Wang2019Towards}'s original design, using a Gaussian distribution fitted to all the execution times collected for~\cite{olguinmunoz:impact2021} for \ac{CDF} calculation.
+This variant the same \ac{CDF} for every step.
 The second variant instead uses an embedded internal execution time model to keep track of the \acp{TTF} of the system and adjust the distribution of execution times following the state of the timing model.
+In other words, in this variant the \ac{CDF} used for instantaneous calculation of the sampling rate \( R \) changes over time according to the state of the execution time model.
+For timing model configurations which do not fit a distribution to execution time data, the \ac{CDF} corresponds to the \ac{ECDF} of the selected execution times.
 
 We proceed to set up an experiment where these sampling scheme variants are deployed on identical, simulated, \num{100}-step tasks.
+Also included for reference in this experiment is greedy (also known as \emph{zero-wait}) sampling, where samples are taken as fast as possible; a new sample is taken as soon as the result for the previous one has been received.
+This is the default sampling strategy used in most existing \ac{WCA} prototypes.
 The execution times for each step are generated by a realistic model parameterized with high neuroticism and without any distribution fitting on the data (this timing model is separate from the internal timing models inside the sampling schemes).
 We set \( R_\text{min} \) to \SI{0.5}{\hertz}, \( \alpha \) to \num{3.0}, and the \ac{RTT} of the system to a constant \SI{150}{\milli\second}, and then run \num{90} repetitions of the task for the original design of the sampling scheme as well as for each possible configuration of it with a different parameterization of the timing model.
 
@@ -151,7 +160,7 @@ We set \( R_\text{min} \) to \SI{0.5}{\hertz}, \( \alpha \) to \num{3.0}, and th
     \end{subtable}
     \begin{subfigure}[]{\columnwidth}
         \centering
-        \includegraphics[width=.9\textwidth]{figs/new_model/sampling_junjue.png}
+        \includegraphics[width=\textwidth]{figs/new_model/sampling_junjue.png}
         \caption{%
             Mean number of samples per step over a \num{100}-step task, \num{90} independent repetitions per configuration.
             Error bars indicate \SI{95}{\percent} \acp{CI}.
@@ -159,17 +168,27 @@ We set \( R_\text{min} \) to \SI{0.5}{\hertz}, \( \alpha \) to \num{3.0}, and th
     \end{subfigure}
     \begin{subfigure}[]{\columnwidth}
         \centering
-        \includegraphics[width=.9\textwidth]{figs/new_model/diff_sampling_junjue.png}
+        \includegraphics[width=\textwidth]{figs/new_model/diff_sampling_junjue.png}
         \caption{%
             Percentage difference in mean number of samples per step.
-            Error bars indicate the \SI{95}{\percent} \acp{CI}, calculated using a two-sided T-test.
+            Error bars indicate the \SI{95}{\percent} \acp{CI}, calculated using a two-sample T-test.
+            \todo[inline]{%
+                Add greedy.
+                Develop optimal sampling scheme?
+                Explain grouping better?
+            }
         }
     \end{subfigure}
-    \caption{Results of parameterizing \textcite{Wang2019Towards}'s adaptive sampling scheme using the realistic timing model.}\label{fig:samples}
+    \caption{%
+        Results of parameterizing \textcite{Wang2019Towards}'s adaptive sampling scheme using the realistic timing model.
+        \emph{ED2} indicates a sampling scheme using the \edgedroid{} model for \ac{CDF} estimation.
+        \emph{HN} and \emph{LN} indicate high or low neuroticism, respectively, and \emph{ExG fit} indicates a timing model which fits an \ac{exGaussian} distribution to the execution time data for each step.
+    }\label{fig:samples}
 \end{figure}
 
-The results of this investigation are presented in \cref{fig:samples}, and they clearly show the potentially dramatic effects of more accurate execution time estimation when optimizing sampling rates.
-When using the realistic model for execution time estimation, the sampling scheme achieve between \SI{22}{\percent} and \SI{27}{\percent} better average performance.
+The results of this investigation are presented in \cref{fig:samples}
+They clearly show the potentially dramatic effects of more accurate execution time estimation when optimizing sampling rates.
+When using the realistic model for execution time estimation, the sampling schemes achieve between \SI{22}{\percent} and \textasciitilde\SI{25}{\percent} better average performance.
 This is true even for configurations with low neuroticism which do not exactly match the parameterization of the external timing model driving the execution times for the steps, showing thus the importance of even less-accurate approximations.
 
 \subsection{Optimizing for energy consumption}
@@ -283,4 +302,10 @@ r^*(t)&=\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\\
 
 \subsubsection{Evaluating the impact of the realistic timing model on the energy-optimal sampling scheme}
 
-\todo[inline]{TODO}
+\todo[inline]{
+    TODO.
+
+    Plot energy consumption over RTT, mean energy per step over a task.
+    Ground truth empirical high.
+    For greedy, ideal, junjues sampling, vishnus model with gt as estimator.
+}
