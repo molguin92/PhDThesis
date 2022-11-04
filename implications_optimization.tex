@@ -149,7 +149,7 @@ For each combination of sampling scheme configuration (original adaptive by \tex
 
 \begin{figure*}
     \centering
-    \begin{subtable}[t]{.3\textwidth}
+    \begin{subtable}[t]{.25\textwidth}
         \centering
         \caption{Parameters used for \textcite{Wang2019Towards}'s adaptive sampling scheme.}
         \medskip
@@ -162,43 +162,34 @@ For each combination of sampling scheme configuration (original adaptive by \tex
         \end{tabular}
     \end{subtable}%
     \hspace{.05\textwidth}%
-    % \begin{subfigure}[]{\columnwidth}
-    %     \centering
-    %     \includegraphics[width=\textwidth]{figs/new_model/sampling_junjue.png}
-    %     \caption{%
-    %         Mean number of samples per step over a \num{100}-step task, \num{90} independent repetitions per configuration.
-    %         Error bars indicate \SI{95}{\percent} \acp{CI}.
-    %     }
-    % \end{subfigure}
-    \begin{subtable}[t]{.6\textwidth}
+    \begin{subtable}[t]{.65\textwidth}
         \centering
         \caption{Mean number of captured samples per sampling scheme at the three different \acp{RTT}.}
         \medskip
-        \begin{tabular}{lrrr}
-            \toprule
-            Sampling scheme & \SI{150}{\milli\second} & \SI{300}{\milli\second} & \SI{600}{\milli\second} \\
-            \midrule
-            Adaptive (ED2 LN) & \num{14.69} & \num{8.07} & \num{5.10} \\
-            Adaptive (ED2 HN) & \num{14.60} & \num{8.03} & \num{5.05} \\
-            Adaptive (ED2 LN, ExG fit) & \num{15.30} & \num{8.23} & \num{5.09} \\
-            Adaptive (ED2 HN, ExG fit) & \num{15.05} & \num{8.47} & \num{5.20} \\
-            Adaptive (reference, gaussian fit) & \num{20.17} & \num{10.65} & \num{6.04} \\
-            Greedy & \num{36.68} & \num{19.11} & \num{10.36} \\
+        \begin{tabular}{llrrr}
+            \toprule 
+            Timing model neuro. & Sampling scheme & \SI{150}{\milli\second} & \SI{300}{\milli\second} & \SI{600}{\milli\second} \\
+           \midrule
+           \multirow[c]{2}{*}{Low} & Greedy & \num{36.53} & \num{18.88} & \num{10.52} \\
+            & Adaptive Gaussian fit & \num{19.97} & \num{10.43} & \num{6.39} \\
+           \multirow[c]{2}{*}{High} & Greedy & \num{37.05} & \num{19.04} & \num{10.89} \\
+            & Adaptive Gaussian fit & \num{20.29} & \num{10.79} & \num{6.67} \\
             \bottomrule
         \end{tabular}
     \end{subtable}\\
     \bigskip
     \begin{subfigure}[]{\textwidth}
         \centering
-        \includegraphics[width=.8\textwidth]{figs/new_model/diff_sampling_junjue.png}
+        \includegraphics[width=\textwidth]{figs/new_model/diff_sampling_junjue_both.png}
         \caption{%
             Percentage reduction in mean number of captured samples per step (higher is better).
             Error bars indicate the \SI{95}{\percent} \acp{CI}, calculated using a two-sided T-test.
-            % \todo[inline]{%
-            %     Add greedy.
-            %     Develop optimal sampling scheme?
-            %     Explain grouping better?
-            % }
+            \todo[inline]{%
+                % Vishnu: minimize number of samples.
+                I don't like the two plots, I think the message gets diluted and confusing.
+                I suggest only keeping one ``ground truth'', high neuroticism.
+                Otherwise, every plot and table needs to be duplicated.
+            }
         }
     \end{subfigure}
     \caption{%
@@ -211,7 +202,7 @@ For each combination of sampling scheme configuration (original adaptive by \tex
 The results of this investigation are presented in \cref{fig:samples}
 They clearly show the potentially dramatic effects of more accurate execution time estimation when optimizing sampling rates.
 When using the realistic model for execution time estimation, the sampling schemes achieve between \SI{14}{\percent} and \textasciitilde\SI{27}{\percent} better average performance, depending on the \edgedroid{} model parameterization and the system \ac{RTT}.
-\todo[inline]{Discuss that lower RTTs lead to better results?}
+\todo[inline]{Update with new ground truths.}
 This is true even for configurations with low neuroticism which do not exactly match the parameterization of the external timing model driving the execution times for the steps, showing thus the importance of even less-accurate approximations.
 
 \subsection{Optimizing for energy consumption}
@@ -325,10 +316,23 @@ r^*(t)&=\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\\
 
 \subsubsection{Evaluating the impact of the realistic timing model on the energy-optimal sampling scheme}
 
+\begin{figure*}
+    \centering
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \includegraphics[width=.9\textwidth]{figs/new_model/sampling_energy.png}
+        \caption{}
+    \end{subfigure}\\
+    \medskip
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \includegraphics[width=.9\textwidth]{figs/new_model/sampling_energy_diff.png}
+        \caption{}
+    \end{subfigure}
+\end{figure*}
+
 \todo[inline]{
     TODO.
 
-    Plot energy consumption over RTT, mean energy per step over a task.
-    Ground truth empirical high.
-    For greedy, ideal, junjues sampling, vishnus model with gt as estimator.
+    Explain plots.
 }
