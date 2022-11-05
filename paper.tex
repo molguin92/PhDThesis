@@ -73,6 +73,12 @@
 \usepackage[all]{hypcap}
 \usepackage{makecell}
 \usepackage[capitalize,nameinlink,noabbrev]{cleveref}
+
+% hack for appendix
+\crefname{appendixwithoutnumber}{appendix}{appendices}
+\crefformat{appendixwithoutnumber}{#2the \appendixname#3}
+\Crefformat{appendixwithoutnumber}{#2The \appendixname#3}
+
 \usepackage[inline]{enumitem}
 \setlist[description]{font=\normalfont\underline}
 
@@ -140,6 +146,5 @@
 \input{conclusion.tex}
 % \input{sampling.tex}
 \printbibliography{}
-\appendix\label{appx1}
 \input{appendices.tex}
 \end{document}

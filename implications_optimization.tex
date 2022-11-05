@@ -213,20 +213,27 @@ To explore the potential implications of our realistic model of human timings fo
 We begin by assuming a given execution time distribution \( \mathcal{T} \), and take the modeling and partial solution approach from recents works on energy efficient sampling in edge-based feedback systems.
 In \textcite{ICCperiodic1,TMCperiodic}, the authors model the energy in terms of the expected number of samples $\mathbb{E}[\mathcal{S}]$ and the expected wait time $\mathbb{E}[\mathcal{W}]$ experienced by the user.
 The authors then find the optimum periodic sampling interval that minimizes this energy, or equivalently the non-constant parts of this energy termed as \textit{Energy Penalty}.
+
 % In this optimization, the constant parts are excluded as it does not affect the process.
 With a value much smaller than the execution time of the event, the \ac{RTT} of the final sample is included in this constant part, which is why $\mathcal{W}$ is computed without it.
 Next, in \textcite{secAperiodic}, the author retains the model, removes the constraint of periodicity, and finds the optimum aperiodic sampling instants $\{t_n,\,n=1,2,\dots\}$ that minimize the same energy penalty.
 
-In this work, we use the modelling from~\cite{secAperiodic} to find the optimum aperiodic sampling interval.
-However, instead of using their two-step approach to find the solution which includes a recursive solution followed by a bisection algorithm, we develop a novel, approximate, but easier solution to finding the set of the optimum aperiodic sampling intervals. Furthermore, instead of directly optimising for energy, we start by noting that an objective metric of a variety of optimisation problems that are related to sampling, RTT, responsiveness or wait time present themselves 
+In this work, we use the modeling from~\cite{secAperiodic} to find the optimum aperiodic sampling interval.
+However, instead of using their two-step approach to find the solution which includes a recursive solution followed by a bisection algorithm, we develop a novel, approximate, but easier solution to finding the set of the optimum aperiodic sampling intervals.
+Furthermore, instead of directly optimizing for energy, we start by noting that an objective metric of a variety of optimization problems that are related to sampling, RTT, responsiveness or wait time present themselves 
 % in a format similar to that of the energy, 
-as a linear combination between $\mathbb{E}[\mathcal{S}]$ and $\mathbb{E}[\mathcal{W}]$ plus terms independent of the number of samples or wait time. Let $\mathcal{E}$ correspond to such an objective metric. Thus,
+as a linear combination between $\mathbb{E}[\mathcal{S}]$ and $\mathbb{E}[\mathcal{W}]$ plus terms independent of the number of samples or wait time.
+Let $\mathcal{E}$ correspond to such an objective metric.
+Thus,
 \begin{alignat}{1}
     \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C,\;\label{eq:epsilon_terminal}
 \end{alignat}
-Here, $\alpha, \beta$ and $C$ are constants which are responsible for modifying the objective function from one metric to another. For instance, in the modelling used by Moothedath et.al~\cite{ICCperiodic1,TMCperiodic,secAperiodic}, the chosen characterisation results in a metric which is equal to the energy penalty. The outline of our solution that minimises \eqref{eq:epsilon_terminal} is provided below with the complete mathematical derivation in APPENDIX \ref{appx1}.
+Here, $\alpha, \beta$ and $C$ are constants which are responsible for modifying the objective function from one metric to another.
+For instance, in the modeling used by \textcite{ICCperiodic1,TMCperiodic,secAperiodic}, the chosen characterization results in a metric which is equal to the energy penalty.
+The outline of our solution that minimizes \cref{eq:epsilon_terminal} is provided below with the complete mathematical derivation in \cref{appx1}.
 
 \subsubsection{General solution}\label{sec:aprxSol}
+
 Define an instantaneous sampling rate function $r(t)$ which is related to $\{t_n\}$ such that,
 \begin{alignat}{1}
 {\int_{t_{n-1}}^{t_n}}r(t)\dif t=1,\;\forall n\geq1.\label{rt}
@@ -240,7 +247,7 @@ For instance, for periodic sampling, the rate function is a constant equal to th
 % \begin{alignat}{1}
 % \mathbb{E}[\mathcal{W}]&=\int_{0}^{\infty}\dfrac{1}{2r(t)}f_\mathcal{T}(t)\,\mathrm{d}t.\nonumber
 % \end{alignat}
-Now, rewriting \eqref{eq:epsilon_terminal} in terms of $r(t)$ and minimising it gives as an optimum rate function $r^*(t)$ as
+Now, rewriting \cref{eq:epsilon_terminal} in terms of $r(t)$ and minimizing it gives as an optimum rate function $r^*(t)$ as
 \begin{alignat}{1}
 r^*(t)&=\sqrt{\dfrac{\beta f_\mathcal{T}(t)}{2\alpha\bar{F}_\mathcal{T}(t)}}.\nonumber\\
 \intertext{Thus, for a Rayleigh distributed $\mathcal{T}$ with parameter $\sigma$,}
@@ -249,21 +256,33 @@ r^*(t)&=\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\nonumber\\
 % \Rightarrow &\;t_{n+1}^{\frac{3}{2}}-t_{n}^{\frac{3}{2}}=3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\nonumber\\
 \Rightarrow t_n&=\Big(3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\Big)^{\frac{2}{3}}n^{\frac{2}{3}}.\label{tn_approx_rayleigh}
 \end{alignat}
-\subsubsection{Energy minimisation}\label{sec:aprxSol_Energy}
-With the general solution available, minimising energy $E$ boils down to finding the appropriate $\alpha$ and $\beta$ that $\mathcal{E}=E$ in \eqref{eq:epsilon_terminal}. For this, we directly take the modelling from~\cite{secAperiodic} with a necessary modification in the assumption of one-way communication in all but the final sample. With feedback given even to the discarded samples in our model, we have, 
+
+\subsubsection{Energy minimization}\label{sec:aprxSol_Energy}
+
+With the general solution available, minimizing energy $E$ boils down to finding the appropriate $\alpha$ and $\beta$ that $\mathcal{E}=E$ in \cref{eq:epsilon_terminal}.
+For this, we directly take the modeling from~\cite{secAperiodic} with a necessary modification in the assumption of one-way communication in all but the final sample.
+With feedback given even to the discarded samples in our model, we have, 
 \begin{alignat}{2}
     \mathrm{E}=&\;2\mathcal{S}\tau_cP_c+(\mathcal{T}+\mathcal{W}+\tau_\mathrm{p}+2\tau_\mathrm{c}-2\mathcal{S}\tau_c)P_0\nonumber\\
     % &=s\tau_c(P_c-P_0^{(t)})+wP_0^{(t)}+(\tau+\tau_c+\tau_p) P_0^{(t)}+\tau_cP_c\\
     =&\;2\tau_{\text{c}}(P_{\text{c}} -P_0)\mathcal{S}+\mathcal{W}P_0+(\mathcal{T}+\tau_{\text{p}} +2\tau_{\text{c}}) P_0\nonumber\\
 &\Rightarrow \alpha=2\tau_{\text{c}}(P_{\text{c}} -P_0),\text{ and }\beta=P_0.\nonumber
 \end{alignat}
+
 \todo[inline]{is communication delay and processing delay defined already?}
-\subsubsection{Minimising number of samples }\label{sec:aprxSol_Energy_samples}
-Apart from energy, another common optimisation metric is simply the number of samples. However, an unconstrained optimisation of the number of samples is trivial and meaningless as the solution points to a single sample at $t\!\rightarrow\!\infty$, which also takes the wait time to infinity. We look at the constrained optimisation of the expected number of samples with an upper bound $w_0$ for the expected wait. That is, $\mathbb{E}[\mathcal{W}]\!\leq\!w_0$. We show in APPENDIX \ref{appx1} that the appropriate $\alpha$ and $\beta$ for this problem satisfies the condition
+
+\subsubsection{Minimizing number of samples }\label{sec:aprxSol_Energy_samples}
+
+Apart from energy, another common optimization metric is simply the number of samples.
+However, an unconstrained optimization of the number of samples is trivial and meaningless as the solution points to a single sample at $t\!\rightarrow\!\infty$, which also takes the wait time to infinity.
+We look at the constrained optimization of the expected number of samples with an upper bound $w_0$ for the expected wait.
+That is, $\mathbb{E}[\mathcal{W}]\!\leq\!w_0$. We show in \cref{appx1} that the appropriate $\alpha$ and $\beta$ for this problem satisfies the condition
 \begin{alignat}{1}
 \frac{\alpha}{\beta}=\frac{2\sqrt{2}\,w_0^2}{(\mathlarger{\Gamma}(\tfrac{3}{4}))^2\,\sigma}\approx1.9\frac{w_0^2}{\sigma},\nonumber
 \end{alignat}
 where, $\mathlarger{\Gamma}(x)$ is the Gamma function.
+
+
 \subsubsection{Evaluating the impact of the realistic timing model on the energy-optimal sampling scheme}
 
 \begin{figure*}
