@@ -42,6 +42,10 @@ In this scheme, a new sample is immediately taken as soon as an acknowledgement 
 This means that the interval between these sampling instants is not necessarily constant, as it is subject to fluctuations due to resource contention on both the network and compute side.
 It also has as a consequence that acknowledgements must be provided even for those samples which do not cause the generation of a new instruction --- these acknowledgements are simply used for flow control and do not generate user-noticeable feedback.
 
+\todo[inline]{%
+Talk about sampling, but don’t introduce greedy right away. First explain the sampling process generally (why is sampling necessary?) and then mention that different sampling strategies exist, for instance greedy ….
+}
+
 Take \( \{ t_0, t_1, \ldots, t_{n + 1} \} \) a series of discrete and sequential sampling intervals (following a greedy scheme) at which the \ac{WCA} captures the state of the physical system, as illustrated in \cref{fig:step}.
 \( t_0 \) corresponds to the instant at which the instruction for step \( M \) is provided and the first sample is taken, and \( t_n \) to the instant at which the final sample (i.e. which captures the final state of step \( M \)) is taken. 
 \( t_{n + 1} \) is then the instant at which the result for sample \( t_n \) is returned and the instruction for step \( M + 1 \) is provided.
@@ -51,11 +55,16 @@ If we define \( t_c \) as the point in time at which the user finishes performin
     t_c &\thicksim U(t_{n - 1}, t_n)
 \end{align}
 
+\todo[inline]{%
+Again, turn it around. The uniform distribution is less relevant than the terms execution time, wait time and last sample etc. Introduce the distribution at the end of the paragraph.
+}
+
 We define the intervals \( t_c - t_0 \), \( t_n - t_c \), and \( t_{n + 1} - t_n \) as the \emph{execution time}, \emph{wait time}, and \emph{last sample \ac{RTT}}, respectively, of a step \( M \).
 The sum of the latter two values (i.e. the interval \( t_{n + 1} - t_c \)) we call \emph{\ac{TTF}}.
 Once again, refer to \cref{fig:step} for a visual breakdown of these values.
 
 \subsection{The effects of changes in responsiveness on human behavior}\label{ssec:plos}
+\todo[inline]{Shorten}
 
 In~\cite{olguinmunoz:impact2021} we studied the effects of system responsiveness on human behavior in step-based \ac{WCA} through human-subject trials.
 We employed a modified and instrumented version of the above-mentioned, step-based LEGO \ac{WCA} devised by \textcite{Chen2015LEGO}.
