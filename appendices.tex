@@ -1,0 +1,80 @@
+\subsection*{Optimisation}
+The energy penalty can be expressed as
+\begin{alignat}{1}
+    \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}],\;\label{eq:epsilon_terminal}
+\end{alignat}
+where \( P_0 \) corresponds to the power consumed by the \ac{WCA} client device during idle periods and \( P_\text{c} \) to the power consumption during communication with the backend (i.e.\ transmitting a sample or receiving a reply).
+$\alpha = \tau_{\text{c}} (P_{\text{c}} - P_0)$ and $\beta = P_0$ are constants.
+Here, note that $\alpha\mathbb{E}[\mathcal{S}]$ and $\beta\,\mathbb{E}[\mathcal{W}]$ correspond to the energy wasted per discarded sample and the additional energy expended while waiting, respectively.
+Using this model, we find the approximate, near-optimal set of sampling instants $\{t_n^*\}$ that minimizes the energy penalty given in \cref{eq:epsilon_terminal}.
+
+\subsubsection{Optimum sampling instants}\label{sec:aprxSol}
+
+First, we borrow the idea of checkpointing density from \textcite{CP_C,CP_C} and define an instantaneous sampling rate function $r(t)$ which is
+related to $\{t_n\}$ such that,
+\begin{alignat}{1}
+{\int_{t_{n-1}}^{t_n}}r(t)\dif t=1,\;\forall n\geq1.\label{rt}
+\end{alignat}
+We find $r^*(t)$, the $r(t)$ that minimizes $\mathcal{E}$.
+Note that, by construction, the number of samples taken up to any time instant can be computed directly by finding the area under $r(t)$.
+Thus, we get the expected number of samples $\mathbb{E}[\mathcal{S}]$ as
+\begin{alignat}{1}
+\mathbb{E}[\mathcal{S}]&=\int_{t=0}^{\infty}\bigg(\!\int_{x=0}^{t}\!\!\!\!r(x)\,\mathrm{d}x\bigg)f_{\mathcal{T}}(t)\,\mathrm{d}t.\label{Es}
+\end{alignat}
+To find 
+% the expected wait 
+$\mathbb{E}[\mathcal{W}]$, we use the conditional \ac{CDF} of the execution time.
+We get,
+\begin{multline*}
+\mathbb{P}(\mathcal{W}=t_n-\mathcal{T}\leq t\,\big\vert\,t_{n-1}<\mathcal{T}\leq t_n)\\=\dfrac{\mathbb{P}(\mathcal{T}\geq t_n-t\,,\,t_{n-1}<\mathcal{T}\leq t_n)}{\mathbb{P}(t_{n-1}<\mathcal{T}\leq t_n)}.
+\end{multline*}
+The numerator is degenerate when $t\!<\!0$ or $t\!>\!(t_n\!-\!t_{n-1})$.
+Thus, we are only interested in $0\!\leq\!t\!\leq\! (t_n-t_{n-1})$.
+Let $F_{\mathcal{T}}$, $\bar{F}_{\mathcal{T}}$ and $f_{\mathcal{T}}$ correspond to the \ac{CDF}, \ac{CCDF} and \ac{PDF} of the execution time distribution.
+\begin{alignat*}{1}
+\!\!\!\Rightarrow\mathbb{P}(\mathcal{W}\leq t\,\big\vert\,t_{n-1}<\mathcal{T}\leq t_n)&=\dfrac{\mathbb{P}(t_n-t\leq\mathcal{T}\leq t_n)}{F_\mathcal{T}(t_n)-F_\mathcal{T}(t_{n-1})}\\
+&\approx\dfrac{F_\mathcal{T}(t_n)-F_\mathcal{T}(t_{n}-t)}{F_\mathcal{T}(t_n)-F_\mathcal{T}(t_{n-1})}\tag{$A_1$}\label{Apx1}
+\end{alignat*}
+Here, \cref{Apx1} is an approximation merely for mathematical maturity due to the slackness of the first inequality in the numerator.
+Expanding the \ac{CDF} using Taylor series, 
+\begin{multline*}
+    =\Big(F_\mathcal{T}(t_n)-\\\big(F_\mathcal{T}(t_n)+f_\mathcal{T}(t_n)(-t)+f'_\mathcal{T}(t_n)(-t)^2/2!+\dots\big)\Big)\\
+    \div \Big(F_\mathcal{T}(t_n)-\big(F_\mathcal{T}(t_n)+f_\mathcal{T}(t_n)(t_{n-1}-t_n)\\+f'_\mathcal{T}(t_n)(t_{n-1}-t_n)^2/2!+\dots\big)\Big).
+\end{multline*}
+Simplifying and using the first order approximation, we get
+\begin{alignat*}{1}
+% &=\dfrac{F_\mathcal{T}(t_n)-\big(F_\mathcal{T}(t_n)+f_\mathcal{T}(t_n)(-t)+f'_\mathcal{T}(t_n)(-t)^2/2!+\dots\big)}{F_\mathcal{T}(t_n)-\big(F_\mathcal{T}(t_n)+f_\mathcal{T}(t_n)(t_{n-1}-t_n)+f'_\mathcal{T}(t_n)(t_{n-1}-t_n)^2/2!+\dots\big)}\\&
+\mathbb{P}(\mathcal{W}\leq t\,\big\vert\,t_{n-1}<\mathcal{T}\leq t_n)&\approx\dfrac{tf_\mathcal{T}(t_n)}{(t_{n}-t_{n-1})f_\mathcal{T}(t_n)}\tag{$A_2$}\label{Apx2}\\
+\Rightarrow\mathbb{P}(\mathcal{W}> t\,|\,t_{n-1}<\mathcal{T}\leq t_n)&= 1-\dfrac{t}{(t_{n}-t_{n-1})}.
+\end{alignat*}
+Using this \ac{CCDF}, we find the conditional expectation of $\mathcal{W}$.
+\begin{alignat*}{1}
+% \mathbb{P}(\mathcal{W}> t\,|\,t_{n-1}<\mathcal{T}\leq t_n)&\approx 1-\dfrac{t}{(t_{n}-t_{n-1})}\\
+\Rightarrow \mathbb{E}[\mathcal{W}\,|\,t_{n-1}<\mathcal{T}\leq t_n]&=\smashoperator[r]{\int_{0}^{t_n-t_{n-1}}}\Big(1-\dfrac{t}{(t_{n}-t_{n-1})}\Big)\,\mathrm{d}t\\
+&=\dfrac{(t_n-t_{n-1})}{2}.
+\end{alignat*}
+% However, we can also approximate $(t_n-t_{n-1})$, the sampling interval to the inverse of the instantaneous sampling frequency $r(t)$. This approximation (\ref{Apx3}) is valid as long as $r(t)$ is varying slowly between two consecutive sampling instants. That is,
+If $r(t)$ is varying slowly between two consecutive sampling instants, we can approximate the sampling interval $t_n\!-\!t_{n-1}$ as,
+\begin{alignat}{1}
+ (t_n-t_{n-1})&\approx\dfrac{1}{r(t)},\;\forall t,n:t_{n-1}\!<\!t\!\leq\!t_n.\tag{$A_3$}\label{Apx3}\\
+% \end{alignat}
+% As a result, we can compute the expected wait as,
+% \begin{alignat}{1}
+\Rightarrow \mathbb{E}[\mathcal{W}]&=\int_{0}^{\infty}\mathbb{E}[\mathcal{W}\,|\,t_{n-1}<\mathcal{T}\leq t_n]f_\mathcal{T}(t)\,\mathrm{d}t\nonumber\\
+&=\int_{0}^{\infty}\dfrac{1}{2r(t)}f_\mathcal{T}(t)\,\mathrm{d}t.\label{Ew}
+\end{alignat}
+We can thus find the energy penalty using \cref{Es} and \cref{Ew} as
+\begin{alignat*}{1}
+\mathcal{E}&=\int_{0}^{\infty}\Big(\alpha\int_{x=0}^{t}r(x)\,\mathrm{d}x+\beta\dfrac{1}{2r(t)}\Big)f_{\mathcal{T}}(t)\,\mathrm{d}t.\label{epsilon_eulerForm}\\
+\intertext{Let $g(t)=\int_{0}^{t}r(x)\dif x$. Then  $g'(t)=\tfrac{\mathrm{d}}{\mathrm{d}t}g(t)=r(t)$. That is,}
+\vspace{-4cm}\mathcal{E}&=\int_{0}^{\infty}\Big(\alpha g(t)+\dfrac{\beta}{2g'(t)}\Big)f_{\mathcal{T}}(t)\,\mathrm{d}t.
+\end{alignat*}
+As per the Euler-Lagrange equation from the calculus of variations~\cite{calcVariation2,calcVariation1}, the extreme value of $\mathcal{E}$ is obtained at 
+\begin{alignat}{1}
+r^*(t)&=\sqrt{\dfrac{\beta f_\mathcal{T}(t)}{2\alpha\bar{F}_\mathcal{T}(t)}}.\\
+\intertext{Thus, for a Rayleigh distributed $\mathcal{T}$ with parameter $\sigma$,}
+r^*(t)&=\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\\
+\Rightarrow &\int_{t_n}^{t_{n+1}}\!\!\!\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\,\mathrm{d}t=1,\;\forall n\geq1\nonumber\tag{from \eqref{rt}}\\
+\Rightarrow &\;t_{n+1}^{\frac{3}{2}}-t_{n}^{\frac{3}{2}}=3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\nonumber\\
+\Rightarrow &\;t_n=\Big(3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\Big)^{\frac{2}{3}}n^{\frac{2}{3}}.
+\end{alignat}
