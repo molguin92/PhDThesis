@@ -1,4 +1,7 @@
 \section{Implications for the study and optimization of \acs{WCA}}\label{sec:implications}
+\todo[inline]{Implications for \ac{WCA} footprint.}
+\todo[inline]{Two subsections (simulation and real system.)}
+\todo[inline]{Leave it for now.}
 % \todo[inline]{Introduction to this section?}
 
 \subsection{Application lifetimes}
@@ -228,6 +231,10 @@ Thus,
 \begin{alignat}{1}
     \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C,\;\label{eq:epsilon_terminal}
 \end{alignat}
+\todo[inline]{
+Optimization is own section.    
+First thing in optimization. Represents a lot of tradeoffs in these systems. For two particular metrics, we discuss solutions of this equations for different optimization purposes. We compare to other approaches. State of the art and offline optimum.
+Optimization business should go into own section.}
 Here, $\alpha, \beta$ and $C$ are constants which are responsible for modifying the objective function from one metric to another.
 For instance, in the modeling used by \textcite{ICCperiodic1,TMCperiodic,secAperiodic}, the chosen characterization results in a metric which is equal to the energy penalty.
 The outline of our solution that minimizes \cref{eq:epsilon_terminal} is provided below with the complete mathematical derivation in \cref{appx1}.
@@ -289,19 +296,30 @@ where, $\mathlarger{\Gamma}(x)$ is the Gamma function.
     \centering
     \begin{subfigure}[t]{\textwidth}
         \centering
-        \includegraphics[width=.9\textwidth]{figs/new_model/sampling_energy.png}
+        \includegraphics[width=\textwidth]{figs/new_model/sampling_optimization.png}
+        \caption{\todo[inline]{Note logarithmic yscale.}}
+    \end{subfigure}\\
+    \medskip
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/new_model/sampling_optimization_diff.png}
+        \caption{}
+    \end{subfigure}
+    \caption{Sampling optimization}
+\end{figure*}
+
+\begin{figure*}
+    \centering
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/new_model/energy_optimization.png}
         \caption{}
     \end{subfigure}\\
     \medskip
     \begin{subfigure}[t]{\textwidth}
         \centering
-        \includegraphics[width=.9\textwidth]{figs/new_model/sampling_energy_diff.png}
+        \includegraphics[width=\textwidth]{figs/new_model/energy_optimization_diff.png}
         \caption{}
     \end{subfigure}
+    \caption{Energy optimization}
 \end{figure*}
-
-\todo[inline]{
-    TODO.
-
-    Explain plots.
-}
