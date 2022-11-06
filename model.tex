@@ -39,11 +39,10 @@ We begin by calculating rolling weighted averages of the \acp{TTF} of each of th
 We use exponentially decaying weights for the most recent \num{12} steps, defined in \cref{eq:weights}, such that the most recent \ac{TTF} accounts for roughly \SI{50}{\percent} of the rolling average, the second-most recent for \textasciitilde\SI{25}{\percent}, the third-most \textasciitilde\SI{12}{\percent}, and so on.
 We additionally pad the data for each run with \num{12} copies of the first \ac{TTF} in order to ensure sensible values for the first twelve steps; this padding is removed after the weighted values have been calculated.
 This weighing ensures that drastic changes in \ac{TTF} are significantly remembered by the model for at least \num{4} steps --- in line with our previous findings on human behavior --- and are subsequently quickly forgotten.
-\todo[inline]{Check the sign. Shouldn't it be -0.7?}
 \begin{equation}\label{eq:weights}
     w_{n - i} = 
     \left\{ \begin{array}{ll}
-        \frac{e^{0.7 i}}{\sum\limits^{12}_{j=1} e^{0.7 j}} & 1 \leq i \leq 12 \\
+        \frac{e^{-0.7 i}}{\sum\limits^{12}_{j=1} e^{-0.7 j}} & 1 \leq i \leq 12 \\
         & \\
         0 & i > 12
     \end{array} \right.
