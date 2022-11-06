@@ -159,15 +159,20 @@ Note that the embedded timing model in our sampling-count-optimized aperiodic sa
     \begin{subfigure}[t]{\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/new_model/sampling_optimization.png}
-        \caption{\todo[inline]{Note logarithmic yscale.}}
+        \caption{%
+            Round-trip time versus mean number of captured samples per step, averaged over all \num{100} repetitions of the experiment.
+            Note the logarithmic scale on the vertical axis.
+            Error bars indicate \SI{95}{\percent} \acp{CI}.
+        }
     \end{subfigure}\\
     \medskip
     \begin{subfigure}[t]{\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/new_model/sampling_optimization_diff.png}
-        \caption{}
+        \caption{Number of samples captured per step }
     \end{subfigure}
     \caption{Sampling optimization}\label{fig:optimization:samples}
+    \todo[inline]{Second subplot seems... redundant.}
 \end{figure*}
 
 The results of this investigation are presented in \cref{fig:optimization:samples}.
