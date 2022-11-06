@@ -63,7 +63,7 @@ r^*(t)&=\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\nonumber\\
 \end{alignat}
 
 
-\subsection{Optimizing for mean number of samples per step}
+\subsection{Optimizing for mean number of samples per step}\label{ssec:optimization:samples}
 
 We first look at the application of \cref{eq:epsilon_terminal} for the optimization of number of captured samples per step.
 We start with this metric as its implications for resource consumption and responsiveness are straightforward to understand.
@@ -99,7 +99,6 @@ Finally, \( CDF \) corresponds to the \ac{CDF} of a distribution describing the 
 \medskip
 
 In the following, we will show the effects of our optimization approach combined with our timing models compared to \textcite{Wang2019Towards}'s state-of-the-art approach.
-\todo[inline]{Sounds clunky}
 For this we implement these sampling schemes in Python and run a number of simulations with them.
 The first scheme uses our approach and \cref{eq:epsilon_terminal,eq:optimization:sampling} to determine the optimum sampling instants and the values for \( \alpha \) and \( \beta \) at each step.
 It includes an embedded timing model (without any distribution fitting) to provide updated estimates of \( \sigma \) at every step as well, allowing it to adapt to the state of the system.
@@ -128,8 +127,8 @@ This is an interesting approach to include given that it corresponds to the defa
             \numlist[list-final-separator={, }]{0.3375;0.675;1.25},\\
             \SIlist{2.5;5.0}{\second}
         } & \\
-        \( t_\text{p} \) & \SI{300}{\milli\second} & Processing delay \\
-        \( t_\text{c} \) & \( \text{\ac{RTT}} - t_\text{p} \) & Communication delay \\
+        \( \tau_\text{p} \) & \SI{300}{\milli\second} & Processing delay \\
+        \( \tau_\text{c} \) & \( \text{\ac{RTT}} - \tau_\text{p} \) & Communication delay \\
         \( w_0 \) & \SI{1.0}{\second} & \\
         \( R_\text{min} \) & \SI{0.5}{\hertz} & Derived as \( R_\text{min} = {(2 w_0)}^{-1} \) \\
         \( \varphi \) & 3.0 & Scaling factor, \textcite{Wang2019Towards}\\
@@ -137,15 +136,15 @@ This is an interesting approach to include given that it corresponds to the defa
         \( P_\text{c} \) & \SI{45}{\milli\watt} & Communication power \\
         \( \alpha_\text{samples} \) & \( 1.9 \sigma^{-1} \) & For sample-count optimization. \\
         \( \beta_\text{samples} \) & \num{1.0} & For sample-count optimization. \\
-        \( \alpha_\text{energy} \) & \( t_\text{c}(P_\text{c} - P_0) \) & For energy optimization. \\
+        \( \alpha_\text{energy} \) & \( \tau_\text{c}(P_\text{c} - P_0) \) & For energy optimization. \\
         \( \beta_\text{energy} \) & \( P_0 \) & For energy optimization. \\
         \bottomrule
     \end{tabular}
 \end{table}
 
 We proceed to set up an experiment where these sampling approaches are deployed on identical, simulated, tasks with varying constant \acp{RTT}.
-Experimental parameters are detailed in \cref{tab:params}.
-We set the maximum expected wait time \( w_0 \) and \( \beta \) factors of our sample-count-optimized scheme to \SI{1.0}{\second} and \num{1.0}, respectively, for mathematical simplicity, and derive \( \alpha = 1.9 \sigma^{-1} \).
+Experimental parameters are summarized in \cref{tab:params}.
+We set the \( w_0 \) and \( \beta \) factors of our sample-count-optimized scheme to \SI{1.0}{\second} and \num{1.0}, respectively, for mathematical simplicity, and derive \( \alpha = 1.9 \sigma^{-1} \).
 Next, we derive \( R_\text{min} \) for \textcite{Wang2019Towards}'s scheme from \( w_0 \).
 As discussed in \cref{sec:background}, we assume that wait times are uniformly distributed between \SI{0}{\second} and sampling interval of each step.
 A maximum expected wait time \( w_0 = 1.0\,\si{\second} \) thus translates into a maximum expected sampling interval of \SI{2.0}{\second}, yielding a minimum sampling rate \( R_\text{min} = {2.0\,\si{\second}}^{-1} = 0.5\,\si{\hertz} \).
@@ -171,31 +170,31 @@ Note that the embedded timing model in our sampling-count-optimized aperiodic sa
     \caption{Sampling optimization}\label{fig:optimization:samples}
 \end{figure*}
 
-The results of this investigation are presented in \cref{fig:optimization:samples}
-They clearly show the potentially dramatic effects of more accurate execution time estimation when optimizing sampling rates.
-When using the realistic model for execution time estimation, the sampling schemes achieve between \SI{14}{\percent} and \textasciitilde\SI{27}{\percent} better average performance, depending on the \edgedroid{} model parameterization and the system \ac{RTT}.
-\todo[inline]{Update with new ground truths.}
-This is true even for configurations with low neuroticism which do not exactly match the parameterization of the external timing model driving the execution times for the steps, showing thus the importance of even less-accurate approximations.
+The results of this investigation are presented in \cref{fig:optimization:samples}.
+\todo[inline]{Discuss results.}
 
 \subsection{Optimizing for energy consumption}
 
-Energy consumption is another yet unexplored dimension of \ac{WCA} with great opportunities for optimization.
-To explore the potential implications of our realistic model of human timings for energy consumption, we will introduce here a novel scheme for sampling in step-based \ac{WCA} systems.
+Next we will explore the implications of combining our timing models with \cref{eq:epsilon_terminal} when directly optimizing for energy consumption in \ac{WCA}.
+Although, as mentioned above, minimizing the number of samples captured during a step can \emph{potentially} translate into a reduction in the energy consumption, this is not a given.
+Energy consumption depends on multiple other factors other than number of samples captured, such as idle versus communication power and delays, and thus cannot be optimized by simply minimizing the number of samples taken.
 
-\subsubsection{Energy minimization}\label{sec:aprxSol_Energy}
-
-With the general solution available, minimizing energy $E$ boils down to finding the appropriate $\alpha$ and $\beta$ that $\mathcal{E}=E$ in \cref{eq:epsilon_terminal}.
-For this, we directly take the modeling from~\cite{secAperiodic} with a necessary modification in the assumption of one-way communication in all but the final sample.
+In the following we thus take the general solution, \cref{eq:epsilon_terminal}, and find the appropriate \( \alpha \) and \( \beta \) to minimize the energy consumed per step, i.e.\ \( \mathcal{E}=E \).
+We directly take the modeling from~\cite{secAperiodic} with a necessary modification in the assumption of one-way communication in all but the final sample.
 With feedback given even to the discarded samples in our model, we have, 
 \begin{alignat}{2}
     \mathrm{E}=&\;2\mathcal{S}\tau_cP_c+(\mathcal{T}+\mathcal{W}+\tau_\mathrm{p}+2\tau_\mathrm{c}-2\mathcal{S}\tau_c)P_0\nonumber\\
     % &=s\tau_c(P_c-P_0^{(t)})+wP_0^{(t)}+(\tau+\tau_c+\tau_p) P_0^{(t)}+\tau_cP_c\\
     =&\;2\tau_{\text{c}}(P_{\text{c}} -P_0)\mathcal{S}+\mathcal{W}P_0+(\mathcal{T}+\tau_{\text{p}} +2\tau_{\text{c}}) P_0\nonumber\\
-&\Rightarrow \alpha=2\tau_{\text{c}}(P_{\text{c}} -P_0),\text{ and }\beta=P_0.\nonumber
+&\Rightarrow \alpha=2\tau_{\text{c}}(P_{\text{c}} -P_0),\text{ and }\beta=P_0 \label{eq:optimization:energy}
 \end{alignat}
+\( \tau_\text{p} \) and \( \tau_\text{c} \) correspond to the processing and communication delay for each sample.
+\( P_\text{c} \) and \( P_0 \) correspond to the communication and idle power, respectively, of the \ac{WCA} client device.
 
-\todo[inline]{is communication delay and processing delay defined already?}
-
+We proceed to repeat the experiment detailed in \cref{ssec:optimization:samples}, replacing the sample-count-optimized sampling scheme with a new implementation instead minimizing energy, using \cref{eq:optimization:energy} for the calculation of \( \alpha \) and \( \beta \).
+We refer to this scheme as the \emph{energy-optimized aperiodic} sampling scheme.
+For the power constants, we reuse the values estimated by the authors in \textcite{TMCperiodic}, \( P_\text{c} = 45\,\si{\milli\watt} \) and \( P_\text{0} = 15\,\si{\milli\watt} \).
+On the other hand, for the timing variables we define a constant processing delay \( \tau_\text{p} = 300\,\si{\milli\second} \) across all configurations and repetitions of the experiments; given then a constant \ac{RTT} for the task, we set \( \tau_\text{c} = \text{\ac{RTT}} - \tau_\text{p} \).
 
 \begin{figure*}
     \centering
@@ -210,5 +209,10 @@ With feedback given even to the discarded samples in our model, we have,
         \includegraphics[width=\textwidth]{figs/new_model/energy_optimization_diff.png}
         \caption{}
     \end{subfigure}
-    \caption{Energy optimization}
+    \caption{Energy optimization}\label{fig:optimization:energy}
 \end{figure*}
+
+Again, we include the reference greedy and offline optimum schemes, as well as \textcite{Wang2019Towards}'s approach, and repeat the experiment \num{100} times for each combination of sampling scheme, neuroticism, and \ac{RTT}.
+The results of these experiments are presented in \cref{fig:optimization:energy}.
+
+\todo[inline]{Discussss}
