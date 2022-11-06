@@ -1,7 +1,88 @@
 \section{Implications for the optimization of resource consumption and responsiveness trade-offs in \ac{WCA}}\label{sec:implications:optimization}
 
+As with any application intended for mass deployment on multi-tenant systems such as the edge, \ac{WCA} applications will have to be configured and designed to minimize resource consumption at runtime.
+At the same time, imposing too stringent requirements on resource consumption can adversely affect application responsiveness, which in turn has the potential to drastically reduce quality of experience for users.
+Optimizing the deployment of these applications thus intrinsically involves achieving a balance between the reduction of resource consumption while maintaining an acceptable level of system responsiveness.
+
+In the following section we will study the optimization of resource consumption-responsiveness trade-offs in two dimensions of \ac{WCA}, number of samples captured per step and energy consumption per step.
+
+\todo[inline]{Finish}
+
+\subsection{Optimization framework}
+
+Again, our optimization approaches focus on individual steps.
+Thus, we begin by assuming a given execution time distribution \( \mathcal{T} \), and take the modeling and partial solution approach from recents works on energy efficient sampling in edge-based feedback systems.
+In \textcite{ICCperiodic1,TMCperiodic}, the authors model the energy in terms of the expected number of samples $\mathbb{E}[\mathcal{S}]$ and the expected wait time $\mathbb{E}[\mathcal{W}]$ experienced by the user.
+The authors then find the optimum periodic sampling interval that minimizes this energy, or equivalently the non-constant parts of this energy termed as \textit{Energy Penalty}.
+
+% In this optimization, the constant parts are excluded as it does not affect the process.
+With a value much smaller than the execution time of the event, the \ac{RTT} of the final sample is included in this constant part, which is why $\mathcal{W}$ is computed without it.
+Next, in \textcite{secAperiodic}, the author retains the model, removes the constraint of periodicity, and finds the optimum aperiodic sampling instants $\{t_n,\,n=1,2,\dots\}$ that minimize the same energy penalty.
+
+In this work, we use the modeling from~\cite{secAperiodic} to find the optimum aperiodic sampling interval.
+However, instead of using their two-step approach to find the solution which includes a recursive solution followed by a bisection algorithm, we develop a novel, approximate, but easier solution to finding the set of the optimum aperiodic sampling intervals.
+Furthermore, instead of directly optimizing for energy, we start by noting that an objective metric of a variety of optimization problems that are related to sampling, RTT, responsiveness or wait time present themselves 
+% in a format similar to that of the energy, 
+as a linear combination between $\mathbb{E}[\mathcal{S}]$ and $\mathbb{E}[\mathcal{W}]$ plus terms independent of the number of samples or wait time.
+Let $\mathcal{E}$ correspond to such an objective metric.
+Thus,
+\begin{alignat}{1}
+    \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C,\;\label{eq:epsilon_terminal}
+\end{alignat}
+\todo[inline]{
+Optimization is own section.    
+First thing in optimization. Represents a lot of tradeoffs in these systems. For two particular metrics, we discuss solutions of this equations for different optimization purposes. We compare to other approaches. State of the art and offline optimum.
+Optimization business should go into own section.}
+Here, $\alpha, \beta$ and $C$ are constants which are responsible for modifying the objective function from one metric to another.
+For instance, in the modeling used by \textcite{ICCperiodic1,TMCperiodic,secAperiodic}, the chosen characterization results in a metric which is equal to the energy penalty.
+The outline of our solution that minimizes \cref{eq:epsilon_terminal} is provided below with the complete mathematical derivation in \cref{appx1}.
+
+\bigskip
+
+Define an instantaneous sampling rate function $r(t)$ which is related to $\{t_n\}$ such that,
+\begin{alignat}{1}
+{\int_{t_{n-1}}^{t_n}}r(t)\dif t=1,\;\forall n\geq1.\label{rt}
+\end{alignat}
+For instance, for periodic sampling, the rate function is a constant equal to the sampling frequency. 
+% Using this rate function, we rewrite the expected number of samples as
+% \begin{alignat}{1}
+% \mathbb{E}[\mathcal{S}]&=\int_{t=0}^{\infty}\bigg(\!\int_{x=0}^{t}\!\!\!\!r(x)\,\mathrm{d}x\bigg)f_{\mathcal{T}}(t)\,\mathrm{d}t,\nonumber
+% \end{alignat}
+% and the approximate the expected wait time as
+% \begin{alignat}{1}
+% \mathbb{E}[\mathcal{W}]&=\int_{0}^{\infty}\dfrac{1}{2r(t)}f_\mathcal{T}(t)\,\mathrm{d}t.\nonumber
+% \end{alignat}
+Now, rewriting \cref{eq:epsilon_terminal} in terms of $r(t)$ and minimizing it gives as an optimum rate function $r^*(t)$ as
+\begin{alignat}{1}
+r^*(t)&=\sqrt{\dfrac{\beta f_\mathcal{T}(t)}{2\alpha\bar{F}_\mathcal{T}(t)}}.\nonumber\\
+\intertext{Thus, for a Rayleigh distributed $\mathcal{T}$ with parameter $\sigma$,}
+r^*(t)&=\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\nonumber\\
+% \Rightarrow &\int_{t_n}^{t_{n+1}}\!\!\!\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\,\mathrm{d}t=1,\;\forall n\geq1\nonumber\tag{from \eqref{rt}}\\
+% \Rightarrow &\;t_{n+1}^{\frac{3}{2}}-t_{n}^{\frac{3}{2}}=3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\nonumber\\
+\Rightarrow t_n&=\Big(3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\Big)^{\frac{2}{3}}n^{\frac{2}{3}}\label{tn_approx_rayleigh}
+\end{alignat}
+
+
 \subsection{Optimizing for mean number of samples per step}
 
+We first look at the application of \cref{eq:epsilon_terminal} for the optimization of number of captured samples per step.
+We start with this metric as its implications for resource consumption and responsiveness are straightforward to understand.
+On the one hand, higher sampling rates directly lead to perceived increased system responsiveness, as smaller sampling intervals translate into smaller maximum wait times.
+On the other, the relationship between number of samples captured and sent and network congestion is exponential, and too high sampling rates quickly lead to bottlenecks on the network, particularly in multi-tenant environments.
+Additionally, the energy cost of capturing a sample on a \ac{WCA} client device is often much higher than remaining in an idle state, and thus excessive sampling leads to drastically increased energy consumption.
+Optimizing the number of samples captured per step can thus be a straightforward way of reducing resource consumption and contention in \ac{WCA} applications.
+
+However, an unconstrained optimization of the number of samples is trivial and meaningless as the solution points to a single sample at $t\!\rightarrow\!\infty$, which also takes the wait time to infinity.
+We look at the constrained optimization of the expected number of samples with an upper bound $w_0$ for the expected wait.
+That is, $\mathbb{E}[\mathcal{W}]\!\leq\!w_0$. We show in \cref{appx1} that the appropriate $\alpha$ and $\beta$ for this problem satisfies the condition
+\begin{alignat}{1}
+\frac{\alpha}{\beta}=\frac{2\sqrt{2}\,w_0^2}{(\mathlarger{\Gamma}(\tfrac{3}{4}))^2\,\sigma}\approx1.9\frac{w_0^2}{\sigma},\nonumber
+\end{alignat}
+where, $\mathlarger{\Gamma}(x)$ is the Gamma function.
+
+\medskip
+
+We introduce here a reference scheme to which we will compare our approach.
 In~\cite{Wang2019Towards}, \citeauthor{Wang2019Towards} introduce an adaptive sampling scheme for \ac{WCA} intended to reduce the number of samples processed per step while still meeting application responsiveness bounds.
 At every sampling instant \( t \), the scheme adapts the sampling rate \( R(t) \) of the system according to the estimated likelihood of the user having finished the step,
 following the formula 
@@ -94,57 +175,6 @@ This is true even for configurations with low neuroticism which do not exactly m
 Energy consumption is another yet unexplored dimension of \ac{WCA} with great opportunities for optimization.
 To explore the potential implications of our realistic model of human timings for energy consumption, we will introduce here a novel scheme for sampling in step-based \ac{WCA} systems.
 
-We begin by assuming a given execution time distribution \( \mathcal{T} \), and take the modeling and partial solution approach from recents works on energy efficient sampling in edge-based feedback systems.
-In \textcite{ICCperiodic1,TMCperiodic}, the authors model the energy in terms of the expected number of samples $\mathbb{E}[\mathcal{S}]$ and the expected wait time $\mathbb{E}[\mathcal{W}]$ experienced by the user.
-The authors then find the optimum periodic sampling interval that minimizes this energy, or equivalently the non-constant parts of this energy termed as \textit{Energy Penalty}.
-
-% In this optimization, the constant parts are excluded as it does not affect the process.
-With a value much smaller than the execution time of the event, the \ac{RTT} of the final sample is included in this constant part, which is why $\mathcal{W}$ is computed without it.
-Next, in \textcite{secAperiodic}, the author retains the model, removes the constraint of periodicity, and finds the optimum aperiodic sampling instants $\{t_n,\,n=1,2,\dots\}$ that minimize the same energy penalty.
-
-In this work, we use the modeling from~\cite{secAperiodic} to find the optimum aperiodic sampling interval.
-However, instead of using their two-step approach to find the solution which includes a recursive solution followed by a bisection algorithm, we develop a novel, approximate, but easier solution to finding the set of the optimum aperiodic sampling intervals.
-Furthermore, instead of directly optimizing for energy, we start by noting that an objective metric of a variety of optimization problems that are related to sampling, RTT, responsiveness or wait time present themselves 
-% in a format similar to that of the energy, 
-as a linear combination between $\mathbb{E}[\mathcal{S}]$ and $\mathbb{E}[\mathcal{W}]$ plus terms independent of the number of samples or wait time.
-Let $\mathcal{E}$ correspond to such an objective metric.
-Thus,
-\begin{alignat}{1}
-    \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C,\;\label{eq:epsilon_terminal}
-\end{alignat}
-\todo[inline]{
-Optimization is own section.    
-First thing in optimization. Represents a lot of tradeoffs in these systems. For two particular metrics, we discuss solutions of this equations for different optimization purposes. We compare to other approaches. State of the art and offline optimum.
-Optimization business should go into own section.}
-Here, $\alpha, \beta$ and $C$ are constants which are responsible for modifying the objective function from one metric to another.
-For instance, in the modeling used by \textcite{ICCperiodic1,TMCperiodic,secAperiodic}, the chosen characterization results in a metric which is equal to the energy penalty.
-The outline of our solution that minimizes \cref{eq:epsilon_terminal} is provided below with the complete mathematical derivation in \cref{appx1}.
-
-\subsubsection{General solution}\label{sec:aprxSol}
-
-Define an instantaneous sampling rate function $r(t)$ which is related to $\{t_n\}$ such that,
-\begin{alignat}{1}
-{\int_{t_{n-1}}^{t_n}}r(t)\dif t=1,\;\forall n\geq1.\label{rt}
-\end{alignat}
-For instance, for periodic sampling, the rate function is a constant equal to the sampling frequency. 
-% Using this rate function, we rewrite the expected number of samples as
-% \begin{alignat}{1}
-% \mathbb{E}[\mathcal{S}]&=\int_{t=0}^{\infty}\bigg(\!\int_{x=0}^{t}\!\!\!\!r(x)\,\mathrm{d}x\bigg)f_{\mathcal{T}}(t)\,\mathrm{d}t,\nonumber
-% \end{alignat}
-% and the approximate the expected wait time as
-% \begin{alignat}{1}
-% \mathbb{E}[\mathcal{W}]&=\int_{0}^{\infty}\dfrac{1}{2r(t)}f_\mathcal{T}(t)\,\mathrm{d}t.\nonumber
-% \end{alignat}
-Now, rewriting \cref{eq:epsilon_terminal} in terms of $r(t)$ and minimizing it gives as an optimum rate function $r^*(t)$ as
-\begin{alignat}{1}
-r^*(t)&=\sqrt{\dfrac{\beta f_\mathcal{T}(t)}{2\alpha\bar{F}_\mathcal{T}(t)}}.\nonumber\\
-\intertext{Thus, for a Rayleigh distributed $\mathcal{T}$ with parameter $\sigma$,}
-r^*(t)&=\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\nonumber\\
-% \Rightarrow &\int_{t_n}^{t_{n+1}}\!\!\!\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\,\mathrm{d}t=1,\;\forall n\geq1\nonumber\tag{from \eqref{rt}}\\
-% \Rightarrow &\;t_{n+1}^{\frac{3}{2}}-t_{n}^{\frac{3}{2}}=3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\nonumber\\
-\Rightarrow t_n&=\Big(3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\Big)^{\frac{2}{3}}n^{\frac{2}{3}}.\label{tn_approx_rayleigh}
-\end{alignat}
-
 \subsubsection{Energy minimization}\label{sec:aprxSol_Energy}
 
 With the general solution available, minimizing energy $E$ boils down to finding the appropriate $\alpha$ and $\beta$ that $\mathcal{E}=E$ in \cref{eq:epsilon_terminal}.
@@ -160,15 +190,6 @@ With feedback given even to the discarded samples in our model, we have,
 \todo[inline]{is communication delay and processing delay defined already?}
 
 \subsubsection{Minimizing number of samples }\label{sec:aprxSol_Energy_samples}
-
-Apart from energy, another common optimization metric is simply the number of samples.
-However, an unconstrained optimization of the number of samples is trivial and meaningless as the solution points to a single sample at $t\!\rightarrow\!\infty$, which also takes the wait time to infinity.
-We look at the constrained optimization of the expected number of samples with an upper bound $w_0$ for the expected wait.
-That is, $\mathbb{E}[\mathcal{W}]\!\leq\!w_0$. We show in \cref{appx1} that the appropriate $\alpha$ and $\beta$ for this problem satisfies the condition
-\begin{alignat}{1}
-\frac{\alpha}{\beta}=\frac{2\sqrt{2}\,w_0^2}{(\mathlarger{\Gamma}(\tfrac{3}{4}))^2\,\sigma}\approx1.9\frac{w_0^2}{\sigma},\nonumber
-\end{alignat}
-where, $\mathlarger{\Gamma}(x)$ is the Gamma function.
 
 
 \subsubsection{Evaluating the impact of the realistic timing model on the energy-optimal sampling scheme}
