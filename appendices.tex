@@ -1,18 +1,10 @@
 \appendix{}\label[appendixwithoutnumber]{appx1}
 \subsection*{Sampling optimisation}
-We give full proof for the 
+In this appendix, we give the mathematical derivation of the optimum aperiodic sampling interval we discussed in section \ref{sec:aprxSol}. We start with the general solution where the objective function to be minimised is given by \eqref{eq:epsilon_terminal}.
 \begin{alignat}{1}
-    \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}],\;\label{eq:epsilon_terminal}
+    \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C,\;\label{eq:epsilon_terminal}
 \end{alignat}
-where \( P_0 \) corresponds to the power consumed by the \ac{WCA} client device during idle periods and \( P_\text{c} \) to the power consumption during communication with the backend (i.e.\ transmitting a sample or receiving a reply).
-$\alpha = \tau_{\text{c}} (P_{\text{c}} - P_0)$ and $\beta = P_0$ are constants.
-Here, note that $\alpha\mathbb{E}[\mathcal{S}]$ and $\beta\,\mathbb{E}[\mathcal{W}]$ correspond to the energy wasted per discarded sample and the additional energy expended while waiting, respectively.
-Using this model, we find the approximate, near-optimal set of sampling instants $\{t_n^*\}$ that minimizes the energy penalty given in \cref{eq:epsilon_terminal}.
-
-\subsubsection{Optimum sampling instants}\label{sec:aprxSol}
-
-First, we borrow the idea of checkpointing density from \textcite{CP_C,CP_C} and define an instantaneous sampling rate function $r(t)$ which is
-related to $\{t_n\}$ such that,
+To proceed with the optimisation, we first borrow the idea of checkpointing density from \textcite{CP_C,CP_C} and define an instantaneous sampling rate function $r(t)$ which is related to $\{t_n\}$ such that,
 \begin{alignat}{1}
 {\int_{t_{n-1}}^{t_n}}r(t)\dif t=1,\;\forall n\geq1.\label{rt}
 \end{alignat}
