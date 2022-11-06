@@ -2,9 +2,9 @@
 \subsection*{Sampling optimisation}
 In this appendix, we give the mathematical derivation of the optimum aperiodic sampling interval we discussed in section \ref{sec:aprxSol}. We start with the general solution where the objective function to be minimised is given by \eqref{eq:epsilon_terminal}.
 \begin{alignat}{1}
-    \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C,\;\label{eq:epsilon_terminal}
+    \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C
 \end{alignat}
-To proceed with the optimisation, we first borrow the idea of checkpointing density from \textcite{CP_C,CP_C} and define an instantaneous sampling rate function $r(t)$ which is related to $\{t_n\}$ such that,
+To proceed with the optimization, we first borrow the idea of checkpointing density from \textcite{CP_C,CP_C} and define an instantaneous sampling rate function $r(t)$ which is related to $\{t_n\}$ such that,
 \begin{alignat}{1}
 {\int_{t_{n-1}}^{t_n}}r(t)\dif t=1,\;\forall n\geq1.\label{rt}
 \end{alignat}
