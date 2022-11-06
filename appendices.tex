@@ -8,8 +8,7 @@ To proceed with the optimisation, we first borrow the idea of checkpointing dens
 \begin{alignat}{1}
 {\int_{t_{n-1}}^{t_n}}r(t)\dif t=1,\;\forall n\geq1.\label{rt}
 \end{alignat}
-Note that, for periodic sampling, this function is a constant, which is equal to the sampling frequency. In the aperiodic case, it is argued in \cite{secAperiodic} that this rate function is strictly increasing and the optimum ap
-We find $r^*(t)$, the $r(t)$ that minimizes $\mathcal{E}$.
+Note that, for periodic sampling, this function is a constant, which is equal to the sampling frequency. In the aperiodic case, we find $r^*(t)$, the $r(t)$ that minimizes $\mathcal{E}$.
 Note that, by construction, the number of samples taken up to any time instant can be computed directly by finding the area under $r(t)$.
 Thus, we get the expected number of samples $\mathbb{E}[\mathcal{S}]$ as
 \begin{alignat}{1}
@@ -72,3 +71,4 @@ r^*(t)&=\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\\
 \Rightarrow &\;t_{n+1}^{\frac{3}{2}}-t_{n}^{\frac{3}{2}}=3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\nonumber\\
 \Rightarrow &\;t_n=\Big(3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\Big)^{\frac{2}{3}}n^{\frac{2}{3}}.
 \end{alignat}
+
