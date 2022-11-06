@@ -10,7 +10,7 @@ In the following section we will study the optimization of resource consumption-
 
 \subsection{Optimization framework}
 
-Again, our optimization approaches focus on individual steps.
+Again, our optimization approach focuses on individual steps.
 Thus, we begin by assuming a given execution time distribution \( \mathcal{T} \), and take the modeling and partial solution approach from recents works on energy efficient sampling in edge-based feedback systems.
 In \textcite{ICCperiodic1,TMCperiodic}, the authors model the energy in terms of the expected number of samples $\mathbb{E}[\mathcal{S}]$ and the expected wait time $\mathbb{E}[\mathcal{W}]$ experienced by the user.
 The authors then find the optimum periodic sampling interval that minimizes this energy, or equivalently the non-constant parts of this energy termed as \textit{Energy Penalty}.
@@ -19,7 +19,7 @@ The authors then find the optimum periodic sampling interval that minimizes this
 With a value much smaller than the execution time of the event, the \ac{RTT} of the final sample is included in this constant part, which is why $\mathcal{W}$ is computed without it.
 Next, in \textcite{secAperiodic}, the author retains the model, removes the constraint of periodicity, and finds the optimum aperiodic sampling instants $\{t_n,\,n=1,2,\dots\}$ that minimize the same energy penalty.
 
-In this work, we use the modeling from~\cite{secAperiodic} to find the optimum aperiodic sampling interval.
+In this work, we use the modeling from~\cite{secAperiodic} to find the optimum \emph{aperiodic} sampling interval.
 However, instead of using their two-step approach to find the solution which includes a recursive solution followed by a bisection algorithm, we develop a novel, approximate, but easier solution to finding the set of the optimum aperiodic sampling intervals.
 Furthermore, instead of directly optimizing for energy, we start by noting that an objective metric of a variety of optimization problems that are related to sampling, RTT, responsiveness or wait time present themselves 
 % in a format similar to that of the energy, 
@@ -93,7 +93,8 @@ following the formula
 
 \( R_\text{max} \) and \( R_\text{min} \) correspond to the maximum and minimum sampling rates of the system, respectively.
 \( R_\text{max} \) can directly be assumed to correspond to \( 1 / \text{\ac{RTT}}_\mu \), where \( \text{\ac{RTT}}_\mu \) corresponds to the mean \ac{RTT} of the system.
-\( R_\text{min} \) needs to either be calculated according to the latency bounds of the system or specified manually, and \( \varphi \) corresponds to a scaling factor and \( t \) to the time of the current sampling instant with respect to the start of the step.
+\( R_\text{min} \) needs to either be calculated according to the latency bounds of the system or specified manually.
+\( \varphi \) corresponds to a scaling factor and \( t \) to the time of the current sampling instant with respect to the start of the step.
 Finally, \( CDF \) corresponds to the \ac{CDF} of a distribution describing the execution times for the current step; \citeauthor{Wang2019Towards} used a single static Gaussian distribution for all steps in their work.
 
 \medskip
@@ -101,7 +102,7 @@ Finally, \( CDF \) corresponds to the \ac{CDF} of a distribution describing the 
 In the following, we will show the effects of our optimization approach combined with our timing models compared to \textcite{Wang2019Towards}'s state-of-the-art approach.
 For this we implement these sampling schemes in Python and run a number of simulations with them.
 The first scheme uses our approach and \cref{eq:epsilon_terminal,eq:optimization:sampling} to determine the optimum sampling instants and the values for \( \alpha \) and \( \beta \) at each step.
-It includes an embedded timing model (without any distribution fitting) to provide updated estimates of \( \sigma \) at every step as well, allowing it to adapt to the state of the system.
+It includes an embedded timing model (without any distribution fitting) to provide updated estimates of the mean execution time \( \mu \) and \( \sigma \) at every step as well, allowing it to adapt to the state of the system.
 We will refer to this scheme as the \emph{sample-count-optimized aperiodic} sampling scheme.
 
 We implement \citeauthor{Wang2019Towards}'s original design using a Gaussian distribution fitted to all the execution times collected for~\cite{olguinmunoz:impact2021} for \ac{CDF} calculation.
@@ -123,15 +124,12 @@ This is an interesting approach to include given that it corresponds to the defa
         \midrule
         \# of steps & \num{100} & \\
         Repetitions & \num{100} & \\
-        \acp{RTT} & \makecell[cr]{%
-            \numlist[list-final-separator={, }]{0.3375;0.675;1.25},\\
-            \SIlist{2.5;5.0}{\second}
-        } & \\
-        \( \tau_\text{p} \) & \SI{300}{\milli\second} & Processing delay \\
+        \acp{RTT} & \( \left\{ 0.3, 0.6,\ldots,4.2 \right\} \) & \\
+        \( \tau_\text{p} \) & \SI{250}{\milli\second} & Processing delay \\
         \( \tau_\text{c} \) & \( \text{\ac{RTT}} - \tau_\text{p} \) & Communication delay \\
         \( w_0 \) & \SI{1.0}{\second} & \\
         \( R_\text{min} \) & \SI{0.5}{\hertz} & Derived as \( R_\text{min} = {(2 w_0)}^{-1} \) \\
-        \( \varphi \) & 3.0 & Scaling factor, \textcite{Wang2019Towards}\\
+        \( \varphi \) & \num{1.5} & Scaling factor, \textcite{Wang2019Towards}\\
         \( P_0 \) & \SI{15}{\milli\watt} & Idle power \\
         \( P_\text{c} \) & \SI{45}{\milli\watt} & Communication power \\
         \( \alpha_\text{samples} \) & \( 1.9 \sigma^{-1} \) & For sample-count optimization. \\
@@ -197,9 +195,10 @@ With feedback given even to the discarded samples in our model, we have,
 \( P_\text{c} \) and \( P_0 \) correspond to the communication and idle power, respectively, of the \ac{WCA} client device.
 
 We proceed to repeat the experiment detailed in \cref{ssec:optimization:samples}, replacing the sample-count-optimized sampling scheme with a new implementation instead minimizing energy, using \cref{eq:optimization:energy} for the calculation of \( \alpha \) and \( \beta \).
+Once again, we embed a timing model into the sampling scheme to provide updated estimates of the mean execution time \( \mu \) at each step.
 We refer to this scheme as the \emph{energy-optimized aperiodic} sampling scheme.
 For the power constants, we reuse the values estimated by the authors in \textcite{TMCperiodic}, \( P_\text{c} = 45\,\si{\milli\watt} \) and \( P_\text{0} = 15\,\si{\milli\watt} \).
-On the other hand, for the timing variables we define a constant processing delay \( \tau_\text{p} = 300\,\si{\milli\second} \) across all configurations and repetitions of the experiments; given then a constant \ac{RTT} for the task, we set \( \tau_\text{c} = \text{\ac{RTT}} - \tau_\text{p} \).
+On the other hand, for the timing variables we define a constant processing delay \( \tau_\text{p} = 250\,\si{\milli\second} \) across all configurations and repetitions of the experiments; given then a constant \ac{RTT} for the task, we set \( \tau_\text{c} = \text{\ac{RTT}} - \tau_\text{p} \).
 
 \begin{figure*}
     \centering
