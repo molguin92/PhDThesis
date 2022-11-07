@@ -6,20 +6,20 @@ Optimizing the deployment of these applications thus intrinsically involves achi
 
 In the following section we will study the optimization of resource consumption-responsiveness trade-offs in two dimensions of \ac{WCA}, number of samples captured per step and energy consumption per step.
 
-\todo[inline]{Finish}
+% \todo[inline]{Finish}
 
 \subsection{Optimization framework}\label{ssec:optframework}
 
-Again, our optimization approach focuses on individual steps.
+Our optimization approach focuses on the individual steps which comprise a complete \ac{WCA} task.
 Thus, we begin by assuming a given execution time distribution \( \mathcal{T} \), and take the modeling and partial solution approach from recents works on energy efficient sampling in edge-based feedback systems.
-In \textcite{ICCperiodic1,TMCperiodic}, the authors model the energy in terms of the expected number of samples $\mathbb{E}[\mathcal{S}]$ and the expected wait time $\mathbb{E}[\mathcal{W}]$ experienced by the user.
+In \textcite{Moothedath2021EnergyOptimal,Moothedath2022EnergyEfficient}, the authors model the energy in terms of the expected number of samples $\mathbb{E}[\mathcal{S}]$ and the expected wait time $\mathbb{E}[\mathcal{W}]$ experienced by the user.
 The authors then find the optimum periodic sampling interval that minimizes this energy, or equivalently the non-constant parts of this energy termed as \textit{Energy Penalty}.
 
 % In this optimization, the constant parts are excluded as it does not affect the process.
 With a value much smaller than the execution time of the event, the \ac{RTT} of the final sample is included in this constant part, which is why $\mathcal{W}$ is computed without it.
-Next, in \textcite{secAperiodic}, the author retains the model, removes the constraint of periodicity, and finds the optimum aperiodic sampling instants $\{t_n,\,n=1,2,\dots\}$ that minimize the same energy penalty.
+Next, in \textcite{Moothedath2022Aperiodic}, the author retains the model, removes the constraint of periodicity, and finds the optimum aperiodic sampling instants $\{t_n,\,n=1,2,\dots\}$ that minimize the same energy penalty.
 
-In this work, we use the modeling from~\cite{secAperiodic} to find the optimum \emph{aperiodic} sampling interval.
+In this work, we use the modeling from~\cite{Moothedath2022Aperiodic} to find the optimum \emph{aperiodic} sampling interval.
 However, instead of using their two-step approach to find the solution which includes a recursive solution followed by a bisection algorithm, we develop a novel, approximate, but easier solution to finding the set of the optimum aperiodic sampling intervals.
 Furthermore, instead of directly optimizing for energy, we start by noting that an objective metric of a variety of optimization problems that are related to sampling, RTT, responsiveness or wait time present themselves 
 % in a format similar to that of the energy, 
@@ -29,19 +29,16 @@ Thus,
 \begin{alignat}{1}
     \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C,\;\label{eq:epsilon_terminal}
 \end{alignat}
-\todo[inline]{
-Optimization is own section.    
-First thing in optimization. Represents a lot of tradeoffs in these systems. For two particular metrics, we discuss solutions of this equations for different optimization purposes. We compare to other approaches. State of the art and offline optimum.
-Optimization business should go into own section.}
-Here, $\alpha, \beta$ and $C$ are constants which are responsible for modifying the objective function from one metric to another.
-For instance, in the modeling used by \textcite{ICCperiodic1,TMCperiodic,secAperiodic}, the chosen characterization results in a metric which is equal to the energy penalty.
+
+Above, $\alpha, \beta$ and $C$ are constants which are responsible for modifying the objective function from one metric to another.
+For instance, in the modeling used by \textcite{Moothedath2021EnergyOptimal,Moothedath2022EnergyEfficient,Moothedath2022Aperiodic}, the chosen characterization results in a metric which is equal to the energy penalty.
 The outline of our solution that minimizes \cref{eq:epsilon_terminal} is provided below with the complete mathematical derivation in \cref{appx1}.
 
 \bigskip
 
-Define an instantaneous sampling rate function $r(t)$ which is related to $\{t_n\}$ such that,
+We first define an instantaneous sampling rate function $r(t)$ which is related to $\{t_n\}$ such that,
 \begin{alignat}{1}
-{\int_{t_{n-1}}^{t_n}}r(t)\dif t=1,\;\forall n\geq1.\label{rt}
+{\int_{t_{n-1}}^{t_n}}r(t)\dif t=1,\;\forall n\geq1\label{rt}
 \end{alignat}
 For instance, for periodic sampling, the rate function is a constant equal to the sampling frequency. 
 % Using this rate function, we rewrite the expected number of samples as
@@ -52,10 +49,10 @@ For instance, for periodic sampling, the rate function is a constant equal to th
 % \begin{alignat}{1}
 % \mathbb{E}[\mathcal{W}]&=\int_{0}^{\infty}\dfrac{1}{2r(t)}f_\mathcal{T}(t)\,\mathrm{d}t.\nonumber
 % \end{alignat}
-Now, rewriting \cref{eq:epsilon_terminal} in terms of $r(t)$ and minimizing it gives as an optimum rate function $r^*(t)$ as
+Next, rewriting \cref{eq:epsilon_terminal} in terms of $r(t)$ and minimizing it gives as an optimum rate function $r^*(t)$ as
 \begin{alignat}{1}
-r^*(t)&=\sqrt{\dfrac{\beta f_\mathcal{T}(t)}{2\alpha\bar{F}_\mathcal{T}(t)}}.\nonumber\\
-\intertext{Thus, for a Rayleigh distributed $\mathcal{T}$ with parameter $\sigma$,}
+r^*(t)&=\sqrt{\dfrac{\beta f_\mathcal{T}(t)}{2\alpha\bar{F}_\mathcal{T}(t)}}\nonumber\\
+\intertext{in turn resulting in, for a $\mathcal{T}$ distributed according to a Rayleigh distribution with parameter $\sigma$,}
 r^*(t)&=\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\nonumber\\
 % \Rightarrow &\int_{t_n}^{t_{n+1}}\!\!\!\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\,\mathrm{d}t=1,\;\forall n\geq1\nonumber\tag{from \eqref{rt}}\\
 % \Rightarrow &\;t_{n+1}^{\frac{3}{2}}-t_{n}^{\frac{3}{2}}=3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\nonumber\\
@@ -187,7 +184,7 @@ Although, as mentioned above, minimizing the number of samples captured during a
 Energy consumption depends on multiple other factors other than number of samples captured, such as idle versus communication power and delays, and thus cannot be optimized by simply minimizing the number of samples taken.
 
 In the following we thus take the general solution, \cref{eq:epsilon_terminal}, and find the appropriate \( \alpha \) and \( \beta \) to minimize the energy consumed per step, i.e.\ \( \mathcal{E}=E \).
-We directly take the modeling from~\cite{secAperiodic} with a necessary modification in the assumption of one-way communication in all but the final sample.
+We directly take the modeling from~\cite{Moothedath2022Aperiodic} with a necessary modification in the assumption of one-way communication in all but the final sample.
 With feedback given even to the discarded samples in our model, we have, 
 \begin{alignat}{2}
     \mathrm{E}=&\;2\mathcal{S}\tau_cP_c+(\mathcal{T}+\mathcal{W}+\tau_\mathrm{p}+2\tau_\mathrm{c}-2\mathcal{S}\tau_c)P_0\nonumber\\
@@ -201,7 +198,7 @@ With feedback given even to the discarded samples in our model, we have,
 We proceed to repeat the experiment detailed in \cref{ssec:optimization:samples}, replacing the sample-count-optimized sampling scheme with a new implementation instead minimizing energy, using \cref{eq:optimization:energy} for the calculation of \( \alpha \) and \( \beta \).
 Once again, we embed a timing model into the sampling scheme to provide updated estimates of the mean execution time \( \mu \) at each step.
 We refer to this scheme as the \emph{energy-optimized aperiodic} sampling scheme.
-For the power constants, we reuse the values estimated by the authors in \textcite{TMCperiodic}, \( P_\text{c} = 45\,\si{\milli\watt} \) and \( P_\text{0} = 15\,\si{\milli\watt} \).
+For the power constants, we reuse the values estimated by the authors in \textcite{Moothedath2022EnergyEfficient}, \( P_\text{c} = 45\,\si{\milli\watt} \) and \( P_\text{0} = 15\,\si{\milli\watt} \).
 On the other hand, for the timing variables we define a constant processing delay \( \tau_\text{p} = 250\,\si{\milli\second} \) across all configurations and repetitions of the experiments; given then a constant \ac{RTT} for the task, we set \( \tau_\text{c} = \text{\ac{RTT}} - \tau_\text{p} \).
 
 \begin{figure*}
@@ -209,15 +206,23 @@ On the other hand, for the timing variables we define a constant processing dela
     \begin{subfigure}[t]{\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/new_model/energy_optimization.png}
-        \caption{}
+        \caption{%
+            Round-trip time versus mean per step energy consumption, averaged over all \num{100} repetitions of the experiment.
+            Error bars indicate \SI{95}{\percent} \acp{CI}.
+        }
     \end{subfigure}\\
     \medskip
     \begin{subfigure}[t]{\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/new_model/energy_optimization_diff.png}
-        \caption{}
+        \caption{%
+            Percentage difference in mean per step energy consumption with respect to the greedy sampling scheme.
+            Error bars indicate \SI{95}{\percent} \acp{CI}, calculated using a two-sided t-test.
+        }
     \end{subfigure}
-    \caption{Energy optimization}\label{fig:optimization:energy}
+    \caption{%
+        Summary of results for experiment comparing the energy-optimized aperiodic sampling scheme to the reference schemes and \textcite{Wang2019Towards}'s \ac{CDF}-based approach.
+    }\label{fig:optimization:energy}
 \end{figure*}
 
 Again, we include the reference greedy and offline optimum schemes, as well as \textcite{Wang2019Towards}'s approach, and repeat the experiment \num{100} times for each combination of sampling scheme, neuroticism, and \ac{RTT}.

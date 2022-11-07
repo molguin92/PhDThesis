@@ -1,11 +1,8 @@
 \section{Implications for the study of \ac{WCA} footprints}\label{sec:implications:footprint}
-\todo[inline]{Two subsections (simulation and real system.)}
-\todo[inline]{Leave it for now.}
-% \todo[inline]{Introduction to this section?}
 
-\subsection{Application lifetimes}
+% \subsection{Application lifetimes}
 
-We begin by studying the implications of such a model on the estimation of application lifetimes.
+We begin by studying the implications of such a model on the estimation of application footprints as described by their lifetimes.
 In the context of \ac{WCA}, we will understand \emph{application lifetime} as the time it takes a user to complete a specified task.
 This is an important metric for \ac{WCA} optimization, as it directly relates to system resource utilization and contention, and to energy consumption.
 
@@ -59,7 +56,6 @@ The models, reference and realistic, are deployed on the Raspberry Pi clients of
 For this, the timing models and frame generator are integrated into a custom Python3 client for the Gabriel \ac{WCA} platform~\cite{Chen2018application}, which are then paired with real instances of Gabriel deployed on the cloudlet.
 Clients and cloudlet communicate over an \acs{IEEE} \num{802.11}b/g wireless network.
 Our choice of wireless standard is simply motivated by a desire to amplify the potential effects of network congestion.
-\todo[inline]{More justification?}
 
 \begin{figure}
     \centering
@@ -110,9 +106,9 @@ Imagine thus a system designer studying resource consumption optimization in a \
 If they were to employ the reference model for their study on an unimpaired system, it could lead them to significantly underestimate the potential for optimization of resource consumption, leaving performance (and, potentially, monetary) gains on the table.
 On the other hand, under heavy load, they would instead underestimate system resource occupation, again leading to performance losses.
 
-\todo[inline]{%
-    Ergo we need a second order model. Everything that comes afterwards is only with second order model. Play with RTT.
-}
+% \todo[inline]{%
+%     Ergo we need a second order model. Everything that comes afterwards is only with second order model. Play with RTT.
+% }
 
 
 % .as well as an additional setup with \num{10} clients during which an instance of the \emph{iperf3}\footnote{\href{https://iperf.fr/}{https://iperf.fr/}} network load generator is also running on each client.
