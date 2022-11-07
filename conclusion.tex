@@ -3,5 +3,14 @@
 The study and benchmarking of \ac{WCA} applications is a challenging discipline due to these application's intrinsic human-in-the-loop nature.
 Humans are notoriously unreliable, and greatly complicate the scalability and repeatability of experiments.
 Furthermore, recruiting large enough cohorts of humans for large-scale experimentation is both greatly time-consuming and prohibitively expensive for many research groups.
-In this paper, we have presented the \edgedroid{} model of human timing behavior for \ac{WCA}
+
+In the first half of this paper, we have introduced the \edgedroid{} model of human timing behavior for \ac{WCA}, the first data-driven model for human timings in \ac{WCA} applications.
+This model represents a stochastic approach to execution time modeling which builds upon the data collected for \textcite{olguinmunoz:impact2021}.
+Together with this model, we have also introduced a novel procedure for the generation of synthetic traces of frames in step-based \ac{WCA}, allowing for a full end-to-end emulation of a human when combined with the timing model.
+
+In the second half, we have explored the potential for optimization in \ac{WCA} systems using the previously discussed timing models.
+We have proposed a novel stochastic optimization framework for resource consumption-system responsiveness trade-offs in \ac{WCA}.
+We have shown that this framework is applicable to a myriad of parameters in these applications, and showcased experimental results employing this framework for the minimization of number of samples processed per step and total energy consumption per step.
+Our results show up to a \SI{50}{\percent} increase in performance with respect to state of the art when optimizing for number of samples, and up to a \SI{30}{\percent} improvement when optimizing for energy consumption, proving thus the value of such frameworks for the design of \ac{WCA} applications.
+
 \todo[inline]{Finish}
