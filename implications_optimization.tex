@@ -70,7 +70,7 @@ Additionally, the energy cost of capturing a sample on a \ac{WCA} client device 
 Optimizing the number of samples captured per step can thus be a straightforward way of reducing resource consumption and contention in \ac{WCA} applications.
 
 However, an unconstrained optimization of the number of samples is trivial and meaningless as the solution points to a single sample at $t\!\rightarrow\!\infty$, which also takes the wait time to infinity.
-We look at the constrained optimization of the expected number of samples with an upper bound $w_0$ for the expected wait.
+Thus, we look at the constrained optimization of the expected number of samples with an upper bound $w_0$ for the expected wait.
 That is, $\mathbb{E}[\mathcal{W}]\!\leq\!w_0$. We show in \cref{appx1} that the appropriate $\alpha$ and $\beta$ for this problem satisfy the condition
 \begin{alignat}{1}\label{eq:optimization:sampling}
 \frac{\alpha}{\beta}=\frac{2\sqrt{2}\,w_0^2}{(\mathlarger{\Gamma}(\tfrac{3}{4}))^2\,\sigma}\approx1.9\frac{w_0^2}{\sigma}
