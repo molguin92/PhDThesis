@@ -27,33 +27,21 @@ With that context, we can express the contributions of this paper as follows:
     \item\label{item:contrib:model} We introduce the first, to our knowledge, data-driven model for human timings in \ac{WCA} applications.
     Using the data collected for \textcite{olguinmunoz:impact2021} as a base, we build a stochastic model which takes as input past measurements of system responsiveness and produces realistic step execution times.
     We also introduce a novel way to generate dynamic traces of frames for \ac{WCA} applications which can be combined with the timing model for a full end-to-end emulation of a human.
-    \item Using \cref{item:contrib:model}, we explore the potential for optimization in these systems, and propose a novel stochastic optimization framework for resource consumption-system responsiveness trade-offs in \ac{WCA}.
-    This framework is applicable to a number of optimization purposes in \ac{WCA}, and we demonstrate its use for two relevant ones: number of samples captured per step and energy consumed per step.
+    \item\label{item:contrib:footprint} Using the model described above, we study the implications of realistic human behavior on the application lifetime footprint of \ac{WCA}.
+    In concordance with previous work~\cite{olguinmunoz:impact2021}, we find dependencies between system responsiveness and human step execution times that lead to substantially different application lifetimes when compared to a first-order baseline which does not take into account human behavior.
+    \item\label{item:contrib:optimization} Finally, we study the potential for optimization in \ac{WCA} when considering human behavior using our model.
+    We develop a generic model for the stochastic optimization of resource consumption versus responsiveness trade-offs in these applications, which we use to study two potential avenues for optimization in \ac{WCA}; number of processed samples and energy consumption per step.
+    Compared to the state-of-the-art, our optimization model results in up to \textasciitilde\SI{60}{\percent} fewer samples processed per step while maintaining comparable levels of responsiveness, and an average of \SI{20}{\percent} less energy consumed.
 \end{enumerate}
 
-Our contributions build on previous work on the characterization of human perception of delay in \ac{WCA} systems.
-We expand upon the findings of \textcite{Ha2014towards,Chen2017Empirical}, who identified the need and opportunities for edge offloading of \ac{WCA} and characterized latency bounds in these systems.
-
-Furthermore, we directly build upon and expand on our previous work on the modeling of human behavior and characterization of human timings in \ac{WCA}, as well as on optimum sampling of edge-bound interactive systems.
-In \textcite{olguin2018scaling,olguin2019edgedroid} we introduced a coarse approximation to human behavior modeling in \ac{WCA} we called \emph{EdgeDroid}.
-We used a trace-driven approach, where a pre-recorded and pre-processed ``ideal'' trace of steps for a specific \ac{WCA} step-based task is replayed to a Gabriel~\cite{Chen2018application} backend.
-In order to adapt to potential mismatches between system responsiveness at trace-capture time and trace-replay time, we used a simple \ac{FSM} to adapt the trace at the latter by replaying or skipping certain segments.
-In \textcite{olguinmunoz:impact2021} we studied the effects of reduced system responsiveness on human behavior in \ac{WCA} applications through human-subject studies.
-We found that humans generally pace themselves according to the perceived system responsiveness.
-When interacting with a highly responsive system, humans tended to speed up with each step; conversely, humans tended to slow down in highly unresponsive states.
-We name the new model presented in this paper \emph{\edgedroid}; a direct, more realistic evolution of our initial EdgeDroid approach.
-Finally, in \textcite{Moothedath2021EnergyOptimal,Moothedath2022EnergyEfficient} we find the optimum periodic sampling interval which minimizes the energy tracking human progress of a specific subtask in \ac{WCA}.
-This is further extended into an aperiodic strategy in \textcite{Moothedath2022Aperiodic}.
+\medskip
 
 This paper is structured as follows.
+\cref{sec:relwork} discusses related work in the field of \acl{WCA} modeling.
 In \cref{sec:background} we define and discuss key concepts in \ac{WCA}, as well as summarize the key conclusions from our previous work relating to the relationship between system responsiveness and human behavior in these applications~\cite{olguinmunoz:impact2021}.
 In \cref{sec:model} we detail our model for the generation of realistic human timings in \ac{WCA}.
 We present its design, verify its expected behavior with respect to our previous results, and introduce the dynamic trace generation for full end-to-end emulation of human behavior.
 Next in \cref{sec:implications:footprint} we discuss the potential implications of such a model on application lifetimes by studying a small series of representative scenarios.
-This is followed by a more in-depth investigation in\cref{sec:implications:optimization} on the potential consequences of such a model on the general optimization of \ac{WCA} systems.
-Finally, in \cref{sec:conclusion} we summarize and conclude this paper.
-
-\todo[inline]{%
-Shorten.
-Include Zorzi et al. AR VR
-}
+This is followed by a more in-depth investigation in \cref{sec:implications:optimization} on the potential consequences of a human timing model on the general optimization of \ac{WCA} systems.
+In this section, we also introduce our generic optimization framework for resource consumption versus responsiveness trade-offs in \ac{WCA}.
+Finally, in \cref{sec:conclusion} we summarize and conclude this paper, as well as briefly discuss potential avenues for future work.

@@ -1,0 +1,19 @@
+\section{Related work}\label{sec:relwork}
+
+Our contributions build on previous work on the characterization of human perception of delay in \ac{WCA} systems.
+We expand upon the findings of \textcite{Ha2014towards,Chen2017Empirical}, who identified the need and opportunities for edge offloading of \ac{WCA} and characterized latency bounds in these systems.
+
+Furthermore, we directly build upon and expand on our previous work on the modeling of human behavior and characterization of human timings in \ac{WCA}, as well as on optimum sampling of edge-bound interactive systems.
+In \textcite{olguin2018scaling,olguin2019edgedroid} we introduced a coarse approximation to human behavior modeling in \ac{WCA} we called \emph{EdgeDroid}.
+We used a trace-driven approach, where a pre-recorded and pre-processed ``ideal'' trace of steps for a specific \ac{WCA} step-based task is replayed to a Gabriel~\cite{Chen2018application} backend.
+In order to adapt to potential mismatches between system responsiveness at trace-capture time and trace-replay time, we used a simple \ac{FSM} to adapt the trace at the latter by replaying or skipping certain segments.
+In \textcite{olguinmunoz:impact2021} we studied the effects of reduced system responsiveness on human behavior in \ac{WCA} applications through human-subject studies.
+We found that humans generally pace themselves according to the perceived system responsiveness.
+When interacting with a highly responsive system, humans tended to speed up with each step; conversely, humans tended to slow down in highly unresponsive states.
+We name the new model presented in this paper \emph{\edgedroid}; a direct, more realistic evolution of our initial EdgeDroid approach.
+Finally, in \textcite{Moothedath2021EnergyOptimal,Moothedath2022EnergyEfficient} we find the optimum periodic sampling interval which minimizes the energy tracking human progress of a specific subtask in \ac{WCA}.
+This is further extended into an aperiodic strategy in \textcite{Moothedath2022Aperiodic}.
+
+\todo[inline]{%
+Include Zorzi et al. AR VR
+}
