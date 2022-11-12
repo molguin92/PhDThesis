@@ -1,19 +1,32 @@
 \section{Related work}\label{sec:relwork}
 
-Our contributions build on previous work on the characterization of human perception of delay in \ac{WCA} systems.
-We expand upon the findings of \textcite{Ha2014towards,Chen2017Empirical}, who identified the need and opportunities for edge offloading of \ac{WCA} and characterized latency bounds in these systems.
+There exist already in literature a number of approaches to the characterization and benchmarking of mobile \ac{XR}, and by extension \ac{WCA}, deployments.
+\emph{OpenRTiST}~\cite{george2020openrtist} is a tool which uses a compute-heavy, yet latency-sensitive workload --- image style transfer~\cite{jing2019neural} --- to load and benchmark edge computing deployments.
+It acts as an end-to-end realistic \ac{AR} workload, allowing thus researchers to measure the real end-to-end latencies of such systems.
+\textcite{Chen2017Empirical} use a number of prototype \ac{WCA} implementation to study and characterize real-world latency bounds in these systems.
+In \textcite{lecci2021open}, the authors collect and analyze large amounts of \ac{VR} network traffic, which they then use to construct a synthetic model for the generation of traces of such traffic.
+\textcite{chetoui2022arbench} propose \emph{ARBench}, a toolkit for for the benchmarking of mobile hardware in the context of \ac{AR}.
+The toolkit incorporates a series of workloads which stress different components of the mobile device and calculates a score for each workload.
+\emph{Yahoo Cloud Serving Benchmark}~\cite{cooper2010benchmarking} and \emph{DCBench}~\cite{jia2013characterizing} are workload sets intended for benchmarking cloud services which have further been used in the context of benchmarking edge computing infrastructure for \ac{AR} suitability.
+\emph{Edgebench}~\cite{das2018edgebench} and \emph{Defog}~\cite{mcchesney2019defog} benchmark workload performance on the edge versus on the cloud.
 
-Furthermore, we directly build upon and expand on our previous work on the modeling of human behavior and characterization of human timings in \ac{WCA}, as well as on optimum sampling of edge-bound interactive systems.
+We contribute to this body of work by providing the first tool for the benchmarking of \ac{WCA} that dynamically considers the effects of human behavior.
+In contrast to the above described works, which generate loads with relatively static profiles, our model is able to react to changes in system responsiveness like a human would.
+We achieve this by building upon our own previous contributions to this field.
 In \textcite{olguin2018scaling,olguin2019edgedroid} we introduced a coarse approximation to human behavior modeling in \ac{WCA} we called \emph{EdgeDroid}.
 We used a trace-driven approach, where a pre-recorded and pre-processed ``ideal'' trace of steps for a specific \ac{WCA} step-based task is replayed to a Gabriel~\cite{Chen2018application} backend.
 In order to adapt to potential mismatches between system responsiveness at trace-capture time and trace-replay time, we used a simple \ac{FSM} to adapt the trace at the latter by replaying or skipping certain segments.
 In \textcite{olguinmunoz:impact2021} we studied the effects of reduced system responsiveness on human behavior in \ac{WCA} applications through human-subject studies.
 We found that humans generally pace themselves according to the perceived system responsiveness.
 When interacting with a highly responsive system, humans tended to speed up with each step; conversely, humans tended to slow down in highly unresponsive states.
-We name the new model presented in this paper \emph{\edgedroid}; a direct, more realistic evolution of our initial EdgeDroid approach.
-Finally, in \textcite{Moothedath2021EnergyOptimal,Moothedath2022EnergyEfficient} we find the optimum periodic sampling interval which minimizes the energy tracking human progress of a specific subtask in \ac{WCA}.
-This is further extended into an aperiodic strategy in \textcite{Moothedath2022Aperiodic}.
 
-\todo[inline]{%
-Include \textcite{lecci2021open}
-}
+The characterization and optimization, of mobile \ac{XR} has also long been a topic of research.
+In \textcite{srinivasan2009performance}, the authors analyze a \ac{MAR} workload and identify and characterize the computational bottlenecks in the application.
+They proceed to use this characterization to develop a series of code optimizations which allow them to achieve a threefold increase in performance.
+The authors of \textcite{Wang2019Towards} develop a taxonomy for \ac{WCA} as well as strategies for workload reduction in these applications, including a novel adaptive sampling scheme with the goal of reducing the number of processed samples while maintaining application responsiveness.
+In \textcite{huang2021proactive}, the authors present a framework for the proactive allocation of edge cloud resources while taking into account the inherent mobility of wearable and mobile \ac{AR}.
+\textcite{al2017energy} propose an resource allocation strategy which leverages collaboration between \ac{AR} applications to minimize energy consumption.
+As above, we have also previously directly contributed to this field.
+In \textcite{Moothedath2021EnergyOptimal,Moothedath2022EnergyEfficient} we find the optimum periodic sampling interval which minimizes the energy tracking human progress of a specific subtask in \ac{WCA}.
+This is extended into an aperiodic strategy in \textcite{Moothedath2022Aperiodic}.
+We further develop this approach in this work by deriving a more practical approximate solution to the aperiodic strategy, which we then use to implement a novel framework for the generic optimization of responsiveness-resource consumption trade-offs.
