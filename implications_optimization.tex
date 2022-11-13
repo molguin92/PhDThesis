@@ -2,11 +2,16 @@
 
 As with any application intended for mass deployment on multi-tenant systems such as the edge, \ac{WCA} applications will have to be configured and designed to minimize resource consumption at runtime.
 At the same time, imposing too stringent requirements on resource consumption can adversely affect application responsiveness, which in turn has the potential to drastically reduce quality of experience for users.
-Optimizing the deployment of these applications thus intrinsically involves achieving a balance between the reduction of resource consumption while maintaining an acceptable level of system responsiveness.
+Optimizing the deployment of these applications thus inherently involves achieving a balance between the reduction of resource consumption while maintaining an acceptable level of system responsiveness.
 
-In the following section we will study the optimization of resource consumption-responsiveness trade-offs in two dimensions of \ac{WCA}, number of samples captured per step and energy consumption per step.
-
-% \todo[inline]{Finish}
+A question then arises as to what extent accurate modeling of human behavior plays a role in the optimization of \ac{WCA} applications and systems.
+We have already seen from the results in \cref{sec:implications:footprint} that changes in responsiveness can have drastic effects on human execution times and subsequently on overall application lifetimes.
+This points towards parameters with dependencies on step timings as prime candidates for evaluating the effects of human behavior on their potential for optimization of different dimensions of \ac{WCA}.
+One such parameter of particular interest to us is sampling strategy, which intrinsically hinges on a stochastic understanding of human timings in a step.
+In the following section we will study the potential advantages of using the realistic model presented in \cref{sec:model} to estimate the execution time distributions of steps to adapt the sampling strategy at runtime.
+We will first introduce a generic optimization framework which produces an aperiodic sampling strategy that optimizes for arbitrary responsiveness-resource consumption trade-offs in \ac{WCA}.
+We will then employ this framework for the minimization of two different parameters: number of samples and total energy consumption per step.
+In order to illustrate the advantages of our framework, we will compare our results with a state-of-the-art baseline which does not dynamically adapt.
 
 \subsection{Optimization framework}\label{ssec:optframework}
 
