@@ -25,37 +25,19 @@ Furthermore, instead of directly optimizing for energy, we start by noting that 
 % in a format similar to that of the energy, 
 as a linear combination between $\mathbb{E}[\mathcal{S}]$ and $\mathbb{E}[\mathcal{W}]$ plus terms independent of the number of samples or wait time.
 Let $\mathcal{E}$ correspond to such an objective metric.
-Thus,
+Thus, 
 \begin{alignat}{1}
     \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C,\;\label{eq:epsilon_terminal}
 \end{alignat}
 
 Above, $\alpha, \beta$ and $C$ are constants which are responsible for modifying the objective function from one metric to another.
 For instance, in the modeling used by \textcite{Moothedath2021EnergyOptimal,Moothedath2022EnergyEfficient,Moothedath2022Aperiodic}, the chosen characterization results in a metric which is equal to the energy penalty.
-The outline of our solution that minimizes \cref{eq:epsilon_terminal} is provided below with the complete mathematical derivation in \cref{appx1}.
+Our solution which minimizes \cref{eq:epsilon_terminal} is provided in \cref{tn_approx_rayleigh}.
+It assumes a $\mathcal{T}$ distributed according to a Rayleigh distribution with parameter $\sigma$.
+The complete mathematical derivation that leads to this formula is detailed in \cref{appx1}.
 
-\bigskip
-
-We first define an instantaneous sampling rate function $r(t)$ which is related to $\{t_n\}$ such that,
 \begin{alignat}{1}
-{\int_{t_{n-1}}^{t_n}}r(t)\dif t=1,\;\forall n\geq1\label{rt}
-\end{alignat}
-For instance, for periodic sampling, the rate function is a constant equal to the sampling frequency. 
-% Using this rate function, we rewrite the expected number of samples as
-% \begin{alignat}{1}
-% \mathbb{E}[\mathcal{S}]&=\int_{t=0}^{\infty}\bigg(\!\int_{x=0}^{t}\!\!\!\!r(x)\,\mathrm{d}x\bigg)f_{\mathcal{T}}(t)\,\mathrm{d}t,\nonumber
-% \end{alignat}
-% and the approximate the expected wait time as
-% \begin{alignat}{1}
-% \mathbb{E}[\mathcal{W}]&=\int_{0}^{\infty}\dfrac{1}{2r(t)}f_\mathcal{T}(t)\,\mathrm{d}t.\nonumber
-% \end{alignat}
-Next, rewriting \cref{eq:epsilon_terminal} in terms of $r(t)$ and minimizing it gives as an optimum rate function $r^*(t)$ as
-\begin{alignat}{1}
-r^*(t)&=\sqrt{\dfrac{\beta f_\mathcal{T}(t)}{2\alpha\bar{F}_\mathcal{T}(t)}}\nonumber\\
-\intertext{in turn resulting in, for a $\mathcal{T}$ distributed according to a Rayleigh distribution with parameter $\sigma$,}
 r^*(t)&=\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\nonumber\\
-% \Rightarrow &\int_{t_n}^{t_{n+1}}\!\!\!\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\,\mathrm{d}t=1,\;\forall n\geq1\nonumber\tag{from \eqref{rt}}\\
-% \Rightarrow &\;t_{n+1}^{\frac{3}{2}}-t_{n}^{\frac{3}{2}}=3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\nonumber\\
 \Rightarrow t_n&=\Big(3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\Big)^{\frac{2}{3}}n^{\frac{2}{3}}\label{tn_approx_rayleigh}
 \end{alignat}
 
