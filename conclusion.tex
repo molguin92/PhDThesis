@@ -8,9 +8,22 @@ In the first half of this paper, we have introduced the \edgedroid{} model of hu
 This model represents a stochastic approach to execution time modeling which builds upon the data collected for \textcite{olguinmunoz:impact2021}.
 Together with this model, we have also introduced a novel procedure for the generation of synthetic traces of frames in step-based \ac{WCA}, allowing for a full end-to-end emulation of a human when combined with the timing model.
 
-In the second half, we have explored the potential for optimization in \ac{WCA} systems using the previously discussed timing models.
-We have proposed a novel stochastic optimization framework for resource consumption-system responsiveness trade-offs in \ac{WCA}.
+Next, we have explored the impact of such a realistic model on the application lifetime footprint of \ac{WCA} applications.
+We have shown that less realistic modeling approaches which do not take into account higher-order effects on execution time distributions can potentially lead to significant over- or underestimations of application footprint.
+
+Finally, we have delved into the potential for optimization in \ac{WCA} systems using the previously discussed timing models.
+We have proposed a novel stochastic optimization framework for resource consumption-system responsiveness trade-offs in \ac{WCA} which results in an adaptive sampling strategy. 
 We have shown that this framework is applicable to a myriad of parameters in these applications, and showcased experimental results employing this framework for the minimization of number of samples processed per step and total energy consumption per step.
 Our results show up to a \SI{50}{\percent} increase in performance with respect to state of the art when optimizing for number of samples, and up to a \SI{30}{\percent} improvement when optimizing for energy consumption, proving thus the value of such frameworks for the design of \ac{WCA} applications.
 
-\todo[inline]{Finish}
+This work serves as an important, but yet initial step towards realistic modeling of human behavior in \ac{WCA}, and more generally \ac{AR}.
+Many directions remain open to additional exploration in this space.
+For instance, our current model only targets a particular class of step-based \ac{WCA}, and extension of our methodology to other classes of these applications, or even more generally to \ac{AR} and \ac{XR}, is on our roadmap.
+Our data~\cite{olguinmunoz:impact2021} also only considers young undergraduate students at a highly competitive university in the US.\@
+An extension of this dataset and the model towards a more representative sample of the general population would surely be a valuable endeavor.
+
+In terms of the optimization framework, our current approach builds upon the assumption that execution times are Rayleigh-distributed.
+Although this distribution fits the data well, there are other which more accurately describe the behavior of human execution times (e.g.\ the \acl{exGaussian}).
+Our future efforts consider then developing this framework towards these more accurate distributions.
+Finally, our current approach only considers a single client, which will be far from the case in a real-world \ac{WCA} deployment.
+As such, another milestone in this context could be the exploration for a potential extension towards a collaborative and/or distributed solution.
