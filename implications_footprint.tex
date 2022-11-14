@@ -7,8 +7,8 @@ In the context of \ac{WCA}, we will understand \emph{application lifetime} as th
 This is an important metric for \ac{WCA} optimization, as it directly relates to system resource utilization and contention, and to energy consumption.
 
 In order to illustrate the consequences of using a less realistic model which does not take into account higher order effects, we introduce here a reference model to which we will compare our more realistic models.
-This new model represents a first-order approximation to empirical execution time modeling, and consist simply of an \ac{exGaussian} distribution fitted to all execution time samples collected for \textcite{olguinmunoz:impact2021}.
-This distribution is then randomly sampled at runtime to obtain execution times for each step, without any sort of adjustment to the current state of the system.
+This model represents a first-order approximation to empirical execution time modeling, and consist simply of an \ac{exGaussian} distribution fitted to all execution time samples collected for \textcite{olguinmunoz:impact2021}.
+This distribution is then randomly sampled at runtime to obtain execution times for each step, without any adjustment to the current state of the system.
 
 We start by studying application lifetimes in a controlled, ideal setup by using the timing models to generate execution times for sequences of \num{100} steps subject to constant \acp{TTF}.
 These runs are completely simulated and no sampling of video frames is performed; for each step, we simply feed the models a predefined \ac{TTF} and record the generated execution time.
@@ -93,7 +93,7 @@ Our choice of wireless standard is simply motivated by a desire to amplify the p
 
 We deploy configurations running \num{45}-step versions of the LEGO task described in \textcite{olguinmunoz:impact2021}.
 The testbed configurations include setups with \numlist{1;4;7;10} clients.
-Due to having only limited time, each combination of testbed and timing model configuration is only repeated \num{10} times.
+Due to having limited time, each combination of testbed and timing model configuration is only repeated \num{10} times.
 The results are presented in \cref{fig:testbed_lifetimes}.
 Owing to the low number of samples, we opt here for the geometric rather than arithmetic mean to represent our results.
 The results are nonetheless clear, and follow the same pattern as the previously discussed results under ideal, controlled circumstances.

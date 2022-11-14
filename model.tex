@@ -6,18 +6,18 @@ In order to accurately emulate the behavior of a human, such a model needs to im
 One, it needs to generate realistic execution times for each step in the task, considering the current and historical impairment of the \ac{WCA} system.
 We detail this in \cref{ssec:model:exectimes}.
 And two, it needs to produce sequences of input samples for each step mimicking what a real human would generate; this is explained in \cref{ssec:model:frames}.
-Finally, in \cref{ssec:model:obtaining} we briefly discuss where implementations of this model can be obtained.
+% Finally, in \cref{ssec:model:obtaining} we briefly discuss where implementations of this model can be obtained.
 
 \subsection{Generating realistic execution times}\label{ssec:model:exectimes}
 
-As expressed in \cref{ssec:plos}, for ~\cite{olguinmunoz:impact2021} we collected timing and task performance data for \num{40} participants performing a \num{169}-step task, guided by a \ac{WCA}, as well as personality trait scores for each participant.
-For this paper, we use this data to construct a probabilistic model for the generation of realistic execution times.
-We group the data previously collected according to discretized levels of neuroticism and a weighted rolling average of \ac{TTF}.
+% As expressed in \cref{ssec:plos}, for \textcite{olguinmunoz:impact2021} we collected timing and task performance data for \num{40} participants performing a \num{169}-step task, guided by a \ac{WCA}, as well as personality trait scores for each participant.
+% For this paper, we use this data to construct a probabilistic model for the generation of realistic execution times.
+The processing of the data from \textcite{olguinmunoz:impact2021} for the generation of execution times can be summarized as a grouping according to discretized levels of neuroticism and a weighted rolling average of \ac{TTF}.
 The resulting collections of execution times represent the distributions of these values for users with specific levels of neuroticism, interacting with systems at specific states of impairment and recent histories of impairment.
 These distributions can then be sampled to produce new, realistic execution times.
 In the following, we detail the step-by-step processing of this data and construction of the probabilistic model.
 
-We employ a cleaned and re-parameterized copy of the aforementioned timing data.
+We employ a cleaned and re-parameterized copy of the timing data.
 The \num{6760} data points are arranged in a table together with identifiers for the subjects, their neuroticism score, and a sequence number for each step.
 
 \begin{table*}[]
@@ -49,30 +49,28 @@ This weighing ensures that drastic changes in \ac{TTF} are significantly remembe
 \end{equation}
 
 The resulting weighted \acp{TTF} are then binned into continuous ranges by splitting the data on the \num{7}-quantiles.
-The exact resulting bins of this operation on the data can be seen in \cref{tab:defaultbins}.
+The exact resulting bins of this operation on the data are presented in \cref{tab:defaultbins}.
 
 Next, the data is further tagged according to its associated level of normalized neuroticism.
-For this work, we use two levels, \emph{low} and \emph{high}, the exact values for which can be seen in \cref{tab:defaultbins}.
+For this work, we use two levels, \emph{low} and \emph{high}, the exact values for which can also be seen in \cref{tab:defaultbins}.
 
 After this preprocessing has been finished, the data is ready to be used for the generation of execution times by applying the above steps in real-time to measured \acp{TTF}.
-We devise two variants of a model which uses the above-described pre-processed data to generate realistic timings for \ac{WCA}.
-These models operate as follows:
+We devise two variants of such a model, which operate as follows:
 
 \begin{enumerate}
     \item At the beginning of each step, the model is fed the measured \ac{TTF} for the previous step.
-    \item The model calculates a weighted average over the latest \num{12} steps recorded using the weights defined in \cref{eq:weights}.
+    \item The model calculates a weighted average over the latest \num{12} steps using the weights defined in \cref{eq:weights}.
     \item The resulting weighted \ac{TTF} is binned into the corresponding range (\cref{tab:defaultbins}).
     \item The model then filters the pre-processed data to find execution time samples associated with this same discretized weighted \ac{TTF}.
     \item The selected samples are further filtered to match the desired level of neuroticism.
     \item The remaining samples are then used to output a realistic execution time, either by
     \begin{itemize}
-        \item directly sampling the empirical execution time values;
-        \item or, first fitting a distribution to the execution time samples and then sampling the distribution instead.
+        \item directly sampling the execution time values;
+        \item or, using \ac{MLE} to fit a distribution to the execution time samples and then sampling the distribution instead.
     \end{itemize}
 \end{enumerate}
 
 The distribution chosen for the second variant described above corresponds to the \ac{exGaussian} distribution, previously discussed in \cref{ssec:moderationeffects}.
-Fitting is done using \ac{MLE}.
 
 We implement these models in Python 3.10, and verify their correct behavior in the following.
 
@@ -109,7 +107,7 @@ These results were generated by first warming up the model by feeding it \num{25
 This procedure is repeated \num{600} times for each configuration and target \ac{TTF}.
 The resulting mean execution times match precisely the desired behavior mentioned in \cref{it:ttftoexectime}, with the difference in mean execution times at low versus high \acp{TTF} reaching \SI{14}{\percent} (\textasciitilde\SI{5.6}{\second} to \textasciitilde\SI{6.4}{\second}) in the worst case (high neuroticism configuration).
 Additionally, we can observe the effects of neuroticism on generated execution times, as specified in \cref{it:neuro}.
-At low neuroticism, the average difference between execution times at low versus high \acp{TTF} was of roughly \SI{6.2}{\percent}, compared to \SI{12.5}{\percent} at high neuroticism, clearly putting into evidence the modulating effect of this variable.
+At low neuroticism, the average difference between execution times at low versus high \acp{TTF} was of roughly \SI{6.2}{\percent}, compared to \SI{12.5}{\percent} at high neuroticism.
 
 \begin{figure}
     \centering
@@ -122,7 +120,7 @@ At low neuroticism, the average difference between execution times at low versus
 \end{figure}
 
 Next, \cref{fig:exectimeduration} shows the evolution of generated execution times while the model is subject to a fixed \ac{TTF}, either \emph{low} (\SI{0}{\second}) or \emph{high} (\SI{5}{\second}).
-These results were generated by first warming up the model with \num{25} random \acp{TTF}, and recording the generated execution times over a sequence of \num{12} steps at a fixed \ac{TTF}; this procedure is repeated \num{600} times for each configuration and target \ac{TTF}.
+These results were generated by first warming up the model with \num{25} random \acp{TTF}, and then recording the generated execution times over a sequence of \num{12} steps at a fixed \ac{TTF}; this procedure is repeated \num{600} times for each configuration and target \ac{TTF}.
 Once again, we see here behavior matching what is expected of the model, in particular with respect to \cref{it:duration}.
 At low \acp{TTF}, the model is on average, across all configurations, \SI{8.2}{\percent} faster at step \num{12} when compared to step \num{1}.
 At high \acp{TTF}, the behavior changes depending on the level of neuroticism of the model.
@@ -144,7 +142,7 @@ We generate these results by first warming up the model by feeding it a fixed \a
 Next, another \ac{TTF} value (the \emph{destination} \ac{TTF}) is fed to the model, and we record the output execution time.
 Each sample is tagged according to the relation between origin and destination \ac{TTF}, either lower to higher, higher to lower, or equal.
 As before, we run \num{600} repetitions of this procedure for each combination of model configuration, origin \ac{TTF}, and destination \ac{TTF}.
-Execution times generated immediately after a transition from a higher \ac{TTF} into a lower one are consistently higher than execution times generated without an preceding change in \acp{TTF}.
+Execution times generated immediately after a transition from a higher \ac{TTF} into a lower one are consistently higher than execution times generated without a preceding change in \acp{TTF}.
 Conversely, execution times are consistently lower than otherwise immediately after a change from a lower \ac{TTF} into a higher one.
 These results are once again in line with our findings in~\cite{olguinmunoz:impact2021}, in which we found lingering effects of transitions between levels of system impairment on human execution times.
 
@@ -161,10 +159,9 @@ For each video frame submitted to the \ac{WCA} during the tasks, we recorded
     \item a tag representing the result of the \ac{WCA} processing
 \end{enumerate*}.
 The tags assigned corresponded to:
-\begin{description}[font={\bfseries\ttfamily}]
-    \item[SUCCESS:] frames which triggered a transition to a new step in the logical task model of the \ac{WCA}, and thus cause the generation of feedback to the user.
-        This tag is also used for frames which corrected a previous mistake.
-    \item[REPEAT:] frames which contained the same board state as the previous successful frame, and thus produced no feedback.
+\begin{description}[font={\bfseries\ttfamily}, wide]
+    \item[SUCCESS:] frames which triggered a transition to a new step (or the correction of a previous mistake) in the logical task model of the \ac{WCA}, and thus cause the generation of feedback to the user.
+    \item[REPEAT:] frames which captured the same board state as the previous successful frame, and thus produced no feedback.
     \item[LOW\_CONFIDENCE] frames for which the image recognition algorithm in the \ac{WCA} did not reach the necessary confidence threshold to interpret it as a valid board state.
         These frames also produce no feedback.
     \item[BLANK] frames in which not enough of the board is visible due to noise, movement, occlusion, etc.
@@ -174,17 +171,22 @@ The tags assigned corresponded to:
 \end{description}
 
 We correlate this frame data with the step timing data described in \cref{ssec:model:exectimes} to match frames with their corresponding step execution times.
-We assign to each frame a normalized instant value corresponding to its capture instant (expressed in seconds since the start of the step) divided by the total execution time of the step.
-To exemplify, for a step with execution time \( t_\text{exec} = \SI{10}{\second} \), a frame captured at time \( \tau = \SI{3}{\second} \) from the start of the step, will have a normalized instant value \( t_\text{norm} \):
+We assign to each frame a normalized instant value \( t_\text{norm} \) corresponding to its capture instant \( \tau \) (expressed in seconds since the start of the step) divided by the total execution time \( t_\text{exec} \) of the step:
+
 \begin{align}
-    t_\text{norm} = \frac{\tau}{t_\text{exec}} = \frac{\SI{3}{\second}}{\SI{10}{\second}} = 0.3
+    \left( t_\text{norm} = \frac{\tau}{t_\text{exec}} \right) \in [0, 1]\label{eq:tnorm}
 \end{align}
 
-This allows us to then analyze the distribution of frame tag probabilities as a step progresses, independently of execution times.
+% To exemplify, for a step with execution time \( t_\text{exec} = \SI{10}{\second} \), a frame captured at time \( \tau = \SI{3}{\second} \) from the start of the step, will have a normalized instant value \( t_\text{norm} \):
+% \begin{align}
+%     t_\text{norm} = \frac{\tau}{t_\text{exec}} = \frac{\SI{3}{\second}}{\SI{10}{\second}} = 0.3
+% \end{align}
+
+This allows us to analyze the distribution of frame tag probabilities as a step progresses, independently of execution times.
 This is illustrated in \cref{fig:frameprobs}.
 Intuitively, \texttt{REPEAT} frames dominate the early instants after a step transition, as the user has not had time to start performing the new instruction and thus the \ac{WCA} keeps capturing frames representing the previous state of the board.
 As the user starts moving and performing actions, \texttt{BLANK} frames start to dominate, as this activity prevents the \ac{WCA} from capturing ``clean'' frames.
-Finally, it must be noted that \texttt{SUCCESS} frames are not included in this probability density plot, as, by definition (\( t_\text{norm} \) represents the normalized instant value):
+Finally, it must be noted that \texttt{SUCCESS} frames are not included in this probability density plot, as, by definition:
 \begin{equation}
     P(\text{\texttt{SUCCESS}} | t_\text{norm}) =
     \left\{ \begin{array}{ll}
@@ -192,6 +194,7 @@ Finally, it must be noted that \texttt{SUCCESS} frames are not included in this 
         1 & t_\text{norm} \geq 1.0
     \end{array} \right.
 \end{equation}
+
 That is, any frame captured immediately at or after the execution time has been reached will contain the finished board state and thus correspond to a \texttt{SUCCESS} frame.
 
 \begin{figure}
@@ -203,7 +206,7 @@ That is, any frame captured immediately at or after the execution time has been 
     }\label{fig:frameprobs}
 \end{figure}
 
-Using the above insights, together with the corresponding recorded video frames, we devise an scheme for the procedural generation of a synthetic trace for any step in \ac{WCA} task in the same category as those used in~\cite{olguinmunoz:impact2021}.
+Using the above insights, together with the corresponding recorded video frames, we devise a scheme for the procedural generation of a synthetic trace for any step in \ac{WCA} task in the same category as those used in~\cite{olguinmunoz:impact2021}.
 We first prepare a discretized representation of the probability density map in \cref{fig:frameprobs}.
 We segment the normalized instant value into a number of discrete bins (\num{25} in this work), and calculate the relative fraction of frames for each category in each bin.
 For each step, given
@@ -215,9 +218,9 @@ For each step, given
 we can then procedurally generate a trace by randomly selecting appropriate frames according to the distributions presented in \cref{fig:frameprobs}.
 In other words, for each sampling instant in a step with a given execution time \( t_\text{exec} \):
 \begin{enumerate}
-    \item We calculate the normalized instant value \( t_\text{norm} = \frac{\tau}{t_\text{exec}} \).
-    \item If \( t_\text{norm} \ge 1.0 \), we select the \texttt{SUCCESS} frame and finish the trace.
-    \item If instead \( t_\text{norm} < 1.0 \), we find the appropriate bin for \( t_\text{norm} \) and then select a frame by performing a weighted random sampling of the frame categories in the normalized instant bin using the relative proportions for each category.
+    \item We calculate \( t_\text{norm} \) according to \cref{eq:tnorm}.
+    \item If \( t_\text{norm} \ge 1.0 \), we select the \texttt{SUCCESS} frame and stop sampling.
+    \item If instead \( t_\text{norm} < 1.0 \), we find the appropriate bin for \( t_\text{norm} \) and then select a frame by performing a weighted random sampling of the frame categories in the normalized instant bin.
 \end{enumerate}
 
 \subsection{Obtaining the model}\label{ssec:model:obtaining}
