@@ -33,6 +33,22 @@
     Applies it to a real optimization problem, employing theoretical results proved by Vishnu
 }
 
+This thesis presents seven key contributions to the literature; these are summarized below:
+
+\begin{enumerate}
+    \item\label{item:contrib:methodology} A methodological approach to studying system responsiveness versus resource consumption trade-offs in \ac{WCA}.
+    This approach is based on the emulation of the client-side workload, while maintaining the \emph{real} server-side process as well as network stack.
+    \item In conjunction with the aforementioned methodology, a tool (EdgeDroid) for the emulation of human behavior in \ac{WCA}.
+    This tool implements the first ever parametrizable model of human behavior for these applications using empirical data collected from a series of human-subject experiments.
+    \item A characterization of the effects of individual personality differences in human responses to reduced system responsiveness in interactive systems such as \acl{WCA}.
+    In particular, this thesis presents novel evidence for the modulating properties of \emph{neuroticism} on the reaction to increased delay in these systems.
+    \item An preliminary, yet novel exploration of the implications of realistic modeling of human timings in \ac{WCA} applications for their optimization potential.
+    \item\label{item:contrib:methodology:ncs} An extension of the methodology described in \cref{item:contrib:methodology} towards \ac{NCS}.
+    \item A novel tool, CLEAVE, for the emulation of \ac{NCS} on edge infrastructure.
+    This tool has been designed from the ground-up to be edge-native, implemented using widely-adopted technologies in the disciplines of cloud and edge computing.
+    \item Finally, a software framework for the management and automation of the testbeds required for the methodology described in \cref{item:contrib:methodology,item:contrib:methodology:ncs}.
+\end{enumerate}
+
 \todo[inline]{Intro and conclusions from EdgeDroid 1.0 paper}
 
 There is increasing interest from academia and industry in novel applications such as immersive augmented reality (AR) or wearable cognitive assistance (WCA)~\cite{Chatzopoulos:Hyperion,Ha:TowardsWearableCogAssist}, also known as human-in-the-loop applications.
