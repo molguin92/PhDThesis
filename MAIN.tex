@@ -4,7 +4,9 @@
 %%%%%%%%%%%%%%%%%
 %%%% PACKAGES %%%
 %%%%%%%%%%%%%%%%%
+% \usepackage{expl3}
 \usepackage[utf8]{inputenc}
+\usepackage{lmodern}
 \usepackage[swedish,english]{babel}
 \usepackage{todonotes}
 \usepackage{csquotes}
@@ -111,6 +113,7 @@
 
 \usepackage{appendix}
 \usepackage{hyperref}
+\usepackage{soul}
 
 \newenvironment{acks}{\section*{Acknowledgements}}{}
 
@@ -150,12 +153,29 @@
 
 \definecolor{titlecolor}{HTML}{ECCEF5}
 
-\newcommand{\thesispaper}[2]
+% custom chapter type for thesis papers
+\newcounter{thesispapers}
+\renewcommand{\thethesispapers}{\Alph{thesispapers}}
+\newcommand{\thesispaperchapter}[2]{%
+  \refstepcounter{thesispapers}%
+  \sethlcolor{black}
+  \chapter*{%
+    {\scshape{}Paper}~{\thethesispapers}\\%
+    \bigskip%
+    {\HUGE{}#2}
+  }%
+  \addcontentsline{toc}{chapter}{Paper \thethesispapers: #1}%
+}
+
+\newcommand{\thesispaper}[3]
 {%
+\def\stitle{#1}
+\edef\ptitle{\citefield{#2}{title}}
+
 \cleardoublepage%
 \begin{titlingpage*}
 \newpagecolor{titlecolor}
-\chapter[#1]{\citefield{#2}{title}}
+\thesispaperchapter{\stitle}{\ptitle}\label{paper:#3}
 
 \begin{flushright}
 {\citeallnames{#2}{author}}
@@ -227,12 +247,12 @@
 \include{body/part1/references.tex}
 
 \part{Publications}
-\begin{appendices}
-%style
-\ChNameVar{\rmfamily\Large}
-\ChNumVar{\rmfamily\Huge\bfseries}
-\ChTitleVar{\normalfont\rmfamily\Huge}
-\renewcommand{\appendixname}{Paper}
+% \begin{appendices}
+% %style
+% \ChNameVar{\rmfamily\Large}
+% \ChNumVar{\rmfamily\Huge\bfseries}
+% \ChTitleVar{\normalfont\rmfamily\Huge}
+% \renewcommand{\appendixname}{Paper}
 
 \include{publications/2018DemoScaling.tex}
 \include{publications/2019EdgeDroid.tex}
@@ -240,7 +260,6 @@
 \include{publications/2022CLEAVE.tex}
 \include{publications/2022Ainur.tex}
 \include{publications/2022EdgeDroid2.tex}
-\end{appendices}
 
 \end{document}
 \endinput
