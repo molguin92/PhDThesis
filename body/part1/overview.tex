@@ -1,8 +1,8 @@
 \chapter{Overview of this thesis' contributions}
 
-\section{Methodology}
-
 \todo[inline]{
+    Methodology
+
     Study by example, human subject research, and modeling.
 
     Empirical research.
@@ -19,42 +19,33 @@
 
     Add a hardened compilation of key results, conclusions, figures, and tables.
     Synthesize and summarize the research questions and conclusions to find the red thread.
-
-    EdgeDroid (first demo paper at SEC, then HotMobile paper).
-
-    Tie in CLEAVE paper here as an extension of the approach towards other latency-sensitive applications.
-
-    Potentially include Ainur paper as a further extension of the methodology?
-
-    PLOS ONE paper as a stepping stone towards the final goal of a more realistic model?
-
-    Finally, EdgeDroid2 paper:
-    Presents the final model of human behavior
-    Applies it to a real optimization problem, employing theoretical results proved by Vishnu
 }
 
-We summarize the seven key contributions of this thesis below:
-
-\begin{enumerate}
-    \item\label{item:contrib:methodology} A methodological approach to studying system responsiveness versus resource consumption trade-offs in \ac{WCA}.
-    This approach is based on the emulation of the client-side workload, while maintaining the \emph{real} server-side process as well as network stack.
-    \item In conjunction with the aforementioned methodology, a tool (EdgeDroid) for the emulation of human behavior in \ac{WCA}.
-    This tool implements the first ever parametrizable model of human behavior for these applications using empirical data collected from a series of human-subject experiments.
-    \item A characterization of the effects of individual personality differences in human responses to reduced system responsiveness in interactive systems such as \acl{WCA}.
-    In particular, this thesis presents novel evidence for the modulating properties of \emph{neuroticism} on the reaction to increased delay in these systems.
-    \item An preliminary, yet novel exploration of the implications of realistic modeling of human timings in \ac{WCA} applications for their optimization potential.
-    \item\label{item:contrib:methodology:ncs} An extension of the methodology described in \cref{item:contrib:methodology} towards \acp{NCS}.
-    \item A novel tool, CLEAVE, for the emulation of \acp{NCS} on edge infrastructure.
-    This tool has been designed from the ground-up to be edge-native, implemented using widely-adopted technologies in the disciplines of cloud and edge computing.
-    \item Finally, a software framework for the management and automation of the testbeds required for the methodology described in \cref{item:contrib:methodology,item:contrib:methodology:ncs}.
-\end{enumerate}
+\begin{contributions}
+    \begin{enumerate}[
+            before = \leavevmode%\vspace{-.5\baselineskip}
+        ]
+        \item\label{item:contrib:methodology} A methodological approach to studying system responsiveness versus resource consumption trade-offs in \ac{WCA}.
+        This approach is based on the emulation of the client-side workload, while maintaining the \emph{real} server-side process as well as network stack.
+        \item In conjunction with the aforementioned methodology, a tool (EdgeDroid) for the emulation of human behavior in \ac{WCA}.
+              This tool implements the first ever parametrizable model of human behavior for these applications using empirical data collected from a series of human-subject experiments.
+        \item A characterization of the effects of individual personality differences in human responses to reduced system responsiveness in interactive systems such as \acl{WCA}.
+              In particular, this thesis presents novel evidence for the modulating properties of \emph{neuroticism} on the reaction to increased delay in these systems.
+        \item An preliminary, yet novel exploration of the implications of realistic modeling of human timings in \ac{WCA} applications for their optimization potential.
+              \item\label{item:contrib:methodology:ncs} An extension of the methodology described in \cref{item:contrib:methodology} towards \acp{NCS}.
+        \item A novel tool, CLEAVE, for the emulation of \acp{NCS} on edge infrastructure.
+              This tool has been designed from the ground-up to be edge-native, implemented using widely-adopted technologies in the disciplines of cloud and edge computing.
+        \item Finally, a software framework for the management and automation of the testbeds required for the methodology described in \cref{item:contrib:methodology,item:contrib:methodology:ncs}.
+    \end{enumerate}
+\end{contributions}
 
 \section{A methodology for the study of latency trade-offs in \acs{WCA}}
 
 \todo[inline]{
-    \cref{paper:EdgeDroid1.0} introduces our methodology, and validates its use in studying WCA.
+    \cref{paper:Olguin:DemoScaling2018,paper:Olguin:EdgeDroid2019} introduce our methodology, and validate its use in studying WCA.
     Focus less on EdgeDroid 1.0 and more on the methodology, although discuss that EdgeDroid 1.0 is an initial approach to a tool we complete with EdgeDroid 2.0.
 }
+
 
 \begin{figure}
     \centering%
@@ -132,63 +123,46 @@ The figure shows clears spikes in latencies at the transitions from task state 3
 
 \subsubsection{Characterizing human reaction to delays in \ac{WCA}}
 
-\todo[inline]{PLOS paper describes the acquisition of the necessary data and insights for the models.}
+\todo[inline]{\cref{paper:Olguin:ImpactWCA2021} describes the acquisition of the necessary data and insights for the models.}
 
-We still have a very limited understanding of how humans react to delays in these systems --- specifically, how changes in system responsiveness impact users.
-\emph{System responsiveness} here denotes a qualitative scale ranging from \emph{high} (that is, not subject to delay or subject to negligible delay with respect to human perception) to \emph{low} (i.e.\ subject to considerable delay).
-% Conversely, QoE is understood to range from \emph{good} (i.e.\ users enjoy interacting with the application) to bad (users dislike interacting with the application).
-Characterizing the relationships between system responsiveness and user behavior and quality of experience is of paramount importance for the design and evaluation of these applications.
-It is generally acknowledged, for instance, that a system going from a state of high responsiveness to one of low responsiveness can cause a drop in quality of experience~\cite{dabrowsky:2011:40years}. 
-Furthermore, this could cause users to modify the temporal paramaters of their behavior when interacting with the system, generating a sort of \emph{feedback loop} between user and system.
-A clear understanding of these relationships would allow, for instance, for the development of strategies for load balancing and optimization for large-scale deployment of WCA.\@
+\todo[inline]{From introduction}
 
-This paper builds upon preliminary work in the field of time perception and delay characterization of WCA.\@
-We expand upon the findings of Ha et al.~\cite{Ha:TowardsWearableCogAssist}, who identified the need for low-latency offloading in WCA, and of Chen et al.~\cite{Chen:AnEmpiricalStudyOfLatency}, who outlined the bounds for ``noticeable'' and ``unbearable'' latencies in these systems.
-While these bounds present a general understanding of when it is likely that a user will stop using an application, they do not provide any insights as to what happens \emph{before} that --- i.e.\ how human behavior changes with system responsiveness.
-We aim to tackle this gap in knowledge through the characterization of human responses to delays in the application pipeline, using latencies in the range defined by the previously established bounds.
-This is an important step toward a more systematic understanding of human behavior in this domain.
-
-We present in this paper the design and elaboration of an experimental WCA test-bed.
-This test-bed was subsequently employed in a study in which undergraduate students of diverse fields of study, aged between 18 and 25 years old, were asked to interact with and follow the instructions given to them by a cognitive assistant.
-Unbeknownst to the participants, we altered the responsiveness of the system in real-time and recorded the resulting behavioral and physiological reactions. 
-The participants wore an array of biometric sensors measuring physiological responses that have proven useful in assessing cognitive workload during human-computer interaction~\cite{haapalainen2010psycho,kumar2016measurement} such as heart rate and EEG.\@
-
-Through this experimental set-up, we intended to answer four core research questions relating to human responses to decreased application responsiveness.
+We intended to answer four core research questions relating to human responses to decreased application responsiveness.
 
 \begin{itemize}
-  \item \emph{Do subjects change the temporal profile of their actions in relation to system latency?}
+    \item \emph{Do subjects change the temporal profile of their actions in relation to system latency?}
 
-  In line with previous research in this area, we expected subjects to change their temporal profiles as system responsiveness decreased.
-  The extent or form of these changes were however unknown.
-  We also hypothesized that large enough drops in responsiveness could lead to complete abandonment of the task by subjects.
+          In line with previous research in this area, we expected subjects to change their temporal profiles as system responsiveness decreased.
+          The extent or form of these changes were however unknown.
+          We also hypothesized that large enough drops in responsiveness could lead to complete abandonment of the task by subjects.
 
-  Our results show an emergent pacing effect on user actions as system responsiveness is reduced.
-  While it would seem self-evident that users take longer to complete a task while using a system with low responsiveness --- as they have to wait longer for new instructions --- our study found that user slow-down represents a source of substantial additional delay.
-  To be more precise, the data indicate that users slow down not only because they have to wait for the system to catch up, but that their reactions to new instructions is also delayed.
-  Moreover, this effect scales with the decrease in responsiveness and remains for a while, even after system responsiveness improves.
-  
-  \item \emph{Do subjects show signals of arousal in physiological responses to changes in system latency?}
-  
-  We hypothesized subjects would show signs of stress and frustration as system latency increased, due to the added annoyance of dealing with an unresponsive system.
+          Our results show an emergent pacing effect on user actions as system responsiveness is reduced.
+          While it would seem self-evident that users take longer to complete a task while using a system with low responsiveness --- as they have to wait longer for new instructions --- our study found that user slow-down represents a source of substantial additional delay.
+          To be more precise, the data indicate that users slow down not only because they have to wait for the system to catch up, but that their reactions to new instructions is also delayed.
+          Moreover, this effect scales with the decrease in responsiveness and remains for a while, even after system responsiveness improves.
 
-  The results we present, however, seem to refute this hypothesis. 
-  We were not able to detect any significant effects on the physiological signals obtained from the biometric sensors as sytem responsiveness was altered.
-  
-  \item \emph{Are responses to delay effects in subjects mediated by cognition and/or emotion?}
-  
-  In line with previous items, we expected delay effects in subjects to be mediated primarily by emotion.
-  In particular, we expected emotional effects to be correlated with the strength of the added delay.
+    \item \emph{Do subjects show signals of arousal in physiological responses to changes in system latency?}
 
-  The results point in a different direction though, indicating that reduced responsiveness in WCA systems leads to a disruption of participants' cognitive plan for the task and not to an emotional response.
-  This is evidenced by the previously discussed pacing effect and the lack of significant physiological responses.
+          We hypothesized subjects would show signs of stress and frustration as system latency increased, due to the added annoyance of dealing with an unresponsive system.
 
-  \item \emph{Are these effects mediated by personality indicators in any way?}
-  
-  Finally, we hypothesized that the individual trait of \emph{neuroticism}~\cite{john1999:bfi} would play a role in mediating these effects, as it has previously been connected to intolerance for time delay~\cite{hirsh2008delay}.
-  We also expected \emph{focus} and \emph{involvement}~\cite{witmer1998:itq} to play roles in this.
+          The results we present, however, seem to refute this hypothesis.
+          We were not able to detect any significant effects on the physiological signals obtained from the biometric sensors as system responsiveness was altered.
 
-  The results obtained agree with our hypothesis. 
-  We found significant effects of neuroticism on the responses exhibited by subjects, and all three traits were found to play a role through factor analysis.
+    \item \emph{Are responses to delay effects in subjects mediated by cognition and/or emotion?}
+
+          In line with previous items, we expected delay effects in subjects to be mediated primarily by emotion.
+          In particular, we expected emotional effects to be correlated with the strength of the added delay.
+
+          The results point in a different direction though, indicating that reduced responsiveness in WCA systems leads to a disruption of participants' cognitive plan for the task and not to an emotional response.
+          This is evidenced by the previously discussed pacing effect and the lack of significant physiological responses.
+
+    \item \emph{Are these effects mediated by personality indicators in any way?}
+
+          Finally, we hypothesized that the individual trait of \emph{neuroticism}~\cite{john1999:bfi} would play a role in mediating these effects, as it has previously been connected to intolerance for time delay~\cite{hirsh2008delay}.
+          We also expected \emph{focus} and \emph{involvement}~\cite{witmer1998:itq} to play roles in this.
+
+          The results obtained agree with our hypothesis.
+          We found significant effects of neuroticism on the responses exhibited by subjects, and all three traits were found to play a role through factor analysis.
 
 \end{itemize}
 
@@ -208,28 +182,30 @@ These results represent unexpected, valuable findings, which can be employed to 
 Additionally, we hope that the results we provide might pave the way for the improvement of performance evaluation tools such as our previous work in \cite{olguin:2018, olguin:2019}.
 Such systems would greatly benefit from this knowledge, as it would allow for the design and implementation of realistic models of human behavior, making highly accurate benchmarks a reality in the domain of WCA.\@
 
+\todo[inline]{From discussion}
+
 We start our discussion with the main results of our experimentation presented in the previous section:
 
 \begin{itemize}
-  \item Firstly, and perhaps most importantly, we find that a system slow-down induces an \textit{additional} behavioral slow-down.
-  That is, as system responsiveness decreases, our data indicates that users significantly slow-down in their execution of the task.
-  This slow-down scales with the decrease in responsiveness; compared to the no-delay case, participants were on average \SI{12}{\percent} slower at \SI{1.65}{\second} delay and \SI{26}{\percent} at \SI{3.0}{\second} delay.
-  Moreover, there is a temporal component to this effect; users become progressively slower the more time passes with reduced system responsiveness.
+    \item Firstly, and perhaps most importantly, we find that a system slow-down induces an \textit{additional} behavioral slow-down.
+          That is, as system responsiveness decreases, our data indicates that users significantly slow-down in their execution of the task.
+          This slow-down scales with the decrease in responsiveness; compared to the no-delay case, participants were on average \SI{12}{\percent} slower at \SI{1.65}{\second} delay and \SI{26}{\percent} at \SI{3.0}{\second} delay.
+          Moreover, there is a temporal component to this effect; users become progressively slower the more time passes with reduced system responsiveness.
 
-  \item Secondly, we find that the effects of behavioral slow-down due to impaired system responsiveness \emph{remain} for at least a few steps after system responsiveness improves.
-  This is evidenced by the longer per-step-execution times of the first four steps of blocks immediately following a high-delay block, as pictured in \cref{fig:exectime:transition}.
-  The question of whether any lingering effect can be measured after these four steps remains open.
+    \item Secondly, we find that the effects of behavioral slow-down due to impaired system responsiveness \emph{remain} for at least a few steps after system responsiveness improves.
+          This is evidenced by the longer per-step-execution times of the first four steps of blocks immediately following a high-delay block, as pictured in \cref{fig:exectime:transition}.
+          The question of whether any lingering effect can be measured after these four steps remains open.
 
-  \item Thirdly, we evidence a speed-up in execution time over a series of steps; that is, subjects get faster at performing steps as the task progresses.
-  However, the strength of this effect decreases as delay increases.
-  Whereas for blocks without delay users performed the last four steps of a 12-step block on average \SI{36}{\percent} faster than the first four, at the maximum delay this effect practically disappears.
+    \item Thirdly, we evidence a speed-up in execution time over a series of steps; that is, subjects get faster at performing steps as the task progresses.
+          However, the strength of this effect decreases as delay increases.
+          Whereas for blocks without delay users performed the last four steps of a 12-step block on average \SI{36}{\percent} faster than the first four, at the maximum delay this effect practically disappears.
 
-  \item Fourthly, in terms of inter-subject differences, PCA revealed three main factors governing users' response to delay. 
-  The first factor represents sensitivity to delay as moderated by the ``Big Five'' personality trait of neuroticism and both measures of immersion: focus and involvement.
-  Factor two and three represent dedication to the task as opposed to delay intolerance and reflect variables related to attentiveness, respectively.
-  In simple terms, these results suggest that the effects of delay are most potent in individuals who are sensitive and involved in the task.
-  The findings appear selective to cognitive assistance tasks like the present ones, inasmuch as the same measures did not correlate with outcomes in other computer-intensive environments such as immersive VR~\cite{quesnel2018you}.
-  These correlations are also consistent with previous findings indicating that individuals scoring high in neuroticism tend to be intolerant to delayed reward~\cite{hirsh2008delay}.
+    \item Fourthly, in terms of inter-subject differences, PCA revealed three main factors governing users' response to delay.
+          The first factor represents sensitivity to delay as moderated by the ``Big Five'' personality trait of neuroticism and both measures of immersion: focus and involvement.
+          Factor two and three represent dedication to the task as opposed to delay intolerance and reflect variables related to attentiveness, respectively.
+          In simple terms, these results suggest that the effects of delay are most potent in individuals who are sensitive and involved in the task.
+          The findings appear selective to cognitive assistance tasks like the present ones, inasmuch as the same measures did not correlate with outcomes in other computer-intensive environments such as immersive VR~\cite{quesnel2018you}.
+          These correlations are also consistent with previous findings indicating that individuals scoring high in neuroticism tend to be intolerant to delayed reward~\cite{hirsh2008delay}.
 \end{itemize}
 
 A central question therefore arises: to which physio- and psychological mechanisms can these findings, most importantly the substantial slow-down in task execution, be attributed?
@@ -257,21 +233,21 @@ The results here presented provide a number of possible implications for WCA sys
 
 \begin{itemize}
 
-  \item Due to the behavioral slow-down in users, even short-term reductions in responsiveness will lead to significantly extended application lifetimes.
-  This has direct implications for resource and power consumption.
-  
-  \item The fact that the adverse effects of delay on users do not immediately disappear as the system returns to a high-responsive state could have unconventional consequences for resource allocation.
-  This is of particular importance, for instance, for cases where the user may be able to finish the task before these effects subside.
-  In such cases, the limited potential gains might not justify diverting valuable system resources to the impaired application.
+    \item Due to the behavioral slow-down in users, even short-term reductions in responsiveness will lead to significantly extended application lifetimes.
+          This has direct implications for resource and power consumption.
 
-  \item In multi-user environments, the time dependency of user slow-down effects mean that fair degradation of system responsiveness across applications may not ultimately be beneficial to the system as a whole.
-  Take for instance two applications on the same system which negatively interfere with each other. 
-  The longer they interfere with each other, the longer their respective lifetimes are going to be, which in turn causes them to interfere even longer, potentially entering a positive feedback loop. 
-  In such a case, prioritizing one over the other rather than trying to improve responsiveness for both might lead to resources being freed up faster system-wide.
+    \item The fact that the adverse effects of delay on users do not immediately disappear as the system returns to a high-responsive state could have unconventional consequences for resource allocation.
+          This is of particular importance, for instance, for cases where the user may be able to finish the task before these effects subside.
+          In such cases, the limited potential gains might not justify diverting valuable system resources to the impaired application.
 
-  \item Based on our findings relating individual differences between users and their sensitivity to delays, it might also be possible to extrapolate user characteristics from measured execution times.
-  This could prove a valuable tool for load balancing, for instance by prioritizing resource allocation to users with a higher sensitivity to system-state degradation.
-  However, this remains an open challenge.
+    \item In multi-user environments, the time dependency of user slow-down effects mean that fair degradation of system responsiveness across applications may not ultimately be beneficial to the system as a whole.
+          Take for instance two applications on the same system which negatively interfere with each other.
+          The longer they interfere with each other, the longer their respective lifetimes are going to be, which in turn causes them to interfere even longer, potentially entering a positive feedback loop.
+          In such a case, prioritizing one over the other rather than trying to improve responsiveness for both might lead to resources being freed up faster system-wide.
+
+    \item Based on our findings relating individual differences between users and their sensitivity to delays, it might also be possible to extrapolate user characteristics from measured execution times.
+          This could prove a valuable tool for load balancing, for instance by prioritizing resource allocation to users with a higher sensitivity to system-state degradation.
+          However, this remains an open challenge.
 
 \end{itemize}
 
@@ -282,20 +258,113 @@ More research in this area will surely uncover more complex and interesting beha
 Finally, we believe the data provide parameters that can usefully be integrated into cognitive models of WCA that might be constructed under existing architectures like ACT-R.
 These same parameters could be used to modulate the timing and generation of inputs in trace-based workload generation tools such as the EdgeDroid platform~\cite{olguin:2018,olguin:2019}, allowing the tool to use the same trace to generate workloads for a multitude of different user profiles.
 
+\todo[inline]{Some diagrams, plots, and results}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[t]{.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{publications/2021ImpactDelayedResponse/Fig4a.eps}
+        \caption{Structure of a step in a generic cognitive assistance application.
+            The assistant provides an instruction to the user and continuously samples the step state; inputs captured while the step is unfinished are silently ``discarded'' (i.e.\ they do not cause the generation of a new instruction).
+            % by the assistant, as they do not contain relevant information.
+            Once the user finishes performing the step, the next sample \emph{will} cause the generation of a new instruction.
+            % which will subsequently be provided to the user.}%
+        }
+        \label{fig:cogassist:step}
+    \end{subfigure}%
+    % \medskip%
+    \hfill%
+    \begin{subfigure}[t]{.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{publications/2021ImpactDelayedResponse/Fig4b.eps}
+        \caption{In the experimental task, an additional variable segment of time is introduced immediately following the processing of the input frame in order to extend the perceived processing time of the input to a specific target delay.}%
+        \label{fig:cogassist:step:delay}
+    \end{subfigure}
+    \medskip%
+    \begin{subfigure}[t]{.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{publications/2021ImpactDelayedResponse/Fig4c.eps}
+        \caption{Structure of a block in the experimental task.}%
+        \label{fig:cogassist:block}
+    \end{subfigure}%
+    % \medskip%
+    \hfill%
+    \begin{subfigure}[t]{.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{publications/2021ImpactDelayedResponse/Fig4d.eps}
+        \caption{Visualization of the execution time of a step.}%
+        \label{fig:exectime:diagram}
+    \end{subfigure}%
+    % \medskip%
+    \caption{Components of the cognitive assistance task.}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig6.eps}
+    \caption{Per-step execution time by block length vs.\ delay. Error bars indicate the Standard Error of the Mean (S.E.M.)}\label{fig:exectime}%    
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig7.eps}
+    \caption{Mean per-step execution time vs.\ delay, by step slice.
+        Error bars indicate S.E.M.}
+    \label{fig:exectime:delay:slice}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig8.eps}
+    \caption{Per-step execution time across the first four steps after a block transition from block \( B_{k-1} \) to \( B_k \). Error bars indicate S.E.M.}\label{fig:exectime:transition}%
+\end{figure}
+
+\begin{table}[h]
+    \centering
+    \caption{Principal Component Analysis}\label{tab:pca}
+    \begin{subtable}[h]{\textwidth}
+        \centering
+        \caption{Main components identified.}
+        \setlength{\tabcolsep}{0pt} % let TeX compute the intercolumn space
+        \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}lrrr@{}}
+            \toprule
+            \textbf{Factor} & \textbf{Comp. 1} & \textbf{Comp. 2} & \textbf{Comp. 3} \\
+            \midrule
+            BFI Conscientiousness                  & \textcolor{lightgray}{\( -0.022 \)} &                         \( 0.668 \) & \textcolor{lightgray}{\( -0.481 \)} \\
+            BFI Neuroticism                        &                         \( 0.600 \) &                        \( -0.678 \) & \textcolor{lightgray}{\( -0.118 \)} \\
+            ITQ Focus                              &                         \( 0.678 \) &  \textcolor{lightgray}{\( 0.203 \)} &                         \( 0.504 \) \\
+            ITQ Involvement                        &                         \( 0.573 \) &                         \( 0.540 \) &  \textcolor{lightgray}{\( 0.417 \)} \\
+            Exec. Time (delay 3.0 s, length 12)    &                         \( 0.758 \) & \textcolor{lightgray}{\( -0.178 \)} & \textcolor{lightgray}{\( -0.348 \)} \\
+            Log EEG power \( \alpha + \beta \) Slice 1 & \textcolor{lightgray}{\( -0.436 \)} & \textcolor{lightgray}{\( -0.251 \)} &                         \( 0.589 \) \\
+            \bottomrule
+        \end{tabular*}
+    \end{subtable}
+    \newline
+    \medskip
+    \newline
+    \begin{subtable}[h]{\textwidth}
+        \centering
+        \caption{Percentages of variance explained by the components.}
+        \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}lrrrr@{}}
+            \toprule
+            {} & \textbf{Comp. 1} & \textbf{Comp. 2} & \textbf{Comp. 3} & \textbf{Total} \\
+            \midrule
+            Explained Variance & \SI{31.88}{\percent} & \SI{22.22}{\percent} & \SI{19.03}{\percent} & \SI{73.13}{\percent} \\
+            \bottomrule
+        \end{tabular*}
+    \end{subtable}
+\end{table}
+
+\FloatBarrier%
 \subsubsection{Implementing the model}
 
-In that context, the contributions of this paper are as follows:
-\begin{enumerate}
-    \item\label{item:contrib:model} We introduce the first, to our knowledge, data-driven model for human timings in \ac{WCA} applications.
-    Using the data collected for \textcite{olguinmunoz:impact2021} as a base, we build a stochastic model which takes as input past measurements of system responsiveness and produces realistic step execution times.
-    We also introduce a novel way to generate dynamic traces of frames for \ac{WCA} applications which can be combined with the timing model for a full end-to-end emulation of a human.
-    We name this new model \emph{EdgeDroid 2.0}; a direct, more realistic evolution of our initial EdgeDroid approach~\cite{olguin2018scaling,olguin2019edgedroid}.
-    \item\label{item:contrib:footprint} Using the model described above, we study the implications of realistic human behavior on the application lifetime footprint of \ac{WCA}.
-    In concordance with previous work~\cite{olguinmunoz:impact2021}, we find dependencies between system responsiveness and human step execution times that lead to substantially different application lifetimes when compared to a first-order baseline which does not take into account human behavior.
-    \item\label{item:contrib:optimization} Finally, we study the potential for optimization in \ac{WCA} when considering human behavior using our model.
-    We develop a generic model for the stochastic optimization of resource consumption versus responsiveness trade-offs in these applications, which we apply to two potential avenues for \ac{WCA} optimization; number of processed samples and energy consumption per step.
-    Compared to the state-of-the-art, our optimization model results in up to \textasciitilde\SI{60}{\percent} fewer samples processed or an average of \SI{20}{\percent} less energy consumed per step, while maintaining comparable levels of responsiveness.
-\end{enumerate}
+\todo[inline]{Present the implementation of the model from \cref{paper:EdgeDroid2}}
+
+We introduce the first, to our knowledge, data-driven model for human timings in \ac{WCA} applications.
+Using the data collected for \textcite{olguinmunoz:impact2021} as a base, we build a stochastic model which takes as input past measurements of system responsiveness and produces realistic step execution times.
+We also introduce a novel way to generate dynamic traces of frames for \ac{WCA} applications which can be combined with the timing model for a full end-to-end emulation of a human.
+We name this new model \emph{EdgeDroid 2.0}; a direct, more realistic evolution of our initial EdgeDroid approach~\cite{olguin2018scaling,olguin2019edgedroid}.
 
 The study and benchmarking of \ac{WCA} applications is a challenging discipline due to these application's intrinsic human-in-the-loop nature.
 Humans are notoriously unreliable, and greatly complicate the scalability and repeatability of experiments.
@@ -305,17 +374,33 @@ In the first half of this paper, we have introduced the EdgeDroid 2.0 model of h
 This model represents a stochastic approach to execution time modeling which builds upon the data collected for \textcite{olguinmunoz:impact2021}.
 Together with this model, we have also introduced a novel procedure for the generation of synthetic traces of frames in step-based \ac{WCA}, allowing for a full end-to-end emulation of a human when combined with the timing model.
 
-\subsubsection{Implications of the EdgeDroid model for \ac{WCA} optimization}
+\todo[inline]{TODO: Some relevant results. Need to add paper to thesis.}
+
+\subsection{Implications of the methodology for \ac{WCA} optimization}
+
+\todo[inline]{TODO, same as above}
+\todo[inline]{Include discussion from EdgeDroid 1.0?}
+
+\begin{enumerate}
+    \item\label{item:contrib:footprint} Using the model described above, we study the implications of realistic human behavior on the application lifetime footprint of \ac{WCA}.
+    In concordance with previous work~\cite{olguinmunoz:impact2021}, we find dependencies between system responsiveness and human step execution times that lead to substantially different application lifetimes when compared to a first-order baseline which does not take into account human behavior.
+    \item\label{item:contrib:optimization} Finally, we study the potential for optimization in \ac{WCA} when considering human behavior using our model.
+    We develop a generic model for the stochastic optimization of resource consumption versus responsiveness trade-offs in these applications, which we apply to two potential avenues for \ac{WCA} optimization; number of processed samples and energy consumption per step.
+    Compared to the state-of-the-art, our optimization model results in up to \textasciitilde\SI{60}{\percent} fewer samples processed or an average of \SI{20}{\percent} less energy consumed per step, while maintaining comparable levels of responsiveness.
+\end{enumerate}
 
 Next, we have explored the impact of such a realistic model on the application lifetime footprint of \ac{WCA} applications.
 We have shown that less realistic modeling approaches which do not take into account higher-order effects on execution time distributions can potentially lead to significant misestimations of application footprint.
 
 Finally, we have delved into the potential for optimization in \ac{WCA} systems using the previously discussed timing models.
-We have proposed a novel stochastic optimization framework for resource consumption-system responsiveness trade-offs in \ac{WCA} which results in an adaptive sampling strategy. 
+We have proposed a novel stochastic optimization framework for resource consumption-system responsiveness trade-offs in \ac{WCA} which results in an adaptive sampling strategy.
 We have shown that this framework is applicable to a myriad of metrics in these applications, and showcased experimental results employing this framework for the minimization of number of samples processed per step and total energy consumption per step.
 Our results show up to a \SI{50}{\percent} increase in performance with respect to state of the art when optimizing for number of samples, and up to a \SI{30}{\percent} improvement when optimizing for energy consumption, proving thus the value of such frameworks for the design of \ac{WCA} applications.
 
+\FloatBarrier%
 \section{A methodology for the study of latency trade-offs in \acsp{NCS}}
+
+\todo[inline]{\Cref{paper:CLEAVE2022} implements both the methodology and the tool.}
 
 \subsection{The CLEAVE emulation framework}
 
@@ -345,13 +430,13 @@ In this work, we aimed to tackle this issue through a fully software-based frame
 We argue our approach, \ac{CLEAVE}, embodies a better solution than previous work for a number of reasons:
 \begin{enumerate}
     \item Compared to fully physical approaches, such as those used in\ \cite{Baumann2018LowPower} and\ \cite{Cuenca2019UAV}, our approach allows for greater flexibility and scalability.
-    The aforementioned approaches rely on specialized and sometimes entirely custom-built physical platforms, and although flexible and cheap approaches such as Zoppi \emph{et al.'s} --- which uses a LEGO-based physical plant --- exist, these still do not reach the level of flexibility afforded by a fully software-based framework. 
-    Experimenters still need copies of the hardware, making anything other than small-scale setups unfeasible.
-    In contrast, our approach requires only general-purpose computing platforms, and can be employed by basically anyone with access to a computer.
-    Scalable deployments can in turn easily and cheaply be set up using single-board computers and/or virtual cloud instances.
+          The aforementioned approaches rely on specialized and sometimes entirely custom-built physical platforms, and although flexible and cheap approaches such as Zoppi \emph{et al.'s} --- which uses a LEGO-based physical plant --- exist, these still do not reach the level of flexibility afforded by a fully software-based framework.
+          Experimenters still need copies of the hardware, making anything other than small-scale setups unfeasible.
+          In contrast, our approach requires only general-purpose computing platforms, and can be employed by basically anyone with access to a computer.
+          Scalable deployments can in turn easily and cheaply be set up using single-board computers and/or virtual cloud instances.
     \item When compared to simulated approaches such as\ \cite{Ma2019DynamicSched}, \ac{CLEAVE} provides a higher level of realism, in particular with regards to the network segment of the system.
     \item Finally, although it shares much in common with previous emulated approaches such as the one employed in\ \cite{Wang2020VoltageControl}, \ac{CLEAVE} has an advantage by specifically targeting a general-purpose approach using industry-standard, cloud- and edge-native tools and software.
-    The tool can easily be deployed and scaled using widely-used frameworks such as Docker Swarm and Kubernetes.
+          The tool can easily be deployed and scaled using widely-used frameworks such as Docker Swarm and Kubernetes.
 \end{enumerate}
 
 We validate the utility of this tool through an example use case approximating a proposed edge deployment of inverted pendula control loops co-located with video analytics services.
@@ -364,7 +449,50 @@ We argue such a use case represents a realistic scenario and appropriate benchma
 Our results showcase the ability of the framework to extract relevant metrics relating to the stability of the control system, as well as on the performance of the underlying network link.
 We believe \ac{CLEAVE} represents an important step towards enabling inexpensive and low-complexity scalable research for real-world deployment of edge-bound \acp{NCS}.
 
-\section{The Ainur software framework for Edge Computing testbeds}
+\todo[inline]{Some plots and results}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.6\columnwidth]{publications/2022CLEAVE/images/inverted_pendulum.png}
+    \caption{
+        The 2D inverted pendulum system.
+    }\label{fig:invpend}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \begin{subfigure}[h]{.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_topple_frac}
+        \caption{Toppled plants.}\label{fig:video:toppled}
+    \end{subfigure}%
+    \hfill%
+    \begin{subfigure}[h]{.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_angle_rms}
+        \caption{Angle \ac{RMS}.}\label{fig:video:rms}
+    \end{subfigure}\\
+    \begin{subfigure}[h]{.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_drop_frac}
+        \caption{Packet losses.}\label{fig:video:drop}
+    \end{subfigure}%
+    \hfill%
+    \begin{subfigure}[h]{.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_rtt}
+        \caption{\acsp{RTT}.}\label{fig:video:rtt}
+    \end{subfigure}%
+    \caption{
+        Multi-loop, resource-constrained setup results.
+        Error bars indicate \SI{95}{\percent} \acp{CI} in all plots.
+    }\label{fig:video:results}
+\end{figure}
+
+\FloatBarrier%
+\section{A software framework for Edge-computing testbeds}
+
+\todo[inline]{\cref{paper:Ainur2022} describes a software framework for testbeds used for the methodology described in this thesis}
 
 In this work, we present our solution to the challenge of testbed automation: Ainur, a framework for wireless testbed automation with a specific focus on end-to-end experimental research in the context of edge-computing using cloud- and edge-native technologies.
 Ainur is designed to deploy experimental runs from a workload perspective by configuring the physical testbed, initializing all involved software components, deploying and executing the experimental workload, collecting logs and data, and finally gracefully degrading the system.
@@ -386,3 +514,25 @@ We have described its general architecture, which follows a layered design mimic
 We have also outlined a demonstration which showcases the flexibility and power of the framework by deploying two different workloads to our testbed.
 We believe our framework represents an important step towards repeatable, replicable, yet low-access barrier end-to-end wireless testbed experimentation.
 It has been released as \ac{FOSS} and can be found on GitHub~\cite{ainur:github}.\\
+
+\todo[inline]{Some plots}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{publications/2022Ainur/figures/overview.jpg}
+    \caption{Layered structure of an Ainur experiment}\label{fig:overview}
+\end{figure}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.8\textwidth]{publications/2022Ainur/figures/flow2.png}
+    \caption{Lifecycle of an experimental run in Ainur. Blocks in orange are optional.}\label{fig:flow}
+\end{figure*}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=.8\textwidth]{publications/2022Ainur/figures/network.png}
+    \caption{Network structure assumed by Ainur.}\label{fig:network}
+\end{figure*}
+
+

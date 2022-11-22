@@ -13,6 +13,7 @@
 \usepackage[inline]{enumitem}
 \usepackage{caption}   % to align the table caption to the right/left
 \usepackage{subcaption}
+\usepackage{placeins}
 \usepackage{multirow}
 \usepackage[newfloat]{minted}
 \SetupFloatingEnvironment{listing}{name=List.,within=none}
@@ -34,6 +35,7 @@
 \usepackage{indentfirst}
 \usepackage{amsmath,mathrsfs}
 \usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{amsthm}
 \usepackage{epstopdf}
 % \usepackage{subfig}
 \usepackage{epigraph}
@@ -61,7 +63,7 @@
 \addtocategory{thesispapers}{CLEAVE2022}
 \addtocategory{thesispapers}{Ainur2022}
 
-\usepackage[capitalize]{cleveref}
+\usepackage[capitalize,nameinlink]{cleveref}
 \usepackage{graphicx}
 \usepackage{bm}	%Command \bm{make bold}
 \usepackage{algorithm}
@@ -115,7 +117,16 @@
 \usepackage{hyperref}
 \usepackage{soul}
 
+% toc and subsection depth
+\setsecnumdepth{subsection}
+\setcounter{tocdepth}{2}
+\setlength{\cftsectionindent}{0pt} % Remove indent for \section
+\setlength{\cftsubsectionindent}{0pt} % Remove indent for \subsection
+\setlength{\cftsubsubsectionindent}{0pt}
+
 \newenvironment{acks}{\section*{Acknowledgements}}{}
+\theoremstyle{definition}
+\newtheorem*{contributions}{Contributions of this thesis}
 
 \newenvironment{dedication}{\cleardoublepage\null\vspace{\stretch{1}}\begin{flushright}\itshape}{\end{flushright}\vspace{\stretch{2}}\null}
 
@@ -156,26 +167,37 @@
 % custom chapter type for thesis papers
 \newcounter{thesispapers}
 \renewcommand{\thethesispapers}{\Alph{thesispapers}}
-\newcommand{\thesispaperchapter}[2]{%
+\newcommand{\thesispaperchapter}[3]{%
   \refstepcounter{thesispapers}%
   \sethlcolor{black}
   \chapter*{%
     {\scshape{}Paper}~{\thethesispapers}\\%
     \bigskip%
-    {\HUGE{}#2}
-  }%
+    {\HUGE{}#2}%
+  }\label{#3}%
   \addcontentsline{toc}{chapter}{Paper \thethesispapers: #1}%
 }
+\crefformat{thesispapers}{#2Paper~#1#3}
+\Crefformat{thesispapers}{#2Paper~#1#3}
+% \crefrangeformat{thesispapers}{papers~#3#1#4 to~#5#2#6}
+% \Crefrangeformat{thesispapers}{papers~#3#1#4 to~#5#2#6}
+\crefmultiformat{thesispapers}{#2Paper~#1#3}{ and #2Paper~#1#3}{, #2Paper~#1#3}{, and #2Paper~#1#3}
+\crefmultiformat{thesispapers}{#2Paper~#1#3}{ and #2Paper~#1#3}{, #2Paper~#1#3}{, and #2Paper~#1#3}
 
-\newcommand{\thesispaper}[3]
+\newcommand{\thesispaper}[2]
 {%
-\def\stitle{#1}
+% reset all acronyms
+\acresetall%
+
+%
+\edef\stitle{#1}
 \edef\ptitle{\citefield{#2}{title}}
+\edef\plabel{paper:#2}
 
 \cleardoublepage%
 \begin{titlingpage*}
 \newpagecolor{titlecolor}
-\thesispaperchapter{\stitle}{\ptitle}\label{paper:#3}
+\thesispaperchapter{\stitle}{\ptitle}{\plabel}
 
 \begin{flushright}
 {\citeallnames{#2}{author}}
