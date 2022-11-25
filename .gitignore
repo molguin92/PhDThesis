@@ -708,3 +708,5 @@ $RECYCLE.BIN/
 
 paper.pdf
 _minted*
+
+*.loc
