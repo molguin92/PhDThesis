@@ -1,16 +1,36 @@
 \chapter{Overview of this thesis' contributions}
 
 \todo[inline]{
-    Methodology
-
-    Study by example, human subject research, and modeling.
-
-    Empirical research.
-
-    Include testbeds!
+    Methodology: a system of methods used in a particular area of study or activity.
 }
 
-\section{Contributions of this thesis}
+\section{Scope of this thesis}
+
+We study in this thesis a methodological approach to studying system responsiveness versus resource consumption trade-offs in edge-bound feedback-loop systems such as \ac{WCA} and \ac{NCS}.
+This approach is based on the emulation of the client-side workload, while maintaining the \emph{real} server-side process as well as network stack.
+We validate this methodology by example, presenting a deep exploration of its implementation and applications in the context of \acl{WCA}, and a initial, more shallow foray into its applications in the context of \ac{NCS}.
+
+More specifically, in \cref{paper:Olguin:DemoScaling2018,paper:Olguin:EdgeDroid2019} we introduce this methodology for \ac{WCA}.
+\cref{paper:Olguin:DemoScaling2018} presents a short, high level overview of this methodological approach, in particular making very straightforward assumptions about human behavior in \ac{WCA} applications.
+\cref{paper:Olguin:EdgeDroid2019} extends the discussion from \cref{paper:Olguin:DemoScaling2018}, providing more details on the implementation of the necessary measurement framework and the tooling employed, as well as on the assumptions that were made about human behavior and reactions.
+We assume in these works a human which is impervious to poor system performance, and suffers no annoyance, fatigue, frustration, nausea or other shortcomings of real human users.
+This results in a model of a user who responds in a precisely reproducible and deterministic manner to the same system stimulus every time.
+\cref{paper:Olguin:EdgeDroid2019} furthermore presents the first empirical results obtained with our methodological approach, providing thus an initial validation of its utility for research.
+
+
+
+
+
+In that context, we present several ancillary sub-contributions.
+The first of these corresponds to  a tool (EdgeDroid) for the emulation of human behavior in \ac{WCA}.
+This tool corresponds to a key enabler of our main contribution, as it implements the first ever parametrizable model of human behavior for these applications using empirical data collected from a series of human-subject experiments.
+Furthermore, as part of the ground-laying work for this model, we present a first-ever characterization of the effects of individual personality differences in human responses to reduced system responsiveness in interactive systems such as \acl{WCA}.
+In particular, this thesis presents novel evidence for the modulating properties of \emph{neuroticism} on the reaction to increased delay in these systems.
+
+
+
+
+
 
 \todo[inline]{
     Here's where we ``present'' the papers.
@@ -25,12 +45,9 @@
     \begin{enumerate}[
             before = \leavevmode%\vspace{-.5\baselineskip}
         ]
-        \item\label{item:contrib:methodology} A methodological approach to studying system responsiveness versus resource consumption trade-offs in \ac{WCA}.
-        This approach is based on the emulation of the client-side workload, while maintaining the \emph{real} server-side process as well as network stack.
-        \item In conjunction with the aforementioned methodology, a tool (EdgeDroid) for the emulation of human behavior in \ac{WCA}.
-              This tool implements the first ever parametrizable model of human behavior for these applications using empirical data collected from a series of human-subject experiments.
-        \item A characterization of the effects of individual personality differences in human responses to reduced system responsiveness in interactive systems such as \acl{WCA}.
-              In particular, this thesis presents novel evidence for the modulating properties of \emph{neuroticism} on the reaction to increased delay in these systems.
+        \item\label{item:contrib:methodology} 
+        \item In conjunction with the aforementioned methodology,
+        \item A 
         \item An preliminary, yet novel exploration of the implications of realistic modeling of human timings in \ac{WCA} applications for their optimization potential.
               \item\label{item:contrib:methodology:ncs} An extension of the methodology described in \cref{item:contrib:methodology} towards \acp{NCS}.
         \item A novel tool, CLEAVE, for the emulation of \acp{NCS} on edge infrastructure.
