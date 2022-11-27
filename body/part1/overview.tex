@@ -10,59 +10,47 @@ We study in this thesis a methodological approach to studying system responsiven
 This approach is based on the emulation of the client-side workload, while maintaining the \emph{real} server-side process as well as network stack.
 We validate this methodology by example, presenting a deep exploration of its implementation and applications in the context of \acl{WCA}, and a initial, more shallow foray into its applications in the context of \ac{NCS}.
 
-More specifically, in \cref{paper:Olguin:DemoScaling2018,paper:Olguin:EdgeDroid2019} we introduce this methodology for \ac{WCA}.
-\cref{paper:Olguin:DemoScaling2018} presents a short, high level overview of this methodological approach, in particular making very straightforward assumptions about human behavior in \ac{WCA} applications.
-\cref{paper:Olguin:EdgeDroid2019} extends the discussion from \cref{paper:Olguin:DemoScaling2018}, providing more details on the implementation of the necessary measurement framework and the tooling employed, as well as on the assumptions that were made about human behavior and reactions.
+More specifically, in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} we introduce this methodology for \ac{WCA}.
+\cref{paper:olguinmunoz2018demoscaling} presents a short, high level overview of this methodological approach, in particular making very straightforward assumptions about human behavior in \ac{WCA} applications.
+\cref{paper:olguinmunoz2019edgedroid} extends the discussion from \cref{paper:olguinmunoz2018demoscaling}, providing more details on the implementation of the necessary measurement framework and the tooling employed, as well as on the assumptions that were made about human behavior and reactions.
 We assume in these works a human which is impervious to poor system performance, and suffers no annoyance, fatigue, frustration, nausea or other shortcomings of real human users.
 This results in a model of a user who responds in a precisely reproducible and deterministic manner to the same system stimulus every time.
-\cref{paper:Olguin:EdgeDroid2019} furthermore presents the first empirical results obtained with our methodological approach, providing thus an initial validation of its utility for research.
+\cref{paper:olguinmunoz2019edgedroid} furthermore presents the first empirical results obtained with our methodological approach, providing thus an initial validation of its utility for research.
+
+Next, in \cref{paper:olguinmunoz2021impact} we present a deep characterization of human behavior in \ac{WCA}.
+This represents a critical prerequisite for an extension of the human model presented in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} towards a more advanced realistic iteration.
+We develop this characterization through a human subject study with a cohort of \num{40} participants who were asked to interact with an instrumented \ac{WCA} application.
+System responsiveness is altered in real-time during each execution of the task, and we record participants' reactions by measuring task- and system-related metrics, as well as biometrics from sensors placed on their bodies.
+Participants were also asked to fill out two personality indicator questionnaires, allowing us to later correlate individual personality traits and measured reaction to changes in system responsiveness.
+
+\cref{paper:olguinmunoz2023realistic} then builds upon our work in \cref{paper:olguinmunoz2021impact}.
+We employ the insights obtained on human reactions to changes in system responsiveness to develop the first ever data-driven model of human timings for \ac{WCA}.
+The model is further validated against previously obtained results, both through simulated, controlled executions and deployments on a real edge computing testbed.
+Finally, the paper explores potential implications of this model for \ac{WCA} system optimization potential, particularly in the domains of energy consumption and sampling strategies.
+
+On the other hand, \cref{paper:olguinmunoz2022cleave} presents an extension to the methodology introduced and developed in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} to the field of \aclp{NCS}.
+We implement a tool for the emulation of these systems on edge computing infrastructure, and deploy it on an edge computing testbed for validation.
+
+Finally, \cref{paper:olguinmunoz2022ainur} presents the software framework used in \cref{paper:olguinmunoz2023realistic,paper:olguinmunoz2022cleave} for the orchestration of the edge computing testbeds on which the developed tools were deployed.
+This framework represents an ancillary contribution, tangential to yet crucial for the research presented in these works.
+
+\medskip%
+
+In the following sections, we will summarize in detail the key contributions of each of the above-mentioned works.
+\cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} are discussed in detail in \cref{summary:2018demo,summary:2019edgedroid}.
+Next, in \cref{summary:model} we present \cref{paper:olguinmunoz2021impact} (\cref{summary:2021impact}) and \cref{paper:olguinmunoz2023realistic} (\cref{summary:2023realistic}).
+\cref{paper:olguinmunoz2022cleave} is summarized in \cref{summary:2022cleave}, and we finalize this chapter with a summary of \cref{paper:olguinmunoz2022ainur} in \cref{summary:2022ainur}.
 
 
+\section{A methodology for the study of feedback-loop systems in Edge Computing}\label{summary:methodology}
+
+\subsection{\cref{paper:olguinmunoz2018demoscaling}}\label{summary:2018demo}
+
+As discussed previously, benchmarking infrastructures for edge-bound applications featuring feedback-loops is challenging, in particular when dealing with applications with high sensitivity to latency (such as \ac{NCS}) or with human involvement (such as \ac{WCA}).
+This short papers' main contribution is the introduction of our methodological framework for tackling this challenge.
 
 
-
-In that context, we present several ancillary sub-contributions.
-The first of these corresponds to  a tool (EdgeDroid) for the emulation of human behavior in \ac{WCA}.
-This tool corresponds to a key enabler of our main contribution, as it implements the first ever parametrizable model of human behavior for these applications using empirical data collected from a series of human-subject experiments.
-Furthermore, as part of the ground-laying work for this model, we present a first-ever characterization of the effects of individual personality differences in human responses to reduced system responsiveness in interactive systems such as \acl{WCA}.
-In particular, this thesis presents novel evidence for the modulating properties of \emph{neuroticism} on the reaction to increased delay in these systems.
-
-
-
-
-
-
-\todo[inline]{
-    Here's where we ``present'' the papers.
-    However, we do this by presenting a ``red thread'' of contributions and key results.
-    Drive towards one big picture.
-
-    Add a hardened compilation of key results, conclusions, figures, and tables.
-    Synthesize and summarize the research questions and conclusions to find the red thread.
-}
-
-\begin{contributions}
-    \begin{enumerate}[
-            before = \leavevmode%\vspace{-.5\baselineskip}
-        ]
-        \item\label{item:contrib:methodology} 
-        \item In conjunction with the aforementioned methodology,
-        \item A 
-        \item An preliminary, yet novel exploration of the implications of realistic modeling of human timings in \ac{WCA} applications for their optimization potential.
-              \item\label{item:contrib:methodology:ncs} An extension of the methodology described in \cref{item:contrib:methodology} towards \acp{NCS}.
-        \item A novel tool, CLEAVE, for the emulation of \acp{NCS} on edge infrastructure.
-              This tool has been designed from the ground-up to be edge-native, implemented using widely-adopted technologies in the disciplines of cloud and edge computing.
-        \item Finally, a software framework for the management and automation of the testbeds required for the methodology described in \cref{item:contrib:methodology,item:contrib:methodology:ncs}.
-    \end{enumerate}
-\end{contributions}
-
-\section{A methodology for the study of latency trade-offs in \acs{WCA}}
-
-\todo[inline]{
-    \cref{paper:Olguin:DemoScaling2018,paper:Olguin:EdgeDroid2019} introduce our methodology, and validate its use in studying WCA.
-    Focus less on EdgeDroid 1.0 and more on the methodology, although discuss that EdgeDroid 1.0 is an initial approach to a tool we complete with EdgeDroid 2.0.
-}
-
+\subsection{\cref{paper:olguinmunoz2019edgedroid}}\label{summary:2019edgedroid}
 
 \begin{figure}
     \centering%
@@ -129,18 +117,11 @@ A system designer might then conclude from this that in order to be able to scal
 Finally, EdgeDroid 1.0 allows even more insights to be gained by homing in to individual steps in a task-guidance WCA. Consider \cref{fig:comparison:tasksteps}.
 The figure shows clears spikes in latencies at the transitions from task state 3 to 4 and from task state 4 to 5, which could indicate to the application developer that these specific transitions are ripe for optimization.
 
-\subsection{The EdgeDroid model of human behavior}
+\section{A realistic model of human behavior in \acs{WCA}}\label{summary:model}
 
-\todo[inline]{%
-    Introduce as follow-up to methodology discussion.
-    Natural implication of that is that we need a more detailed model of human behavior.
-    EdgeDroid 1.0 was an initial, very coarse approximation.
-    Here we present our final, polished model based on empirical data.
-}
+\subsection{\cref{paper:olguinmunoz2021impact}}\label{summary:2021impact}
 
-\subsubsection{Characterizing human reaction to delays in \ac{WCA}}
-
-\todo[inline]{\cref{paper:Olguin:ImpactWCA2021} describes the acquisition of the necessary data and insights for the models.}
+\todo[inline]{\cref{paper:olguinmunoz2021impact} describes the acquisition of the necessary data and insights for the models.}
 
 \todo[inline]{From introduction}
 
@@ -374,7 +355,7 @@ These same parameters could be used to modulate the timing and generation of inp
 \end{table}
 
 \FloatBarrier%
-\subsubsection{Implementing the model}
+\subsection{\cref{paper:olguinmunoz2023realistic}}\label{summary:2023realistic}
 
 \todo[inline]{Present the implementation of the model from \cref{paper:EdgeDroid2}}
 
@@ -393,10 +374,7 @@ Together with this model, we have also introduced a novel procedure for the gene
 
 \todo[inline]{TODO: Some relevant results. Need to add paper to thesis.}
 
-\subsection{Implications of the methodology for \ac{WCA} optimization}
-
-\todo[inline]{TODO, same as above}
-\todo[inline]{Include discussion from EdgeDroid 1.0?}
+\subsubsection{Implications of the methodology for \ac{WCA} optimization}
 
 \begin{enumerate}
     \item\label{item:contrib:footprint} Using the model described above, we study the implications of realistic human behavior on the application lifetime footprint of \ac{WCA}.
@@ -415,9 +393,10 @@ We have shown that this framework is applicable to a myriad of metrics in these 
 Our results show up to a \SI{50}{\percent} increase in performance with respect to state of the art when optimizing for number of samples, and up to a \SI{30}{\percent} improvement when optimizing for energy consumption, proving thus the value of such frameworks for the design of \ac{WCA} applications.
 
 \FloatBarrier%
-\section{A methodology for the study of latency trade-offs in \acsp{NCS}}
+\section{Extending the methodology to \acsp{NCS}}
 
-\todo[inline]{\Cref{paper:CLEAVE2022} implements both the methodology and the tool.}
+\subsection{\cref{paper:olguinmunoz2022cleave}}\label{summary:2022cleave}
+\todo[inline]{\Cref{paper:olguinmunoz2022cleave} implements both the methodology and the tool.}
 
 \subsection{The CLEAVE emulation framework}
 
@@ -507,9 +486,11 @@ We believe \ac{CLEAVE} represents an important step towards enabling inexpensive
 \end{figure}
 
 \FloatBarrier%
-\section{A software framework for Edge-computing testbeds}
+\section{Orchestrating edge computing testbeds}
 
-\todo[inline]{\cref{paper:Ainur2022} describes a software framework for testbeds used for the methodology described in this thesis}
+\subsection{\cref{paper:olguinmunoz2022ainur}}\label{summary:2022ainur}
+
+\todo[inline]{\cref{paper:olguinmunoz2022ainur} describes a software framework for testbeds used for the methodology described in this thesis}
 
 In this work, we present our solution to the challenge of testbed automation: Ainur, a framework for wireless testbed automation with a specific focus on end-to-end experimental research in the context of edge-computing using cloud- and edge-native technologies.
 Ainur is designed to deploy experimental runs from a workload perspective by configuring the physical testbed, initializing all involved software components, deploying and executing the experimental workload, collecting logs and data, and finally gracefully degrading the system.
@@ -551,5 +532,3 @@ It has been released as \ac{FOSS} and can be found on GitHub~\cite{ainur:github}
     \includegraphics[width=.8\textwidth]{publications/2022Ainur/figures/network.png}
     \caption{Network structure assumed by Ainur.}\label{fig:network}
 \end{figure*}
-
-
