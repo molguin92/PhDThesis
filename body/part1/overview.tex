@@ -11,30 +11,30 @@ This approach is based on the emulation of the client-side workload, while maint
 We validate this methodology by example, presenting a deep exploration of its implementation and applications in the context of \acl{WCA}, and a initial, more shallow foray into its applications in the context of \ac{NCS}.
 
 More specifically, in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} we introduce this methodology for \ac{WCA}.
-\cref{paper:olguinmunoz2018demoscaling} presents a short, high level overview of this methodological approach, in particular making very straightforward assumptions about human behavior in \ac{WCA} applications.
-\cref{paper:olguinmunoz2019edgedroid} extends the discussion from \cref{paper:olguinmunoz2018demoscaling}, providing more details on the implementation of the necessary measurement framework and the tooling employed, as well as on the assumptions that were made about human behavior and reactions.
+\cref{paper:olguinmunoz2018demoscaling} presents a short, high level overview of this methodological approach, making very straightforward assumptions about human behavior in \ac{WCA} applications.
+\cref{paper:olguinmunoz2019edgedroid} extends the discussion from \cref{paper:olguinmunoz2018demoscaling}, providing more details on the implementation of the necessary measurement framework and the tooling employed.
+This work presents the first empirical results obtained with our methodological approach, providing thus an initial validation of its utility for research.
+Finally, \cref{paper:olguinmunoz2019edgedroid} discusses in detail the assumptions that were made about human behavior and reactions.
 We assume in these works a human which is impervious to poor system performance, and suffers no annoyance, fatigue, frustration, nausea or other shortcomings of real human users.
-This results in a model of a user who responds in a precisely reproducible and deterministic manner to the same system stimulus every time.
-\cref{paper:olguinmunoz2019edgedroid} furthermore presents the first empirical results obtained with our methodological approach, providing thus an initial validation of its utility for research.
+The result is a model of a user who responds in a precisely reproducible and deterministic manner to the same system stimulus every time.
 
-Next, in \cref{paper:olguinmunoz2021impact} we present a deep characterization of human behavior in \ac{WCA}.
-This represents a critical prerequisite for an extension of the human model presented in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} towards a more advanced realistic iteration.
+Although the above approach to human behavior in \ac{WCA} represents a useful initial approximation, it is nonetheless not a realistic model of it.
+In \cref{paper:olguinmunoz2021impact} we therefore take the first major step towards such a model, presenting a deep characterization of human behavior in these applications.
 We develop this characterization through a human subject study with a cohort of \num{40} participants who were asked to interact with an instrumented \ac{WCA} application.
 System responsiveness is altered in real-time during each execution of the task, and we record participants' reactions by measuring task- and system-related metrics, as well as biometrics from sensors placed on their bodies.
 Participants were also asked to fill out two personality indicator questionnaires, allowing us to later correlate individual personality traits and measured reaction to changes in system responsiveness.
 
-\cref{paper:olguinmunoz2023realistic} then builds upon our work in \cref{paper:olguinmunoz2021impact}.
-We employ the insights obtained on human reactions to changes in system responsiveness to develop the first ever data-driven model of human timings for \ac{WCA}.
-The model is further validated against previously obtained results, both through simulated, controlled executions and deployments on a real edge computing testbed.
-Finally, the paper explores potential implications of this model for \ac{WCA} system optimization potential, particularly in the domains of energy consumption and sampling strategies.
+\cref{paper:olguinmunoz2023realistic} then concludes this line of work, building upon the insights and data obtained in \cref{paper:olguinmunoz2021impact} to develop the first ever data-driven model of human timings for \ac{WCA}.
+The model is validated against previously obtained results, both through simulated, controlled executions and deployments on a real edge computing testbed.
+This work also explores potential implications of this model for \ac{WCA} system optimization potential, particularly in the domains of energy consumption and sampling strategies.
 
 On the other hand, \cref{paper:olguinmunoz2022cleave} presents an extension to the methodology introduced and developed in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} to the field of \aclp{NCS}.
 We implement a tool for the emulation of these systems on edge computing infrastructure, and deploy it on an edge computing testbed for validation.
+In particular, this work showcases the scalability and flexibility of our approach, allowing us to deploy scenarios with a large number of loops without the need for domain-specific hardware.
 
 Finally, \cref{paper:olguinmunoz2022ainur} presents the software framework used in \cref{paper:olguinmunoz2023realistic,paper:olguinmunoz2022cleave} for the orchestration of the edge computing testbeds on which the developed tools were deployed.
 This framework represents an ancillary contribution, tangential to yet crucial for the research presented in these works.
-
-\medskip%
+Without it, the experimental approach described in these works would not have been feasible.
 
 In the following sections, we will summarize in detail the key contributions of each of the above-mentioned works.
 \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} are discussed in detail in \cref{summary:2018demo,summary:2019edgedroid}.
@@ -49,6 +49,70 @@ Next, in \cref{summary:model} we present \cref{paper:olguinmunoz2021impact} (\cr
 As discussed previously, benchmarking infrastructures for edge-bound applications featuring feedback-loops is challenging, in particular when dealing with applications with high sensitivity to latency (such as \ac{NCS}) or with human involvement (such as \ac{WCA}).
 This short papers' main contribution is the introduction of our methodological framework for tackling this challenge.
 
+As previously explained, our methodology is based on the core idea of executing an emulation of the target workload on top of the real hardware on which it is to be deployed.
+Two main arguments drive this approach.
+One, it maintains the realism and accuracy of the system.
+This is particularly important in wireless and mobile edge computing systems, which present complex behaviors and interactions intrinsic to their networking technologies.
+And two, it allows for ease of scaling.
+The client-side component of the applications of interest for this research is often complex to scale, either due to the involvement of humans (as in the case of \ac{WCA}) or due its cyber-physical nature (in \acp{NCS}).
+Emulating this component reduces this complexity by moving it into the software domain, allowing for easier scaling through the use of cheap, general-purpose hardware such as single-board computers (e.g. Raspberry Pis, Beaglebones, etc.).
+
+This work presents the first approach to this concept for \ac{WCA}.
+To establish a reproducible and comparable workload, we use a trace-based design for the client-side emulation.
+We first record a trace of the sensory input data while having a human user operate the target application.
+The collected data consists of the sensory inputs provided to the system at runtime, for instance --- in the case of a video-based application --- the video feed from the camera.
+
+To then use the trace for reproducible experiments, we introduce a benchmarking suite which can replay the trace to the original application.
+This results in the same computation to be performed on the edge as if a human was involved, while also ensuring a reproducible application execution path.
+Additionally, the suite is instrumented to collect system level metrics at runtime for posterior analysis.
+
+\begin{figure}
+    % Define block styles
+    %         \tikzstyle{block} = [circle, draw, fill=red!20, 
+    %         text width=5em, text centered, rounded corners, minimum size=4em]
+    %         \tikzstyle{decision} = [diamond, aspect=2, draw, fill=yellow!20,
+    %         text width=5em, text centered, rounded corners, minimum size=4em]
+    %        \tikzstyle{line} = [draw, -{Latex[length=3mm]}]
+    \centering
+    \adjustbox{scale=0.75}{
+        \begin{tikzpicture}[align=center,
+        node distance=.5cm and 1.5cm,
+        every initial by arrow/.style={-{Latex[length=2mm]}}]
+        % Place nodes              
+        \node [initial, state, minimum size=6em, initial text=] (play) {Play};               
+        \node [state, above right=of play, minimum size=6em] (change) {Change\\step};
+        \node [state, below right=of play, minimum size=6em] (rewind) {Rewind};
+        \node [state, accepting, above right=of rewind, minimum size=6em] (shutdown) {Shutdown};
+        
+        
+        
+        % Draw edges
+        \path[draw, -{Latex[length=2mm]}]
+        (play) edge [bend right=20] node[left] {Step done} (rewind)
+        edge [bend left=20] node[left] {Got feedback\\(\emph{positive})} (change)
+        edge [out=140,in=220,looseness=6] node[left] {Step\\not done} (play)
+        
+        (change) edge [bend left=20] node[right] {Step changed} (play)
+        edge [bend left=20] node[right] {All steps done} (shutdown)
+        
+        (rewind) edge [bend right=20] node[right] {Rewound} (play)
+        edge [bend right=20] node[right] {Too many rewinds} (shutdown);
+        
+        \end{tikzpicture}
+    }
+    \caption{State diagram of the user model}
+    \label{fig:usermodel}
+\end{figure}
+
+However, merely replaying the trace is not enough, as disparities between system responsiveness at recording versus replay time can cause the trace so drift out of synchronization with the current state of the system.
+Thus, we introduce here the concept of a human user model which is able to adapt its behavior in a realistic manner based on the current responsiveness of the system by systematically controlling the replay of the trace.
+The initial approximation we introduce, illustrated in \cref{fig:usermodel}, here is that of a human that is patient and does not make mistakes, and any error message received from the application backend is ignored.
+The trace is preprocessed into segments that correspond to individual steps of the \ac{WCA} application; this is performed manually as a preparation step.
+The user model then replays each segment in order; whenever feedback corresponding to a change of step is received from the \ac{WCA} backend, the user model transitions to the next segment in the trace, no matter whether the current segment has been replayed out completely or not.
+On the other hand, if no step transition feedback has been received at the end of the current trace segment, the model rewinds the trace a $\tau$ seconds and tries again.
+To avoid infinite loops, where the application is stuck on a step forever, we have a maximum number of possible rewinds, after which the application shuts down.
+
+\todo[inline]{EdgeDroid paper}
 
 \subsection{\cref{paper:olguinmunoz2019edgedroid}}\label{summary:2019edgedroid}
 
