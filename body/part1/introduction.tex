@@ -1,32 +1,65 @@
-\chapter{Introduction}
+\chapter{Introduction}\label{chap:introduction}
 
-\section{Background \& Related Work}
+\todo[inline]{
+    Introduction here. Why do we need this work?
+}
 
-Deep focus on theoretical background.
+\todo[inline]{
+    Reorganize EdgeDroid, Cleave, Ainur, together.
 
-\subsection{Theoretical background}
-\textcite{Satya2009Case}.
-Other papers detailing the advantages of Edge computing.
+    Pull in multi-loop results for EdgeDroid?
 
-Next, what applications benefit from the Edge?
-\ac{WCA}! Mention both the main body of work (by Satya et.\ al.) but also other authors out there.
-Main points: prototypes and characterization of system latencies and load.
+    Think about experiments.
+}
 
+\section{Summary of the key contributions of this thesis}
 
-\section{Scope of this thesis}
+This thesis presents three core contributions to the existing body of research in edge computing, as well as a number of secondary ones.
+Firstly, we introduce a methodological approach to studying system responsiveness versus resource consumption trade-offs in edge-bound feedback-loop systems such as \ac{WCA} and \ac{NCS}.
+This approach is based on the emulation of the client-side workload, while maintaining the \emph{real} server-side process as well as network stack.
+We validate this methodology by example, presenting implementations of its application in the context of \ac{WCA} and \acp{NCS}, and introduce a software framework for the orchestration of the edge computing testbeds necessary for its implementation. 
 
-What research questions are being tackled?
+Secondly, we present a deeper exploration of this methodology for \ac{WCA} and introduce the first ever model for the end-to-end emulation of human timing behavior in \ac{WCA}.
+This model is built from a thorough characterization of these behaviors, the data for which we obtain from a comprehensive human-subject study.
 
-How will human-in-the-loop/\ac{WCA} systems look in production?
+Finally, as an extension and application of our first and second contributions, we explore the implications of our methodology and human user model on the optimization potential of \ac{WCA} deployments.
+In particular, we study the sampling and energy consumption behaviors of these systems with and without considering realistic human behavior.
+We conclude that significant improvements can be achieved through the use of our human user model.
 
-How will they look in large scale deployments?
+\subsection{Overview of each included paper}
 
-How many applications can given systems support?
+\cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid,paper:olguinmunoz2022cleave,paper:olguinmunoz2022ainur} introduce and discuss this methodology and the necessary tools for its implementation.
+\cref{paper:olguinmunoz2018demoscaling} presents a short, high level overview of this methodological approach as applied to \ac{WCA}, making very straightforward assumptions about human behavior in \ac{WCA} applications.
+\cref{paper:olguinmunoz2019edgedroid} extends the discussion from \cref{paper:olguinmunoz2018demoscaling}, providing more details on the implementation of the necessary measurement framework and the tooling employed.
+This work presents the first empirical results obtained with our methodological approach, providing thus an initial validation of its utility for research.
+\cref{paper:olguinmunoz2019edgedroid} also discusses in detail the assumptions that were made about human behavior and reactions.
+We assume in these works a human which is impervious to poor system performance, and suffers no annoyance, fatigue, frustration, nausea or other shortcomings of real human users.
+The result is a model of a user who responds in a precisely reproducible and deterministic manner to the same system stimulus every time.
 
-How can these dimensions be studied?
-Here's where modeling and empirical data-driven research comes in.
+\cref{paper:olguinmunoz2022cleave}, on the other hand, presents a discussion on the implementation of this methodology for \acp{NCS}.
+As discussed above, these applications are similarly difficult as \ac{WCA} to benchmark (in particular at scale on multi-tenant systems) due to their client-side complexity, but in particular because of their often extreme sensitivity to latency.
+\todo[inline]{More argumentation or refer to previous section.}
+We apply thus in this work our methodology to \ac{NCS} through the implementation of a tool for the emulation and subsequent deployment of these systems on edge computing infrastructure.
+This tool allows us to both emulate the physical components of a relatively simple control system plant and deploy real algorithms for its control.
+The software acts as a middleware which abstracts away the network from the development of these workloads, allowing for quick prototyping and deployment.
+This work also showcases the scalability and flexibility of our approach, allowing us to deploy scenarios with a large number of loops without the need for domain-specific hardware.
 
-Is there potential for optimization?
-Yes, trading of system responsiveness for decrease in system load.
-Underlying principle under aperiodic, adaptive sampling.
-The potential for optimization is novel and stems from \textcite{Olguin:ImpactWCA2021}.
+\cref{paper:olguinmunoz2022ainur} presents a tangential contribution.
+It introduces the software framework used in \cref{paper:olguinmunoz2023realistic,paper:olguinmunoz2022cleave} for the orchestration of the edge computing testbeds on which the developed tools were deployed.
+This framework represents an ancillary contribution, crucial for the research presented in these works.
+Without it, the experimental approach described in these works would not have been feasible.
+
+Next, in \cref{paper:olguinmunoz2021impact,paper:olguinmunoz2023realistic} we delve deep into the implementation of our methodology for \ac{WCA}, as well as study its implications for optimization of these systems.
+Although the above approach to human behavior in \ac{WCA} discussed represents a useful initial approximation, it is nonetheless not a realistic model of it.
+In \cref{paper:olguinmunoz2021impact} we therefore take the first major step towards such a model, presenting a deep characterization of human behavior in these applications.
+We develop this characterization through a human subject study with a cohort of \num{40} participants who were asked to interact with an instrumented \ac{WCA} application.
+System responsiveness is altered in real-time during each execution of the task, and we record participants' reactions by measuring task- and system-related metrics, as well as biometrics from sensors placed on their bodies.
+Participants were also asked to fill out two personality indicator questionnaires, allowing us to later correlate individual personality traits and measured reaction to changes in system responsiveness.
+
+\cref{paper:olguinmunoz2023realistic} then concludes this line of work, building upon the insights and data obtained in \cref{paper:olguinmunoz2021impact} to develop the first ever data-driven model of human timings for \ac{WCA}.
+The model is validated against previously obtained results, both through simulated, controlled executions and deployments on a real edge computing testbed.
+This work also explores potential implications of this model for \ac{WCA} system optimization potential, particularly in the domains of energy consumption and sampling strategies.
+
+\section{Structure of this thesis}
+
+\todo[inline]{This thesis is structured as follows.}

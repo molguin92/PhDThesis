@@ -1,46 +1,6 @@
-\chapter{Overview of this thesis' contributions}
+\chapter{Key contributions and results}\label{chap:contributions}
 
-\todo[inline]{
-    Methodology: a system of methods used in a particular area of study or activity.
-}
-
-\section{Scope of this thesis}
-
-We study in this thesis a methodological approach to studying system responsiveness versus resource consumption trade-offs in edge-bound feedback-loop systems such as \ac{WCA} and \ac{NCS}.
-This approach is based on the emulation of the client-side workload, while maintaining the \emph{real} server-side process as well as network stack.
-We validate this methodology by example, presenting a deep exploration of its implementation and applications in the context of \acl{WCA}, and a initial, more shallow foray into its applications in the context of \ac{NCS}.
-
-More specifically, in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} we introduce this methodology for \ac{WCA}.
-\cref{paper:olguinmunoz2018demoscaling} presents a short, high level overview of this methodological approach, making very straightforward assumptions about human behavior in \ac{WCA} applications.
-\cref{paper:olguinmunoz2019edgedroid} extends the discussion from \cref{paper:olguinmunoz2018demoscaling}, providing more details on the implementation of the necessary measurement framework and the tooling employed.
-This work presents the first empirical results obtained with our methodological approach, providing thus an initial validation of its utility for research.
-Finally, \cref{paper:olguinmunoz2019edgedroid} discusses in detail the assumptions that were made about human behavior and reactions.
-We assume in these works a human which is impervious to poor system performance, and suffers no annoyance, fatigue, frustration, nausea or other shortcomings of real human users.
-The result is a model of a user who responds in a precisely reproducible and deterministic manner to the same system stimulus every time.
-
-Although the above approach to human behavior in \ac{WCA} represents a useful initial approximation, it is nonetheless not a realistic model of it.
-In \cref{paper:olguinmunoz2021impact} we therefore take the first major step towards such a model, presenting a deep characterization of human behavior in these applications.
-We develop this characterization through a human subject study with a cohort of \num{40} participants who were asked to interact with an instrumented \ac{WCA} application.
-System responsiveness is altered in real-time during each execution of the task, and we record participants' reactions by measuring task- and system-related metrics, as well as biometrics from sensors placed on their bodies.
-Participants were also asked to fill out two personality indicator questionnaires, allowing us to later correlate individual personality traits and measured reaction to changes in system responsiveness.
-
-\cref{paper:olguinmunoz2023realistic} then concludes this line of work, building upon the insights and data obtained in \cref{paper:olguinmunoz2021impact} to develop the first ever data-driven model of human timings for \ac{WCA}.
-The model is validated against previously obtained results, both through simulated, controlled executions and deployments on a real edge computing testbed.
-This work also explores potential implications of this model for \ac{WCA} system optimization potential, particularly in the domains of energy consumption and sampling strategies.
-
-On the other hand, \cref{paper:olguinmunoz2022cleave} presents an extension to the methodology introduced and developed in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} to the field of \aclp{NCS}.
-We implement a tool for the emulation of these systems on edge computing infrastructure, and deploy it on an edge computing testbed for validation.
-In particular, this work showcases the scalability and flexibility of our approach, allowing us to deploy scenarios with a large number of loops without the need for domain-specific hardware.
-
-Finally, \cref{paper:olguinmunoz2022ainur} presents the software framework used in \cref{paper:olguinmunoz2023realistic,paper:olguinmunoz2022cleave} for the orchestration of the edge computing testbeds on which the developed tools were deployed.
-This framework represents an ancillary contribution, tangential to yet crucial for the research presented in these works.
-Without it, the experimental approach described in these works would not have been feasible.
-
-In the following sections, we will summarize in detail the key contributions of each of the above-mentioned works.
-\cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} are discussed in detail in \cref{summary:2018demo,summary:2019edgedroid}.
-Next, in \cref{summary:model} we present \cref{paper:olguinmunoz2021impact} (\cref{summary:2021impact}) and \cref{paper:olguinmunoz2023realistic} (\cref{summary:2023realistic}).
-\cref{paper:olguinmunoz2022cleave} is summarized in \cref{summary:2022cleave}, and we finalize this chapter with a summary of \cref{paper:olguinmunoz2022ainur} in \cref{summary:2022ainur}.
-
+\todo[inline]{Reorganize}
 
 \section{A methodology for the study of feedback-loop systems in Edge Computing}\label{summary:methodology}
 
