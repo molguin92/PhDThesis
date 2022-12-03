@@ -4,7 +4,9 @@
 
 \section{A methodology for the study of feedback-loop systems in Edge Computing}\label{summary:methodology}
 
-\subsection{\cref{paper:olguinmunoz2018demoscaling}}\label{summary:2018demo}
+\subsection{Applying the methodology to \acs{WCA}}
+
+\todo[inline]{\cref{paper:olguinmunoz2018demoscaling}}\label{summary:2018demo}
 
 As discussed previously, benchmarking infrastructures for edge-bound applications featuring feedback-loops is challenging, in particular when dealing with applications with high sensitivity to latency (such as \ac{NCS}) or with human involvement (such as \ac{WCA}).
 This short papers' main contribution is the introduction of our methodological framework for tackling this challenge.
@@ -74,7 +76,7 @@ To avoid infinite loops, where the application is stuck on a step forever, we ha
 
 \todo[inline]{EdgeDroid paper}
 
-\subsection{\cref{paper:olguinmunoz2019edgedroid}}\label{summary:2019edgedroid}
+
 
 \begin{figure}
     \centering%
@@ -141,9 +143,147 @@ A system designer might then conclude from this that in order to be able to scal
 Finally, EdgeDroid 1.0 allows even more insights to be gained by homing in to individual steps in a task-guidance WCA. Consider \cref{fig:comparison:tasksteps}.
 The figure shows clears spikes in latencies at the transitions from task state 3 to 4 and from task state 4 to 5, which could indicate to the application developer that these specific transitions are ripe for optimization.
 
-\section{A realistic model of human behavior in \acs{WCA}}\label{summary:model}
 
-\subsection{\cref{paper:olguinmunoz2021impact}}\label{summary:2021impact}
+\todo[inline]{\cref{paper:olguinmunoz2019edgedroid}}\label{summary:2019edgedroid}
+
+\subsection{Applying the methodology to \acsp{NCS}}
+\todo[inline]{\Cref{paper:olguinmunoz2022cleave} implements both the methodology and the tool.}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=.8\textwidth]{publications/2022CLEAVE/images/CLEAVE_NCS_structure}
+    \caption{
+        Structure of an emulated \acl*{NCS} in \acs*{CLEAVE}.
+    }\label{fig:cleave:ncs:struct}
+\end{figure*}
+
+We overcome this issue by proposing a completely virtual plant allowing for unparalleled flexibility in changing the plant model and characteristic features of the experiments.
+In this paper, we present the first fully-software-based framework for scalable and repeatable benchmarking of edge-native \ac{NCS}.
+As edge computing begins being adopted by industry, more and more variations have begun to appear in literature.
+``Near'', ``far'', ``core'', and ``telco'' edge describe variations of the original concept and are becoming ubiquitous in new research.
+While the core idea of edge computing is widely accepted as fundamental for pervasive \acp{NCS} in general, understanding the strengths and weaknesses of such different edge concepts is of paramount importance.
+
+Our framework, \ac{CLEAVE}, aims to simplify the repeatable and scalable benchmarking of such systems.
+It is fully virtualized, inspired by our previous work on benchmarking human-in-the-loop applications on the edge~\cite{Olguin2019EdgeDroid}.
+The tool consists of a benchmarking framework and software development kit for the development of emulated physical systems and softwarized controllers.
+These virtual \acp{NCS} can then be deployed on real networks for reparametrizable, repeatable, and reproducible benchmarking of the complete system.
+
+\ac{CLEAVE} is built using \emph{Python 3.8}, making it highly extensible and able to harness the multitude of already existing user libraries.
+It is furthermore compatible with container technologies such as \emph{Docker}\footnote{Docker Engine: \url{https://www.docker.com/}}, making it suitable for automated deployment, scaling, and benchmarking on industry-standard edge setups using container orchestration solutions.
+
+In this work, we aimed to tackle this issue through a fully software-based framework for repeatable, reproducible, and easily scalable \ac{NCS} benchmarking with a particular focus on edge deployment.
+We argue our approach, \ac{CLEAVE}, embodies a better solution than previous work for a number of reasons:
+\begin{enumerate}
+    \item Compared to fully physical approaches, such as those used in\ \cite{Baumann2018LowPower} and\ \cite{Cuenca2019UAV}, our approach allows for greater flexibility and scalability.
+          The aforementioned approaches rely on specialized and sometimes entirely custom-built physical platforms, and although flexible and cheap approaches such as Zoppi \emph{et al.'s} --- which uses a LEGO-based physical plant --- exist, these still do not reach the level of flexibility afforded by a fully software-based framework.
+          Experimenters still need copies of the hardware, making anything other than small-scale setups unfeasible.
+          In contrast, our approach requires only general-purpose computing platforms, and can be employed by basically anyone with access to a computer.
+          Scalable deployments can in turn easily and cheaply be set up using single-board computers and/or virtual cloud instances.
+    \item When compared to simulated approaches such as\ \cite{Ma2019DynamicSched}, \ac{CLEAVE} provides a higher level of realism, in particular with regards to the network segment of the system.
+    \item Finally, although it shares much in common with previous emulated approaches such as the one employed in\ \cite{Wang2020VoltageControl}, \ac{CLEAVE} has an advantage by specifically targeting a general-purpose approach using industry-standard, cloud- and edge-native tools and software.
+          The tool can easily be deployed and scaled using widely-used frameworks such as Docker Swarm and Kubernetes.
+\end{enumerate}
+
+We validate the utility of this tool through an example use case approximating a proposed edge deployment of inverted pendula control loops co-located with video analytics services.
+We argue such a use case represents a realistic scenario and appropriate benchmark for the tool, since
+\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
+    \item the inverted pendulum plant is ubiquitous in \ac{NCS} research
+    \item similar setups exist in real-world industrial use
+    \item video analytics has long been proposed as a ``killer app'' for edge computing.
+\end{enumerate*}
+Our results showcase the ability of the framework to extract relevant metrics relating to the stability of the control system, as well as on the performance of the underlying network link.
+We believe \ac{CLEAVE} represents an important step towards enabling inexpensive and low-complexity scalable research for real-world deployment of edge-bound \acp{NCS}.
+
+\todo[inline]{Some plots and results}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.6\columnwidth]{publications/2022CLEAVE/images/inverted_pendulum.png}
+    \caption{
+        The 2D inverted pendulum system.
+    }\label{fig:invpend}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \begin{subfigure}[h]{.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_topple_frac}
+        \caption{Toppled plants.}\label{fig:video:toppled}
+    \end{subfigure}%
+    \hfill%
+    \begin{subfigure}[h]{.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_angle_rms}
+        \caption{Angle \ac{RMS}.}\label{fig:video:rms}
+    \end{subfigure}\\
+    \begin{subfigure}[h]{.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_drop_frac}
+        \caption{Packet losses.}\label{fig:video:drop}
+    \end{subfigure}%
+    \hfill%
+    \begin{subfigure}[h]{.22\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_rtt}
+        \caption{\acsp{RTT}.}\label{fig:video:rtt}
+    \end{subfigure}%
+    \caption{
+        Multi-loop, resource-constrained setup results.
+        Error bars indicate \SI{95}{\percent} \acp{CI} in all plots.
+    }\label{fig:video:results}
+\end{figure}
+
+\FloatBarrier%
+
+\subsection{Orchestrating experimentation in edge computing testbeds}
+
+\todo[inline]{\cref{paper:olguinmunoz2022ainur} describes a software framework for testbeds used for the methodology described in this thesis}
+
+In this work, we present our solution to the challenge of testbed automation: Ainur, a framework for wireless testbed automation with a specific focus on end-to-end experimental research in the context of edge-computing using cloud- and edge-native technologies.
+Ainur is designed to deploy experimental runs from a workload perspective by configuring the physical testbed, initializing all involved software components, deploying and executing the experimental workload, collecting logs and data, and finally gracefully degrading the system.
+The framework allows for dynamic, software-definition of physical and logical links, network topology, cloud and edge computing resources, as well as experimental workload deployment and orchestration.
+It heavily leverages cloud-native technologies, such as Docker containers, in order to support a wide variety of different testbed hardware setups and experimental configurations and workloads, as well as to be as easily extendable as possible.
+Furthermore, we make Ainur available to the community as \ac{FOSS}.
+It can be obtained from the {KTH-EXPECA/Ainur} repository on GitHub~\cite{ainur:github}, released under an Apache version \num{2.0} license.
+
+In this paper, we have introduced a framework for repeatable end-to-end testbed automation in the context of wireless networking and edge computing research.
+Named Ainur, it simplifies the execution and verification of end-to-end experimentation by automating the
+\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
+    \item establishment of physical links between hosts, including the configuration of complex wireless systems such as 4G \ac{LTE} and 5G
+    \item provisioning of and connection to remote cloud instances
+    \item initialization of \ac{IP} layer connectivity between hosts
+    \item collection of logs and data
+    \item deployment, scaling, and lifecycle management of containerized processes
+\end{enumerate*}.
+We have described its general architecture, which follows a layered design mimicking the network stack layers the framework directly interacts with, as well as the underlying assumptions about its deployment environment and specific requirements for its deployment.
+We have also outlined a demonstration which showcases the flexibility and power of the framework by deploying two different workloads to our testbed.
+We believe our framework represents an important step towards repeatable, replicable, yet low-access barrier end-to-end wireless testbed experimentation.
+It has been released as \ac{FOSS} and can be found on GitHub~\cite{ainur:github}.\\
+
+\todo[inline]{Some plots}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{publications/2022Ainur/figures/overview.jpg}
+    \caption{Layered structure of an Ainur experiment}\label{fig:overview}
+\end{figure}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.8\textwidth]{publications/2022Ainur/figures/flow2.png}
+    \caption{Lifecycle of an experimental run in Ainur. Blocks in orange are optional.}\label{fig:flow}
+\end{figure*}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=.8\textwidth]{publications/2022Ainur/figures/network.png}
+    \caption{Network structure assumed by Ainur.}\label{fig:network}
+\end{figure*}
+
+\section{Extending the methodology in the context of \acs{WCA}}
+
+\subsection{Characterizing human behavior}
 
 \todo[inline]{\cref{paper:olguinmunoz2021impact} describes the acquisition of the necessary data and insights for the models.}
 
@@ -378,10 +518,7 @@ These same parameters could be used to modulate the timing and generation of inp
     \end{subtable}
 \end{table}
 
-\FloatBarrier%
-\subsection{\cref{paper:olguinmunoz2023realistic}}\label{summary:2023realistic}
-
-\todo[inline]{Present the implementation of the model from \cref{paper:EdgeDroid2}}
+\subsection{Emulating human behavior}
 
 We introduce the first, to our knowledge, data-driven model for human timings in \ac{WCA} applications.
 Using the data collected for \textcite{olguinmunoz:impact2021} as a base, we build a stochastic model which takes as input past measurements of system responsiveness and produces realistic step execution times.
@@ -398,7 +535,7 @@ Together with this model, we have also introduced a novel procedure for the gene
 
 \todo[inline]{TODO: Some relevant results. Need to add paper to thesis.}
 
-\subsubsection{Implications of the methodology for \ac{WCA} optimization}
+\section{Implications for the optimization of \ac{WCA}}
 
 \begin{enumerate}
     \item\label{item:contrib:footprint} Using the model described above, we study the implications of realistic human behavior on the application lifetime footprint of \ac{WCA}.
@@ -415,144 +552,3 @@ Finally, we have delved into the potential for optimization in \ac{WCA} systems 
 We have proposed a novel stochastic optimization framework for resource consumption-system responsiveness trade-offs in \ac{WCA} which results in an adaptive sampling strategy.
 We have shown that this framework is applicable to a myriad of metrics in these applications, and showcased experimental results employing this framework for the minimization of number of samples processed per step and total energy consumption per step.
 Our results show up to a \SI{50}{\percent} increase in performance with respect to state of the art when optimizing for number of samples, and up to a \SI{30}{\percent} improvement when optimizing for energy consumption, proving thus the value of such frameworks for the design of \ac{WCA} applications.
-
-\FloatBarrier%
-\section{Extending the methodology to \acsp{NCS}}
-
-\subsection{\cref{paper:olguinmunoz2022cleave}}\label{summary:2022cleave}
-\todo[inline]{\Cref{paper:olguinmunoz2022cleave} implements both the methodology and the tool.}
-
-\subsection{The CLEAVE emulation framework}
-
-\begin{figure*}
-    \centering
-    \includegraphics[width=.8\textwidth]{publications/2022CLEAVE/images/CLEAVE_NCS_structure}
-    \caption{
-        Structure of an emulated \acl*{NCS} in \acs*{CLEAVE}.
-    }\label{fig:cleave:ncs:struct}
-\end{figure*}
-
-We overcome this issue by proposing a completely virtual plant allowing for unparalleled flexibility in changing the plant model and characteristic features of the experiments.
-In this paper, we present the first fully-software-based framework for scalable and repeatable benchmarking of edge-native \ac{NCS}.
-As edge computing begins being adopted by industry, more and more variations have begun to appear in literature.
-``Near'', ``far'', ``core'', and ``telco'' edge describe variations of the original concept and are becoming ubiquitous in new research.
-While the core idea of edge computing is widely accepted as fundamental for pervasive \acp{NCS} in general, understanding the strengths and weaknesses of such different edge concepts is of paramount importance.
-
-Our framework, \ac{CLEAVE}, aims to simplify the repeatable and scalable benchmarking of such systems.
-It is fully virtualized, inspired by our previous work on benchmarking human-in-the-loop applications on the edge~\cite{Olguin2019EdgeDroid}.
-The tool consists of a benchmarking framework and software development kit for the development of emulated physical systems and softwarized controllers.
-These virtual \acp{NCS} can then be deployed on real networks for reparametrizable, repeatable, and reproducible benchmarking of the complete system.
-
-\ac{CLEAVE} is built using \emph{Python 3.8}, making it highly extensible and able to harness the multitude of already existing user libraries.
-It is furthermore compatible with container technologies such as \emph{Docker}\footnote{Docker Engine: \url{https://www.docker.com/}}, making it suitable for automated deployment, scaling, and benchmarking on industry-standard edge setups using container orchestration solutions.
-
-In this work, we aimed to tackle this issue through a fully software-based framework for repeatable, reproducible, and easily scalable \ac{NCS} benchmarking with a particular focus on edge deployment.
-We argue our approach, \ac{CLEAVE}, embodies a better solution than previous work for a number of reasons:
-\begin{enumerate}
-    \item Compared to fully physical approaches, such as those used in\ \cite{Baumann2018LowPower} and\ \cite{Cuenca2019UAV}, our approach allows for greater flexibility and scalability.
-          The aforementioned approaches rely on specialized and sometimes entirely custom-built physical platforms, and although flexible and cheap approaches such as Zoppi \emph{et al.'s} --- which uses a LEGO-based physical plant --- exist, these still do not reach the level of flexibility afforded by a fully software-based framework.
-          Experimenters still need copies of the hardware, making anything other than small-scale setups unfeasible.
-          In contrast, our approach requires only general-purpose computing platforms, and can be employed by basically anyone with access to a computer.
-          Scalable deployments can in turn easily and cheaply be set up using single-board computers and/or virtual cloud instances.
-    \item When compared to simulated approaches such as\ \cite{Ma2019DynamicSched}, \ac{CLEAVE} provides a higher level of realism, in particular with regards to the network segment of the system.
-    \item Finally, although it shares much in common with previous emulated approaches such as the one employed in\ \cite{Wang2020VoltageControl}, \ac{CLEAVE} has an advantage by specifically targeting a general-purpose approach using industry-standard, cloud- and edge-native tools and software.
-          The tool can easily be deployed and scaled using widely-used frameworks such as Docker Swarm and Kubernetes.
-\end{enumerate}
-
-We validate the utility of this tool through an example use case approximating a proposed edge deployment of inverted pendula control loops co-located with video analytics services.
-We argue such a use case represents a realistic scenario and appropriate benchmark for the tool, since
-\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
-    \item the inverted pendulum plant is ubiquitous in \ac{NCS} research
-    \item similar setups exist in real-world industrial use
-    \item video analytics has long been proposed as a ``killer app'' for edge computing.
-\end{enumerate*}
-Our results showcase the ability of the framework to extract relevant metrics relating to the stability of the control system, as well as on the performance of the underlying network link.
-We believe \ac{CLEAVE} represents an important step towards enabling inexpensive and low-complexity scalable research for real-world deployment of edge-bound \acp{NCS}.
-
-\todo[inline]{Some plots and results}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=.6\columnwidth]{publications/2022CLEAVE/images/inverted_pendulum.png}
-    \caption{
-        The 2D inverted pendulum system.
-    }\label{fig:invpend}
-\end{figure}
-
-\begin{figure}[t]
-    \centering
-    \begin{subfigure}[h]{.22\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_topple_frac}
-        \caption{Toppled plants.}\label{fig:video:toppled}
-    \end{subfigure}%
-    \hfill%
-    \begin{subfigure}[h]{.22\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_angle_rms}
-        \caption{Angle \ac{RMS}.}\label{fig:video:rms}
-    \end{subfigure}\\
-    \begin{subfigure}[h]{.22\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_drop_frac}
-        \caption{Packet losses.}\label{fig:video:drop}
-    \end{subfigure}%
-    \hfill%
-    \begin{subfigure}[h]{.22\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_rtt}
-        \caption{\acsp{RTT}.}\label{fig:video:rtt}
-    \end{subfigure}%
-    \caption{
-        Multi-loop, resource-constrained setup results.
-        Error bars indicate \SI{95}{\percent} \acp{CI} in all plots.
-    }\label{fig:video:results}
-\end{figure}
-
-\FloatBarrier%
-\section{Orchestrating edge computing testbeds}
-
-\subsection{\cref{paper:olguinmunoz2022ainur}}\label{summary:2022ainur}
-
-\todo[inline]{\cref{paper:olguinmunoz2022ainur} describes a software framework for testbeds used for the methodology described in this thesis}
-
-In this work, we present our solution to the challenge of testbed automation: Ainur, a framework for wireless testbed automation with a specific focus on end-to-end experimental research in the context of edge-computing using cloud- and edge-native technologies.
-Ainur is designed to deploy experimental runs from a workload perspective by configuring the physical testbed, initializing all involved software components, deploying and executing the experimental workload, collecting logs and data, and finally gracefully degrading the system.
-The framework allows for dynamic, software-definition of physical and logical links, network topology, cloud and edge computing resources, as well as experimental workload deployment and orchestration.
-It heavily leverages cloud-native technologies, such as Docker containers, in order to support a wide variety of different testbed hardware setups and experimental configurations and workloads, as well as to be as easily extendable as possible.
-Furthermore, we make Ainur available to the community as \ac{FOSS}.
-It can be obtained from the {KTH-EXPECA/Ainur} repository on GitHub~\cite{ainur:github}, released under an Apache version \num{2.0} license.
-
-In this paper, we have introduced a framework for repeatable end-to-end testbed automation in the context of wireless networking and edge computing research.
-Named Ainur, it simplifies the execution and verification of end-to-end experimentation by automating the
-\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
-    \item establishment of physical links between hosts, including the configuration of complex wireless systems such as 4G \ac{LTE} and 5G
-    \item provisioning of and connection to remote cloud instances
-    \item initialization of \ac{IP} layer connectivity between hosts
-    \item collection of logs and data
-    \item deployment, scaling, and lifecycle management of containerized processes
-\end{enumerate*}.
-We have described its general architecture, which follows a layered design mimicking the network stack layers the framework directly interacts with, as well as the underlying assumptions about its deployment environment and specific requirements for its deployment.
-We have also outlined a demonstration which showcases the flexibility and power of the framework by deploying two different workloads to our testbed.
-We believe our framework represents an important step towards repeatable, replicable, yet low-access barrier end-to-end wireless testbed experimentation.
-It has been released as \ac{FOSS} and can be found on GitHub~\cite{ainur:github}.\\
-
-\todo[inline]{Some plots}
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=0.9\linewidth]{publications/2022Ainur/figures/overview.jpg}
-    \caption{Layered structure of an Ainur experiment}\label{fig:overview}
-\end{figure}
-
-\begin{figure*}
-    \centering
-    \includegraphics[width=0.8\textwidth]{publications/2022Ainur/figures/flow2.png}
-    \caption{Lifecycle of an experimental run in Ainur. Blocks in orange are optional.}\label{fig:flow}
-\end{figure*}
-
-\begin{figure*}
-    \centering
-    \includegraphics[width=.8\textwidth]{publications/2022Ainur/figures/network.png}
-    \caption{Network structure assumed by Ainur.}\label{fig:network}
-\end{figure*}
