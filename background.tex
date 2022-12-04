@@ -1,4 +1,4 @@
-\section{A background on \acs*{WCA}}\label{sec:background}
+\section{Background of \acs*{WCA}}\label{sec:background}
 
 \begin{figure}
     \centering
@@ -24,7 +24,7 @@
 \end{figure}
 
 \acf{WCA} applications represent a category of novel, context-sensitive and highly-interactive \ac{AR} applications.
-In this work we focus on a particular category --- denoted ``step-based'' \ac{WCA} --- which have as their goal the guiding of a user through a sequential task.
+In this work we focus on a particular category --- denoted ``step-based'' \ac{WCA} --- that have as their goal the guiding of a user through a sequential task.
 Examples of such applications are the LEGO and IKEA assistants~\cite{Chen2015LEGO,Chen2018application}, in which users are guided step-by-step through the process of assembling a LEGO model and an IKEA lamp, respectively.
 
 Step-based \acp{WCA} operate analogously to how \ac{GPS} navigation assistants guide users, by seamlessly and continuously monitoring the progress of the user and autonomously providing relevant instructions and feedback.
@@ -58,31 +58,35 @@ The sum of the latter two values (i.e.\ the interval \( t_{n + 1} - t_c \)) we c
 
 \subsection{The effects of changes in responsiveness on human behavior}\label{ssec:plos}
 
-In \textcite{olguinmunoz:impact2021} we studied the effects of system responsiveness on human behavior in step-based \ac{WCA} through human-subject trials.
+In \textcite{olguinmunoz:impact2021} we studied the effects of system responsiveness on human behavior in step-based \ac{WCA} in a controlled experiment.
 We employed a modified and instrumented version of the above-mentioned, step-based LEGO \ac{WCA}~\cite{Chen2015LEGO}.
 Subjects interacted with the assistant while we altered the responsiveness in realtime and captured key application and task performance metrics.
-Additionally, we also employed questionnaires to evaluate personality traits of the participants, and correlated these results to the task performance metrics collected.
+Additionally, we also employed questionnaires to evaluate personality traits of the participants, and correlated these results with the task performance metrics.
 
 We used \emph{delay} and execution time as the variables for system responsiveness and human behavior, respectively.
-\emph{Delay} corresponded to a temporarily fixed time duration of the processing of each frame was padded to --- i.e.\ if during a series of steps delay was set to \( D \) seconds, the feedback for each frame was provided to the user at exactly \( D \) seconds after frame capture.
+\emph{Delay} corresponded to a temporarily fixed time duration for the processing interval of each frame.
+That is, if during a series of steps delay was set to \( D \) seconds, the feedback for each frame was provided to the user \( D \) seconds after frame capture.
 The correlation between this variable and execution time was then studied.
-Delay, however, was merely an experimental tool, and if we consider
-\begin{enumerate*}[itemjoin={{; }}, itemjoin={{; and }}]
-    \item that \( t_c \), and conversely the wait time \( \mathcal{W} \) of a step, can be assumed to be uniformly distributed in the interval \( [t_{n - 1}, t_n] \) without loss of generality~\cite{olguinmunoz:impact2021}
-    \item that for a step subject to delay \( D \), \( t_k - t_{k - 1} = D \) for all \( k \in \{1, 2, \ldots, n\} \)
-\end{enumerate*},
-then it follows that the expected \ac{TTF} for steps subject to a delay \( D \) can be expressed as
+To compensate for the distribution of \( t_c \)\footnote{\( t_c \), and conversely the wait time \( \mathcal{W} \) of a step, can be assumed to be uniformly distributed in the interval \( [t_{n - 1}, t_n] \) without loss of generality.}~\cite{olguinmunoz:impact2021}, in the present work we adjust the nominal delay \( D \) by a factor \num{1.5}.
+We will refer to this adjusted delay as \emph{\acf{TTF}}.
 
-\begin{align}
-    \mathbb{E}\left[\text{\ac{TTF}}\right] &= \mathbb{E}\left[\mathcal{W}\right] + D
-    = \mathbb{E}\left[U(t_{n - 1}, t_n)\right] + D\nonumber\\
-    &= \mathbb{E}\left[U(0, D)\right] + D
-    = \frac{1}{2}D + D = \frac{3}{2}D\label{eq:ttf}
-\end{align}
+% Delay, however, was merely an experimental tool, and if we consider
+% \begin{enumerate*}[itemjoin={{; }}, itemjoin={{; and }}]
+%     \item that \( t_c \), and conversely the wait time \( \mathcal{W} \) of a step, can be assumed to be uniformly distributed in the interval \( [t_{n - 1}, t_n] \) without loss of generality~\cite{olguinmunoz:impact2021}
+%     \item that for a step subject to delay \( D \), \( t_k - t_{k - 1} = D \) for all \( k \in \{1, 2, \ldots, n\} \)
+% \end{enumerate*},
+% then it follows that the expected \ac{TTF} for steps subject to a delay \( D \) can be expressed as
 
-Ergo, we can directly re-parameterize the data from~\cite{olguinmunoz:impact2021} to use \ac{TTF} instead of delay by simply multiplying the delay value of each step by \num{1.5}.
+% \begin{align}
+%     \mathbb{E}\left[\text{\ac{TTF}}\right] &= \mathbb{E}\left[\mathcal{W}\right] + D
+%     = \mathbb{E}\left[U(t_{n - 1}, t_n)\right] + D\nonumber\\
+%     &= \mathbb{E}\left[U(0, D)\right] + D
+%     = \frac{1}{2}D + D = \frac{3}{2}D\label{eq:ttf}
+% \end{align}
 
-We can then reformulate our previous conclusions as:
+% Ergo, we can directly re-parameterize the data from~\cite{olguinmunoz:impact2021} to use \ac{TTF} instead of delay by simply multiplying the delay value of each step by \num{1.5}.
+
+Our findings can be summarized as follows:
 \begin{enumerate}
     \item System slow-down induces \emph{additional} behavioral slow-down which scales with the decrease in system responsiveness.
     Compared to the unimpaired case, participants were on average \SI{12}{\percent} slower when subject to a mean \ac{TTF} of \SI{2.475}{\second}, and a further \num{14} percentage points slower at a mean \ac{TTF} of \SI{4.5}{\second}.
@@ -94,28 +98,31 @@ We can then reformulate our previous conclusions as:
     \item\label{item:remain} The effects of system slow-down on human behavior remain for a while even after system responsiveness improves.
     These effects are noticeable for at least \num{4} steps after the return to a high-responsiveness state. 
     
-    \item The above effects are modulated by an individual personality trait.
+    \item The above effects are modulated by measures of individual levels of personality characteristics and focus.
     % We will discuss this in detail below in \cref{ssec:moderationeffects}
 \end{enumerate}
 
 \subsubsection{Moderation of effects by individual characteristics}\label{ssec:moderationeffects}
 
-We recorded variables related to well-known individual differences, encompassing both the \acf{BFI}, introduced by \textcite{oliver:bfi1999}, and the \acf{ITQ}, described by \textcite{witmer1998measuring}.
-Out of the collected individual-difference variables, the most salient one corresponded to \emph{neuroticism}, a \ac{BFI} trait linked to low tolerance for stress and high emotional reactivity, and which has previously been linked to higher \emph{delay discounting} rates~\cite{hirsh2008delay}.
+We recorded variables related to well-known individual differences, encompassing both the \acf{BFI}~\cite{oliver:bfi1999},and the \acf{ITQ}~\textcite{witmer1998measuring}.
+Out of the individual-difference variables, the most salient effect on performance corresponded to \emph{neuroticism}, a \ac{BFI} trait linked to low tolerance for stress and high emotional reactivity, and which has previously been linked to higher \emph{delay discounting} rates~\cite{hirsh2008delay}.
 Delay discounting is the tendency to devalue rewards for which one must wait; high rates, indicative of waiting intolerance, have been associated with negative social and academic outcomes.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\columnwidth]{figs/new_model/correlation_neuro_exectime.png}
-    \caption{%
-        Correlation between neuroticism and the mean execution time of the last four steps in segments of \num{12} steps subject to the same \ac{TTF} in~\textcite{olguinmunoz:impact2021}.
-        Pearson correlation coefficient \( \rho = 0.418 \), 2-tailed \( p < 0.05 \).
-    }\label{fig:neuroexectimecorrel}
-\end{figure}
+% Bobby suggested we remove this figure and just give the pearson coeff.
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\columnwidth]{figs/new_model/correlation_neuro_exectime.png}
+%     \caption{%
+%         Correlation between neuroticism and the mean execution time of the last four steps in segments of \num{12} steps subject to the same \ac{TTF} in~\textcite{olguinmunoz:impact2021}.
+%         Pearson correlation coefficient \( \rho = 0.418 \), 2-tailed \( p < 0.05 \).
+%     }\label{fig:neuroexectimecorrel}
+% \end{figure}
 
-Neuroticism was identified as a modulating factor for the pacing effects through a \ac{PCA}.
+Linear regression showed a significant correlation between individual neuroticism scores and the execution time late in a series of high-delay steps, \( \rho = 0.418 \), \num{2}-tailed \( p < 0.05 \)
+Neuroticism was further identified as a modulating factor for the pacing effects through a \ac{PCA}.
 Out of the three identified components, which cumulatively accounted for \SI{73.13}{\percent} of the variance in the results, neuroticism was included in the first two.
-The effect of neuroticism was transversal to all \acp{TTF} and impairment durations in the tasks --- we show an example of the correlation between execution time and neuroticism in \cref{fig:neuroexectimecorrel}
+The effect of neuroticism was observed across all \acp{TTF} and impairment durations in the tasks.  
+
 
 \begin{figure}
     \centering
@@ -135,7 +142,13 @@ The effect of neuroticism was transversal to all \acp{TTF} and impairment durati
     }\label{fig:fitsneuro}
 \end{figure*}
 
-Furthermore, we found that execution times, when grouping by experimental variables such as neuroticism, \ac{TTF}, and continuous segments of steps subject to the same \ac{TTF}, were well-fit by an \ac{exGaussian} distribution, as verified using Kolmogorov-Smirnov goodness-of-fit tests~\cite{massey1951kolmogorov}.
+\todo[inline]{%
+    Comment by Bobby: should we report the values for our goodness-of-fit tests? I think this is important.
+
+    Manuel: I could, but we would have to find a way to report them for all the possible groups that the model forms.
+    Maybe report the best fit? Or the average fit?
+}
+Furthermore, we found that execution times, when grouped by experimental variables such as neuroticism, \ac{TTF}, and continuous segments of steps subject to the same \ac{TTF}, were well-fit by an \ac{exGaussian} distribution, as verified using Kolmogorov-Smirnov goodness-of-fit tests~\cite{massey1951kolmogorov}.
 This distribution has an ample body of research supporting its suitability for the modeling of the timing of human actions and reaction times~\cite{Rohrer1994analysis,Palmer2011shapes,Marmolejo2022generalised}.
 We found that the effects of neuroticism on execution times were clearly identifiable in the fitted distributions, in particular in their means and tails.
 \cref{fig:muexgaussian} shows an example of this modulating effect, illustrating the behavior of the mean (\( \mu \) parameter) of \ac{exGaussian} distributions fitted to the execution times of the first four steps of segments of steps subject to the same \ac{TTF}.

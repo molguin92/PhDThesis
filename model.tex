@@ -1,12 +1,14 @@
 \section{A model of human behavior for \ac{WCA}}\label{sec:model}
 
-In the following, we employ the above insights together with the actual data collected for~\cite{olguinmunoz:impact2021} to design and build a probabilistic model of human behavior for \ac{WCA}.
+In the following, we employ the above insights together with the data collected for~\cite{olguinmunoz:impact2021} to design and build a probabilistic model of human behavior for \ac{WCA}.
 We detail the construction of a model which uses the data collected to generate, at runtime, realistic execution times. 
 In order to accurately emulate the behavior of a human, such a model needs to implement two main behaviors.
-One, it needs to generate realistic execution times for each step in the task, considering the current and historical impairment of the \ac{WCA} system.
+First, it needs to generate realistic execution times for each step in the task, considering the current and historical impairment of the \ac{WCA} system, as well as salient individual-difference measures.
 We detail this in \cref{ssec:model:exectimes}.
-And two, it needs to produce sequences of input samples for each step mimicking what a real human would generate; this is explained in \cref{ssec:model:frames}.
+Neuroticism is incorporated in this aspect of the model, as it is the most salient individual difference in the data; however, other factors such as immersive tendency could be treated similarly.
+Second, the model must produce sequences of input samples for each step mimicking what a real human would generate; this is explained in \cref{ssec:model:frames}. 
 % Finally, in \cref{ssec:model:obtaining} we briefly discuss where implementations of this model can be obtained.
+
 
 \subsection{Generating realistic execution times}\label{ssec:model:exectimes}
 

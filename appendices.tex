@@ -1,7 +1,7 @@
 \appendix{}\label[appendixwithoutnumber]{appx1}
 % \subsection*{Sampling optimisation}
 
-In this appendix, we give the mathematical derivation of the optimum aperiodic sampling interval we discussed in \cref{ssec:optframework}.
+In this appendix, we give the mathematical derivation of the optimum aperiodic sampling interval discussed in \cref{ssec:optframework}.
 We start with the general solution, where the objective function to be minimized is given by \cref{eq:epsilon_terminal}:
 \begin{alignat}{1}
     \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C\nonumber
@@ -33,7 +33,7 @@ Let $F_{\mathcal{T}}$, $\bar{F}_{\mathcal{T}}$ and $f_{\mathcal{T}}$ correspond 
 &\approx\dfrac{F_\mathcal{T}(t_n)-F_\mathcal{T}(t_{n}-t)}{F_\mathcal{T}(t_n)-F_\mathcal{T}(t_{n-1})}\label{Apx1}
 \end{alignat}
 Here, \cref{Apx1} is an approximation merely for mathematical maturity due to the slackness of the first inequality in the numerator.
-We expand $F_\mathcal{T}(t_{n}-t)$ and $F_\mathcal{T}(t_{n-1})$ using Taylor series. Thus we can write the conditionsl \ac{CDF} as
+We expand $F_\mathcal{T}(t_{n}-t)$ and $F_\mathcal{T}(t_{n-1})$ using Taylor series. Thus we can write the \ac{CCDF} as
 \begin{multline*}
     =\Big(F_\mathcal{T}(t_n)-\\\big(F_\mathcal{T}(t_n)+f_\mathcal{T}(t_n)(-t)+f'_\mathcal{T}(t_n)(-t)^2/2!+\dots\big)\Big)\\
     \div \Big(F_\mathcal{T}(t_n)-\big(F_\mathcal{T}(t_n)+f_\mathcal{T}(t_n)(t_{n-1}-t_n)\\+f'_\mathcal{T}(t_n)(t_{n-1}-t_n)^2/2!+\dots\big)\Big).
@@ -81,7 +81,7 @@ r^*(t)&=\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\\
 \Rightarrow &\;t_{n+1}^{\frac{3}{2}}-t_{n}^{\frac{3}{2}}=3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\nonumber\\
 \intertext{We have $t_0=0$. Substituting $n=1,2,\dots$, in order, in the above equation provides us our final result}
 &\;t_n=\Big(3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\Big)^{\frac{2}{3}}n^{\frac{2}{3}}\label{tnRayleigh}.
-\end{alignat}
+x\end{alignat}
 % Note that throughout the paper we use a exGaussian distribution but not Rayleigh. This is because, 
 Note that, due to the close similarity in their density functions, the task times can be approximated fairly equally to an exponentially modified Gaussian distribution as well as a Rayleigh distribution, with the former attracting more attention from works like \cite{Rohrer1994analysis,Palmer2011shapes,Marmolejo2022generalised}. This is the reason why the above results are applicable in this work where we have predominantly considered exGaussian distribution. Furthermore, we have also verified the closeness of the results as well as the validity of the approximations made in the proofs using distribution fitting and simulations.
 
@@ -89,6 +89,7 @@ By making use of this general solution, we can also prove the results given in \
 First note that the general solution has constants $\alpha$ and $\beta$ that correspond to the weights given to the cost of sampling and cost of waiting, respectively.
 The optimization criteria changes from minimizing wait time to minimizing the number of samples when the ratio $\frac{\alpha}{\beta}$ goes from zero to infinity.
 Since any positive real value is valid for this ratio, one can achieve any valid point $(\mathbb{E}[\mathcal{S}],\mathbb{E}[\mathcal{W}])$ via simply by varying the ratio $\frac{\alpha}{\beta}$.
+\newpage%
 Furthermore, since the sampling instants are aperiodic and can take any positive real values, the bound will be tight at the optimum. 
 % This is because (1) a higher bound on $\mathbb{\mathcal{W}}$ is always associated with a lower optimum on $\mathbb{\mathcal{S}}$ and (2) any $\mathbb{\mathcal{W}}$ can be achieved, for instance by a scaling all the sampling instance of a given policy by an appropriate constant.
 Hence, to solve for the modified optimization problem explained in \cref{ssec:optimization:samples} that minimizes $\mathbb{E}[\mathcal{S}]$ with an upper bound $w_0$ on $\mathbb{E}[\mathcal{W}]$, we equate \cref{Ew} to $w_0$, find the corresponding $\frac{\alpha}{\beta}$, and find the optimum set of sampling instants by plugging this ratio into \cref{tnRayleigh}.

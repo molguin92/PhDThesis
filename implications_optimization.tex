@@ -166,10 +166,11 @@ Note that the embedded timing model in our sampling-count-optimized aperiodic sa
 The results of this investigation are presented in \cref{fig:optimization:samples}, and clearly show the advantages of using the sample-count-optimized scheme over the current state-of-the-art.
 The performance of \textcite{Wang2019Towards}'s approach appears to degrade with lower \acp{RTT}, exponentially oversampling as latency tends to zero and the maximum sampling rate of the system tends to infinity.
 On the other hand our sampling scheme consistently matches or beats the state-of-the-art while maintaining a relatively constant behavior with respect to \acp{RTT}.
-This makes the sample-count-optimized approach more predictable, reliable, and consistent, and thus more suitable for real-world deployments.
+As mentioned above, the future feasibility and mass adoption of \ac{WCA} depends on these applications not hogging the available resources.
+Our work advances this goal by being consistently more efficient than existing alternatives at minimizing the number of samples per step, and thus reducing network and processing load.
 
 It should be noted that although both schemes seem to tend towards \num{2.0} samples per step as \acp{RTT} increase, this is simply an artifact of our experimental setup.
-As \acp{RTT} increase way above the expected wait time, the probability of the sum of the first sampling interval and the \ac{RTT} being larger than the execution time of the step tends towards \num{1.0}.
+As \acp{RTT} increase above the expected wait time, the probability of the sum of the first sampling interval and the \ac{RTT} being larger than the execution time of the step tends towards \num{1.0}.
 This leads to these sampling schemes consistently sampling only twice each step: a first sample which is taken before the execution time of the step, and a second one \ac{RTT} seconds later, after the execution time has been reached. 
 
 \subsection{Optimizing for energy consumption}\label{ssec:optimization:energy}
