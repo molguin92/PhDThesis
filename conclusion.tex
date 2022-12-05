@@ -6,11 +6,11 @@ This model represents a stochastic approach to execution time modeling which bui
 It further introduces a novel procedure for the generation of synthetic traces of frames in step-based \ac{WCA}, allowing for a full end-to-end emulation of a human when combined with the timing model.
 
 The paper then explores the impact of such a realistic model on the application lifetime footprint of \ac{WCA} applications.
-It shows that less realistic modeling approachesm which do not take into account higher-order effects on execution time distributions, can potentially lead to substantial mis-estimations of the application footprint.
+It shows that less realistic modeling approaches which do not take into account higher-order effects on execution time distributions, can potentially lead to substantial mis-estimations of the application footprint.
 
 Finally, the paper delves into the potential for optimization in \ac{WCA} systems using the previously discussed timing models.
 It proposes a novel stochastic optimization framework for resource consumption-system responsiveness trade-offs in \ac{WCA}, which results in an adaptive sampling strategy. 
-We have shown that this framework is applicable to a myriad of metrics in these applications, and showcased experimental results employing this framework for the minimization of number of samples processed per step and total energy consumption per step.
+We have shown that this framework is applicable to both the minimization of number of samples and total energy consumption per step by showcasing experimental results.
 Our results show up to a \SI{50}{\percent} increase in performance with respect to state of the art when optimizing for number of samples, and up to a \SI{30}{\percent} improvement when optimizing for energy consumption, thus proving the value of such frameworks for the design of \ac{WCA} applications.
 
 This work serves as an important, yet initial step towards realistic modeling of human behavior in \ac{WCA}, and more generally \ac{AR}.
@@ -26,4 +26,5 @@ Our future efforts consider developing this framework towards these more accurat
 Finally, our current approach only considers a single client, which will be far from the case in a real-world \ac{WCA} deployment.
 As such, another milestone in this context could be the exploration for a potential extension towards a collaborative and/or distributed solution.
 
-\todo[inline]{Comment from Bobby: Reviewers might wonder why we stuck with the Rayleigh distribution.}
+\todo[inline]{Comment from Bobby: Reviewers might wonder why we stuck with the Rayleigh distribution.
+Manuel: I think Vishnu already fixed this in the appendix.}

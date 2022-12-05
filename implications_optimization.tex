@@ -22,28 +22,38 @@ The authors then find the optimum periodic sampling interval that minimizes this
 
 % In this optimization, the constant parts are excluded as it does not affect the process.
 With a value much smaller than the execution time of the event, the \ac{RTT} of the final sample is included in this constant part, which is why $\mathcal{W}$ is computed without it.
-Next, in \textcite{Moothedath2022Aperiodic}, the author retains the model, removes the constraint of periodicity, and finds the optimum aperiodic sampling instants $\{t_n,\,n=1,2,\dots\}$ that minimize the same energy penalty.
+Next, in~\cite{Moothedath2022Aperiodic}, the author retains the model, removes the constraint of periodicity, and finds the optimum aperiodic sampling instants $\{t_n,\,n=1,2,\dots\}$ that minimize the same energy penalty.
 
 In this work, we use the modeling from~\cite{Moothedath2022Aperiodic} to find the optimum \emph{aperiodic} sampling interval.
 However, instead of using their two-step approach to find the solution which includes a recursive solution followed by a bisection algorithm, we develop a novel, approximate, but easier solution to finding the set of the optimum aperiodic sampling intervals.
-Furthermore, instead of directly optimizing for energy, we start by noting that an objective metric of a variety of optimization problems that are related to sampling, RTT, responsiveness or wait time present themselves 
-% in a format similar to that of the energy, 
+Furthermore, instead of directly optimizing for energy, we start by noting that, in general, any objective metric in these applications which relates to sampling and the responsiveness of the system will present itself
+% that an objective metric of a variety of optimization problems that are related to sampling, RTT, responsiveness or wait time present themselves 
+% % in a format similar to that of the energy, 
 as a linear combination between $\mathbb{E}[\mathcal{S}]$ and $\mathbb{E}[\mathcal{W}]$ plus terms independent of the number of samples or wait time.
 Let $\mathcal{E}$ correspond to such an objective metric.
 Thus, 
 \begin{alignat}{1}
-    \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C,\;\label{eq:epsilon_terminal}
+    \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C\;\label{eq:epsilon_terminal}
 \end{alignat}
 
-Above, $\alpha, \beta$ and $C$ are constants which are responsible for modifying the objective function from one metric to another.
-For instance, in the modeling used by \textcite{Moothedath2021EnergyOptimal,Moothedath2022EnergyEfficient,Moothedath2022Aperiodic}, the chosen characterization results in a metric which is equal to the energy penalty.
+\todo[inline]{%
+    Comment by Jaya:
+    The presentation of the optimization for energy metric in (5) and later in Section 6.2 presenting the optimization for minimizing number of samples subject to weight penalty is done in a non-trivial way. A natural way to present it is to state the optimization problem in 6.2 first and state that the function in (5) is a Legrangian function of this optimization with alpha/beta being the Lagrangian parameter. People are well aware of the Lagrangian formulation, so at least mention that (5) is a Lagrangian function and alpha/beta is a Lagrangian parameter.
+
+    Manuel: I've added a mention to the Lagrangian function below. Do we need anything else?
+}
+
+This corresponds to a Lagrangian function of this optimization, with \ensuremath{\frac{\alpha}{\beta}} representing the Lagrangian parameter.
+$\alpha, \beta$ and $C$ are constants which are responsible for modifying the objective function from one metric to another.
+For instance, in the modeling used by~\cite{Moothedath2021EnergyOptimal,Moothedath2022EnergyEfficient,Moothedath2022Aperiodic}, the chosen characterization results in a metric which is equal to the energy penalty.
 Our solution which minimizes \cref{eq:epsilon_terminal} is provided in \cref{tn_approx_rayleigh}.
 It assumes a $\mathcal{T}$ distributed according to a Rayleigh distribution with parameter $\sigma$.
 The complete mathematical derivation that leads to this formula is detailed in \cref{appx1}.
 
 \begin{alignat}{1}
-r^*(t)&=\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\nonumber\\
-\Rightarrow t_n&=\Big(3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\Big)^{\frac{2}{3}}n^{\frac{2}{3}}\label{tn_approx_rayleigh}
+% r^*(t)&=\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\nonumber\\
+% \Rightarrow
+t_n&=\Big(3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\Big)^{\frac{2}{3}}n^{\frac{2}{3}}\label{tn_approx_rayleigh}
 \end{alignat}
 
 
@@ -58,11 +68,12 @@ Optimizing the number of samples captured per step can thus be a straightforward
 
 However, an unconstrained optimization of the number of samples is trivial and meaningless as the solution points to a single sample at $t\!\rightarrow\!\infty$, which also takes the wait time to infinity.
 Thus, we look at the constrained optimization of the expected number of samples with an upper bound $w_0$ for the expected wait.
-That is, $\mathbb{E}[\mathcal{W}]\!\leq\!w_0$. We show in \cref{appx1} that the appropriate $\alpha$ and $\beta$ for this problem satisfy the condition
+That is, $\mathbb{E}[\mathcal{W}]\!\leq\!w_0$.
+We show in \cref{appx1} that we can find appropriate $\alpha$ and $\beta$ for this problem by satisfying the condition
 \begin{alignat}{1}\label{eq:optimization:sampling}
 \frac{\alpha}{\beta}=\frac{2\sqrt{2}\,w_0^2}{(\mathlarger{\Gamma}(\tfrac{3}{4}))^2\,\sigma}\approx1.9\frac{w_0^2}{\sigma}
 \end{alignat}
-where, $\mathlarger{\Gamma}(x)$ is the Gamma function.
+where $\mathlarger{\Gamma}(x)$ is the Gamma function.
 
 \medskip
 
@@ -83,7 +94,7 @@ Finally, \( CDF \) corresponds to the \ac{CDF} of a distribution describing the 
 
 \medskip
 
-In the following, we will show the effects of our optimization approach combined with our timing models compared to \textcite{Wang2019Towards}'s state-of-the-art approach.
+In the following, we will show the effects of our optimization approach combined with our timing models compared to the state-of-the-art approach~\cite{Wang2019Towards}.
 For this we implement these sampling schemes in Python and run a number of simulations with them.
 The first scheme uses our approach, \cref{eq:epsilon_terminal,eq:optimization:sampling}, to determine the optimum sampling instants and the values for \( \alpha \) and \( \beta \) at each step.
 It includes an embedded timing model (without any distribution fitting) to provide updated estimates of the mean execution time \( \mu \) and \( \sigma \) at every step as well, allowing it to adapt to the state of the system.
@@ -169,7 +180,7 @@ On the other hand our sampling scheme consistently matches or beats the state-of
 As mentioned above, the future feasibility and mass adoption of \ac{WCA} depends on these applications not hogging the available resources.
 Our work advances this goal by being consistently more efficient than existing alternatives at minimizing the number of samples per step, and thus reducing network and processing load.
 
-It should be noted that although both schemes seem to tend towards \num{2.0} samples per step as \acp{RTT} increase, this is simply an artifact of our experimental setup.
+It should be noted that although both schemes seem to tend towards two samples per step as \acp{RTT} increase, this is simply an artifact of our experimental setup.
 As \acp{RTT} increase above the expected wait time, the probability of the sum of the first sampling interval and the \ac{RTT} being larger than the execution time of the step tends towards \num{1.0}.
 This leads to these sampling schemes consistently sampling only twice each step: a first sample which is taken before the execution time of the step, and a second one \ac{RTT} seconds later, after the execution time has been reached. 
 
@@ -180,7 +191,7 @@ Although, as mentioned above, minimizing the number of samples captured during a
 Energy consumption depends on multiple other factors other than number of samples captured, such as idle versus communication power and delays, and thus cannot be optimized by simply minimizing the number of samples taken.
 
 In the following, we thus take the general solution, \cref{eq:epsilon_terminal}, and find the appropriate \( \alpha \) and \( \beta \) to minimize the energy consumed per step, i.e.\ \( \mathcal{E}=E \).
-We directly take the modelling from~\cite{Moothedath2022Aperiodic} with a necessary modification in the  assumption of one-way communication in all but the final sample.
+We directly take the modeling from~\cite{Moothedath2022Aperiodic} with a necessary modification in the  assumption of one-way communication in all but the final sample.
 With feedback given even to the discarded samples in our model and communication delay defined as the total delay in either direction, we have, 
 \begin{alignat}{2}
     \mathrm{E}=&\;\mathcal{S}\tau_cP_c+(\mathcal{T}+\mathcal{W}+\tau_\mathrm{p}+\tau_\mathrm{c}-\mathcal{S}\tau_c)P_0\nonumber\\
@@ -194,7 +205,7 @@ With feedback given even to the discarded samples in our model and communication
 We proceed to repeat the experiment detailed in \cref{ssec:optimization:samples}, replacing the sample-count-optimized sampling scheme with a new implementation instead minimizing energy, using \cref{eq:optimization:energy} for the calculation of \( \alpha \) and \( \beta \).
 Once again, we embed a timing model into the sampling scheme to provide updated estimates of the mean execution time \( \mu \) at each step.
 We refer to this scheme as the \emph{energy-optimized aperiodic} sampling scheme.
-For the power constants, we reuse the values estimated by the authors in \textcite{Moothedath2022EnergyEfficient}, \( P_\text{c} = 45\,\si{\milli\watt} \) and \( P_\text{0} = 15\,\si{\milli\watt} \).
+For the power constants, we reuse the values estimated by the authors in~\cite{Moothedath2022EnergyEfficient}, \( P_\text{c} = 45\,\si{\milli\watt} \) and \( P_\text{0} = 15\,\si{\milli\watt} \).
 On the other hand, for the timing variables we define a constant processing delay \( \tau_\text{p} = 250\,\si{\milli\second} \) across all configurations and repetitions of the experiments; given then a constant \ac{RTT} for the task, we set \( \tau_\text{c} = \text{\ac{RTT}} - \tau_\text{p} \).
 
 \begin{figure*}
@@ -224,5 +235,5 @@ On the other hand, for the timing variables we define a constant processing dela
 Again, we include the reference greedy and offline optimum schemes, as well as \textcite{Wang2019Towards}'s approach, and repeat the experiment \num{100} times for each combination of sampling scheme, neuroticism, and \ac{RTT}.
 
 The results of these experiments are presented in \cref{fig:optimization:energy}, and they clearly illustrate the advantages of the integration of our timing models with an adaptive, energy-optimized sampling scheme when compared to unoptimized and state-of-the-art sampling schemes.
-Our approach is consistently consumes \SI{20}{\percent} less energy than \textcite{Wang2019Towards}'s state-of-the-art, and is up to \SI{40}{\percent} more efficient than the greedy scheme.
+Our approach is consistently consumes \SI{20}{\percent} less energy than \textcite{Wang2019Towards}'s state-of-the-art, and is up to \SI{40}{\percent} more energy efficient than the greedy scheme.
 Furthermore, once again the behavior of our approach is more consistent and reliable than the competition, exhibiting a flat curve of energy consumption much akin to that of the offline optimum in behavior.

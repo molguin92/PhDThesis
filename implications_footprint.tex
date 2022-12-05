@@ -7,7 +7,7 @@ In the context of \ac{WCA}, we will understand \emph{application lifetime} as th
 This is an important metric for \ac{WCA} optimization, as it directly relates to system resource utilization and contention, and to energy consumption.
 
 In order to illustrate the consequences of using a less realistic model that does not take into account higher order effects, we introduce here a reference model to which we will compare our more realistic models.
-This model represents a first-order approximation to empirical execution time modeling, and consist simply of an \ac{exGaussian} distribution fitted to all execution time samples collected for \textcite{olguinmunoz:impact2021}.
+This model represents a first-order approximation to empirical execution time modeling, and consist simply of an \ac{exGaussian} distribution fitted to all execution time samples collected for~\cite{olguinmunoz:impact2021}.
 This distribution is then randomly sampled at runtime to obtain execution times for each step, without any adjustment to the current state of the system.
 
 We start by studying application lifetimes in a controlled, ideal setup by using the timing models to generate execution times for sequences of \num{100} steps subject to constant \acp{TTF}.
@@ -91,11 +91,11 @@ Our choice of wireless standard is simply motivated by a desire to amplify the p
     \caption{Application lifetimes in the realistic scenarios.}\label{fig:testbed_lifetimes}
 \end{figure}
 
-We deploy configurations running \num{45}-step versions of the LEGO task described in \textcite{olguinmunoz:impact2021}.
+We deploy configurations running \num{45}-step versions of the LEGO task described in~\cite{olguinmunoz:impact2021}.
 The testbed configurations include setups with \numlist{1;4;7;10} clients.
 Due to having limited time, each combination of testbed and timing model configuration is only repeated \num{10} times.
 The results are presented in \cref{fig:testbed_lifetimes}.
-Owing to the low number of samples, we opt here for the geometric rather than arithmetic mean to represent our results.
+Owing to the low number of samples, specifically to minimize the effects of potential outliers, we opt here for the geometric rather than arithmetic mean to represent our results.
 The results are nonetheless clear, and follow the same pattern as the previously discussed results under ideal, controlled circumstances.
 With just a single client and mean \ac{RTT} of around \SI{400}{\milli\second}, all parameterizations of the realistic model achieved an average task duration \SIrange{6}{12}{\percent} shorter than the reference.
 At \num{10} clients, the results mimic those at higher \acp{TTF} in the ideal controlled setup, with high neuroticism parameterizations reaching \textasciitilde\SI{8}{\percent} longer application lifetimes.

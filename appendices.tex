@@ -7,7 +7,7 @@ We start with the general solution, where the objective function to be minimized
     \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C\nonumber
 \end{alignat}
 
-We first borrow the idea of checkpointing density from \textcite{Satoshi1992Optimal} and define an instantaneous sampling rate function $r(t)$ which is related to $\{t_n\}$ such that,
+We first borrow the idea of checkpointing density from~\cite{Satoshi1992Optimal} and define an instantaneous sampling rate function $r(t)$ which is related to $\{t_n\}$ such that,
 \begin{alignat}{1}
 {\int_{t_{n-1}}^{t_n}}r(t)\dif t=1,\;\forall n\geq1\label{rt}
 \end{alignat}
@@ -83,7 +83,9 @@ r^*(t)&=\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\\
 &\;t_n=\Big(3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\Big)^{\frac{2}{3}}n^{\frac{2}{3}}\label{tnRayleigh}.
 x\end{alignat}
 % Note that throughout the paper we use a exGaussian distribution but not Rayleigh. This is because, 
-Note that, due to the close similarity in their density functions, the task times can be approximated fairly equally to an exponentially modified Gaussian distribution as well as a Rayleigh distribution, with the former attracting more attention from works like \cite{Rohrer1994analysis,Palmer2011shapes,Marmolejo2022generalised}. This is the reason why the above results are applicable in this work where we have predominantly considered exGaussian distribution. Furthermore, we have also verified the closeness of the results as well as the validity of the approximations made in the proofs using distribution fitting and simulations.
+Note that, due to the close similarity in their density functions, the task times can be approximated fairly equally to an \acl{exGaussian} distribution as well as a Rayleigh distribution, with the former attracting more attention from works like~\cite{Rohrer1994analysis,Palmer2011shapes,Marmolejo2022generalised}.
+This is the reason why the above results are applicable in this work where we have predominantly considered \ac{exGaussian} distribution.
+Furthermore, we have also verified the closeness of the results as well as the validity of the approximations made in the proofs using distribution fitting and simulations.
 
 By making use of this general solution, we can also prove the results given in \cref{ssec:optimization:samples}, where we modify the problem and find the optimum sampling instants that minimize the expected number of samples for a given upper bound $w_0$ for the expected wait time.
 First note that the general solution has constants $\alpha$ and $\beta$ that correspond to the weights given to the cost of sampling and cost of waiting, respectively.

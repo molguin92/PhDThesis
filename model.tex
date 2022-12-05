@@ -14,13 +14,13 @@ Second, the model must produce sequences of input samples for each step mimickin
 
 % As expressed in \cref{ssec:plos}, for \textcite{olguinmunoz:impact2021} we collected timing and task performance data for \num{40} participants performing a \num{169}-step task, guided by a \ac{WCA}, as well as personality trait scores for each participant.
 % For this paper, we use this data to construct a probabilistic model for the generation of realistic execution times.
-The processing of the data from \textcite{olguinmunoz:impact2021} for the generation of execution times can be summarized as a grouping according to discretized levels of neuroticism and a weighted rolling average of \ac{TTF}.
+The processing of the data from~\cite{olguinmunoz:impact2021} for the generation of execution times can be summarized as a grouping according to discretized levels of neuroticism and a weighted rolling average of \ac{TTF}.
 The resulting collections of execution times represent the distributions of these values for users with specific levels of neuroticism, interacting with systems at specific states of impairment and recent histories of impairment.
 These distributions can then be sampled to produce new, realistic execution times.
 In the following, we detail the step-by-step processing of this data and construction of the probabilistic model.
 
 We employ a cleaned and re-parameterized copy of the timing data.
-The \num{6760} data points are arranged in a table together with identifiers for the subjects, their neuroticism score, and a sequence number for each step.
+The \num{6760} data points are arranged in a table together with identifiers for the subjects, their normalized neuroticism score, and a sequence number for each step.
 
 \begin{table*}[]
     \centering
@@ -33,7 +33,7 @@ The \num{6760} data points are arranged in a table together with identifiers for
         \toprule
         \textbf{Parameter} & \textbf{Low} & & & \textbf{Medium} & & & \textbf{High}         \\ \midrule
         Neuroticism        & \( [0, 0.5) \) & & & & & & \( [0.5, 1.0] \)      \\
-        Weighted TTF & \((-\infty, 0.82]\) & \((0.82, 1.53]\) & \((1.53, 2.08]\) & \((2.08, 2.67]\) & \((2.67, 3.45]\) & \((3.45, 4.13]\) & \((4.13, \infty]\)
+        Weighted TTF & \([0.0], 0.82]\) & \((0.82, 1.53]\) & \((1.53, 2.08]\) & \((2.08, 2.67]\) & \((2.67, 3.45]\) & \((3.45, 4.13]\) & \((4.13, \infty]\)
     \end{tabular}
 \end{table*}
 
@@ -117,7 +117,7 @@ At low neuroticism, the average difference between execution times at low versus
     \caption{%
     Effects of prolonged exposure to constant levels of system impairment on the model.
     At low (\SI{0}{\second}) \ac{TTF}, the models speed-up over time; conversely at high (\SI{5.0}{\second}) \ac{TTF}, the models either present no change or drastically increase their generated execution times, depending on the level of neuroticism.
-    Error bars indicate \SI{95}{\percent} \ac{CI}.
+    Error bands indicate \SI{95}{\percent} \ac{CI}.
     }\label{fig:exectimeduration}
 \end{figure}
 

@@ -24,14 +24,14 @@
 \end{figure}
 
 \acf{WCA} applications represent a category of novel, context-sensitive and highly-interactive \ac{AR} applications.
-In this work we focus on a particular category --- denoted ``step-based'' \ac{WCA} --- that have as their goal the guiding of a user through a sequential task.
+In this work we focus on a particular category --- ``step-based'' \ac{WCA} --- that have as their goal the guiding of a user through a sequential task.
 Examples of such applications are the LEGO and IKEA assistants~\cite{Chen2015LEGO,Chen2018application}, in which users are guided step-by-step through the process of assembling a LEGO model and an IKEA lamp, respectively.
 
 Step-based \acp{WCA} operate analogously to how \ac{GPS} navigation assistants guide users, by seamlessly and continuously monitoring the progress of the user and autonomously providing relevant instructions and feedback.
 The application follows the progress of the task in ``realtime'' by repeatedly sampling the state of the physical system, most commonly through video frames.
-Whenever the assistant application detects that the user has correctly or incorrectly performed an instruction, it provides a new instruction to either advance the task or correct the detected mistake.
-The application otherwise remains silent and out-of-the-way of the user; that is, samples which do not generate a new instruction (e.g. because they captured an intermediate or unfinished state, or simply noise) are silently discarded.
-Herein lies one of key characteristics of these applications: the user only consciously interacts with the application whenever they finish an instruction, and thus these are the \emph{only} points in time at which they can notice changes in system responsiveness.
+Whenever the assistant detects that the user has correctly or incorrectly performed an instruction, it provides a new instruction to either advance the task or correct the detected mistake.
+The application otherwise remains silent and out-of-the-way of the user; that is, samples which do not generate a new instruction (e.g.~because they captured an intermediate or unfinished state, or simply noise) are silently discarded.
+Herein lies one of the key characteristics of these applications: the user only consciously interacts with the application whenever they finish an instruction, and thus these are the \emph{only} points in time at which they can notice changes in system responsiveness.
 
 In order to discuss these applications with precision we provide some definitions relating to their operation.
 First of all, a \emph{step} is formally understood as a specific action to be performed by the user, described by a single instruction, and a \emph{task} consists of a series of steps to be executed in sequence (see \cref{fig:task}).
@@ -58,9 +58,9 @@ The sum of the latter two values (i.e.\ the interval \( t_{n + 1} - t_c \)) we c
 
 \subsection{The effects of changes in responsiveness on human behavior}\label{ssec:plos}
 
-In \textcite{olguinmunoz:impact2021} we studied the effects of system responsiveness on human behavior in step-based \ac{WCA} in a controlled experiment.
+In~\cite{olguinmunoz:impact2021} we studied the effects of system responsiveness on human behavior in step-based \ac{WCA} in a controlled experiment.
 We employed a modified and instrumented version of the above-mentioned, step-based LEGO \ac{WCA}~\cite{Chen2015LEGO}.
-Subjects interacted with the assistant while we altered the responsiveness in realtime and captured key application and task performance metrics.
+\num{40} subjects interacted with the assistant, performing a \num{169}-step task while we altered the responsiveness in realtime and captured key application and task performance metrics.
 Additionally, we also employed questionnaires to evaluate personality traits of the participants, and correlated these results with the task performance metrics.
 
 We used \emph{delay} and execution time as the variables for system responsiveness and human behavior, respectively.
@@ -104,7 +104,7 @@ Our findings can be summarized as follows:
 
 \subsubsection{Moderation of effects by individual characteristics}\label{ssec:moderationeffects}
 
-We recorded variables related to well-known individual differences, encompassing both the \acf{BFI}~\cite{oliver:bfi1999},and the \acf{ITQ}~\textcite{witmer1998measuring}.
+We recorded variables related to well-known individual differences, encompassing both the \acf{BFI}~\cite{oliver:bfi1999}, and the \acf{ITQ}~\cite{witmer1998measuring}.
 Out of the individual-difference variables, the most salient effect on performance corresponded to \emph{neuroticism}, a \ac{BFI} trait linked to low tolerance for stress and high emotional reactivity, and which has previously been linked to higher \emph{delay discounting} rates~\cite{hirsh2008delay}.
 Delay discounting is the tendency to devalue rewards for which one must wait; high rates, indicative of waiting intolerance, have been associated with negative social and academic outcomes.
 
@@ -118,6 +118,9 @@ Delay discounting is the tendency to devalue rewards for which one must wait; hi
 %     }\label{fig:neuroexectimecorrel}
 % \end{figure}
 
+In this work, we will use a normalized scale to describe neuroticism, derived from the minimum and maximum obtainable values for this variable in the \ac{BFI}~\cite{oliver:bfi1999}.
+\emph{Low} and \emph{high} neuroticism will refer to the \( [0.0, 0.5) \) and \( [0.5, 1.0] \) ranges respectively.
+
 Linear regression showed a significant correlation between individual neuroticism scores and the execution time late in a series of high-delay steps, \( \rho = 0.418 \), \num{2}-tailed \( p < 0.05 \)
 Neuroticism was further identified as a modulating factor for the pacing effects through a \ac{PCA}.
 Out of the three identified components, which cumulatively accounted for \SI{73.13}{\percent} of the variance in the results, neuroticism was included in the first two.
@@ -128,7 +131,7 @@ The effect of neuroticism was observed across all \acp{TTF} and impairment durat
     \centering
     \includegraphics[width=\columnwidth]{figs/new_model/mu_fits_exgaussian_slice0.png}
     \caption{%
-        \( \mu \) parameter of \acs*{exGaussian} distributions fitted to execution times of the first four steps of segments of steps subject to the same \ac{TTF} in \textcite{olguinmunoz:impact2021}.
+        \( \mu \) parameter of \acs*{exGaussian} distributions fitted to execution times of the first four steps of segments of steps subject to the same \ac{TTF} in~\cite{olguinmunoz:impact2021}.
         Distributions were fitted using \ac{MLE}.
     }\label{fig:muexgaussian}
 \end{figure}
