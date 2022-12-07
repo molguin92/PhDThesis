@@ -1,12 +1,12 @@
 \chapter{Key contributions and results}\label{chap:contributions}
 
-\todo[inline]{Reorganize}
-
 \section{A methodology for the study of feedback-loop systems in Edge Computing}\label{summary:methodology}
 
-\subsection{Applying the methodology to \acs{WCA}}
-
-\todo[inline]{\cref{paper:olguinmunoz2018demoscaling}}\label{summary:2018demo}
+\begin{figure*}
+    \centering
+    \includegraphics[width=.8\textwidth]{Figs/methodology.png}
+    \caption{}\label{fig:methodology}
+\end{figure*}
 
 As discussed previously, benchmarking infrastructures for edge-bound applications featuring feedback-loops is challenging, in particular when dealing with applications with high sensitivity to latency (such as \ac{NCS}) or with human involvement (such as \ac{WCA}).
 This short papers' main contribution is the introduction of our methodological framework for tackling this challenge.
@@ -18,6 +18,10 @@ This is particularly important in wireless and mobile edge computing systems, wh
 And two, it allows for ease of scaling.
 The client-side component of the applications of interest for this research is often complex to scale, either due to the involvement of humans (as in the case of \ac{WCA}) or due its cyber-physical nature (in \acp{NCS}).
 Emulating this component reduces this complexity by moving it into the software domain, allowing for easier scaling through the use of cheap, general-purpose hardware such as single-board computers (e.g. Raspberry Pis, Beaglebones, etc.).
+
+\subsection{Applying the methodology to \acs{WCA}}
+
+\todo[inline]{\cref{paper:olguinmunoz2018demoscaling}}\label{summary:2018demo}
 
 This work presents the first approach to this concept for \ac{WCA}.
 To establish a reproducible and comparable workload, we use a trace-based design for the client-side emulation.
