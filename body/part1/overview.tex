@@ -2,28 +2,97 @@
 
 \section{A methodology for the study of feedback-loop systems in Edge Computing}\label{summary:methodology}
 
-\begin{figure*}
+\begin{figure}
     \centering
     \includegraphics[width=.8\textwidth]{Figs/methodology.png}
-    \caption{}\label{fig:methodology}
-\end{figure*}
+    \caption{%
+        Overview of the proposed methodology for the study of feedback-loop systems on edge computing infrastructure.
+        The  client side of the system is replaced with an emulation executed on a general-purpose computing device.
+        The backend/server side of the system along with the network remain unchanged.
+    }\label{fig:methodology}
+\end{figure}
 
-As discussed previously, benchmarking infrastructures for edge-bound applications featuring feedback-loops is challenging, in particular when dealing with applications with high sensitivity to latency (such as \ac{NCS}) or with human involvement (such as \ac{WCA}).
-This short papers' main contribution is the introduction of our methodological framework for tackling this challenge.
+As discussed above, benchmarking infrastructures for edge-bound applications featuring feedback-loops is challenging, in particular when dealing with applications with high sensitivity to latency (such as \ac{NCS}) or with human involvement (such as \ac{WCA}).
+In the following, we introduce our methodological framework for tackling this challenge.
 
-As previously explained, our methodology is based on the core idea of executing an emulation of the target workload on top of the real hardware on which it is to be deployed.
+A general overview of our methodology is illustrated in \cref{fig:methodology}.
+It is based on the core idea of executing an emulation of the target workload on top of the real hardware on which it is to be deployed.
+We replace the client side of the system with a realistic emulation of the desired behaviors; this emulation is implemented in software deployed on \ac{COTS} general-purpose computing devices.
+The backend side and the network are not changed.
+
 Two main arguments drive this approach.
-One, it maintains the realism and accuracy of the system.
-This is particularly important in wireless and mobile edge computing systems, which present complex behaviors and interactions intrinsic to their networking technologies.
-And two, it allows for ease of scaling.
+One, the difficulty of scaling the number of clients in these systems in a research context.
+The systems we target exhibit a centralized nature in which a potentially large number of clients offload computation to a single central compute node.
 The client-side component of the applications of interest for this research is often complex to scale, either due to the involvement of humans (as in the case of \ac{WCA}) or due its cyber-physical nature (in \acp{NCS}).
 Emulating this component reduces this complexity by moving it into the software domain, allowing for easier scaling through the use of cheap, general-purpose hardware such as single-board computers (e.g. Raspberry Pis, Beaglebones, etc.).
 
-\subsection{Applying the methodology to \acs{WCA}}
+And two, it maintains the realism of the most complex parts of the system.
 
-\todo[inline]{\cref{paper:olguinmunoz2018demoscaling}}\label{summary:2018demo}
+\todo[inline]{Fix and finish}
 
-This work presents the first approach to this concept for \ac{WCA}.
+In the following, we will discuss the initial implementation of this methodology to two different classes of applications.
+We first discuss the methodology in the context of a human-in-the-loop application, \acl{WCA}, in section \cref{ssec:methodology:wca}.
+Then, in \cref{ssec:methodology:ncs}, we present an exploration into it's utility for the study of \acf{NCS}.
+
+
+\subsection{Applying the methodology to \acs{WCA}}\label{ssec:methodology:wca}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \includegraphics[width=.8\textwidth]{Figs/trace_edgedroid.png}
+        \caption{%
+            High level conceptual design of our methodology for \ac{WCA}.
+            We replace the human by a trace-driven emulation.
+            This allows us to maintain realism in inputs sent over the network to the compute process on the backend, while simplifying the design of the client software.
+        }
+    \end{subfigure}
+    \medskip
+    \begin{subfigure}[t]{\textwidth}
+        \centering
+        \adjustbox{scale=0.75}{
+            \begin{tikzpicture}[align=center,
+            node distance=.5cm and 1.5cm,
+            every initial by arrow/.style={-{Latex[length=2mm]}}]
+            % Place nodes              
+            \node [initial, state, minimum size=6em, initial text=] (play) {Play};               
+            \node [state, above right=of play, minimum size=6em] (change) {Change\\step};
+            \node [state, below right=of play, minimum size=6em] (rewind) {Rewind};
+            \node [state, accepting, above right=of rewind, minimum size=6em] (shutdown) {Shutdown};
+            
+            
+            
+            % Draw edges
+            \path[draw, -{Latex[length=2mm]}]
+            (play) edge [bend right=20] node[left] {Step done} (rewind)
+            edge [bend left=20] node[left] {Got feedback\\(\emph{positive})} (change)
+            edge [out=140,in=220,looseness=6] node[left] {Step\\not done} (play)
+            
+            (change) edge [bend left=20] node[right] {Step changed} (play)
+            edge [bend left=20] node[right] {All steps done} (shutdown)
+            
+            (rewind) edge [bend right=20] node[right] {Rewound} (play)
+            edge [bend right=20] node[right] {Too many rewinds} (shutdown);
+            
+            \end{tikzpicture}
+        }
+        \caption{State diagram of the user model governing the replay of the pre-recorded trace at runtime.}\label{fig:usermodel}
+    \end{subfigure}
+    \caption{%
+        Overview of our first implementation of the methodology for \ac{WCA}.
+    }\label{fig:edgedroid1:trace}
+\end{figure}
+
+We first introduce our methodology in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}.
+The former corresponds to an extended abstract paper which discusses a high level overview of our approach; the latter presents a deeper, more complete discussion about the implementation together with some first experimental results.
+
+The overall goal of these papers is to explore this methodological approach as applied to \ac{WCA}.
+For this purpose, we introduce a tool, \emph{EdgeDroid 1.0}, which mimics the behavior of a human interacting with a \ac{WCA} client application.
+
+
+
+
 To establish a reproducible and comparable workload, we use a trace-based design for the client-side emulation.
 We first record a trace of the sensory input data while having a human user operate the target application.
 The collected data consists of the sensory inputs provided to the system at runtime, for instance --- in the case of a video-based application --- the video feed from the camera.
@@ -31,44 +100,6 @@ The collected data consists of the sensory inputs provided to the system at runt
 To then use the trace for reproducible experiments, we introduce a benchmarking suite which can replay the trace to the original application.
 This results in the same computation to be performed on the edge as if a human was involved, while also ensuring a reproducible application execution path.
 Additionally, the suite is instrumented to collect system level metrics at runtime for posterior analysis.
-
-\begin{figure}
-    % Define block styles
-    %         \tikzstyle{block} = [circle, draw, fill=red!20, 
-    %         text width=5em, text centered, rounded corners, minimum size=4em]
-    %         \tikzstyle{decision} = [diamond, aspect=2, draw, fill=yellow!20,
-    %         text width=5em, text centered, rounded corners, minimum size=4em]
-    %        \tikzstyle{line} = [draw, -{Latex[length=3mm]}]
-    \centering
-    \adjustbox{scale=0.75}{
-        \begin{tikzpicture}[align=center,
-        node distance=.5cm and 1.5cm,
-        every initial by arrow/.style={-{Latex[length=2mm]}}]
-        % Place nodes              
-        \node [initial, state, minimum size=6em, initial text=] (play) {Play};               
-        \node [state, above right=of play, minimum size=6em] (change) {Change\\step};
-        \node [state, below right=of play, minimum size=6em] (rewind) {Rewind};
-        \node [state, accepting, above right=of rewind, minimum size=6em] (shutdown) {Shutdown};
-        
-        
-        
-        % Draw edges
-        \path[draw, -{Latex[length=2mm]}]
-        (play) edge [bend right=20] node[left] {Step done} (rewind)
-        edge [bend left=20] node[left] {Got feedback\\(\emph{positive})} (change)
-        edge [out=140,in=220,looseness=6] node[left] {Step\\not done} (play)
-        
-        (change) edge [bend left=20] node[right] {Step changed} (play)
-        edge [bend left=20] node[right] {All steps done} (shutdown)
-        
-        (rewind) edge [bend right=20] node[right] {Rewound} (play)
-        edge [bend right=20] node[right] {Too many rewinds} (shutdown);
-        
-        \end{tikzpicture}
-    }
-    \caption{State diagram of the user model}
-    \label{fig:usermodel}
-\end{figure}
 
 However, merely replaying the trace is not enough, as disparities between system responsiveness at recording versus replay time can cause the trace so drift out of synchronization with the current state of the system.
 Thus, we introduce here the concept of a human user model which is able to adapt its behavior in a realistic manner based on the current responsiveness of the system by systematically controlling the replay of the trace.
@@ -150,7 +181,8 @@ The figure shows clears spikes in latencies at the transitions from task state 3
 
 \todo[inline]{\cref{paper:olguinmunoz2019edgedroid}}\label{summary:2019edgedroid}
 
-\subsection{Applying the methodology to \acsp{NCS}}
+\subsection{Applying the methodology to \acsp{NCS}}\label{ssec:methodology:ncs}
+
 \todo[inline]{\Cref{paper:olguinmunoz2022cleave} implements both the methodology and the tool.}
 
 \begin{figure*}
