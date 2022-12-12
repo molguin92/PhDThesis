@@ -1,7 +1,7 @@
 \section{Conclusion}\label{sec:conclusion}
 
 This paper addresses the difficulty of benchmarking \ac{WCA} by offering a model-based alternative to the extensive human-user studies that would otherwise be required.
-It first introduces the \edgedroid{} model of human timing behavior for \ac{WCA}, the first data-driven model for human timing in \ac{WCA} applications.
+It first introduces the \edgedroid{} model of human timing behavior for \ac{WCA}.
 This model represents a stochastic approach to execution time modeling which builds upon prior data~\cite{olguinmunoz:impact2021}.
 It further introduces a novel procedure for the generation of synthetic traces of frames in step-based \ac{WCA}, allowing for a full end-to-end emulation of a human when combined with the timing model.
 
@@ -25,6 +25,3 @@ Although this distribution fits the data reasonably well, there are other which 
 Our future efforts consider developing this framework towards these more accurate distributions.
 Finally, our current approach only considers a single client, which will be far from the case in a real-world \ac{WCA} deployment.
 As such, another milestone in this context could be the exploration for a potential extension towards a collaborative and/or distributed solution.
-
-\todo[inline]{Comment from Bobby: Reviewers might wonder why we stuck with the Rayleigh distribution.
-Manuel: I think Vishnu already fixed this in the appendix.}

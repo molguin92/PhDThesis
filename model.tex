@@ -56,8 +56,7 @@ The exact resulting bins of this operation on the data are presented in \cref{ta
 Next, the data is further tagged according to its associated level of normalized neuroticism.
 For this work, we use two levels, \emph{low} and \emph{high}, the exact values for which can also be seen in \cref{tab:defaultbins}.
 
-After this preprocessing has been finished, the data is ready to be used for the generation of execution times by applying the above steps in real-time to measured \acp{TTF}.
-We devise two variants of such a model, which operate as follows:
+After this preprocessing has been finished, the data is ready to be used for the generation of execution times by applying the above steps in real-time to measured \acp{TTF}:
 
 \begin{enumerate}
     \item At the beginning of each step, the model is fed the measured \ac{TTF} for the previous step.
@@ -74,7 +73,7 @@ We devise two variants of such a model, which operate as follows:
 
 The distribution chosen for the second variant described above corresponds to the \ac{exGaussian} distribution, previously discussed in \cref{ssec:moderationeffects}.
 
-We implement these models in Python 3.10, and verify their correct behavior in the following.
+We implement these two variants of the model in Python 3.10, and verify their correct behavior in the following.
 
 \subsubsection{Verifying the behavior of the timing model}\label{ssec:model:verification}
 % \todo[inline]{Based on the 4 main conclusions of the PLOS paper.}
@@ -84,13 +83,13 @@ These are reformulated as objectives below:
 
 \begin{enumerate}
     \item\label{it:ttftoexectime} Higher \acp{TTF} should result in higher execution times.
-    \item\label{it:duration} When subject to a series of steps at the same level of impairment, desired model behavior depends on the impairment:
+    \item\label{it:duration} When subject to a series of steps at the same level of impairment, desired behavior depends on the level:
     \begin{enumerate}
         \item At low \acp{TTF}, the model should speed up; i.e.\ execution times should decrease.
         \item At medium \acp{TTF}, execution times should remain more or less the same.
-        \item At high \acp{TTF}, execution times should progressively increase.
+        \item At high \acp{TTF}, execution times should increase.
     \end{enumerate}
-    \item The effects on execution times due to past reductions or improvements in system responsiveness should linger for at least a few steps whenever system responsiveness changes.
+    \item The effects on execution times due to past changes in system responsiveness should linger for at least a few steps whenever system responsiveness changes anew.
     \item\label{it:neuro} Finally, neuroticism should act as a modulating factor for the above effects.
 \end{enumerate}
 

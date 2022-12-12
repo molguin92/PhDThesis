@@ -22,7 +22,7 @@ The authors then find the optimum periodic sampling interval that minimizes this
 
 % In this optimization, the constant parts are excluded as it does not affect the process.
 With a value much smaller than the execution time of the event, the \ac{RTT} of the final sample is included in this constant part, which is why $\mathcal{W}$ is computed without it.
-Next, in~\cite{Moothedath2022Aperiodic}, the author retains the model, removes the constraint of periodicity, and finds the optimum aperiodic sampling instants $\{t_n,\,n=1,2,\dots\}$ that minimize the same energy penalty.
+Next, in~\cite{Moothedath2022Aperiodic}, the author retains the model and removes the constraint of periodicity to find the optimum aperiodic sampling instants $\{t_n,\,n=1,2,\dots\}$ that minimize the same energy penalty.
 
 In this work, we use the modeling from~\cite{Moothedath2022Aperiodic} to find the optimum \emph{aperiodic} sampling interval.
 However, instead of using their two-step approach to find the solution which includes a recursive solution followed by a bisection algorithm, we develop a novel, approximate, but easier solution to finding the set of the optimum aperiodic sampling intervals.
@@ -35,13 +35,6 @@ Thus,
 \begin{alignat}{1}
     \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C\;\label{eq:epsilon_terminal}
 \end{alignat}
-
-\todo[inline]{%
-    Comment by Jaya:
-    The presentation of the optimization for energy metric in (5) and later in Section 6.2 presenting the optimization for minimizing number of samples subject to weight penalty is done in a non-trivial way. A natural way to present it is to state the optimization problem in 6.2 first and state that the function in (5) is a Legrangian function of this optimization with alpha/beta being the Lagrangian parameter. People are well aware of the Lagrangian formulation, so at least mention that (5) is a Lagrangian function and alpha/beta is a Lagrangian parameter.
-
-    Manuel: I've added a mention to the Lagrangian function below. Do we need anything else?
-}
 
 This corresponds to a Lagrangian function of this optimization, with \ensuremath{\frac{\alpha}{\beta}} representing the Lagrangian parameter.
 $\alpha, \beta$ and $C$ are constants which are responsible for modifying the objective function from one metric to another.
