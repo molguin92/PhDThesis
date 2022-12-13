@@ -1,0 +1,71 @@
+\documentclass[10pt, letterpaper]{letter}
+\usepackage{hyperref}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[]{todonotes}
+\usepackage[]{geometry}
+\usepackage[inline]{enumitem}
+\usepackage[nolist]{acronym}
+\usepackage[]{siunitx}
+\usepackage[
+  style=numeric-comp,
+  sorting=none,
+  sortcites,
+  hyperref,
+  mincitenames=1,
+  maxcitenames=2,
+  maxbibnames=2,
+  minbibnames=1,
+  citestyle=numeric-comp, % for [1, 2] instead of [1], [2]
+  backend=bibtex
+]{biblatex}
+\bibliography{bibliography.bib}
+% \AtBeginBibliography{\small}
+% \AtEveryBibitem{\clearfield{day}}
+% \AtEveryBibitem{\clearfield{isbn}}
+% % \AtEveryBibitem{\clearfield{url}}
+% \AtEveryBibitem{\clearfield{series}}
+% \AtEveryBibitem{\clearlist{location}}
+% \AtEveryBibitem{\clearfield{doi}}
+\input{acronyms.tex}
+
+
+
+\signature{
+    Manuel {Olguín Muñoz}\\
+    Division of Information~Science and Engineering, EECS\\
+    KTH Royal Institute of Technology\\
+    Malvinas väg 10, 7th floor\\
+    100 44 Stockholm, Sweden\\
+    \href{mailto:molguin@kth.se}{\url{molguin@kth.se}}
+}
+% \address{}
+\begin{document}
+
+\begin{letter}{
+    Qian Zhang, Ph.D.\\
+    Editor-in-Chief\\
+    IEEE Transactions on Mobile Computing
+}
+\opening{Dear Dr.\ Zhang:}
+
+Please find enclosed a research article submission to IEEE Transactions on Mobile computing entitled \emph{``Realistic Modeling of Human Timings for Wearable Cognitive Assistance''}.
+% We confirm that this work is original and has not been published elsewhere, nor is it currently under consideration for publication elsewhere.
+
+This manuscript presents two main contributions.
+We first introduce a stochastic model for human behavior in the context of \ac{WCA}.
+This model is built from data collected for our previous work in ``\citefield{olguinmunoz:impact2021}{title}'' (\citeauthor{olguinmunoz:impact2021}, \citefield{olguinmunoz:impact2021}{year}), and represents the first realistic end-to-end modeling approach for \ac{WCA}.
+Given the difficulty of scalably and repeatably studying systems such as \ac{WCA} which include a human-in-the-loop, we believe this model to be an important contribution to the development and expansion of this field of research.
+
+Furthermore, we introduce a novel optimization framework for resource consumption-responsiveness trade-offs in these systems.
+We show that by combining these two contributions, we are able to obtain significant reductions --- up to \SI{50}{\percent} --- in relevant metrics relating to system load and resource consumption, such as number of processed samples and raw energy consumption per logical application step.
+We believe these results provide key insights for developers and researchers working on developing and benchmarking \ac{WCA} applications as well as on cost-efficient strategies for resource allocation in these systems.
+
+We do not have any opposed reviewers or editors.
+
+I will be serving as the corresponding author for the manuscript, assuming all the responsibilities this entails. 
+All of the authors listed have agreed to the byline order and to submission of the manuscript, and understand that, if accepted for publication, a certification of authorship form will be required that will be signed by all of us.
+
+\closing{Sincerely,}
+\end{letter}
+\end{document}
