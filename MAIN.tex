@@ -31,11 +31,15 @@
 \fancyhead[LO]{\rightmark}
 
 \usepackage{lscape}
-\usepackage{hyperref}  %for references
 \usepackage{indentfirst}
 \usepackage{amsmath,mathrsfs}
 \usepackage{amssymb}  % assumes amsmath package installed
 \usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{relsize}
+% \usepackage{breqn}
+\usepackage{mathtools}
+\usepackage[d]{esvect}
 \usepackage{epstopdf}
 % \usepackage{subfig}
 \usepackage{epigraph}
@@ -64,6 +68,7 @@
 \addtocategory{thesispapers}{olguinmunoz2022cleave}
 \addtocategory{thesispapers}{olguinmunoz2022ainur}
 
+\usepackage{hyperref}
 \usepackage[capitalize,nameinlink]{cleveref}
 \usepackage{graphicx}
 \usepackage{bm}	%Command \bm{make bold}
@@ -75,9 +80,11 @@
 \usepackage{lipsum}
 \usepackage[printonlyused]{acronym}
 \usepackage{booktabs}
+\usepackage{tabularx}
 \usepackage{graphicx}
 \usepackage{makecell}
-\usepackage[binary-units]{siunitx}
+\usepackage[detect-weight=true,detect-family=true,binary-units=true,list-units=single,range-units=single]{siunitx}
+\sisetup{list-final-separator = {, and }}
 \DeclareSIUnit{\belmilliwatt}{Bm}
 \DeclareSIUnit{\dBm}{\deci\belmilliwatt}
 
@@ -115,8 +122,19 @@
 
 
 \usepackage{appendix}
-\usepackage{hyperref}
+\usepackage[all]{hypcap}
 \usepackage{soul}
+
+% from ToMC preamble
+\newcommand{\edgedroid}{EdgeDroid~\num{2.0}}
+\newcommand*\dif{\,\mathrm{d}}
+\newcommand*\df{\mathrm{d}}
+\newcommand*\ts{T_{\text{s}}}
+\sisetup{list-final-separator = {, and }}
+
+\crefname{appendixwithoutnumber}{appendix}{appendices}
+\crefformat{appendixwithoutnumber}{#2the \appendixname#3}
+\Crefformat{appendixwithoutnumber}{#2The \appendixname#3}
 
 % toc and subsection depth
 \setsecnumdepth{subsection}
@@ -147,6 +165,7 @@
   \renewbibmacro*{in:}{Refereed article published in\\}%
   \renewbibmacro*{title}{}%
   \renewbibmacro*{annotation}{}%
+  \renewbibmacro*{}{}%
   \renewbibmacro*{journal}{%
     \ifboolexpr{
       test {\iffieldundef{journaltitle}}
@@ -159,7 +178,7 @@
        \printfield[titlecase]{journaltitle}%
        \setunit{\subtitlepunct}%
        \printfield[titlecase]{journalsubtitle}}}}
-  }%
+}%
 
 \newcommand{\suppauthtitle}{\AtNextCite{\int@suppauthtitle}}
 \makeatother
@@ -213,6 +232,44 @@
 \clearpage%
 \hspace{0pt}\vfill%
 \noindent\textcopyright~{\citeyear{#2}~\citelist{#2}{publisher}}
+
+\noindent{Layout has been revised for thesis consistency.}
+
+\vfill\hspace{0pt}%
+\end{titlingpage*}%
+\restorepagecolor%
+}
+
+\newcommand{\preprintthesispaper}[4]
+{%
+% reset all acronyms
+\acresetall%
+
+%
+\edef\stitle{#1}
+\edef\ptitle{\citefield{#2}{title}}
+\edef\plabel{paper:#2}
+
+\cleardoublepage%
+\begin{titlingpage*}
+\newpagecolor{titlecolor}
+\thesispaperchapter{\stitle}{\ptitle}{\plabel}
+
+\begin{flushright}
+{\citeallnames{#2}{author}}
+
+\vspace{3em}
+
+Article submitted to~\emph{#3}\\
+\vspace{1em}%
+Submitted for review on #4
+\end{flushright}
+
+\thispagestyle{empty}
+\clearpage%
+\hspace{0pt}\vfill%
+\noindent\textcopyright~{\citeyear{#2}~\citeauthor{#2}}
+% \noindent\textcopyright~{\citeyear{#2}~\citelist{#2}{publisher}}
 
 \noindent{Layout has been revised for thesis consistency.}
 

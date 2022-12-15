@@ -107,11 +107,15 @@ On the other hand, the trace in question corresponds to a pre-recorded sequence 
 The trace is recorded in a near-ideal setting, such that it does not include either human mistakes or segments with degraded system responsiveness.
 Once recorded, the trace is manually segmented into the logical component steps of the task, and these are replayed in sequence back to the backend by the EdgeDroid tool.
 
-Utilizing a trace for the emulation of human behavior in \ac{WCA} has multiple advantages.
+We opt for a trace-based approach for our first implementation of the methodology for \ac{WCA} for three key reasons.
 The first of these is the level of realism if affords in terms of the payloads sent over the network and, in particular, processed by the backend.
 Using a trace ensures that the same computation is performed on the edge as if a human was involved, while also ensuring a reproducible application execution path.
+
 The second is simplicity, as such an approach does not require complex modeling of human behavioral patterns, merely the observation and recording of them.
-The third is extensibility.
+Compatible traces can be easily obtained simply by instrumenting existing \ac{WCA} client applications to record all captured inputs.
+
+The final advantage corresponds to extensibility.
+As long as the tasks belong to the same category of \ac{WCA} applications (in this case, step-based cognitive assistance), using a trace makes extending the tool to different tasks merely a matter of recording a new trace.
 
 \todo[]{}
 
