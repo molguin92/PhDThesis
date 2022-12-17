@@ -69,6 +69,12 @@
 \addtocategory{thesispapers}{olguinmunoz2022ainur}
 
 \usepackage{hyperref}
+\usepackage{chngcntr}
+\counterwithin{chapter}{part}
+\renewcommand*{\thechapter}{\arabic{chapter}}
+\usepackage{tocloft}
+\renewcommand{\cftchapteraftersnum}{:}
+
 \usepackage[capitalize,nameinlink]{cleveref}
 \usepackage{graphicx}
 \usepackage{bm}	%Command \bm{make bold}
@@ -183,27 +189,14 @@
 \newcommand{\suppauthtitle}{\AtNextCite{\int@suppauthtitle}}
 \makeatother
 
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 \definecolor{titlecolor}{HTML}{ECCEF5}
 
-% custom chapter type for thesis papers
-\newcounter{thesispapers}
-\renewcommand{\thethesispapers}{\Alph{thesispapers}}
-\newcommand{\thesispaperchapter}[3]{%
-  \refstepcounter{thesispapers}%
-  \sethlcolor{black}
-  \chapter*{%
-    {\scshape{}Paper}~{\thethesispapers}\\%
-    \bigskip%
-    {\HUGE{}#2}%
-  }\label{#3}%
-  \addcontentsline{toc}{chapter}{Paper \thethesispapers: #1}%
-}
-\crefformat{thesispapers}{#2Paper~#1#3}
-\Crefformat{thesispapers}{#2Paper~#1#3}
-% \crefrangeformat{thesispapers}{papers~#3#1#4 to~#5#2#6}
-% \Crefrangeformat{thesispapers}{papers~#3#1#4 to~#5#2#6}
-\crefmultiformat{thesispapers}{#2Paper~#1#3}{ and #2Paper~#1#3}{, #2Paper~#1#3}{, and #2Paper~#1#3}
-\crefmultiformat{thesispapers}{#2Paper~#1#3}{ and #2Paper~#1#3}{, #2Paper~#1#3}{, and #2Paper~#1#3}
+\renewcommand\cftchaptername{\chaptername~}
+\renewcommand\cftappendixname{\appendixname~}
+\newcommand\newchaptername{Paper}
+\crefname{paper}{Paper}{Papers}
+
 
 \newcommand{\thesispaper}[2]
 {%
@@ -218,7 +211,7 @@
 \cleardoublepage%
 \begin{titlingpage*}
 \newpagecolor{titlecolor}
-\thesispaperchapter{\stitle}{\ptitle}{\plabel}
+\chapter[\stitle]{\ptitle}\label[paper]{\plabel}
 
 \begin{flushright}
 {\citeallnames{#2}{author}}
@@ -253,7 +246,7 @@
 \cleardoublepage%
 \begin{titlingpage*}
 \newpagecolor{titlecolor}
-\thesispaperchapter{\stitle}{\ptitle}{\plabel}
+\chapter[\stitle]{\ptitle}\label[paper]{\plabel}
 
 \begin{flushright}
 {\citeallnames{#2}{author}}
@@ -328,13 +321,11 @@ Submitted for review on #4
 \include{body/part1/futurework.tex}
 \include{body/part1/references.tex}
 
+
+\renewcommand\chaptername{\newchaptername}
+\addtocontents{toc}{\protect\renewcommand\protect\cftchaptername{\newchaptername~}}
+\renewcommand*{\thechapter}{\Alph{chapter}}
 \part{Publications}
-% \begin{appendices}
-% %style
-% \ChNameVar{\rmfamily\Large}
-% \ChNumVar{\rmfamily\Huge\bfseries}
-% \ChTitleVar{\normalfont\rmfamily\Huge}
-% \renewcommand{\appendixname}{Paper}
 
 \include{publications/2018DemoScaling.tex}
 \include{publications/2019EdgeDroid.tex}
