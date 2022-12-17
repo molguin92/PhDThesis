@@ -1,284 +1,9 @@
 \PassOptionsToPackage{x11names}{xcolor}
 \documentclass[electronic,oldfontcommands]{kthesis}
+\input{preamble}
 
-%%%%%%%%%%%%%%%%%
-%%%% PACKAGES %%%
-%%%%%%%%%%%%%%%%%
-% \usepackage{expl3}
-\usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-\usepackage[swedish,english]{babel}
-\usepackage{todonotes}
-\usepackage{csquotes}
-\usepackage[inline]{enumitem}
-\usepackage{caption}   % to align the table caption to the right/left
-\usepackage{subcaption}
-\usepackage{placeins}
-\usepackage{multirow}
-\usepackage[newfloat]{minted}
-\SetupFloatingEnvironment{listing}{name=List.,within=none}
-\captionsetup[table]{justification=centerlast,
-                     labelsep=newline,
-                     font=sf,
-                     textfont=footnotesize}
-
-% headers
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[LE,RO]{\thepage}
-\fancyhead[RE]{\leftmark}
-\fancyhead[LO]{\rightmark}
-
-\usepackage{lscape}
-\usepackage{indentfirst}
-\usepackage{amsmath,mathrsfs}
-\usepackage{amssymb}  % assumes amsmath package installed
-\usepackage{amsthm}
-\usepackage{amsmath}
-\usepackage{relsize}
-% \usepackage{breqn}
-\usepackage{mathtools}
-\usepackage[d]{esvect}
-\usepackage{epstopdf}
-% \usepackage{subfig}
-\usepackage{epigraph}
-% \usepackage{cite}
-\usepackage[
-  giveninits=false,
-  style=ieee,
-  sorting=none,
-  sortcites,
-  hyperref,
-  mincitenames=1,
-  maxcitenames=2,
-  maxbibnames=10,
-  minbibnames=1,
-  citestyle=numeric-comp, % for [1, 2] instead of [1], [2]
-  backend=biber
-]{biblatex}
-\bibliography{references.bib,bibliography/bibliography.bib}
-
-% included papers
-\DeclareBibliographyCategory{thesispapers}
-\addtocategory{thesispapers}{olguinmunoz2018demoscaling}
-\addtocategory{thesispapers}{olguinmunoz2019edgedroid}
-\addtocategory{thesispapers}{olguinmunoz2021impact}
-\addtocategory{thesispapers}{olguinmunoz2023realistic}
-\addtocategory{thesispapers}{olguinmunoz2022cleave}
-\addtocategory{thesispapers}{olguinmunoz2022ainur}
-
-\usepackage{hyperref}
-\usepackage{chngcntr}
-\counterwithin{chapter}{part}
-\renewcommand*{\thechapter}{\arabic{chapter}}
-\usepackage{tocloft}
-\renewcommand{\cftchapteraftersnum}{:}
-
-\usepackage[capitalize,nameinlink]{cleveref}
-\usepackage{graphicx}
-\usepackage{bm}	%Command \bm{make bold}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
-\usepackage{algpascal}
-\usepackage{multicol}
-% \usepackage[x11names]{xcolor}
-\usepackage{lipsum}
-\usepackage[printonlyused]{acronym}
-\usepackage{booktabs}
-\usepackage{tabularx}
-\usepackage{graphicx}
-\usepackage{makecell}
-\usepackage[detect-weight=true,detect-family=true,binary-units=true,list-units=single,range-units=single]{siunitx}
-\sisetup{list-final-separator = {, and }}
-\DeclareSIUnit{\belmilliwatt}{Bm}
-\DeclareSIUnit{\dBm}{\deci\belmilliwatt}
-
-\usepackage{xcolor}
-\usepackage{pagecolor}
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.14}
-\usepackage{tikz}
-\usepackage{tikzpeople}
-\usetikzlibrary{tikzmark,calc,decorations.pathreplacing,shapes,shapes.symbols,arrows.meta,positioning,automata}
-\usepackage[export]{adjustbox}
-\usepackage{pgf-umlsd}
-\input{publications/2018DemoScalingOnTheEdge/pgf-umlsd-ex.tex}
-
-\newcommand{\Depth}{2}
-\newcommand{\Height}{2}
-\newcommand{\Width}{2}
-
-\renewcommand{\labelitemi}{\textcolor{IndianRed3}{\bfseries\textbullet}}
-
-% fancy chapters
-\usepackage[Sonny]{fncychap}
-\ChNameVar{\normalfont\large\rmfamily}
-\ChNumVar{\normalfont\rmfamily\bfseries}
-\ChTitleVar{\normalfont\rmfamily\huge}
-
-\usepackage{xparse}
-\NewDocumentCommand{\thesischapter}{o m m}{%
-   \IfNoValueTF{#1}
-     {\chapter[#2]{#2\origtitle{#3}}}
-     {\chapter[#1]{#2\origtitle{#3}}}%
-}
-\newcommand\origtitle[1]{\\
-  \parbox{\textwidth}{\normalsize\vspace*{2\baselineskip}#1}}
-
-
-\usepackage{appendix}
-\usepackage[all]{hypcap}
-\usepackage{soul}
-
-% from ToMC preamble
-\newcommand{\edgedroid}{EdgeDroid~\num{2.0}}
-\newcommand*\dif{\,\mathrm{d}}
-\newcommand*\df{\mathrm{d}}
-\newcommand*\ts{T_{\text{s}}}
-\sisetup{list-final-separator = {, and }}
-
-\crefname{appendixwithoutnumber}{appendix}{appendices}
-\crefformat{appendixwithoutnumber}{#2the \appendixname#3}
-\Crefformat{appendixwithoutnumber}{#2The \appendixname#3}
-
-% toc and subsection depth
-\setsecnumdepth{subsection}
-\setcounter{tocdepth}{2}
-\setlength{\cftsectionindent}{0pt} % Remove indent for \section
-\setlength{\cftsubsectionindent}{0pt} % Remove indent for \subsection
-\setlength{\cftsubsubsectionindent}{0pt}
-
-\newenvironment{acks}{\section*{Acknowledgements}}{}
-\theoremstyle{definition}
-\newtheorem*{contributions}{Contributions of this thesis}
-\newtheorem*{maincontrib}{Principal contribution of this thesis}
-
-\newenvironment{dedication}{\cleardoublepage\null\vspace{\stretch{1}}\begin{flushright}\itshape}{\end{flushright}\vspace{\stretch{2}}\null}
-
-\newcommand{\citeallnames}
-{\AtNextCite{\defcounter{maxnames}{99}}\citename}
-
-\makeatletter
-\newcommand{\int@suppauthtitle}{%
-  \def\ifciteibid{\@secondoftwo}%
-  \renewbibmacro*{cite:name}{}%
-  \renewbibmacro*{cite:idem}{}%
-  \renewbibmacro*{author}{}%
-  \renewbibmacro*{editor+others}{}%
-  \renewbibmacro*{translator+others}{}%
-  \renewbibmacro*{url}{}%
-  \renewbibmacro*{in:}{Refereed article published in\\}%
-  \renewbibmacro*{title}{}%
-  \renewbibmacro*{annotation}{}%
-  \renewbibmacro*{}{}%
-  \renewbibmacro*{journal}{%
-    \ifboolexpr{
-      test {\iffieldundef{journaltitle}}
-      and
-      test {\iffieldundef{journalsubtitle}}
-    }
-    {}
-    {\printtext[journaltitle]{%
-       \normalfont{Refereed article published in}\\
-       \printfield[titlecase]{journaltitle}%
-       \setunit{\subtitlepunct}%
-       \printfield[titlecase]{journalsubtitle}}}}
-}%
-
-\newcommand{\suppauthtitle}{\AtNextCite{\int@suppauthtitle}}
-\makeatother
-
-\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
-\definecolor{titlecolor}{HTML}{ECCEF5}
-
-\renewcommand\cftchaptername{\chaptername~}
-\renewcommand\cftappendixname{\appendixname~}
-\newcommand\newchaptername{Paper}
-\crefname{paper}{Paper}{Papers}
-
-
-\newcommand{\thesispaper}[2]
-{%
-% reset all acronyms
-\acresetall%
-
-%
-\edef\stitle{#1}
-\edef\ptitle{\citefield{#2}{title}}
-\edef\plabel{paper:#2}
-
-\cleardoublepage%
-\begin{titlingpage*}
-\newpagecolor{titlecolor}
-\chapter[\stitle]{\ptitle}\label[paper]{\plabel}
-
-\begin{flushright}
-{\citeallnames{#2}{author}}
-
-\vspace{3em}
-
-\suppauthtitle\fullcite{#2}
-\end{flushright}
-
-\thispagestyle{empty}
-\clearpage%
-\hspace{0pt}\vfill%
-\noindent\textcopyright~{\citeyear{#2}~\citelist{#2}{publisher}}
-
-\noindent{Layout has been revised for thesis consistency.}
-
-\vfill\hspace{0pt}%
-\end{titlingpage*}%
-\restorepagecolor%
-}
-
-\newcommand{\preprintthesispaper}[4]
-{%
-% reset all acronyms
-\acresetall%
-
-%
-\edef\stitle{#1}
-\edef\ptitle{\citefield{#2}{title}}
-\edef\plabel{paper:#2}
-
-\cleardoublepage%
-\begin{titlingpage*}
-\newpagecolor{titlecolor}
-\chapter[\stitle]{\ptitle}\label[paper]{\plabel}
-
-\begin{flushright}
-{\citeallnames{#2}{author}}
-
-\vspace{3em}
-
-Article submitted to~\emph{#3}\\
-\vspace{1em}%
-Submitted for review on #4
-\end{flushright}
-
-\thispagestyle{empty}
-\clearpage%
-\hspace{0pt}\vfill%
-\noindent\textcopyright~{\citeyear{#2}~\citeauthor{#2}}
-% \noindent\textcopyright~{\citeyear{#2}~\citelist{#2}{publisher}}
-
-\noindent{Layout has been revised for thesis consistency.}
-
-\vfill\hspace{0pt}%
-\end{titlingpage*}%
-\restorepagecolor%
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%% Document starts here %%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%% First and second pages %%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{A methodology for the study and research of feedback-loop applications enabled by Edge Computing}
 \subtitle{{\color[HTML]{FF0000}{\textbf{Tentantive title}}}}
 \author{Manuel {Osvaldo Jesús} {Olguín Muñoz}}
@@ -306,35 +31,32 @@ Submitted for review on #4
 
 \frontmatter % Pages i, ii, iii, iv, v etc.
 
-\include{body/abstract.tex}
-\include{body/papers.tex}
-\include{body/acks.tex}
-\include{body/acronyms.tex}
+\include{body/abstract}
+\include{body/papers}
+\include{body/acks}
+\include{body/acronyms}
 
 \mainmatter % Pages 1, 2, 3...
 
 \tableofcontents*{}
-\part{Summary}
-\include{body/part1/introduction.tex}
-\include{body/part1/background.tex}
-\include{body/part1/overview.tex}
-\include{body/part1/futurework.tex}
-\include{body/part1/references.tex}
+\part{Summary}\label{part:summary}
+\include{body/part1/introduction}
+\include{body/part1/background}
+\include{body/part1/overview}
+\include{body/part1/futurework}
+\include{body/part1/references}
 
 
 \renewcommand\chaptername{\newchaptername}
 \addtocontents{toc}{\protect\renewcommand\protect\cftchaptername{\newchaptername~}}
 \renewcommand*{\thechapter}{\Alph{chapter}}
-\part{Publications}
+\part{Publications}\label{part:publications}
 
-\include{publications/2018DemoScaling.tex}
-\include{publications/2019EdgeDroid.tex}
-\include{publications/2021Impact.tex}
-\include{publications/2022CLEAVE.tex}
-\include{publications/2022Ainur.tex}
-\include{publications/2023EdgeDroid2.tex}
+\include{publications/2018DemoScaling}
+\include{publications/2019EdgeDroid}
+\include{publications/2021Impact}
+\include{publications/2022CLEAVE}
+\include{publications/2022Ainur}
+\include{publications/2023EdgeDroid2}
 
 \end{document}
-\endinput
-%%
-%% End of file `kth-demo.tex'.
