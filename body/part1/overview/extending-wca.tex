@@ -6,13 +6,61 @@
 
 \subsection{Characterizing human behavior}
 
-\cref{paper:olguinmunoz2021impact} describes a study designed to characterize the effects of system responsiveness on
-human behavior in step-based \ac{WCA}.
-This corresponds to the first step in extending our EdgeDroid tool for the benchmarking of \ac{WCA}, first introduced
-in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}, with a more realistic model of human
-behavior.
+\cref{paper:olguinmunoz2021impact} describes a study designed to characterize the effects of system responsiveness on human behavior in step-based \ac{WCA}.
+This corresponds to the first step in extending our EdgeDroid tool for the benchmarking of \ac{WCA}, first introduced in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}, with a more realistic model of human behavior.
 
-We employed a modified version of the step-based LEGO cognitive assistant first introduced by \citeauthor{chen2015early}
+We present in this paper the design and execution of a study in which undergraduate students of diverse fields of
+study\footnote{%
+    Participants were recruited from a pool of students enrolled in an undergraduate psychology course at \ac{CMU}.
+}, were asked to interact with and follow the instructions given to them by a \ac{WCA} application.
+Unbeknownst to the participants, the system responsiveness of the \ac{WCA} system was systematically altered in real time, and the resulting behavioral and physiological reactions were recorded.
+
+With this study, we intended to answer four core research questions relating to human responses to decreased application responsiveness.
+One, do subjects change the temporal profile of their actions in relation to system latency?
+We expected this to be the case, although the extent or form of these changes were unknown.
+Two, do users show signals of arousal in physiological responses to changes in system latency?
+As latency increased and due to the added annoyance of dealing with a less responsive system, we expected users to begin showing signs of stress and frustration.
+Three, are responses to delay effects in subjects mediated by cognition and/or emotion?
+We expected delay effects in subjects to be mediated primarily by emotion, and in particular expected these effects to be correlated with the level of the reduction in system responsiveness.
+And four, are these effects mediated by personality indicators in any way?
+It was our hypothesis that, among others, the individual trait of \emph{neuroticism}~\cite{john1999big} would play a particularly important role in mediating effects of reduced system responsiveness on subjects.
+
+\begin{figure}[tb]
+    \centering
+    \begin{subfigure}[t]{.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{publications/2021ImpactDelayedResponse/Fig4a}
+        \caption{}\label{sfig:regularwcaexec}
+    \end{subfigure}%
+    \hfill%
+    \begin{subfigure}[t]{.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{publications/2021ImpactDelayedResponse/Fig4b}
+        \caption{}\label{sfig:delaywcaexec}
+    \end{subfigure}
+    \caption{%
+        Comparison between normal task execution in the LEGO \ac{WCA}~\cite{chen2015early}~(\labelcref{sfig:regularwcaexec}) and modified task execution with delay in the experimental setup of \cref{paper:olguinmunoz2021impact}~(\labelcref{sfig:delaywcaexec}).
+        In the experimental task, an additional variable segment of time is introduced immediately following the processing of the input frame in order to extend the perceived processing time of the input to a specific target interval of time denoted \emph{delay}.
+    }\label{fig:regularwca-vs-delaywca}
+\end{figure}
+
+We employed a version of the step-based LEGO cognitive assistant first introduced by \citeauthor{chen2015early}~\cite{chen2015early}.
+The software was modified to allow for the real-time alteration of system responsiveness by extending the processing interval of each input to a temporarily fixed value denoted \emph{delay}.
+This is illustrated in \cref{fig:regularwca-vs-delaywca}.
+If, during a series of steps, delay was set to a value \ensuremath{\mathbb{D}}, the feedback for each input frame was provided to the user exactly \ensuremath{\mathbb{D}} seconds after frame capture.
+Furthermore, the assistant was instrumented to capture key application and task performance metrics in real time, in particular step execution time.
+\todo[inline]{Task, latin square?}
+
+In order to capture metrics relating to the emotional response of humans to changes in system responsiveness, participants were asked to wear an array of biometric sensors.
+This array included devices to capture four physiological measures:
+\begin{enumerate*}[itemjoin={{, }}, itemjoin*={{, and }}]
+    \item \ac{GSR} (also known as electrodermal activity)
+    \item accelerometer data from the dominant wrist
+    \item brain activity in the form of \ac{EEG}
+    \item heart rate
+\end{enumerate*}.
+Additionally, to measure individual differences in personality between them, participants were asked to complete two questionnaires previous to beginning the task, the \ac{BFI} and the \ac{ITQ}.
+
 
 
 \todo[inline]{\cref{paper:olguinmunoz2021impact} describes the acquisition of the necessary data and insights for the
@@ -296,18 +344,18 @@ trace to generate workloads for a multitude of different user profiles.
         \setlength{\tabcolsep}{0pt} % let TeX compute the intercolumn space
         \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}\quad}lrrr@{}}
             \toprule
-            \textbf{Factor}                            & \textbf{Comp. 1}                    & \textbf{Comp. 2}
-            & \textbf{Comp. 3}                    \\
+            \textbf{Factor} & \textbf{Comp. 1} & \textbf{Comp. 2}
+            & \textbf{Comp. 3} \\
             \midrule
-            BFI Conscientiousness                      & \textcolor{lightgray}{\( -0.022 \)} & \( 0.668 \)
+            BFI Conscientiousness & \textcolor{lightgray}{\( -0.022 \)} & \( 0.668 \)
             & \textcolor{lightgray}{\( -0.481 \)} \\
-            BFI Neuroticism                            & \( 0.600 \)                         & \( -0.678 \)
+            BFI Neuroticism & \( 0.600 \) & \( -0.678 \)
             & \textcolor{lightgray}{\( -0.118 \)} \\
-            ITQ Focus                                  & \( 0.678 \)                         &
-            \textcolor{lightgray}{\( 0.203 \)}  & \( 0.504 \)                         \\
-            ITQ Involvement                            & \( 0.573 \)                         & \( 0.540 \)
-            & \textcolor{lightgray}{\( 0.417 \)}  \\
-            Exec. Time (delay 3.0 s, length 12)        & \( 0.758 \)                         &
+            ITQ Focus & \( 0.678 \) &
+            \textcolor{lightgray}{\( 0.203 \)} & \( 0.504 \) \\
+            ITQ Involvement & \( 0.573 \) & \( 0.540 \)
+            & \textcolor{lightgray}{\( 0.417 \)} \\
+            Exec. Time (delay 3.0 s, length 12) & \( 0.758 \) &
             \textcolor{lightgray}{\( -0.178 \)}
             & \textcolor{lightgray}{\( -0.348 \)}
             \\
@@ -326,7 +374,7 @@ trace to generate workloads for a multitude of different user profiles.
         \caption{Percentages of variance explained by the components.}
         \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}\quad}lrrrr@{}}
             \toprule
-            {}                 & \textbf{Comp. 1}     & \textbf{Comp. 2}     & \textbf{Comp. 3}     & \textbf{Total}
+            {} & \textbf{Comp. 1} & \textbf{Comp. 2} & \textbf{Comp. 3} & \textbf{Total}
             \\
             \midrule
             Explained Variance & \SI{31.88}{\percent} & \SI{22.22}{\percent} & \SI{19.03}{\percent}
