@@ -2,35 +2,35 @@
 
 \acf{WCA} applications are a novel category of wearable, edge-native applications aiming to amplify human cognition in both daily activities and professional settings.
 These systems aim to seamlessly integrate into the day-to-day of users, leveraging compute-intensive algorithms to analyze user and environment information and provide real-time, context-aware information and feedback.
-\ac{WCA} applications originally emerged as assistive use-cases for individuals suffering from cognitive decline due to aging or traumatic brain injuries~\cite{satyanarayanan2009case,Ha2014towards,Satya2019augmenting}, and have since expanded to a greater range of use cases.
-In particular, following the success of non-wearable \ac{XR} and cognitive assistance in industrial settings~\cite{Funk2015Cognitive,Wang2022Comprehensive}, there is increasing interest in the research community in the application of \ac{WCA} for step-by-step assistance for complex assembly tasks~\cite{Chen2017Empirical,belletier2021wearable}.
+\gls{WCA} applications originally emerged as assistive use-cases for individuals suffering from cognitive decline due to aging or traumatic brain injuries~\cite{satyanarayanan2009case,Ha2014towards,Satya2019augmenting}, and have since expanded to a greater range of use cases.
+In particular, following the success of non-wearable \gls{XR} and cognitive assistance in industrial settings~\cite{Funk2015Cognitive,Wang2022Comprehensive}, there is increasing interest in the research community in the application of \gls{WCA} for step-by-step assistance for complex assembly tasks~\cite{Chen2017Empirical,belletier2021wearable}.
 
 A defining characteristic of these applications is their lack of reliance on intentional user inputs to trigger responses.
-They are intended to operate as autonomous guides, much akin to how \ac{GPS} systems guide drivers, tracking their progress and providing feedback and instructions at appropriate times.
+They are intended to operate as autonomous guides, much akin to how \gls{GPS} systems guide drivers, tracking their progress and providing feedback and instructions at appropriate times.
 This context-sensitivity and proactivity in providing user feedback translate into a reliance on high-dimensional, complex, unstructured inputs, such as real-time video, which require intensive compute capabilities to process.
-This also translates into latency-sensitivity, as with any \ac{AR} application.
+This also translates into latency-sensitivity, as with any \gls{AR} application.
 Delays and jitter can be jarring to the user, causing discomfort and leading them to make mistakes and potentially even abandoning the application altogether.
 On the other hand, as their name suggests, these systems are by design \emph{wearable}, which implies the use of lightweight, battery-powered, low energy consumption devices.
 
-The combination of these opposing characteristics has led to \ac{WCA} applications being identified in the literature as prime candidates for offloading to the edge~\cite{Ha2014towards,Chen2017Empirical,Chen2018application}.
+The combination of these opposing characteristics has led to \gls{WCA} applications being identified in the literature as prime candidates for offloading to the edge~\cite{Ha2014towards,Chen2017Empirical,Chen2018application}.
 However, many unknowns still remain before consumer-scale adoption of these applications can become a reality.
-One key gap in knowledge pertains to the current lack of tools and methodologies for scalable and repeatable study of \ac{WCA} application performance and resource utilization in realistic deployments.
+One key gap in knowledge pertains to the current lack of tools and methodologies for scalable and repeatable study of \gls{WCA} application performance and resource utilization in realistic deployments.
 Due to their human-in-the-loop nature, these applications present a challenge to benchmark and characterize, in particular in real-scale deployments where dozens or even hundreds of users might concurrently use the system.
-Accordingly, recruiting a  cohort of subjects for realistic benchmarking and study of \ac{WCA} systems can be prohibitively cumbersome and expensive for many research groups and system designers
-There exists therefore a real need for scalable tools for \ac{WCA} benchmarking which do not rely on direct testing of the human-in-the-loop.
+Accordingly, recruiting a  cohort of subjects for realistic benchmarking and study of \gls{WCA} systems can be prohibitively cumbersome and expensive for many research groups and system designers
+There exists therefore a real need for scalable tools for \gls{WCA} benchmarking which do not rely on direct testing of the human-in-the-loop.
 
 \medskip
 
 In that context, the contributions of this paper are:
 \begin{enumerate}
-    \item\label{item:contrib:model} We introduce the first, to our knowledge, stochastic model for human timings in \ac{WCA} applications.
+    \item\label{item:contrib:model} We introduce the first, to our knowledge, stochastic model for human timings in \gls{WCA} applications.
     Using the data collected for~\cite{olguinmunoz:impact2021} as a base, we build a stochastic model which takes as input past measurements of system responsiveness and produces realistic step execution times.
-    We also introduce a novel way to generate dynamic traces of frames for \ac{WCA} applications which can be combined with the timing model for a full end-to-end emulation of a human.
+    We also introduce a novel way to generate dynamic traces of frames for \gls{WCA} applications which can be combined with the timing model for a full end-to-end emulation of a human.
     We name this new model \emph{\edgedroid}; a direct, more realistic evolution of our initial EdgeDroid approach~\cite{olguin2018scaling,olguin2019edgedroid}.
-    \item\label{item:contrib:footprint} Using this model, we study the implications of realistic human behavior for the \emph{application lifetime footprint} of \ac{WCA}, understanding this term as the duration of a specific complete execution of the application task.
+    \item\label{item:contrib:footprint} Using this model, we study the implications of realistic human behavior for the \emph{application lifetime footprint} of \gls{WCA}, understanding this term as the duration of a specific complete execution of the application task.
     In accordance with previous work~\cite{olguinmunoz:impact2021}, we find dependencies between system responsiveness and human step execution times that lead to substantially different application lifetimes when compared to a first-order baseline which does not take into account human behavior.
-    \item\label{item:contrib:optimization} Finally, we study the potential for optimization in \ac{WCA} when considering human behavior using our model.
-    We develop a generic model for the stochastic optimization of resource consumption versus responsiveness trade-offs in these applications, which we apply to two potential avenues for \ac{WCA} optimization; number of processed samples and energy consumption per step.
+    \item\label{item:contrib:optimization} Finally, we study the potential for optimization in \gls{WCA} when considering human behavior using our model.
+    We develop a generic model for the stochastic optimization of resource consumption versus responsiveness trade-offs in these applications, which we apply to two potential avenues for \gls{WCA} optimization; number of processed samples and energy consumption per step.
     First, we study the potential for reducing the number of samples captured per step.
     This is a valuable endeavor, as reducing the number of samples captured and subsequently processed directly translates in lower bandwidth demand on the wireless network and processor time demand on the cloudlet.
     Next, we explore the potential for direct optimization of energy consumption.
@@ -43,10 +43,10 @@ In that context, the contributions of this paper are:
 
 This paper is structured as follows.
 \cref{sec:relwork} discusses related work in the field of \acl{WCA} modeling.
-In \cref{sec:background} we define and discuss key concepts in \ac{WCA}, as well as summarize the key conclusions from our previous work relating to the relationship between system responsiveness and human behavior in these applications~\cite{olguinmunoz:impact2021}.
-In \cref{sec:model} we detail our model for the generation of realistic human timing in \ac{WCA}.
+In \cref{sec:background} we define and discuss key concepts in \gls{WCA}, as well as summarize the key conclusions from our previous work relating to the relationship between system responsiveness and human behavior in these applications~\cite{olguinmunoz:impact2021}.
+In \cref{sec:model} we detail our model for the generation of realistic human timing in \gls{WCA}.
 We present its design, verify its expected behavior with respect to our previous results, and introduce the dynamic trace generation for full end-to-end emulation of human behavior.
 Next, in \cref{sec:implications:footprint}, we discuss the potential implications of such a model on application lifetimes by studying a small series of representative scenarios.
-This is followed by a more in-depth investigation in \cref{sec:implications:optimization} on the potential consequences of a human timing model on the general optimization of \ac{WCA} systems.
-In the same section, we introduce our generic optimization framework for resource consumption versus responsiveness trade-offs in \ac{WCA}.
+This is followed by a more in-depth investigation in \cref{sec:implications:optimization} on the potential consequences of a human timing model on the general optimization of \gls{WCA} systems.
+In the same section, we introduce our generic optimization framework for resource consumption versus responsiveness trade-offs in \gls{WCA}.
 Finally, in \cref{sec:conclusion} we summarize and conclude this paper, as well as briefly discuss potential avenues for future work.

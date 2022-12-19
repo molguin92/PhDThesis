@@ -1,27 +1,27 @@
-\section{Implications for the optimization of resource consumption and responsiveness trade-offs in \ac{WCA}}\label{sec:implications:optimization}
+\section{Implications for the optimization of resource consumption and responsiveness trade-offs in \gls{WCA}}\label{sec:implications:optimization}
 
-As with any application intended for mass deployment on multi-tenant systems such as the edge, \ac{WCA} applications will have to be configured and designed to minimize resource consumption at runtime.
+As with any application intended for mass deployment on multi-tenant systems such as the edge, \gls{WCA} applications will have to be configured and designed to minimize resource consumption at runtime.
 At the same time, imposing too stringent requirements on resource consumption can adversely affect application responsiveness, which in turn has the potential to drastically reduce quality of experience for users.
 Optimizing the deployment of these applications thus inherently involves achieving a balance between the reduction of resource consumption while maintaining an acceptable level of system responsiveness.
 
-A question then arises as to what extent accurate modeling of human behavior plays a role in the optimization of \ac{WCA} applications and systems.
+A question then arises as to what extent accurate modeling of human behavior plays a role in the optimization of \gls{WCA} applications and systems.
 We have already seen from the results in \cref{sec:implications:footprint} that changes in responsiveness can have drastic effects on human execution times and subsequently on overall application lifetimes.
-This points towards parameters with dependencies on step timings as prime candidates for evaluating the effects of human behavior on their potential for optimization of different dimensions of \ac{WCA}.
+This points towards parameters with dependencies on step timings as prime candidates for evaluating the effects of human behavior on their potential for optimization of different dimensions of \gls{WCA}.
 One such parameter of particular interest to us is sampling strategy, which intrinsically hinges on a stochastic understanding of human timings in a step.
 In the following section we will study the potential advantages of using the realistic model presented in \cref{sec:model} to estimate the execution time distributions of steps to adapt the sampling strategy at runtime.
-We will first introduce a generic optimization framework which produces an aperiodic sampling strategy that optimizes for arbitrary responsiveness-resource consumption trade-offs in \ac{WCA}.
+We will first introduce a generic optimization framework which produces an aperiodic sampling strategy that optimizes for arbitrary responsiveness-resource consumption trade-offs in \gls{WCA}.
 We will then employ this framework for the minimization of two different metrics: number of samples and total energy consumption per step.
 In order to illustrate the advantages of our framework, we will compare our results with a state-of-the-art baseline which does not dynamically adapt.
 
 \subsection{Optimization framework}\label{ssec:optframework}
 
-Our optimization approach focuses on the individual steps which comprise a complete \ac{WCA} task.
+Our optimization approach focuses on the individual steps which comprise a complete \gls{WCA} task.
 Thus, we begin by assuming a given execution time distribution \( \mathcal{T} \), and take the modeling and partial solution approach from recents works on energy efficient sampling in edge-based feedback systems.
 In \textcite{Moothedath2021EnergyOptimal,Moothedath2022EnergyEfficient}, the authors model the energy in terms of the expected number of samples $\mathbb{E}[\mathcal{S}]$ and the expected wait time $\mathbb{E}[\mathcal{W}]$ experienced by the user.
 The authors then find the optimum periodic sampling interval that minimizes this energy, or equivalently the non-constant parts of this energy termed as \textit{Energy Penalty}.
 
 % In this optimization, the constant parts are excluded as it does not affect the process.
-With a value much smaller than the execution time of the event, the \ac{RTT} of the final sample is included in this constant part, which is why $\mathcal{W}$ is computed without it.
+With a value much smaller than the execution time of the event, the \gls{RTT} of the final sample is included in this constant part, which is why $\mathcal{W}$ is computed without it.
 Next, in~\cite{Moothedath2022Aperiodic}, the author retains the model and removes the constraint of periodicity to find the optimum aperiodic sampling instants $\{t_n,\,n=1,2,\dots\}$ that minimize the same energy penalty.
 
 In this work, we use the modeling from~\cite{Moothedath2022Aperiodic} to find the optimum \emph{aperiodic} sampling interval.
@@ -56,8 +56,8 @@ We first look at the application of \cref{eq:epsilon_terminal} for the optimizat
 We start with this metric as its implications for resource consumption and responsiveness are straightforward to understand.
 On the one hand, higher sampling rates directly lead to perceived increased system responsiveness, as smaller sampling intervals translate into smaller maximum wait times.
 On the other, the relationship between number of samples captured and sent and network congestion is exponential, and too high sampling rates quickly lead to bottlenecks on the network, particularly in multi-tenant environments.
-Additionally, the energy cost of capturing a sample on a \ac{WCA} client device is often much higher than remaining in an idle state, and thus excessive sampling leads to drastically increased energy consumption.
-Optimizing the number of samples captured per step can thus be a straightforward way of reducing resource consumption and contention in \ac{WCA} applications.
+Additionally, the energy cost of capturing a sample on a \gls{WCA} client device is often much higher than remaining in an idle state, and thus excessive sampling leads to drastically increased energy consumption.
+Optimizing the number of samples captured per step can thus be a straightforward way of reducing resource consumption and contention in \gls{WCA} applications.
 
 However, an unconstrained optimization of the number of samples is trivial and meaningless as the solution points to a single sample at $t\!\rightarrow\!\infty$, which also takes the wait time to infinity.
 Thus, we look at the constrained optimization of the expected number of samples with an upper bound $w_0$ for the expected wait.
@@ -71,7 +71,7 @@ where $\mathlarger{\Gamma}(x)$ is the Gamma function.
 \medskip
 
 We introduce here a reference scheme to which we will compare our approach.
-In~\cite{Wang2019Towards}, \citeauthor{Wang2019Towards} introduce an adaptive sampling scheme for \ac{WCA} intended to reduce the number of samples processed per step while still meeting application responsiveness bounds.
+In~\cite{Wang2019Towards}, \citeauthor{Wang2019Towards} introduce an adaptive sampling scheme for \gls{WCA} intended to reduce the number of samples processed per step while still meeting application responsiveness bounds.
 At every sampling instant \( t \), the scheme adapts the sampling rate \( R(t) \) of the system according to the estimated likelihood of the user having finished the step,
 following the formula 
 
@@ -80,10 +80,10 @@ following the formula
 \end{equation}
 
 \( R_\text{max} \) and \( R_\text{min} \) correspond to the maximum and minimum sampling rates of the system, respectively.
-\( R_\text{max} \) can directly be assumed to correspond to \( 1 / \text{\ac{RTT}}_\mu \), where \( \text{\ac{RTT}}_\mu \) corresponds to the mean \ac{RTT} of the system.
+\( R_\text{max} \) can directly be assumed to correspond to \( 1 / \text{\gls{RTT}}_\mu \), where \( \text{\gls{RTT}}_\mu \) corresponds to the mean \gls{RTT} of the system.
 \( R_\text{min} \) needs to either be calculated according to the latency bounds of the system or specified manually.
 \( \varphi \) corresponds to a scaling factor and \( t \) to the time of the current sampling instant with respect to the start of the step.
-Finally, \( CDF \) corresponds to the \ac{CDF} of a distribution describing the execution times for the current step; \citeauthor{Wang2019Towards} used a single static Gaussian distribution for all steps in their work.
+Finally, \( CDF \) corresponds to the \gls{CDF} of a distribution describing the execution times for the current step; \citeauthor{Wang2019Towards} used a single static Gaussian distribution for all steps in their work.
 
 \medskip
 
@@ -93,15 +93,15 @@ The first scheme uses our approach, \cref{eq:epsilon_terminal,eq:optimization:sa
 It includes an embedded timing model (without any distribution fitting) to provide updated estimates of the mean execution time \( \mu \) and \( \sigma \) at every step as well, allowing it to adapt to the state of the system.
 We will refer to this scheme as the \emph{sample-count-optimized aperiodic} sampling scheme.
 
-We implement \citeauthor{Wang2019Towards}'s original design using a Gaussian distribution fitted to all the execution times collected for~\cite{olguinmunoz:impact2021} for \ac{CDF} calculation.
-This scheme does not include an embedded timing model, and uses the same \ac{CDF} for every step.
+We implement \citeauthor{Wang2019Towards}'s original design using a Gaussian distribution fitted to all the execution times collected for~\cite{olguinmunoz:impact2021} for \gls{CDF} calculation.
+This scheme does not include an embedded timing model, and uses the same \gls{CDF} for every step.
 
 Finally, we also implement two reference sampling schemes representing best- and worst-case extremes.
 The first of these corresponds to the offline optimum which uses an embedded \emph{oracle} to perfectly predict the execution time of each step.
 Such an ideal scheme is thus able to always sample exactly once per step, with a constant wait time of zero.
 The second reference scheme corresponds to one which \emph{greedily} samples as much as possible.
 This represents a completely unoptimized design with no considerations for resource-consumption trade-offs; it simply attempts to maximize the number of captured samples per step.
-This is an interesting approach to include as it corresponds to the sampling strategy used in most existing \ac{WCA} prototypes.
+This is an interesting approach to include as it corresponds to the sampling strategy used in most existing \gls{WCA} prototypes.
 
 \begin{table}
     \centering
@@ -114,7 +114,7 @@ This is an interesting approach to include as it corresponds to the sampling str
         Repetitions & \num{100} & \\
         \acp{RTT} & \( \left\{ 0.3, 0.6,\ldots,4.2 \right\} \) & \\
         \( \tau_\text{p} \) & \SI{250}{\milli\second} & Processing delay \\
-        \( \tau_\text{c} \) & \( \text{\ac{RTT}} - \tau_\text{p} \) & Communication delay \\
+        \( \tau_\text{c} \) & \( \text{\gls{RTT}} - \tau_\text{p} \) & Communication delay \\
         \( w_0 \) & \SI{1.0}{\second} & \\
         \( R_\text{min} \) & \SI{0.5}{\hertz} & Derived as \( R_\text{min} = {(2 w_0)}^{-1} \) \\
         \( \varphi \) & \num{1.5} & Scaling factor, \textcite{Wang2019Towards}\\
@@ -134,11 +134,11 @@ We set the \( w_0 \) and \( \beta \) factors of our sample-count-optimized schem
 Next, we derive \( R_\text{min} \) for \textcite{Wang2019Towards}'s scheme from \( w_0 \).
 As discussed in \cref{sec:background}, we assume that wait times are uniformly distributed between \SI{0}{\second} and sampling interval of each step.
 A maximum expected wait time \( w_0 = 1.0\,\si{\second} \) thus translates into a maximum expected sampling interval of \SI{2.0}{\second}, yielding a minimum sampling rate \( R_\text{min} = {2.0\,\si{\second}}^{-1} = 0.5\,\si{\hertz} \).
-It should also be noted that in both aperiodic schemes, our sampling-count-optimized approach and the \ac{CDF}-based approach, there exists the possibility for sampling instants to be \emph{missed} due to the actual \ac{RTT} of the system being higher than the parameterization of the schemes.
+It should also be noted that in both aperiodic schemes, our sampling-count-optimized approach and the \gls{CDF}-based approach, there exists the possibility for sampling instants to be \emph{missed} due to the actual \gls{RTT} of the system being higher than the parameterization of the schemes.
 In these cases, both schemes will degrade into greedy sampling.
 
 The execution times for each step are generated by a timing model without any distribution fitting on the data.
-For each combination of sampling scheme configuration, \ac{RTT}, and execution time model neuroticism (low or high), we run \num{100} repetitions of the task for good statistical significance.
+For each combination of sampling scheme configuration, \gls{RTT}, and execution time model neuroticism (low or high), we run \num{100} repetitions of the task for good statistical significance.
 Note that the embedded timing model in our sampling-count-optimized aperiodic sampling scheme is always parameterized with a neuroticism matching the neuroticism of the external execution time model.
 
 \begin{figure*}
@@ -163,23 +163,23 @@ Note that the embedded timing model in our sampling-count-optimized aperiodic sa
         }
     \end{subfigure}
     \caption{%
-        Summary of results for experiment comparing the sample-count-optimized aperiodic sampling scheme to the reference schemes and \textcite{Wang2019Towards}'s \ac{CDF}-based approach.
+        Summary of results for experiment comparing the sample-count-optimized aperiodic sampling scheme to the reference schemes and \textcite{Wang2019Towards}'s \gls{CDF}-based approach.
     }\label{fig:optimization:samples}
 \end{figure*}
 
 The results of this investigation are presented in \cref{fig:optimization:samples}, and clearly show the advantages of using the sample-count-optimized scheme over the current state-of-the-art.
 The performance of \textcite{Wang2019Towards}'s approach appears to degrade with lower \acp{RTT}, exponentially oversampling as latency tends to zero and the maximum sampling rate of the system tends to infinity.
 On the other hand our sampling scheme consistently matches or beats the state-of-the-art while maintaining a relatively constant behavior with respect to \acp{RTT}.
-As mentioned above, the future feasibility and mass adoption of \ac{WCA} depends on these applications not hogging the available resources.
+As mentioned above, the future feasibility and mass adoption of \gls{WCA} depends on these applications not hogging the available resources.
 Our work advances this goal by being consistently more efficient than existing alternatives at minimizing the number of samples per step, and thus reducing network and processing load.
 
 It should be noted that although both schemes seem to tend towards two samples per step as \acp{RTT} increase, this is simply an artifact of our experimental setup.
-As \acp{RTT} increase above the expected wait time, the probability of the sum of the first sampling interval and the \ac{RTT} being larger than the execution time of the step tends towards \num{1.0}.
-This leads to these sampling schemes consistently sampling only twice each step: a first sample which is taken before the execution time of the step, and a second one \ac{RTT} seconds later, after the execution time has been reached. 
+As \acp{RTT} increase above the expected wait time, the probability of the sum of the first sampling interval and the \gls{RTT} being larger than the execution time of the step tends towards \num{1.0}.
+This leads to these sampling schemes consistently sampling only twice each step: a first sample which is taken before the execution time of the step, and a second one \gls{RTT} seconds later, after the execution time has been reached.
 
 \subsection{Optimizing for energy consumption}\label{ssec:optimization:energy}
 
-Next we will explore the implications of combining our timing models with \cref{eq:epsilon_terminal} when directly optimizing for energy consumption in \ac{WCA}.
+Next we will explore the implications of combining our timing models with \cref{eq:epsilon_terminal} when directly optimizing for energy consumption in \gls{WCA}.
 Although, as mentioned above, minimizing the number of samples captured during a step can \emph{potentially} translate into a reduction in the energy consumption, this is not a given.
 Energy consumption depends on multiple other factors other than number of samples captured, such as idle versus communication power and delays, and thus cannot be optimized by simply minimizing the number of samples taken.
 
@@ -193,13 +193,13 @@ With feedback given even to the discarded samples in our model and communication
 &\Rightarrow \alpha=\tau_{\text{c}}(P_{\text{c}} -P_0),\text{ and }\beta=P_0 \label{eq:optimization:energy}
 \end{alignat}
 \( \tau_\text{p} \) and \( \tau_\text{c} \) correspond to the processing and two-way communication delay for each sample.
-\( P_\text{c} \) and \( P_0 \) correspond to the communication and idle power, respectively, of the \ac{WCA} client device.
+\( P_\text{c} \) and \( P_0 \) correspond to the communication and idle power, respectively, of the \gls{WCA} client device.
 
 We proceed to repeat the experiment detailed in \cref{ssec:optimization:samples}, replacing the sample-count-optimized sampling scheme with a new implementation instead minimizing energy, using \cref{eq:optimization:energy} for the calculation of \( \alpha \) and \( \beta \).
 Once again, we embed a timing model into the sampling scheme to provide updated estimates of the mean execution time \( \mu \) at each step.
 We refer to this scheme as the \emph{energy-optimized aperiodic} sampling scheme.
 For the power constants, we reuse the values estimated by the authors in~\cite{Moothedath2022EnergyEfficient}, \( P_\text{c} = 45\,\si{\milli\watt} \) and \( P_\text{0} = 15\,\si{\milli\watt} \).
-On the other hand, for the timing variables we define a constant processing delay \( \tau_\text{p} = 250\,\si{\milli\second} \) across all configurations and repetitions of the experiments; given then a constant \ac{RTT} for the task, we set \( \tau_\text{c} = \text{\ac{RTT}} - \tau_\text{p} \).
+On the other hand, for the timing variables we define a constant processing delay \( \tau_\text{p} = 250\,\si{\milli\second} \) across all configurations and repetitions of the experiments; given then a constant \gls{RTT} for the task, we set \( \tau_\text{c} = \text{\gls{RTT}} - \tau_\text{p} \).
 
 \begin{figure*}
     \centering
@@ -221,11 +221,11 @@ On the other hand, for the timing variables we define a constant processing dela
         }
     \end{subfigure}
     \caption{%
-        Summary of results for experiment comparing the energy-optimized aperiodic sampling scheme to the reference schemes and \textcite{Wang2019Towards}'s \ac{CDF}-based approach.
+        Summary of results for experiment comparing the energy-optimized aperiodic sampling scheme to the reference schemes and \textcite{Wang2019Towards}'s \gls{CDF}-based approach.
     }\label{fig:optimization:energy}
 \end{figure*}
 
-Again, we include the reference greedy and offline optimum schemes, as well as \textcite{Wang2019Towards}'s approach, and repeat the experiment \num{100} times for each combination of sampling scheme, neuroticism, and \ac{RTT}.
+Again, we include the reference greedy and offline optimum schemes, as well as \textcite{Wang2019Towards}'s approach, and repeat the experiment \num{100} times for each combination of sampling scheme, neuroticism, and \gls{RTT}.
 
 The results of these experiments are presented in \cref{fig:optimization:energy}, and they clearly illustrate the advantages of the integration of our timing models with an adaptive, energy-optimized sampling scheme when compared to unoptimized and state-of-the-art sampling schemes.
 Our approach is consistently consumes \SI{20}{\percent} less energy than \textcite{Wang2019Towards}'s state-of-the-art, and is up to \SI{40}{\percent} more energy efficient than the greedy scheme.
