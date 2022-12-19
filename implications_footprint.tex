@@ -10,10 +10,10 @@ In order to illustrate the consequences of using a less realistic model that doe
 This model represents a first-order approximation to empirical execution time modeling, and consist simply of an \gls{exGaussian} distribution fitted to all execution time samples collected for~\cite{olguinmunoz:impact2021}.
 This distribution is then randomly sampled at runtime to obtain execution times for each step, without any adjustment to the current state of the system.
 
-We start by studying application lifetimes in a controlled, ideal setup by using the timing models to generate execution times for sequences of \num{100} steps subject to constant \acp{TTF}.
+We start by studying application lifetimes in a controlled, ideal setup by using the timing models to generate execution times for sequences of \num{100} steps subject to constant \glspl{TTF}.
 These runs are completely simulated and no sampling of video frames is performed; for each step, we simply feed the models a predefined \gls{TTF} and record the generated execution time.
-We use the combination of \acp{TTF} and execution times to calculate theoretical step duration times and subsequent total application lifetimes.
-This is done for \num{25} linearly distributed \acp{TTF} in the \SIrange[]{0}{5}{\second} range; \num{45} independent repetitions for each combination of model configuration and \gls{TTF}.
+We use the combination of \glspl{TTF} and execution times to calculate theoretical step duration times and subsequent total application lifetimes.
+This is done for \num{25} linearly distributed \glspl{TTF} in the \SIrange[]{0}{5}{\second} range; \num{45} independent repetitions for each combination of model configuration and \gls{TTF}.
 
 \begin{figure}
     \centering
@@ -21,24 +21,24 @@ This is done for \num{25} linearly distributed \acp{TTF} in the \SIrange[]{0}{5}
         \centering
         \includegraphics[width=\textwidth]{publications/2023EdgeDroid2/figs/new_model/lifetime_all_ttfs.png}
         \caption{%
-            Evolution of mean application lifetimes as \acp{TTF} increase.
-            Error bars indicate \SI{95}{\percent} \acp{CI}.
+            Evolution of mean application lifetimes as \glspl{TTF} increase.
+            Error bars indicate \SI{95}{\percent} \glspl{CI}.
         }
     \end{subfigure}
     \begin{subfigure}[]{\columnwidth}
         \centering
         \includegraphics[width=\textwidth]{publications/2023EdgeDroid2/figs/new_model/lifetime_diff.png}
         \caption{%
-            Percentage difference in mean application lifetimes with respect to the reference model at select \acp{TTF}.
-            Error bars indicate the \SI{95}{\percent} \acp{CI}, calculated using a two-sided T-test.
+            Percentage difference in mean application lifetimes with respect to the reference model at select \glspl{TTF}.
+            Error bars indicate the \SI{95}{\percent} \glspl{CI}, calculated using a two-sided T-test.
         }
     \end{subfigure}
-    \caption{\acl{TTF} versus application lifetime.}\label{fig:lifetimes}
+    \caption{\gls{TTF} versus application lifetime.}\label{fig:lifetimes}
 \end{figure}
 
 The results of this investigation are presented in \cref{fig:lifetimes}.
-Compared to the reference model, our realistic model is, on average, roughly \SI{11}{\percent} faster when subject to low \acp{TTF}.
-At higher \acp{TTF}, the behavior of the model depends on its level of normalized neuroticism.
+Compared to the reference model, our realistic model is, on average, roughly \SI{11}{\percent} faster when subject to low \glspl{TTF}.
+At higher \glspl{TTF}, the behavior of the model depends on its level of normalized neuroticism.
 At low neuroticism, the behavior of the realistic model results in total task durations that are basically indistinguishable from the reference model.
 However, at high neuroticism, the model once again results in a considerable difference in total task duration with respect to the reference --- this time extending durations by \textasciitilde\SI{11}{\percent} on average.
 
@@ -47,14 +47,14 @@ However, at high neuroticism, the model once again results in a considerable dif
     \includegraphics[width=\columnwidth]{publications/2023EdgeDroid2/figs/EdgeDroid2ExperimentalSetup.png}
     \caption{%
         Experimental setup used to study the implications of the realistic models of human behavior for \gls{WCA}.
-        We deploy containerized instances of the client-server loop running the models on a testbed consisting of \num{10} Raspberry Pi clients connected to a cloudlet over a \acs*{COTS} \acs{IEEE} \num{802.11}b/g access point.
+        We deploy containerized instances of the client-server loop running the models on a testbed consisting of \num{10} Raspberry Pi clients connected to a cloudlet over a \gls{COTS} \gls{IEEE} \num{802.11}b/g access point.
     }\label{fig:expsetup}
 \end{figure}
 
 Next we study the effects of first- versus second-order models in a more realistic setting.
 The models, reference and realistic, are deployed on the Raspberry Pi clients of the testbed depicted in \cref{fig:expsetup}.
 For this, the timing models and frame generator are integrated into a custom Python3 client for the Gabriel \gls{WCA} platform~\cite{Chen2018application}, which are then paired with real instances of Gabriel deployed on the cloudlet.
-Clients and cloudlet communicate over an \acs{IEEE} \num{802.11}b/g wireless network.
+Clients and cloudlet communicate over an \gls{IEEE} \num{802.11}b/g wireless network.
 Our choice of wireless standard is simply motivated by a desire to amplify the potential effects of network congestion.
 
 \begin{figure}
@@ -65,7 +65,7 @@ Our choice of wireless standard is simply motivated by a desire to amplify the p
         \caption{%
             Mean application lifetimes per testbed configuration.
             Note that due to the low number of samples, means have been calculated using the geometric instead of arithmetic average. 
-            Error bars indicate \SI{95}{\percent} \acp{CI}, calculated using bootstrapping.
+            Error bars indicate \SI{95}{\percent} \glspl{CI}, calculated using bootstrapping.
         }
     \end{subfigure}
     \par\bigskip
@@ -77,7 +77,7 @@ Our choice of wireless standard is simply motivated by a desire to amplify the p
             \gls{RTT} & \SI{0.42}{\second} & \SI{1.12}{\second} & \SI{1.92}{\second} & \SI{2.68}{\second} \\
             \bottomrule
         \end{tabular}
-        \caption{Mean measured \aclp{RTT} for each testbed configuration.}
+        \caption{Mean measured \glspl{RTT} for each testbed configuration.}
     \end{subtable}
     \par\bigskip
     \begin{subfigure}[]{\columnwidth}
@@ -98,7 +98,7 @@ The results are presented in \cref{fig:testbed_lifetimes}.
 Owing to the low number of samples, specifically to minimize the effects of potential outliers, we opt here for the geometric rather than arithmetic mean to represent our results.
 The results are nonetheless clear, and follow the same pattern as the previously discussed results under ideal, controlled circumstances.
 With just a single client and mean \gls{RTT} of around \SI{400}{\milli\second}, all parameterizations of the realistic model achieved an average task duration \SIrange{6}{12}{\percent} shorter than the reference.
-At \num{10} clients, the results mimic those at higher \acp{TTF} in the ideal controlled setup, with high neuroticism parameterizations reaching \textasciitilde\SI{8}{\percent} longer application lifetimes.
+At \num{10} clients, the results mimic those at higher \glspl{TTF} in the ideal controlled setup, with high neuroticism parameterizations reaching \textasciitilde\SI{8}{\percent} longer application lifetimes.
 
 These results highlight the importance of accurate execution time modeling when studying \gls{WCA} application lifetimes.
 Not only do we see considerable differences in lifetimes at relatively moderate levels of system congestion, but the sign of these differences depends on the load placed on the system.

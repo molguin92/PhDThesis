@@ -112,7 +112,7 @@ This is an interesting approach to include as it corresponds to the sampling str
         \midrule
         \# of steps & \num{100} & \\
         Repetitions & \num{100} & \\
-        \acp{RTT} & \( \left\{ 0.3, 0.6,\ldots,4.2 \right\} \) & \\
+        \glspl{RTT} & \( \left\{ 0.3, 0.6,\ldots,4.2 \right\} \) & \\
         \( \tau_\text{p} \) & \SI{250}{\milli\second} & Processing delay \\
         \( \tau_\text{c} \) & \( \text{\gls{RTT}} - \tau_\text{p} \) & Communication delay \\
         \( w_0 \) & \SI{1.0}{\second} & \\
@@ -128,7 +128,7 @@ This is an interesting approach to include as it corresponds to the sampling str
     \end{tabular}
 \end{table}
 
-We proceed to set up an experiment where these sampling approaches are deployed on identical, simulated, tasks with varying constant \acp{RTT}.
+We proceed to set up an experiment where these sampling approaches are deployed on identical, simulated, tasks with varying constant \glspl{RTT}.
 Experimental parameters are summarized in \cref{tab:params}.
 We set the \( w_0 \) and \( \beta \) factors of our sample-count-optimized scheme to \SI{1.0}{\second} and \num{1.0}, respectively, for mathematical simplicity, and derive \( \alpha = 1.9 \sigma^{-1} \).
 Next, we derive \( R_\text{min} \) for \textcite{Wang2019Towards}'s scheme from \( w_0 \).
@@ -149,7 +149,7 @@ Note that the embedded timing model in our sampling-count-optimized aperiodic sa
         \caption{%
             Round-trip time versus mean number of captured samples per step, averaged over all \num{100} repetitions of the experiment.
             Note the logarithmic scale on the vertical axis.
-            Error bars indicate \SI{95}{\percent} \acp{CI}.
+            Error bars indicate \SI{95}{\percent} \glspl{CI}.
         }
     \end{subfigure}\\
     \medskip
@@ -159,7 +159,7 @@ Note that the embedded timing model in our sampling-count-optimized aperiodic sa
         \caption{%
             Percentage difference in mean number of captured samples per step by the sample-count-optimized approach with respect to the three reference schemes.
             In other words, curves represent the relative performance of the sample-count-optimized scheme when using the corresponding reference scheme as baseline.
-            Error bars indicate \SI{95}{\percent} \acp{CI}, calculated using a two-sided t-test.
+            Error bars indicate \SI{95}{\percent} \glspl{CI}, calculated using a two-sided t-test.
         }
     \end{subfigure}
     \caption{%
@@ -168,13 +168,13 @@ Note that the embedded timing model in our sampling-count-optimized aperiodic sa
 \end{figure*}
 
 The results of this investigation are presented in \cref{fig:optimization:samples}, and clearly show the advantages of using the sample-count-optimized scheme over the current state-of-the-art.
-The performance of \textcite{Wang2019Towards}'s approach appears to degrade with lower \acp{RTT}, exponentially oversampling as latency tends to zero and the maximum sampling rate of the system tends to infinity.
-On the other hand our sampling scheme consistently matches or beats the state-of-the-art while maintaining a relatively constant behavior with respect to \acp{RTT}.
+The performance of \textcite{Wang2019Towards}'s approach appears to degrade with lower \glspl{RTT}, exponentially oversampling as latency tends to zero and the maximum sampling rate of the system tends to infinity.
+On the other hand our sampling scheme consistently matches or beats the state-of-the-art while maintaining a relatively constant behavior with respect to \glspl{RTT}.
 As mentioned above, the future feasibility and mass adoption of \gls{WCA} depends on these applications not hogging the available resources.
 Our work advances this goal by being consistently more efficient than existing alternatives at minimizing the number of samples per step, and thus reducing network and processing load.
 
-It should be noted that although both schemes seem to tend towards two samples per step as \acp{RTT} increase, this is simply an artifact of our experimental setup.
-As \acp{RTT} increase above the expected wait time, the probability of the sum of the first sampling interval and the \gls{RTT} being larger than the execution time of the step tends towards \num{1.0}.
+It should be noted that although both schemes seem to tend towards two samples per step as \glspl{RTT} increase, this is simply an artifact of our experimental setup.
+As \glspl{RTT} increase above the expected wait time, the probability of the sum of the first sampling interval and the \gls{RTT} being larger than the execution time of the step tends towards \num{1.0}.
 This leads to these sampling schemes consistently sampling only twice each step: a first sample which is taken before the execution time of the step, and a second one \gls{RTT} seconds later, after the execution time has been reached.
 
 \subsection{Optimizing for energy consumption}\label{ssec:optimization:energy}
@@ -208,7 +208,7 @@ On the other hand, for the timing variables we define a constant processing dela
         \includegraphics[width=\textwidth]{publications/2023EdgeDroid2/figs/new_model/energy_optimization.png}
         \caption{%
             Round-trip time versus mean per step energy consumption, averaged over all \num{100} repetitions of the experiment.
-            Error bars indicate \SI{95}{\percent} \acp{CI}.
+            Error bars indicate \SI{95}{\percent} \glspl{CI}.
         }
     \end{subfigure}\\
     \medskip
@@ -217,7 +217,7 @@ On the other hand, for the timing variables we define a constant processing dela
         \includegraphics[width=\textwidth]{publications/2023EdgeDroid2/figs/new_model/energy_optimization_diff.png}
         \caption{%
             Percentage difference in mean per step energy consumption by the energy-optimized sampling scheme with respect to the three reference schemes.
-            Error bars indicate \SI{95}{\percent} \acp{CI}, calculated using a two-sided t-test.
+            Error bars indicate \SI{95}{\percent} \glspl{CI}, calculated using a two-sided t-test.
         }
     \end{subfigure}
     \caption{%

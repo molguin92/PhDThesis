@@ -2,7 +2,7 @@
 
 As expressed in \cref{ssec:plos}, for ~\cite{olguinmunoz:impact2021} we collected timing and task performance data for \num{40} participants performing a \num{169}-step task, guided by a \gls{WCA}, as well as personality trait scores for each participant.
 For this paper, we use this data to construct a probabilistic model for the generation of realistic execution times.
-The data is pre-processed to group execution time values by level of neuroticism, previous \acp{TTF}, and duration of impairment.
+The data is pre-processed to group execution time values by level of neuroticism, previous \glspl{TTF}, and duration of impairment.
 The resulting collections of execution times represent the distributions of these values for users with specific levels of neuroticism, interacting with systems at specific states of impairment and recent histories of impairment.
 These distributions can then be sampled to produce new, realistic execution times.
 In the following, we detail the step-by-step processing of this data and construction of the probabilistic model.
@@ -107,12 +107,12 @@ We will refer to these models individually as the \emph{naive} and \emph{fitted-
     \end{tabular}
     \caption{
         Comparison of the total duration of \num{100}-step tasks for different models in the controlled \gls{TTF} setup.
-        The table shows a detailed breakdown of durations for the fitted-naive, empirical, and theoretical models at the lowest and highest \acp{TTF}, as well as relative differences with respect to the corresponding fitted-naive baseline for each case.
+        The table shows a detailed breakdown of durations for the fitted-naive, empirical, and theoretical models at the lowest and highest \glspl{TTF}, as well as relative differences with respect to the corresponding fitted-naive baseline for each case.
     }\label{fig:ctrlttf}
 \end{figure*}
 
 
-We first compare these models using a controlled, ideal setup with \num{25} constant, linearly distributed \acp{TTF} in the \SIrange[]{0}{5}{\second} range.
+We first compare these models using a controlled, ideal setup with \num{25} constant, linearly distributed \glspl{TTF} in the \SIrange[]{0}{5}{\second} range.
 For each \gls{TTF}, the models execute \num{30} independent repetitions of a \num{100} step task.
 
 We show the results of these runs in \cref{fig:ctrlttf}.
@@ -124,7 +124,7 @@ Two, at the highest \gls{TTF}, \emph{only} the high neuroticism models show any 
 For \gls{TTF} \(=\) \SI{5.0}{s}, the high neuroticism realistic models were on average \textasciitilde\SI{14.18}{\percent} slower than the fitted-naive model, whereas the low neuroticism models showed no significant relative difference in duration.
 
 These behaviors clearly stem from the effects identified in \textcite{olguinmunoz:impact2021}, described in \cref{ssec:plos}.
-At low levels of impairments, i.e.\ small \acp{TTF}, the speed-up effect dominates, bringing execution times to a minimum and consequently resulting in shorter total durations.
+At low levels of impairments, i.e.\ small \glspl{TTF}, the speed-up effect dominates, bringing execution times to a minimum and consequently resulting in shorter total durations.
 On the other hand, at high levels of impairment, the slow-down (pacing) effect starts to take over, pushing step execution times and total durations up.
 However, only in the high neuroticism case do execution times eventually surpass the reference model, which is in line with our findings with respect to the modulating effects of neuroticism.
 
@@ -135,7 +135,7 @@ However, only in the high neuroticism case do execution times eventually surpass
     \includegraphics[width=\columnwidth]{figs/EdgeDroid2ExperimentalSetup.png}
     \caption{%
         Experimental setup used to study the implications of the realistic models of human behavior for \gls{WCA}.
-        We deploy containerized instances of the client-server loop running the models on a testbed consisting of \num{10} Raspberry Pi clients connected to a cloudlet over a \gls{COTS} \acs{IEEE} \num{802.11}n access point.
+        We deploy containerized instances of the client-server loop running the models on a testbed consisting of \num{10} Raspberry Pi clients connected to a cloudlet over a \gls{COTS} \gls{IEEE} \num{802.11}n access point.
     }\label{fig:expsetup}
 \end{figure}
 
@@ -159,7 +159,7 @@ The task used for all repetitions corresponds to a variant of the \num{169}-step
         \caption{%
             Consequences of decreased system responsiveness due to resource and network congestion.
             At lower levels of resource contention, the realistic models outperform the naive one due to the speed-up effect described in \cref{sec:background}.
-            However, at higher levels of contention, the behavioral slow-down of the realistic models due to higher \acp{TTF} takes over.
+            However, at higher levels of contention, the behavioral slow-down of the realistic models due to higher \glspl{TTF} takes over.
         }\label{fig:scaling_duration}
     \end{subfigure}%
     \hspace{\fill}%
@@ -179,14 +179,14 @@ It showcases the important behaviors of the realistic models which are not captu
 On one hand, the realistic models (and by extension, humans) are actually faster than the naive model by up to \SI{4.37}{\percent} in a deployment with no resource contention.
 This is due to the speed-up effect described in \textcite{olguinmunoz:impact2021} --- humans get faster as a task progresses with a high system responsiveness.
 
-On the other, the realistic models experience a mean slowdown of about \SI{5.13}{\percent} at the highest level of resource contention (\num{10} concurrent loops) when compared to the naive model, even though only about \SI{22}{\percent} of \acp{TTF} in this scenario reach the medium impairment level and practically no \acp{TTF} pass threshold for the highest level of impairment.
+On the other, the realistic models experience a mean slowdown of about \SI{5.13}{\percent} at the highest level of resource contention (\num{10} concurrent loops) when compared to the naive model, even though only about \SI{22}{\percent} of \glspl{TTF} in this scenario reach the medium impairment level and practically no \glspl{TTF} pass threshold for the highest level of impairment.
 This showcases that the additional user slow-down due to reduced system responsiveness, originally described in \textcite{olguinmunoz:impact2021}, causes a noticeable and significant extension of system utilization time, even at lower and medium levels of impairment.
 
 \medskip
 
 We illustrate the results of scenario \labelcref{verification:neuro} in \cref{fig:neuro_duration}, showcasing the modulating effects of neuroticism in a medium-impairment setup.
 The realistic models were on average \SI{3.8}{\percent} slower than the reference naive model when configured with a low level of neuroticism, and \SI{7.3}{\percent} slower when configured with a high neuroticism.
-In this scenario, an average of \SI{50}{\percent} of all recorded \acp{TTF} fell within the medium impairment range, and about \SI{26.6}{\percent} within the high impairment range, showing that the effects of behavioral slow-down are considerable even in moderately impaired systems. 
+In this scenario, an average of \SI{50}{\percent} of all recorded \glspl{TTF} fell within the medium impairment range, and about \SI{26.6}{\percent} within the high impairment range, showing that the effects of behavioral slow-down are considerable even in moderately impaired systems.
 
 \medskip
 
