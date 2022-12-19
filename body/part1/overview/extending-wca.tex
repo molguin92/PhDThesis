@@ -53,13 +53,14 @@ Furthermore, the assistant was instrumented to capture key application and task 
 
 In order to capture metrics relating to the emotional response of humans to changes in system responsiveness, participants were asked to wear an array of biometric sensors.
 This array included devices to capture four physiological measures:
-\begin{enumerate*}[itemjoin={{, }}, itemjoin*={{, and }}]
+\begin{enumerate*}[itemjoin={{, }}, itemjoin*={{, and }}, label={(\arabic*)}]
     \item \gls{GSR} (also known as electrodermal activity)
     \item accelerometer data from the dominant wrist
     \item brain activity in the form of \gls{EEG}
     \item heart rate
 \end{enumerate*}.
 Additionally, to measure individual differences in personality between them, participants were asked to complete two questionnaires previous to beginning the task, the \gls{BFI}~\cite{john1999big} and the \gls{ITQ}~\cite{witmer1998measuring}.
+The scores for these questionnaires were normalized in post-processing to fall in the \ensuremath{[0, 1]} range for ease of interpretation.
 
 
 
