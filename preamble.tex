@@ -52,6 +52,8 @@
 \usepackage{multicol}
 \usepackage{lipsum}
 \usepackage[printonlyused]{acronym}
+\usepackage[nogroupskip,nonumberlist,xindy,automake]{glossaries-extra}
+\usepackage{glossaries}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{makecell}
@@ -68,6 +70,11 @@
 \usepackage{appendix}
 \usepackage[all]{hypcap}
 \usepackage{soul}
+
+% glossary settings
+\setabbreviationstyle[acronym]{long-short}
+\makeglossaries%
+\loadglsentries{body/glossary.tex}
 
 % bibliography settings
 \bibliography{references,bibliography/bibliography}
