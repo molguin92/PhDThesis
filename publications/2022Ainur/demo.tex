@@ -6,8 +6,8 @@
         The possible workload offloading setups and physical layer configurations used in the demo.
         Not pictured, in Phy Option 2:
         \begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
-            \item \ac{SDR} processing hosts 
-            \item additional base-station host for the Core Network and \ac{eNodeB}
+            \item \gls{SDR} processing hosts
+            \item additional base-station host for the Core Network and \gls{eNodeB}
         \end{enumerate*}.
     }\label{fig:democonfigs}
 \end{figure*}
@@ -34,26 +34,26 @@ In this demo, we will show the flexibility of Ainur for running end-to-end exper
 This will be done interactively, and members of the audience will be invited to propose testbed configurations.
 
 \Cref{fig:democonfigs} illustrates the possible configurations for the testbed.
-Workloads are deployed on client hosts, and computation is offloaded either to an edge server (cloudlet), or to \ac{AWS} \ac{EC2} instances on the cloud.
+Workloads are deployed on client hosts, and computation is offloaded either to an edge server (cloudlet), or to \gls{AWS} \gls{EC2} instances on the cloud.
 Communication between the client- and server-sides of the workload will occur over one of three possible physical link layer setups:
 \begin{description}
     \item[WiFi:] \iac{SDR} is configured as an IEEE 802.11n access point, and client hosts connect to it using on-board WiFi.
-    \item[4G \ac{LTE}:] \iac{SDR} is configured as an 4G \ac{LTE} base station, and another is configured as an 4G \ac{LTE} \ac{UE}.
-    Together these radios act as an \ac{LTE} bridge between the client-side and the server-side of the network, and all client-server traffic is routed through them.
+    \item[4G \gls{LTE}:] \iac{SDR} is configured as an 4G \gls{LTE} base station, and another is configured as an 4G \gls{LTE} \gls{UE}.
+    Together these radios act as an \gls{LTE} bridge between the client-side and the server-side of the network, and all client-server traffic is routed through them.
     \item[Ethernet:] connects everything through plain ethernet.
 \end{description}
 
 The number of workload instances (and therefore client hosts) deployed in each execution of this demonstration will range from \numrange[]{1}{10}.
-Workloads deployed to the cloud will be able to target any of \ac{AWS}'s datacenters.
+Workloads deployed to the cloud will be able to target any of \gls{AWS}'s datacenters.
 
 We will employ two different workloads for this demonstration, illustrated in \cref{fig:wkld}.
-The first of these (\cref{fig:wkld:mnist}) consists of a proof-of-concept web application which implements a simple classifier to identify hand-drawn digits from the widely-used \ac{MNIST} dataset~\cite{mnist}.
+The first of these (\cref{fig:wkld:mnist}) consists of a proof-of-concept web application which implements a simple classifier to identify hand-drawn digits from the widely-used \gls{MNIST} dataset~\cite{mnist}.
 The application consists of a client with a web interface, and \iac{HTTP} server which responds to requests from the client and performs the actual image recognition.
 This workload is intended to showcase in an interactive manner the effects of placing computation at different points of the network, and how Ainur simplifies these deployments.
 
 The second workload (\cref{fig:wkld:ncs}) corresponds to \iac{NCS} balancing an inverted pendulum, implemented on a software framework for the emulation of \acp{NCS} using cloud-native technologies~\cite{cleave}.
 It consists of an emulation of the physical inverted pendulum system plant and a software-implemented proportional-differential controller.
-These components communicate with each other over the \ac{UDP}.
+These components communicate with each other over the \gls{UDP}.
 This workload will be used to showcase the utility of Ainur for automating the execution of batches of experiments potentially including multiple different clients, servers, and physical layers.
 
 \subsection{Testbed Setup}
@@ -61,13 +61,13 @@ This workload will be used to showcase the utility of Ainur for automating the e
 This demonstration will be performed on a testbed consisting of
 \begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and finally }}]
     \item \num{10} Raspberry Pi 4 Model B boards, acting as client-side workload hosts
-    \item a Raspberry Pi 4 Model B acting as \ac{VPN} gateway for the workload network
-    \item a Raspberry Pi 4 Model B acting as \ac{VPN} gateway for the management network, as well as hosting the necessary \ac{NTP} and \ac{DNS} server software
+    \item a Raspberry Pi 4 Model B acting as \gls{VPN} gateway for the workload network
+    \item a Raspberry Pi 4 Model B acting as \gls{VPN} gateway for the management network, as well as hosting the necessary \gls{NTP} and \gls{DNS} server software
     \item a \texttt{i386} workstation, acting as an edge-side workload host
-    \item a configurable number of  \ac{AWS} \ac{EC2} cloud instances acting as cloud servers
+    \item a configurable number of  \gls{AWS} \gls{EC2} cloud instances acting as cloud servers
     \item a separate \texttt{i386} workstation hosting the Fluent server and on which Ainur is deployed as well.
 \end{enumerate*}
-These nodes are interconnected using a combination of managed switches, \acp{SDR}, and \ac{VPN} gateways; please refer to \cref{fig:network} for an architectural overview of this setup.
+These nodes are interconnected using a combination of managed switches, \acp{SDR}, and \gls{VPN} gateways; please refer to \cref{fig:network} for an architectural overview of this setup.
 
 
 \subsection{Demo Procedure}
@@ -82,14 +82,14 @@ These nodes are interconnected using a combination of managed switches, \acp{SDR
 
 Participants will be asked to choose
 \begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
-    \item a location to offload computation to (local (i.e.\ no offloading), edge, or any \ac{AWS} datacenter)
-    \item a physical layer for the first hop of the network (WiFi, 4G \ac{LTE}, or ethernet). 
+    \item a location to offload computation to (local (i.e.\ no offloading), edge, or any \gls{AWS} datacenter)
+    \item a physical layer for the first hop of the network (WiFi, 4G \gls{LTE}, or ethernet).
 \end{enumerate*}
 Through the Ainur command line, we will deploy a single client-server pair according to the specifications.
-Next, participants will be able to access the client web interface and interact with the server by requesting classification of images from the \ac{MNIST} database.
+Next, participants will be able to access the client web interface and interact with the server by requesting classification of images from the \gls{MNIST} database.
 The server will respond to these, and the assigned labels will be visible on the web interface together with timing statistics for each request, see \cref{fig:mockup}.
 
 \subsubsection{Workload 2}
 
-Participants will be asked to specify the full, arbitrarily complex, experimental scenario, including the number of clients, physical layers (single or multiple, and which clients are on each physical link), and offloading configuration (number of instances on the edge vs.\ on the cloud, which \ac{AWS} datacenters to deploy to).
+Participants will be asked to specify the full, arbitrarily complex, experimental scenario, including the number of clients, physical layers (single or multiple, and which clients are on each physical link), and offloading configuration (number of instances on the edge vs.\ on the cloud, which \gls{AWS} datacenters to deploy to).
 Configuration will be specified through a \acs{YAML} file, which will then be parsed by Ainur for the automatic execution of the scenario.

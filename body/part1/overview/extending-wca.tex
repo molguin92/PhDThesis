@@ -6,14 +6,14 @@
 
 \subsection{Characterizing human behavior}
 
-\cref{paper:olguinmunoz2021impact} describes a study designed to characterize the effects of system responsiveness on human behavior in step-based \ac{WCA}.
-This corresponds to the first step in extending our EdgeDroid tool for the benchmarking of \ac{WCA}, first introduced in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}, with a more realistic model of human behavior.
+\cref{paper:olguinmunoz2021impact} describes a study designed to characterize the effects of system responsiveness on human behavior in step-based \gls{WCA}.
+This corresponds to the first step in extending our EdgeDroid tool for the benchmarking of \gls{WCA}, first introduced in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}, with a more realistic model of human behavior.
 
 We present in this paper the design and execution of a study in which undergraduate students of diverse fields of
 study\footnote{%
-    Participants were recruited from a pool of students enrolled in an undergraduate psychology course at \ac{CMU}.
-}, were asked to interact with and follow the instructions given to them by a \ac{WCA} application.
-Unbeknownst to the participants, the system responsiveness of the \ac{WCA} system was systematically altered in real time, and the resulting behavioral and physiological reactions were recorded.
+    Participants were recruited from a pool of students enrolled in an undergraduate psychology course at \gls{CMU}.
+}, were asked to interact with and follow the instructions given to them by a \gls{WCA} application.
+Unbeknownst to the participants, the system responsiveness of the \gls{WCA} system was systematically altered in real time, and the resulting behavioral and physiological reactions were recorded.
 
 With this study, we intended to answer four core research questions relating to human responses to decreased application responsiveness.
 One, do subjects change the temporal profile of their actions in relation to system latency?
@@ -39,7 +39,7 @@ It was our hypothesis that, among others, the individual trait of \emph{neurotic
         \caption{}\label{sfig:delaywcaexec}
     \end{subfigure}
     \caption{%
-        Comparison between normal task execution in the LEGO \ac{WCA}~\cite{chen2015early}~(\labelcref{sfig:regularwcaexec}) and modified task execution with delay in the experimental setup of \cref{paper:olguinmunoz2021impact}~(\labelcref{sfig:delaywcaexec}).
+        Comparison between normal task execution in the LEGO \gls{WCA}~\cite{chen2015early}~(\labelcref{sfig:regularwcaexec}) and modified task execution with delay in the experimental setup of \cref{paper:olguinmunoz2021impact}~(\labelcref{sfig:delaywcaexec}).
         In the experimental task, an additional variable segment of time is introduced immediately following the processing of the input frame in order to extend the perceived processing time of the input to a specific target interval of time denoted \emph{delay}.
     }\label{fig:regularwca-vs-delaywca}
 \end{figure}
@@ -54,12 +54,12 @@ Furthermore, the assistant was instrumented to capture key application and task 
 In order to capture metrics relating to the emotional response of humans to changes in system responsiveness, participants were asked to wear an array of biometric sensors.
 This array included devices to capture four physiological measures:
 \begin{enumerate*}[itemjoin={{, }}, itemjoin*={{, and }}]
-    \item \ac{GSR} (also known as electrodermal activity)
+    \item \gls{GSR} (also known as electrodermal activity)
     \item accelerometer data from the dominant wrist
-    \item brain activity in the form of \ac{EEG}
+    \item brain activity in the form of \gls{EEG}
     \item heart rate
 \end{enumerate*}.
-Additionally, to measure individual differences in personality between them, participants were asked to complete two questionnaires previous to beginning the task, the \ac{BFI} and the \ac{ITQ}.
+Additionally, to measure individual differences in personality between them, participants were asked to complete two questionnaires previous to beginning the task, the \gls{BFI} and the \gls{ITQ}.
 
 
 
@@ -387,24 +387,24 @@ trace to generate workloads for a multitude of different user profiles.
 
 \subsection{Emulating human behavior}
 
-We introduce the first, to our knowledge, data-driven model for human timings in \ac{WCA} applications.
+We introduce the first, to our knowledge, data-driven model for human timings in \gls{WCA} applications.
 Using the data collected for \textcite{olguinmunoz:impact2021} as a base, we build a stochastic model which takes as
 input past measurements of system responsiveness and produces realistic step execution times.
-We also introduce a novel way to generate dynamic traces of frames for \ac{WCA} applications which can be combined
+We also introduce a novel way to generate dynamic traces of frames for \gls{WCA} applications which can be combined
 with the timing model for a full end-to-end emulation of a human.
 We name this new model \emph{EdgeDroid 2.0}; a direct, more realistic evolution of our initial EdgeDroid
 approach~\cite{olguin2018scaling,olguin2019edgedroid}.
 
-The study and benchmarking of \ac{WCA} applications is a challenging discipline due to these application's intrinsic
+The study and benchmarking of \gls{WCA} applications is a challenging discipline due to these application's intrinsic
 human-in-the-loop nature.
 Humans are notoriously unreliable, and greatly complicate the scalability and repeatability of experiments.
 Furthermore, recruiting large enough cohorts of humans for large-scale experimentation is both greatly time-consuming
 and prohibitively expensive for many research groups.
 
-In the first half of this paper, we have introduced the EdgeDroid 2.0 model of human timing behavior for \ac{WCA},
-the first data-driven model for human timings in \ac{WCA} applications.
+In the first half of this paper, we have introduced the EdgeDroid 2.0 model of human timing behavior for \gls{WCA},
+the first data-driven model for human timings in \gls{WCA} applications.
 This model represents a stochastic approach to execution time modeling which builds upon the data collected for
 \textcite{olguinmunoz:impact2021}.
-Together with this model, we have also introduced a novel procedure for the generation of synthetic traces of frames in step-based \ac{WCA}, allowing for a full end-to-end emulation of a human when combined with the timing model.
+Together with this model, we have also introduced a novel procedure for the generation of synthetic traces of frames in step-based \gls{WCA}, allowing for a full end-to-end emulation of a human when combined with the timing model.
 
 \todo[inline]{TODO: Some relevant results. Need to add paper to thesis.}

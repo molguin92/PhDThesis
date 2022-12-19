@@ -3,18 +3,18 @@
 In this paper, we have introduced a framework for repeatable end-to-end testbed automation in the context of wireless networking and edge computing research.
 Named Ainur, it simplifies the execution and verification of end-to-end experimentation by automating the
 \begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
-    \item establishment of physical links between hosts, including the configuration of complex wireless systems such as 4G \ac{LTE} and 5G
+    \item establishment of physical links between hosts, including the configuration of complex wireless systems such as 4G \gls{LTE} and 5G
     \item provisioning of and connection to remote cloud instances
-    \item initialization of \ac{IP} layer connectivity between hosts
+    \item initialization of \gls{IP} layer connectivity between hosts
     \item collection of logs and data
     \item deployment, scaling, and lifecycle management of containerized processes
 \end{enumerate*}.
 We have described its general architecture, which follows a layered design mimicking the network stack layers the framework directly interacts with, as well as the underlying assumptions about its deployment environment and specific requirements for its deployment.
 We have also outlined a demonstration which showcases the flexibility and power of the framework by deploying two different workloads to our testbed.
 We believe our framework represents an important step towards repeatable, replicable, yet low-access barrier end-to-end wireless testbed experimentation.
-It has been released as \ac{FOSS} and can be found on GitHub~\cite{ainur:github}.\\
+It has been released as \gls{FOSS} and can be found on GitHub~\cite{ainur:github}.\\
 
-In terms of future work, our current efforts are focused on the expansion and integration of Ainur with \ac{CHI}~\cite{keahey2020lessons}.
+In terms of future work, our current efforts are focused on the expansion and integration of Ainur with \gls{CHI}~\cite{keahey2020lessons}.
 While we believe Ainur to be unique and valuable in its focus on fully-automated end-to-end wireless edge computing experimentation, integrating with the above software stacks will provide a number of features and functionalities which will greatly expand Ainur's potential.
-Features like resource reservation, multi-tenant testbed access, and automated bare-metal and \ac{VM}-host instantiation will make Ainur better suited for larger scale experimentation and allow us to expand the research domain targeted by the framework.
-Our ultimate goal is to eventually provide Ainur as a service running inside an OpenStack/\ac{CHI} environment, leveraging the flexibility of the platform to automate the reservation of resources, instantiation of nodes and networks, execution of experiments, and final collection of results.
+Features like resource reservation, multi-tenant testbed access, and automated bare-metal and \gls{VM}-host instantiation will make Ainur better suited for larger scale experimentation and allow us to expand the research domain targeted by the framework.
+Our ultimate goal is to eventually provide Ainur as a service running inside an OpenStack/\gls{CHI} environment, leveraging the flexibility of the platform to automate the reservation of resources, instantiation of nodes and networks, execution of experiments, and final collection of results.

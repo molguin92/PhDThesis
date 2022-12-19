@@ -1,12 +1,12 @@
 \subsubsection{Cloud Instances}\label{sec:cloud}
 
-Integration with \ac{AWS} is handled by the \mintinline{python}{CloudInstances} class.
-The implementation of this class uses \verb|boto3| for interaction with the \ac{AWS}, and thus needs access to appropriate credentials\footnote{%
+Integration with \gls{AWS} is handled by the \mintinline{python}{CloudInstances} class.
+The implementation of this class uses \verb|boto3| for interaction with the \gls{AWS}, and thus needs access to appropriate credentials\footnote{%
     \url{https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html}%
 }.
 
 
-Each instance of this class is associated with a specific \ac{AWS} region, and manages the end-to-end lifecycle of an arbitrary number of \ac{AWS} \ac{EC2} instances on said region.
+Each instance of this class is associated with a specific \gls{AWS} region, and manages the end-to-end lifecycle of an arbitrary number of \gls{AWS} \gls{EC2} instances on said region.
 Specifically, \mintinline{python}{CloudInstances} handles
 \begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
     \item configuring the necessary prerequisites for deploying the instances (security groups and private access keys)
@@ -16,9 +16,9 @@ Specifically, \mintinline{python}{CloudInstances} handles
 \end{enumerate*}.
 Instances of this class can be used as context managers, automating this way the termination of instances and cleanup of resources when execution exits the \mintinline{python}{with} block.
 
-By default, \mintinline{python}{CloudInstances} spawns instances of type \verb|t3.micro|, with at least one security group allowing inbound \ac{SSH} traffic and unrestricted traffic between instances.
+By default, \mintinline{python}{CloudInstances} spawns instances of type \verb|t3.micro|, with at least one security group allowing inbound \gls{SSH} traffic and unrestricted traffic between instances.
 The type of instances spawned can be modified at runtime, and additional security groups can be added at will.
 
-The spawned \ac{EC2} instances are created from a preconfigured \ac{AMI}, the ID of which must be passed to the \mintinline{python}{CloudInstances} instance at runtime.
-This \ac{AMI} can be either be one of the default \acp{AMI} provided by \acp{AWS} --- e.g.\ a plain Ubuntu or CentOS \ac{AMI} --- or a custom \ac{AMI} which has been preconfigured by the user.
-Note that although the \mintinline{python}{CloudInstances} instance places no restrictions on the \ac{AMI} used for deploying (with the exception that it needs to be a Linux-based \ac{AMI}), components such as the VPN layer (see \cref{sec:vpn}) depending on these cloud instances might have requirements of their own.
+The spawned \gls{EC2} instances are created from a preconfigured \gls{AMI}, the ID of which must be passed to the \mintinline{python}{CloudInstances} instance at runtime.
+This \gls{AMI} can be either be one of the default \acp{AMI} provided by \acp{AWS} --- e.g.\ a plain Ubuntu or CentOS \gls{AMI} --- or a custom \gls{AMI} which has been preconfigured by the user.
+Note that although the \mintinline{python}{CloudInstances} instance places no restrictions on the \gls{AMI} used for deploying (with the exception that it needs to be a Linux-based \gls{AMI}), components such as the VPN layer (see \cref{sec:vpn}) depending on these cloud instances might have requirements of their own.

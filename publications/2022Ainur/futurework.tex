@@ -9,20 +9,20 @@
     \begin{enumerate}
         \item Components in the implementation are quite tightly coupled, so adding new functionality or layers in many cases implies rewritting large chunks of code.
         This also requires quite a lot of synchronization between people working on different parts of the code.
-        \item It makes experimentation synchronous, and when running things over \ac{SSH}, it requires the use of tools such as \texttt{screen} or \texttt{tmux} to be able to run long experiments without having to keep the connection open at all times.
+        \item It makes experimentation synchronous, and when running things over \gls{SSH}, it requires the use of tools such as \texttt{screen} or \texttt{tmux} to be able to run long experiments without having to keep the connection open at all times.
         \item We currently have no way of ensuring mutual exclusion of multiple instances of Ainur on the testbed, and implementing such functionality would probably require some sort of centralized instance tracking mechanism.
     \end{enumerate}
 
     I (Manuel) suggest then that for ExPECA 2.0 we switch to a distributed client-server architecture, using a microservice for each core functionality.
     In other words, we would have several smaller server applications running on potentially different hosts on the network, each handling a specific part of the functionality we need.
-    For instance, we could have a ``Layer 3'' service which handles setting up \ac{IP}-layer connectivity, and another ``SDR'' service which manages the \acp{SDR}.
+    For instance, we could have a ``Layer 3'' service which handles setting up \gls{IP}-layer connectivity, and another ``SDR'' service which manages the \acp{SDR}.
     Services could communicate with each other using simple HTTP \acp{API} for easy debugging, and we would have an ``Ainur'' client which orchestrates the services into an experimental run.
 
     This has several advantages:
 
     \begin{enumerate}
         \item It decouples the implementation details for each service.
-        As long as the \ac{API} is well-defined, it doesn't matter how the service is implemented - we could even use different languages for different functionalities.
+        As long as the \gls{API} is well-defined, it doesn't matter how the service is implemented - we could even use different languages for different functionalities.
         \item Adding new functionality becomes simply a matter of writing a new microservice and plugging it into the existing setup.
         \item Experimentation can be done asynchronously through an ``experiment scheduler'' service which queues, runs, and then collects results from experiments.
         This service would also then ensure mutual exclusion of testbed resources.

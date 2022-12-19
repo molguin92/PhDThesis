@@ -1,7 +1,7 @@
 \subsubsection{Physical Layer}
 
 This layer creates and deploy the underlying physical connections of the data network and is implemented in the \mintinline{python}{PhysicalLayer} class. 
-Types of connections handled by this layer could be ethernet and WiFi links, or even an entire software-defined 4G \ac{LTE} network.
+Types of connections handled by this layer could be ethernet and WiFi links, or even an entire software-defined 4G \gls{LTE} network.
 
 In order to ensure flexibility, we make no assumptions on the wired connections between the data hosts or radios.
 On the other hand, an arbitrary data plane could require wired connections between two hosts, or a host and a radio.
@@ -25,7 +25,7 @@ It unifies the interaction of Ainur with the wireless implementation in the foll
     Hence, any host can exchange packets through those gates if the appropriate VLANs are created on the data network managed switch.
 \end{enumerate}
 
-Currently, WiFi and \ac{LTE} implementations are available. 
+Currently, WiFi and \gls{LTE} implementations are available.
 User-defined implementation for other wireless connections are possible and encouraged.
 
 We introduce how the current implementations work in the following.
@@ -42,7 +42,7 @@ We introduce how the current implementations work in the following.
     It advertises a network with a specific SSID on a radio channel and waits for the incoming connections.
 
     \mintinline{python}{StationSoftwareDefinedRadio} class is used for the station WiFi nodes.
-    It searches for an WiFi \ac{SSID} among the networks that are being advertised and attempts for establishing the connection.
+    It searches for an WiFi \gls{SSID} among the networks that are being advertised and attempts for establishing the connection.
     
     When a WiFi network is up and an station is connected, the data network interfaces of the radios behave as if an ethernet cable is connecting them.
     Thus, the client hosts and the server hosts can be on the same ip layer subnets.
@@ -53,22 +53,22 @@ We introduce how the current implementations work in the following.
         \label{fig:wifi}
     \end{figure}
 
-    \item[\ac{SDR}-based \ac{LTE} Network]
-    \mintinline{python}{SDRLTE} class can configure and deploy a complete software-defined \ac{LTE} network.
+    \item[\gls{SDR}-based \gls{LTE} Network]
+    \mintinline{python}{SDRLTE} class can configure and deploy a complete software-defined \gls{LTE} network.
     The constructor must be provided with an \mintinline{python}{EPC} class, a set of \mintinline{python}{ENodeB} classes, and a set of \mintinline{python}{LTEUE} classes from the \emph{autoran} Python package\footnote{See https://github.com/samiemostafavi/autoran}.
-    This package exploits the \emph{docker-py} framework to run containerized OpenAirInterface \ac{LTE} functions on remote hosts.
+    This package exploits the \emph{docker-py} framework to run containerized OpenAirInterface \gls{LTE} functions on remote hosts.
     Network configurations are needed in the form of Python dictionaries for the construction of \emph{autoran} classes.
 
-    \ac{LTE} \ac{EPC} consists of HSS, MME, SPGW-U, and SPGW-C services which can be run on the same host.
-    For each \ac{eNodeB} or \ac{UE}, a software-defined radio and a host for signal processing must be specified additionally.
-    The resulting topology of an \ac{LTE} network in Ainur is depicted in Figure \ref{fig:lte}.
-    Unlike WiFi wireless connection, due to the fact that \ac{LTE} creates an internal ip network and that introduces routing complexities, the server host and the client host cannot be on the same subnet in the ip layer.
+    \gls{LTE} \gls{EPC} consists of HSS, MME, SPGW-U, and SPGW-C services which can be run on the same host.
+    For each \gls{eNodeB} or \gls{UE}, a software-defined radio and a host for signal processing must be specified additionally.
+    The resulting topology of an \gls{LTE} network in Ainur is depicted in Figure \ref{fig:lte}.
+    Unlike WiFi wireless connection, due to the fact that \gls{LTE} creates an internal ip network and that introduces routing complexities, the server host and the client host cannot be on the same subnet in the ip layer.
     
 
     \begin{figure}[t]
         \centering
         \includegraphics[width=0.8\linewidth]{figures/lte.png}
-        \caption{An example of \ac{LTE} data network topology in data network and its corresponding \acp{VLAN}}
+        \caption{An example of \gls{LTE} data network topology in data network and its corresponding \acp{VLAN}}
         \label{fig:lte}
     \end{figure}
 

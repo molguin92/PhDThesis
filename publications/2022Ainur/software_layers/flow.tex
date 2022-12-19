@@ -7,10 +7,10 @@
 \Cref{fig:flow} illustrates the execution flow of Ainur.
 The software follows a mostly linear approach given its direct interaction with distinct layers of hardware and networking.
 Immediately after start, Ainur reads and parses the deployment configuration and parses it into a set of various dataclasses and Python dictionaries.
-Next, if deploying anything to the cloud, Ainur spawns the required number of \ac{AWS} \ac{EC2} instance.
+Next, if deploying anything to the cloud, Ainur spawns the required number of \gls{AWS} \gls{EC2} instance.
 Execution then goes on to configure the physical links, connecting hosts with each other through clever management of \acp{VLAN} and \acp{SDR}.
-Once physical and/or \ac{VLAN} connections are configure, \ac{IP} addresses are assigned to devices and static routes between them are configured.
-If cloud instances are used, \ac{VPN} connections are established to them.
+Once physical and/or \gls{VLAN} connections are configure, \gls{IP} addresses are assigned to devices and static routes between them are configured.
+If cloud instances are used, \gls{VPN} connections are established to them.
 At this stage, the testbed network is fully configured, and bidirectional traffic between any two hosts is possible over the workload data network.
 
 The next stages deal with workload deployment, scaling, and orchestration.

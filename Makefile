@@ -8,15 +8,16 @@ SOURCES := $(DOCNAME).tex \
 
 PDFTEX := pdflatex -synctex=1 -interaction=nonstopmode -file-line-error -shell-escape
 
-.PHONY : clean
+.PHONY : clean $(DOCNAME).pdf
 
-MAIN.pdf : $(SOURCES)
+$(DOCNAME).pdf : $(SOURCES)
 	$(PDFTEX) $<
 	biber $(DOCNAME)
+	makeglossaries $(DOCNAME)
 	$(PDFTEX) $<
 	$(PDFTEX) $<
 
 clean :
-	rm -f *.pdf *.aux *-blx.bib *.bbl *.blg *.dvi *.log *.out *.run.xml *.synctex.gz *.toc *.bcf
+	rm -f *.pdf *.aux *-blx.bib *.bbl *.blg *.dvi *.log *.out *.run.xml *.synctex.gz *.toc *.bcf *.glg *.glo *.gls *.ist *.xdy
 	rm -f body/*.aux
 	rm -f body/**/*.aux
