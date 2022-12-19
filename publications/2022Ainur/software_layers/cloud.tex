@@ -20,5 +20,5 @@ By default, \mintinline{python}{CloudInstances} spawns instances of type \verb|t
 The type of instances spawned can be modified at runtime, and additional security groups can be added at will.
 
 The spawned \gls{EC2} instances are created from a preconfigured \gls{AMI}, the ID of which must be passed to the \mintinline{python}{CloudInstances} instance at runtime.
-This \gls{AMI} can be either be one of the default \acp{AMI} provided by \acp{AWS} --- e.g.\ a plain Ubuntu or CentOS \gls{AMI} --- or a custom \gls{AMI} which has been preconfigured by the user.
+This \gls{AMI} can be either be one of the default \glspl{AMI} provided by \glspl{AWS} --- e.g.\ a plain Ubuntu or CentOS \gls{AMI} --- or a custom \gls{AMI} which has been preconfigured by the user.
 Note that although the \mintinline{python}{CloudInstances} instance places no restrictions on the \gls{AMI} used for deploying (with the exception that it needs to be a Linux-based \gls{AMI}), components such as the VPN layer (see \cref{sec:vpn}) depending on these cloud instances might have requirements of their own.

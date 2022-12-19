@@ -21,7 +21,7 @@ The backend side and the network are not changed.
 Two main arguments drive this approach.
 One, the difficulty of scaling the number of clients in these systems in a research context.
 The systems we target exhibit a centralized nature in which a potentially large number of clients offload computation to a single central compute node.
-The client-side component of the applications of interest for this research is often complex to scale, either due to the involvement of humans (as in the case of \gls{WCA}) or due its cyber-physical nature (in \acp{NCS}).
+The client-side component of the applications of interest for this research is often complex to scale, either due to the involvement of humans (as in the case of \gls{WCA}) or due its cyber-physical nature (in \glspl{NCS}).
 Emulating this component reduces this complexity by moving it into the software domain, allowing for easier scaling through the use of cheap, general-purpose hardware such as single-board computers (e.g. Raspberry Pis, Beaglebones, etc.).
 
 And two, it maintains the realism of the most complex parts of the system.
@@ -29,11 +29,11 @@ And two, it maintains the realism of the most complex parts of the system.
 \todo[inline]{Fix and finish}
 
 In the following, we will discuss the initial implementation of this methodology to two different classes of applications.
-We first discuss the methodology in the context of a human-in-the-loop application, \acl{WCA}, in section \cref{ssec:methodology:wca}.
-Then, in \cref{ssec:methodology:ncs}, we present an exploration into it's utility for the study of \acf{NCS}.
+We first discuss the methodology in the context of a human-in-the-loop application, \gls{WCA}, in section \cref{ssec:methodology:wca}.
+Then, in \cref{ssec:methodology:ncs}, we present an exploration into it's utility for the study of \glspl{NCS}.
 
 
-\subsection{Applying the methodology to \acs{WCA}}\label{ssec:methodology:wca}
+\subsection{Applying the methodology to \gls{WCA}}\label{ssec:methodology:wca}
 
 \begin{figure}
     \centering
@@ -206,7 +206,7 @@ The figure shows clears spikes in latencies at the transitions from task state 3
 
 \todo[inline]{\cref{paper:olguinmunoz2019edgedroid}}\label{summary:2019edgedroid}
 
-\subsection{Applying the methodology to \acsp{NCS}}\label{ssec:methodology:ncs}
+\subsection{Applying the methodology to \glspl{NCS}}\label{ssec:methodology:ncs}
 
 \todo[inline]{\Cref{paper:olguinmunoz2022cleave} implements both the methodology and the tool.}
 
@@ -214,7 +214,7 @@ The figure shows clears spikes in latencies at the transitions from task state 3
     \centering
     \includegraphics[width=.8\textwidth]{publications/2022CLEAVE/images/CLEAVE_NCS_structure}
     \caption{
-        Structure of an emulated \acl*{NCS} in \acs*{CLEAVE}.
+        Structure of an emulated \glspl{NCS} in \gls{CLEAVE}.
     }\label{fig:cleave:ncs:struct}
 \end{figure*}
 
@@ -222,12 +222,12 @@ We overcome this issue by proposing a completely virtual plant allowing for unpa
 In this paper, we present the first fully-software-based framework for scalable and repeatable benchmarking of edge-native \gls{NCS}.
 As edge computing begins being adopted by industry, more and more variations have begun to appear in literature.
 ``Near'', ``far'', ``core'', and ``telco'' edge describe variations of the original concept and are becoming ubiquitous in new research.
-While the core idea of edge computing is widely accepted as fundamental for pervasive \acp{NCS} in general, understanding the strengths and weaknesses of such different edge concepts is of paramount importance.
+While the core idea of edge computing is widely accepted as fundamental for pervasive \glspl{NCS} in general, understanding the strengths and weaknesses of such different edge concepts is of paramount importance.
 
 Our framework, \gls{CLEAVE}, aims to simplify the repeatable and scalable benchmarking of such systems.
 It is fully virtualized, inspired by our previous work on benchmarking human-in-the-loop applications on the edge~\cite{Olguin2019EdgeDroid}.
 The tool consists of a benchmarking framework and software development kit for the development of emulated physical systems and softwarized controllers.
-These virtual \acp{NCS} can then be deployed on real networks for reparametrizable, repeatable, and reproducible benchmarking of the complete system.
+These virtual \glspl{NCS} can then be deployed on real networks for reparametrizable, repeatable, and reproducible benchmarking of the complete system.
 
 \gls{CLEAVE} is built using \emph{Python 3.8}, making it highly extensible and able to harness the multitude of already existing user libraries.
 It is furthermore compatible with container technologies such as \emph{Docker}\footnote{Docker Engine: \url{https://www.docker.com/}}, making it suitable for automated deployment, scaling, and benchmarking on industry-standard edge setups using container orchestration solutions.
@@ -253,7 +253,7 @@ We argue such a use case represents a realistic scenario and appropriate benchma
     \item video analytics has long been proposed as a ``killer app'' for edge computing.
 \end{enumerate*}
 Our results showcase the ability of the framework to extract relevant metrics relating to the stability of the control system, as well as on the performance of the underlying network link.
-We believe \gls{CLEAVE} represents an important step towards enabling inexpensive and low-complexity scalable research for real-world deployment of edge-bound \acp{NCS}.
+We believe \gls{CLEAVE} represents an important step towards enabling inexpensive and low-complexity scalable research for real-world deployment of edge-bound \glspl{NCS}.
 
 \todo[inline]{Some plots and results}
 
@@ -287,11 +287,11 @@ We believe \gls{CLEAVE} represents an important step towards enabling inexpensiv
     \begin{subfigure}[h]{.22\textwidth}
         \centering
         \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_rtt}
-        \caption{\acsp{RTT}.}\label{fig:video:rtt}
+        \caption{\glspl{RTT}.}\label{fig:video:rtt}
     \end{subfigure}%
     \caption{
         Multi-loop, resource-constrained setup results.
-        Error bars indicate \SI{95}{\percent} \acp{CI} in all plots.
+        Error bars indicate \SI{95}{\percent} \glspl{CI} in all plots.
     }\label{fig:video:results}
 \end{figure}
 

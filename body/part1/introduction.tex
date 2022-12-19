@@ -17,7 +17,7 @@
 This thesis presents three core contributions to the existing body of research in edge computing, as well as a number of secondary ones.
 Firstly, we introduce a methodological approach to studying system responsiveness versus resource consumption trade-offs in edge-bound feedback-loop systems such as \gls{WCA} and \gls{NCS}.
 This approach is based on the emulation of the client-side workload, while maintaining the \emph{real} server-side process as well as network stack.
-We validate this methodology by example, presenting implementations of its application in the context of \gls{WCA} and \acp{NCS}, and introduce a software framework for the orchestration of the edge computing testbeds necessary for its implementation.
+We validate this methodology by example, presenting implementations of its application in the context of \gls{WCA} and \glspl{NCS}, and introduce a software framework for the orchestration of the edge computing testbeds necessary for its implementation.
 
 Secondly, we present a deeper exploration of this methodology for \gls{WCA} and introduce the first ever model for the end-to-end emulation of human timing behavior in \gls{WCA}.
 This model is built from a thorough characterization of these behaviors, the data for which we obtain from a comprehensive human-subject study.
@@ -36,7 +36,7 @@ This work presents the first empirical results obtained with our methodological 
 We assume in these works a human which is impervious to poor system performance, and suffers no annoyance, fatigue, frustration, nausea or other shortcomings of real human users.
 The result is a model of a user who responds in a precisely reproducible and deterministic manner to the same system stimulus every time.
 
-\cref{paper:olguinmunoz2022cleave}, on the other hand, presents a discussion on the implementation of this methodology for \acp{NCS}.
+\cref{paper:olguinmunoz2022cleave}, on the other hand, presents a discussion on the implementation of this methodology for \glspl{NCS}.
 As discussed above, these applications are similarly difficult as \gls{WCA} to benchmark (in particular at scale on multi-tenant systems) due to their client-side complexity, but in particular because of their often extreme sensitivity to latency.
 \todo[inline]{More argumentation or refer to previous section.}
 We apply thus in this work our methodology to \gls{NCS} through the implementation of a tool for the emulation and subsequent deployment of these systems on edge computing infrastructure.

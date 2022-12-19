@@ -18,7 +18,7 @@ In particular, the network follows a split architecture composed of two sub-netw
 It is designed like this to
 \begin{enumerate*}[itemjoin={{, }}, itemjoin*={{, and }}]
     \item be able to dynamically reconfigure, segment, and route the workload data network for different experiments
-    \item ensure consistent and accurate network traffic measurements (\acp{RTT}, bandwidth, etc.) on the workload data network, uncontaminated by control traffic.
+    \item ensure consistent and accurate network traffic measurements (\glspl{RTT}, bandwidth, etc.) on the workload data network, uncontaminated by control traffic.
 \end{enumerate*}
 
 \begin{description}[style=unboxed]
@@ -36,7 +36,7 @@ It is designed like this to
     \item[Managed switch]
     
     Devices on the workload data network are interconnected through a managed switch.
-    This switch is used by Ainur to change the virtual topology of the workload data network at runtime using \acp{VLAN}, for instance separating the network into front-end and back-end networks.
+    This switch is used by Ainur to change the virtual topology of the workload data network at runtime using \glspl{VLAN}, for instance separating the network into front-end and back-end networks.
 
     In order to manage it through software, the managed switch is also connected to the control network through a single link.
     The associated interface is on a separate, exclusive \gls{VLAN}, and no data from the workload data network is allowed to enter the control network.
@@ -119,7 +119,7 @@ Cloud integration in Ainur is done in \gls{AWS}\footnote{\url{https://aws.amazon
         \item and private access keys, to securely log in to the nodes over \gls{SSH}.
     \end{itemize} 
     
-    \item[\acp{AMI}]
+    \item[\glspl{AMI}]
     
     \gls{EC2} instances deployed by Ainur are expected to be based on a Linux \gls{AMI} equipped with the similar software as the local hosts.
     Specifically:

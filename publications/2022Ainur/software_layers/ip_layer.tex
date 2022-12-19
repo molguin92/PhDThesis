@@ -25,7 +25,7 @@ It makes some strong assumptions about the presence of two preconfigured \gls{VP
     \item These gateways are both listening on separate \gls{UDP} ports on a single public IP address.
     In other words, both gateways access the public internet through a single \gls{NAT} gateway, on which appropriate \gls{UDP} port forwarding rules are configured to allow \gls{VPN} traffic back into the control network.
     \item The VPNCloud connections configured on the the gateways share the same pre-shared key.
-    \item The VPNCloud links belong to mutually \emph{disjoint} \acs{IP}v4 address ranges.
+    \item The VPNCloud links belong to mutually \emph{disjoint} \gls{IP}v4 address ranges.
     % \item The gateways are assigned the first host address in the available address space of their respective \gls{VPN} links.
     % For example, if the gateway \gls{VPN} link address space is \texttt{10.0.0.0/24}, the gateway has address \texttt{10.0.0.1} on the \gls{VPN} link.
     \item Devices on the control network have been preconfigured with appropriate \gls{IP} routes to reach the control gateway and its associated \gls{VPN} link.

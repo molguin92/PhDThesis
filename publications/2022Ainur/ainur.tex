@@ -62,17 +62,17 @@ Below we briefly touch on the most important of these:
     Ainur employs the Amazon \texttt{boto3} library for Python to directly interface with \gls{AWS} \gls{EC2} and deploy, configure, and manage remote cloud instances.
     
     \item[\gls{OAI}:]
-    \gls{OAI} is an open-source project that implements 3GPP technology on general purpose \texttt{x86} computing hardware and off-the-shelf \acp{SDR} like the \gls{USRP}~\cite{KALTENBERGER2020107284}.
+    \gls{OAI} is an open-source project that implements 3GPP technology on general purpose \texttt{x86} computing hardware and off-the-shelf \glspl{SDR} like the \gls{USRP}~\cite{KALTENBERGER2020107284}.
     Ainur can deploy, configure, and manage \gls{OAI} software components that implement 4G \gls{LTE} and 5G \gls{NR}.
     
     \item[Mango Communications 802.11:]
-    Finally, the Mango Communications project implements real-time 802.11 (WiFi) MAC and PHY in Xilinx \acp{FPGA}.
-    It can be used on a variety of hardware platforms including \gls{USRP} \acp{SDR}, and is employed in Ainur to provision end-to-end WiFi links.
+    Finally, the Mango Communications project implements real-time 802.11 (WiFi) MAC and PHY in Xilinx \glspl{FPGA}.
+    It can be used on a variety of hardware platforms including \gls{USRP} \glspl{SDR}, and is employed in Ainur to provision end-to-end WiFi links.
 \end{description}
 
 \subsection{Main Software Components}
 
-Ainur follows a layered architecture which closely mimics the conceptual layers of the \acs{TCP}/\acs{IP} stack.
+Ainur follows a layered architecture which closely mimics the conceptual layers of the \gls{TCP}/\gls{IP} stack.
 Components are deployed in bottom-up order, starting with the establishment of physical links, through the establishment of \gls{IP} connectivity and deployment of links to the cloud, and ending with the distribution and initialization of workloads on top of a container orchestration layer.
 The architectural modules of the framework can broadly be classified according to the below categories:
 
@@ -88,7 +88,7 @@ The architectural modules of the framework can broadly be classified according t
     
     \item[Physical Layer:] 
     Creates and deploys the underlying physical connections of the workload data network.
-    This layer interacts with hardware such as managed switches and \acp{SDR} (and their associated computation hosts) to create links between the desired workload hosts.
+    This layer interacts with hardware such as managed switches and \glspl{SDR} (and their associated computation hosts) to create links between the desired workload hosts.
     These links correspond to ethernet, WiFi, and even an entire software-defined 4G \gls{LTE} and 5G networks.
 
     \item[Cloud Layer:]
@@ -129,7 +129,7 @@ This allows the framework to remain mostly agnostic to the nature of the workloa
 It also allows for easy deployment to different compute nodes in the network, without having to take into consideration details such as required libraries and versions.
 
 As expressed above, Ainur also leverages containers for the communication stack.
-With the advent of \gls{O-RAN} and \acp{SDR}, all components of the wireless network stack can run on general-purpose processors.
+With the advent of \gls{O-RAN} and \glspl{SDR}, all components of the wireless network stack can run on general-purpose processors.
 They can thus be containerized and distributed across multiple hosts.
 
 As a final point, the automation of logging is another advantage of using containers and an orchestration framework.
@@ -145,7 +145,7 @@ It automatically decouples data sources from containers running on different sys
     \caption{Minimal testbed setup on which Ainur can be deployed.}\label{fig:network:minimal}
 \end{figure}
 
-The framework is released as \acl{FOSS} under a permissive Apache license.
+The framework is released as \gls{FOSS} under a permissive Apache license.
 It can be downloaded from the Ainur repository~\cite{ainur:github} of the {KTH-EXPECA} organization on GitHub.
 Given the software's complexity, the repository also includes detailed documentation on its requirements, configuration, deployment, and execution, as well as links to external resources containing information and guides about related concepts and services.
 

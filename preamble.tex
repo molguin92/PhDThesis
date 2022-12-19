@@ -51,8 +51,8 @@
 \usepackage{algpascal}
 \usepackage{multicol}
 \usepackage{lipsum}
-\usepackage[printonlyused]{acronym}
 \usepackage[nogroupskip,nonumberlist,automake]{glossaries-extra}
+\usepackage{glossaries-prefix}
 \usepackage{glossaries}
 \usepackage{booktabs}
 \usepackage{tabularx}
@@ -187,7 +187,7 @@
 
 \newcommand{\thesispaper}[2]
 {
-    \acresetall% % reset all acronyms
+    \glsresetall% % reset all acronyms
     \edef\stitle{#1}
     \edef\ptitle{\citefield{#2}{title}}
     \edef\plabel{paper:#2}
@@ -219,7 +219,7 @@
 
 \newcommand{\preprintthesispaper}[4]
 {
-    \acresetall%
+    \glsresetall%
     \edef\stitle{#1}
     \edef\ptitle{\citefield{#2}{title}}
     \edef\plabel{paper:#2}

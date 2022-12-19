@@ -6,13 +6,13 @@ Types of connections handled by this layer could be ethernet and WiFi links, or 
 In order to ensure flexibility, we make no assumptions on the wired connections between the data hosts or radios.
 On the other hand, an arbitrary data plane could require wired connections between two hosts, or a host and a radio.
 Therefore, we use a managed switch at the heart of the physical layer and connect all the hosts and radios to it.
-According to the data network description, the physical layer then creates the required \acp{VLAN} in the switch.
+According to the data network description, the physical layer then creates the required \glspl{VLAN} in the switch.
 
-At instantiation time, this class first configures ethernet connections by creating \acp{VLAN} in the workload data network switch.
+At instantiation time, this class first configures ethernet connections by creating \glspl{VLAN} in the workload data network switch.
 It then triggers the deployment of potential wireless connections using \mintinline{python}{WirelessConnection} objects.
 
 A set of \mintinline{python}{WirelessConnection} instances must be provided to the constructor for deployment.
-This class can be used as a context manager in a \mintinline{python}{with} statement; at the end of the block, it tears down all connections and cleans the added \acp{VLAN} from the switch.
+This class can be used as a context manager in a \mintinline{python}{with} statement; at the end of the block, it tears down all connections and cleans the added \glspl{VLAN} from the switch.
 
 \subsubsection{Wireless Connections}
 To integrate various wireless connection schemes, we have defined the Python interface \mintinline{python}{WirelessConnection}.
@@ -33,7 +33,7 @@ We introduce how the current implementations work in the following.
 \begin{description}[style=nextline]
     \item[SDR-based WiFi Network]
     The \mintinline{python}{SDRWifi} class handles the configuration and deployment of a software-defined IEEE 802.11 network using the Mangocomm software package and its supported software-defined radios \footnote{See https://mangocomm.com/802.11-mac-phy/}.
-    It lunches a Docker container on the same machine to communicate with the \acp{SDR} over the control network.
+    It lunches a Docker container on the same machine to communicate with the \glspl{SDR} over the control network.
     This communication is for the configuration and monitoring the WiFi nodes.
     In a WiFi network, a radio is either \emph{station} or \emph{access point}.
     To initialize a \mintinline{python}{SDRWifi} class, the user is required to provide two lists containing the access points and station nodes instances as described below.
@@ -49,7 +49,7 @@ We introduce how the current implementations work in the following.
     \begin{figure}[t]
         \centering
         \includegraphics[width=0.8\linewidth]{figures/wifi.png}
-        \caption{An example of WiFi network topology in data network and its corresponding \acp{VLAN}}
+        \caption{An example of WiFi network topology in data network and its corresponding \glspl{VLAN}}
         \label{fig:wifi}
     \end{figure}
 
@@ -68,7 +68,7 @@ We introduce how the current implementations work in the following.
     \begin{figure}[t]
         \centering
         \includegraphics[width=0.8\linewidth]{figures/lte.png}
-        \caption{An example of \gls{LTE} data network topology in data network and its corresponding \acp{VLAN}}
+        \caption{An example of \gls{LTE} data network topology in data network and its corresponding \glspl{VLAN}}
         \label{fig:lte}
     \end{figure}
 

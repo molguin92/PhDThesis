@@ -17,13 +17,13 @@
     \begin{subfigure}{\columnwidth}
         \centering
         \includegraphics[height=8em]{publications/2022Ainur/figures/demo_workload_1.png}
-        \caption{Workload 1: \acs*{MNIST} image classifier}\label{fig:wkld:mnist}
+        \caption{Workload 1: \gls{MNIST} image classifier}\label{fig:wkld:mnist}
     \end{subfigure}%
     \vspace{1em}
     \begin{subfigure}{\columnwidth}
         \centering
         \includegraphics[height=8em]{publications/2022Ainur/figures/demo_workload_2.png}
-        \caption{Workload 2: inverted pendulum \acs*{NCS}}\label{fig:wkld:ncs}
+        \caption{Workload 2: inverted pendulum \gls{NCS}}\label{fig:wkld:ncs}
     \end{subfigure}
     \caption{Demonstration workloads}\label{fig:wkld}
 \end{figure}
@@ -37,8 +37,8 @@ This will be done interactively, and members of the audience will be invited to 
 Workloads are deployed on client hosts, and computation is offloaded either to an edge server (cloudlet), or to \gls{AWS} \gls{EC2} instances on the cloud.
 Communication between the client- and server-sides of the workload will occur over one of three possible physical link layer setups:
 \begin{description}
-    \item[WiFi:] \iac{SDR} is configured as an IEEE 802.11n access point, and client hosts connect to it using on-board WiFi.
-    \item[4G \gls{LTE}:] \iac{SDR} is configured as an 4G \gls{LTE} base station, and another is configured as an 4G \gls{LTE} \gls{UE}.
+    \item[WiFi:] \pgls{SDR} is configured as an IEEE 802.11n access point, and client hosts connect to it using on-board WiFi.
+    \item[4G \gls{LTE}:] \pgls{SDR} is configured as an 4G \gls{LTE} base station, and another is configured as an 4G \gls{LTE} \gls{UE}.
     Together these radios act as an \gls{LTE} bridge between the client-side and the server-side of the network, and all client-server traffic is routed through them.
     \item[Ethernet:] connects everything through plain ethernet.
 \end{description}
@@ -48,10 +48,10 @@ Workloads deployed to the cloud will be able to target any of \gls{AWS}'s datace
 
 We will employ two different workloads for this demonstration, illustrated in \cref{fig:wkld}.
 The first of these (\cref{fig:wkld:mnist}) consists of a proof-of-concept web application which implements a simple classifier to identify hand-drawn digits from the widely-used \gls{MNIST} dataset~\cite{mnist}.
-The application consists of a client with a web interface, and \iac{HTTP} server which responds to requests from the client and performs the actual image recognition.
+The application consists of a client with a web interface, and \pgls{HTTP} server which responds to requests from the client and performs the actual image recognition.
 This workload is intended to showcase in an interactive manner the effects of placing computation at different points of the network, and how Ainur simplifies these deployments.
 
-The second workload (\cref{fig:wkld:ncs}) corresponds to \iac{NCS} balancing an inverted pendulum, implemented on a software framework for the emulation of \acp{NCS} using cloud-native technologies~\cite{cleave}.
+The second workload (\cref{fig:wkld:ncs}) corresponds to \pgls{NCS} balancing an inverted pendulum, implemented on a software framework for the emulation of \glspl{NCS} using cloud-native technologies~\cite{cleave}.
 It consists of an emulation of the physical inverted pendulum system plant and a software-implemented proportional-differential controller.
 These components communicate with each other over the \gls{UDP}.
 This workload will be used to showcase the utility of Ainur for automating the execution of batches of experiments potentially including multiple different clients, servers, and physical layers.
@@ -67,7 +67,7 @@ This demonstration will be performed on a testbed consisting of
     \item a configurable number of  \gls{AWS} \gls{EC2} cloud instances acting as cloud servers
     \item a separate \texttt{i386} workstation hosting the Fluent server and on which Ainur is deployed as well.
 \end{enumerate*}
-These nodes are interconnected using a combination of managed switches, \acp{SDR}, and \gls{VPN} gateways; please refer to \cref{fig:network} for an architectural overview of this setup.
+These nodes are interconnected using a combination of managed switches, \glspl{SDR}, and \gls{VPN} gateways; please refer to \cref{fig:network} for an architectural overview of this setup.
 
 
 \subsection{Demo Procedure}
@@ -92,4 +92,4 @@ The server will respond to these, and the assigned labels will be visible on the
 \subsubsection{Workload 2}
 
 Participants will be asked to specify the full, arbitrarily complex, experimental scenario, including the number of clients, physical layers (single or multiple, and which clients are on each physical link), and offloading configuration (number of instances on the edge vs.\ on the cloud, which \gls{AWS} datacenters to deploy to).
-Configuration will be specified through a \acs{YAML} file, which will then be parsed by Ainur for the automatic execution of the scenario.
+Configuration will be specified through a \gls{YAML} file, which will then be parsed by Ainur for the automatic execution of the scenario.

@@ -15,8 +15,8 @@
 
     I (Manuel) suggest then that for ExPECA 2.0 we switch to a distributed client-server architecture, using a microservice for each core functionality.
     In other words, we would have several smaller server applications running on potentially different hosts on the network, each handling a specific part of the functionality we need.
-    For instance, we could have a ``Layer 3'' service which handles setting up \gls{IP}-layer connectivity, and another ``SDR'' service which manages the \acp{SDR}.
-    Services could communicate with each other using simple HTTP \acp{API} for easy debugging, and we would have an ``Ainur'' client which orchestrates the services into an experimental run.
+    For instance, we could have a ``Layer 3'' service which handles setting up \gls{IP}-layer connectivity, and another ``SDR'' service which manages the \glspl{SDR}.
+    Services could communicate with each other using simple HTTP \glspl{API} for easy debugging, and we would have an ``Ainur'' client which orchestrates the services into an experimental run.
 
     This has several advantages:
 

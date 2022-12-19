@@ -5,27 +5,27 @@ The complexity of these systems, as well as their softwarization are expected to
 
 Over the last years, several small- to mid-scale testbeds have emerged that leverage a large degree of freedom with respect to hardware and software, for example, the 
 \begin{enumerate*}[itemjoin={{, }}, itemjoin*={{, and }}]
-    \item \acs*{COSMOS}
-    \item \acs*{POWDER}
-    \item \acs*{ARA}
+    \item \gls{COSMOS}
+    \item \gls{POWDER}
+    \item \gls{ARA}
     \item Drexel Grid \gls{SDR}
 \end{enumerate*} testbeds.
-\acs{COSMOS}~(\emph{\acl{COSMOS}})\acused{COSMOS} is a testbed spanning an area of roughly \num{1} square mile (\SI{2.6}{\kilo\meter\squared}) featuring \acp{SDR}, \si{\milli\meter}-wave equipment, optical fibers, cloud integration, and compute for core network functionality and application data processing~\cite{Cosmos1,cosmos2}.
+\gls{COSMOS}~(\emph{\gls{COSMOS}}) is a testbed spanning an area of roughly \num{1} square mile (\SI{2.6}{\kilo\meter\squared}) featuring \glspl{SDR}, \si{\milli\meter}-wave equipment, optical fibers, cloud integration, and compute for core network functionality and application data processing~\cite{Cosmos1,cosmos2}.
 It contains over \num{200} rooftop, intermediate, and mobile nodes, and is controlled and managed by a central node.
 \gls{COSMOS} relies on the \gls{OMF} (originally developed for ORBIT~\cite{orbit}), and employs the \gls{OEDL}, a domain-specific imperative language based on Ruby, for experiment development and definition.
 
-\acs{POWDER}~(\emph{\acl{POWDER}})\acused{POWDER} promises research on wireless and mobile networks with a level of programmability down to the waveform~\cite{powder}.
-The testbed spans a \SI{15}{\kilo\meter\squared} area and features about \num{15} fixed programmable radio nodes, based on off-the-shelves \acp{SDR} and featuring edge-like compute capabilities and integration with cloud resources, which interact with \num{50} mobile nodes. 
+\gls{POWDER}~(\emph{\gls{POWDER}}) promises research on wireless and mobile networks with a level of programmability down to the waveform~\cite{powder}.
+The testbed spans a \SI{15}{\kilo\meter\squared} area and features about \num{15} fixed programmable radio nodes, based on off-the-shelves \glspl{SDR} and featuring edge-like compute capabilities and integration with cloud resources, which interact with \num{50} mobile nodes.
 \gls{POWDER} experiments are defined and developed in \emph{profiles}, which correspond to \gls{VM} images containing the necessary software and configurations.
 These profiles are defined through using \gls{RSpec}\footnote{\url{https://groups.geni.net/geni/wiki/GENIExperimenter/RSpecs}} documents.
 
 The \gls{ARA} platform is an at-scale testbed for wireless research spanning a rural area with a diameter of over \SI{60}{\kilo\meter} in Iowa~\cite{zhang2022ara}.
 Its core goal is the study and deployment of advanced wireless platforms and technologies in real-world agricultural and rural settings.
-It includes a broad range of wireless platforms ranging from low-\gls{UHF} massive \gls{MIMO} to \unit{\milli\meter}Wave, deployed through both \acp{SDR} and programmable \gls{COTS} radios, as well as automated ground vehicles, cameras and sensors.
+It includes a broad range of wireless platforms ranging from low-\gls{UHF} massive \gls{MIMO} to \unit{\milli\meter}Wave, deployed through both \glspl{SDR} and programmable \gls{COTS} radios, as well as automated ground vehicles, cameras and sensors.
 \gls{ARA}'s software stack, ARASoft, is based upon the highly flexible and powerful \gls{CHI} software suite from the Chameleon testbed project~\cite{keahey2020lessons}, which in turn is based on the widely adopted OpenStack~\cite{openstack} cloud-computing framework.
 This affords the \gls{ARA} testbed a high degree of flexibility, as well as lowers the learning curve for new contributors and users.
 
-Finally, the \emph{Drexel Grid \gls{SDR} Testbed} features \acp{SDR} that connect either over-the-air, through a channel emulator, or over a combination of the two, to facilitate realistic and reproducible experimentation~\cite{DrexelGrid}.
+Finally, the \emph{Drexel Grid \gls{SDR} Testbed} features \glspl{SDR} that connect either over-the-air, through a channel emulator, or over a combination of the two, to facilitate realistic and reproducible experimentation~\cite{DrexelGrid}.
 Primarily intended for \gls{SDR}-centric research, it does not integrate any core, cloud or edge components.
 However, the testbed extensively employs the \gls{LXC} runtime for the deployment of both experimental code and \gls{SDR} software, which affords users great freedom when it comes to the development of experiments.
 
@@ -33,13 +33,13 @@ Experimentation is key to to fully understanding the implications of next-genera
 Yet, little work has so far been devoted to general-purpose, hardware-agnostic software frameworks for the management and automation of such systems.
 Existing platforms implement their own, ad-hoc software solutions which are not compatible with other testbeds, and in many cases are not even compatible with reigning cloud-native standards.
 This is, for instance, the case with \gls{COSMOS} and \gls{POWDER}; their reliance on domain-specific languages limits their integration with cloud-native solutions, which generally build upon general-purpose languages such as Python and Go.
-These testbeds further leverage virtualization technology based on \acp{VM} instead of more lightweight and edge-compatible solutions such as containers.
+These testbeds further leverage virtualization technology based on \glspl{VM} instead of more lightweight and edge-compatible solutions such as containers.
 
 To the best of our knowledge, CloudRAFT~\cite{cloudraft} is the only work to tackle (to a certain extent) this challenge.
 CloudRAFT corresponds to a cloud-based framework for mobile network experimentation, with a focus on simplifying the management of testbed resources.
-The goal of this project is to integrate, coordinate, share, and improve upon existing testbeds; and employs pre-built \acp{VM} containing the necessary software for experiments.
+The goal of this project is to integrate, coordinate, share, and improve upon existing testbeds; and employs pre-built \glspl{VM} containing the necessary software for experiments.
 Although it provides some automation for testbed resource provisioning and experiment execution, its focus is largely rather on the sharing and partitioning of testbed systems.
-Testbeds currently working with CloudRAFT include a variety of domain-specific setups, including \iac{SDR}-based testbed as a well as a ground vehicular robot for mobility-related experimentation.
+Testbeds currently working with CloudRAFT include a variety of domain-specific setups, including \pgls{SDR}-based testbed as a well as a ground vehicular robot for mobility-related experimentation.
 
 In this work, we present our solution to the challenge of testbed automation: Ainur, a framework for wireless testbed automation with a specific focus on end-to-end experimental research in the context of edge-computing using cloud- and edge-native technologies.
 Ainur is designed to deploy experimental runs from a workload perspective by configuring the physical testbed, initializing all involved software components, deploying and executing the experimental workload, collecting logs and data, and finally gracefully degrading the system.
@@ -56,12 +56,12 @@ Finally, in \cref{sec:conclusion} we summarize our contributions, discuss future
 
 
 % \todo[inline]{
-%     COSMOS: Experimenters work on these resources using the \ac*{OMF}~\cite{omf} tool, originally leveraged for ORBIT~\cite{orbit}, and \gls{SSH} sessions, thus allowing for free-form scripting of experimental procedures.
+%     COSMOS: Experimenters work on these resources using the \gls{OMF}~\cite{omf} tool, originally leveraged for ORBIT~\cite{orbit}, and \gls{SSH} sessions, thus allowing for free-form scripting of experimental procedures.
 
 %     CONS: OMF/OEDL is domain specific. Requires learning a new language. High barrier of entry, does not integrate with existing technologies.
 %     Imperative specification.
 
-%     POWDER: To abstract and redistribute resources and \acp{API}, \gls{POWDER} leverages the concept of \emph{profiles}, corresponding shareable packages containing experimental configurations and descriptions\cite{emulab}.
+%     POWDER: To abstract and redistribute resources and \glspl{API}, \gls{POWDER} leverages the concept of \emph{profiles}, corresponding shareable packages containing experimental configurations and descriptions\cite{emulab}.
 %     Automation and web interface control are limited to some test experiments, and thus regular users must interact with the platform through \gls{SSH}.
 
 %     Profiles: complex description of an experiment. Can be produced from a Python script. Experiments built on top of VMs or bare metal. Uses OpenStack.

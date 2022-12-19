@@ -1,7 +1,7 @@
 \section{Use case validation}\label{sec:experiments}
 
 In this section, we demonstrate the utility of \gls{CLEAVE} by walking readers through an example use case.
-With this, we aim to showcase the ability of our framework to provide accurate and repeatable measurements of the performance of \acp{NCS} deployed on edge computing infrastructure.
+With this, we aim to showcase the ability of our framework to provide accurate and repeatable measurements of the performance of \glspl{NCS} deployed on edge computing infrastructure.
 
 We present the following use case scenario.
 A simple \gls{NCS} consisting of an \emph{inverted pendulum} plant controlled by a \emph{proportional-differential} controller is to be deployed on an Edge server.
@@ -12,9 +12,9 @@ We believe this to be an interesting and representative use-case scenario for a 
 Firstly, the inverted pendulum is broadly used as a benchmark in control-system literature, see for instance\ \cite{Baumann2018LowPower} and\ \cite{Natale2004InvPendEthernet}.
 A key reason for this is that such a relatively simplistic system allows for straightforward reparametrization to obtain varied system dynamics, which in turn makes a broader range of experiments possible.
 Secondly, similar, albeit non-Edge-enabled, setups have been a reality in industry for almost two decades, as evidenced by\ \cite{Gupta2010NCSOverview}.
-Thirdly, although real deployments would most assuredly employ mobile technologies due to the added benefits of mobility and range, the \acp{RTT} offered by these technologies are higher, or at best equal, those offered by WiFi.
-4G, for instance, has average \acp{RTT} of around a few hundred milliseconds, which is orders of magnitude greater than the values measured in our scenario, and current 5G deployments offer \gls{RTT} values barely matching the sub-\SI{10}{\milli\second} values we obtain for WiFi.
-Thus, we argue that using WiFi allows for more experimental freedom, as the system can be tweaked to obtain worse \acp{RTT} more akin to those of mobile technologies while still having the option to study best-case scenarios with very low-latencies.
+Thirdly, although real deployments would most assuredly employ mobile technologies due to the added benefits of mobility and range, the \glspl{RTT} offered by these technologies are higher, or at best equal, those offered by WiFi.
+4G, for instance, has average \glspl{RTT} of around a few hundred milliseconds, which is orders of magnitude greater than the values measured in our scenario, and current 5G deployments offer \gls{RTT} values barely matching the sub-\SI{10}{\milli\second} values we obtain for WiFi.
+Thus, we argue that using WiFi allows for more experimental freedom, as the system can be tweaked to obtain worse \glspl{RTT} more akin to those of mobile technologies while still having the option to study best-case scenarios with very low-latencies.
 Finally, video analytics is one of the main proposed use cases for edge computing~\cite{Ananthanarayanan2017Analytics,Yi2017Analytics,Wang2018Analytics}, and thus we foresee edge \gls{NCS} deployments being deployed in parallel with such applications in the future.
 However, before deployment can become a reality, key questions such as: 
 ``what are the baseline requirements of the \gls{NCS}?''; ``what are the achievable best-case end-to-end latencies in the system?''; and
@@ -63,18 +63,18 @@ This is \gls{CLEAVE}'s first advantage over existing frameworks; it is designed 
     \begin{subfigure}[t]{\columnwidth}
         \centering
         \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_single_loop_rms}
-        \caption{Mean angle \acs*{RMS}; red line indicates \( y = 180 \).}\label{fig:single:rms}
+        \caption{Mean angle \gls{RMS}; red line indicates \( y = 180 \).}\label{fig:single:rms}
     \end{subfigure}\\
     \begin{subfigure}[t]{\columnwidth}
         \centering
         \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_single_loop_rtts}
         \caption{
-            Mean \acsp*{RTT}.
+            Mean \glspl{RTT}.
         }\label{fig:single:rtt}
     \end{subfigure}%
     \caption[caption]{
         Baseline results.
-        Error bars indicate \SI{95}{\percent} \acp{CI}.
+        Error bars indicate \SI{95}{\percent} \glspl{CI}.
         }%
     \label{fig:single}
 \end{figure}
@@ -84,13 +84,13 @@ This is \gls{CLEAVE}'s first advantage over existing frameworks; it is designed 
 \cref{fig:single:rtt} shows average latency due to network and processing (excluding synthetic delays) for both single-loop scenarios.
 Packet losses were below \SI{0.2}{\percent} for all parametrizations of the single-loop scenario over the network, and \SI{0}{\percent} for all parametrizations of the local-only setup.
 
-As expected, higher sampling rates tend to correlate with better quality of control; at higher sampling rates the system was able to reach stability at higher \acp{RTT}.
+As expected, higher sampling rates tend to correlate with better quality of control; at higher sampling rates the system was able to reach stability at higher \glspl{RTT}.
 These initial results already hint at interesting consequences for such an edge-bound \gls{NCS} deployment.
 For instance, it is clear from \cref{fig:single:topple,fig:single:rms} that network delays can, to a certain extent, be compensated for by increasing the sampling rate of the system.
-A corollary of this is, conversely, that at lower network latencies \acp{NCS} are able to stabilize at lower sampling rates.
+A corollary of this is, conversely, that at lower network latencies \glspl{NCS} are able to stabilize at lower sampling rates.
 Adaptive sampling might thus be a viable method for optimizing resource utilization.
 
-Once baselines for single loops in the use case scenario have been established, we can proceed to studying the interaction between the \acp{NCS} and the video-streaming applications.
+Once baselines for single loops in the use case scenario have been established, we can proceed to studying the interaction between the \glspl{NCS} and the video-streaming applications.
 We deploy \num{6} control loops on the experimental setup depicted in \cref{fig:cleave:expsetup}.
 On the remaining \num{4} clients we run the \emph{iperf3}\footnote{iperf3: \url{https://iperf.fr/}} traffic load generator, each generating \SI[per-mode=symbol]{6.5}{\mega\bit\per\second} of uplink \gls{UDP} traffic.
 This emulates the load generated on the network by \SI{1080}{p} Full-HD video streaming, originating from the clients and terminating in the cloudlet.
@@ -120,11 +120,11 @@ Once again, repetitions of this scenario are executed automatically in batches u
     \begin{subfigure}[h]{.22\textwidth}
         \centering
         \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_rtt}
-        \caption{\acsp{RTT}.}\label{fig:video:rtt}
+        \caption{\glspl{RTT}.}\label{fig:video:rtt}
     \end{subfigure}%
     \caption{
         Multi-loop, resource-constrained setup results.
-        Error bars indicate \SI{95}{\percent} \acp{CI} in all plots.
+        Error bars indicate \SI{95}{\percent} \glspl{CI} in all plots.
     }\label{fig:video:results}
 \end{figure}
 
@@ -141,7 +141,7 @@ While the baselines might lead us to think that higher sampling rates are always
 
 \cref{fig:video:drop,fig:video:rtt} explains these behaviors.
 Whereas both the \SIlist{20;40}{\hertz} setups show losses well below \SI{5}{\percent}, the \SI{60}{\hertz} scenario shows an average of around \SI{13}{\percent} of datagrams lost.
-The differences in \acp{RTT} results are equally telling; \acp{RTT} for the \SI{60}{\hertz} setup were on average approx.\ \num{3} times those for the \SIlist{20;40}{\hertz} setups.
-These results stem from the contention for network resources, and hint at important trade-offs system designers will have to take into consideration when designing and developing \acp{NCS} for deployment on the Edge.
+The differences in \glspl{RTT} results are equally telling; \glspl{RTT} for the \SI{60}{\hertz} setup were on average approx.\ \num{3} times those for the \SIlist{20;40}{\hertz} setups.
+These results stem from the contention for network resources, and hint at important trade-offs system designers will have to take into consideration when designing and developing \glspl{NCS} for deployment on the Edge.
 The Edge will be \emph{multi-tenant} and \emph{multi-instance}. 
 \gls{NCS} deployments will have to be designed with shared resources in mind, and given the complexity of these systems, experimental tools like \gls{CLEAVE} will be key for their succesful adoption and massification.
