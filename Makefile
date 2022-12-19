@@ -1,6 +1,11 @@
 DOCNAME := MAIN
 
-SOURCES := $(DOCNAME).tex $(wildcard ./body/*.tex) $(wildcard ./body/**/*.tex)
+SOURCES := $(DOCNAME).tex \
+	$(wildcard ./body/*.tex) $(wildcard ./body/**/*.tex) \
+	$(wildcard ./publications/*.tex) $(wildcard ./publications/**/*) $(wildcard ./publications/**/**/*) \
+	$(wildcard ./Figs/*) $(wildcard ./Figs/**/*) \
+	$(wildcard ./bibliography/*.bib)
+
 PDFTEX := pdflatex -synctex=1 -interaction=nonstopmode -file-line-error -shell-escape
 
 .PHONY : clean
@@ -12,6 +17,6 @@ MAIN.pdf : $(SOURCES)
 	$(PDFTEX) $<
 
 clean :
-	rm -f *.pdf *.aux *-blx.bib *.bbl *.blg *.dvi *.log *.out *.run.xml *.synctex.gz *.toc
+	rm -f *.pdf *.aux *-blx.bib *.bbl *.blg *.dvi *.log *.out *.run.xml *.synctex.gz *.toc *.bcf
 	rm -f body/*.aux
 	rm -f body/**/*.aux
