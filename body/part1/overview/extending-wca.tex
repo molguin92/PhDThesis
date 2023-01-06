@@ -49,7 +49,25 @@ The assistant was instrumented to capture key application and task performance m
 Furthermore, the software was modified to allow for the real-time alteration of system responsiveness by extending the processing interval of each input to a temporarily fixed value denoted \emph{delay}.
 This is illustrated in \cref{fig:regularwca-vs-delaywca}.
 If, during a series of steps, delay was set to a value \ensuremath{\mathbb{D}}, the feedback for each input frame was provided to the user exactly a time interval \ensuremath{\mathbb{D}} after frame capture.
-Seven values were selected for \ensuremath{\mathbb{D}}: no added delay (which was referred to as  \SI{0}{\second} delay), \SIlist{0.6;1.125;1.65;2.175;2.7;3.0}{\second}.
+That is,
+\begin{align}
+    t_k - t_{k - 1} = \mathbb{D} \qquad \forall k \in [2, n + 1]
+\end{align}
+Seven values were selected for \ensuremath{\mathbb{D}}: no added delay (which was referred to as \SI{0}{\second} delay), \SIlist{0.6;1.125;1.65;2.175;2.7;3.0}{\second}.
+In order to fully characterize the resulting \emph{\glspl{TTF}} perceived by participants, we note that the instant of final frame capture for a step, \ensuremath{t_c} (and conversely the wait time \( \mathcal{W} \) of the step), can be assumed to be uniformly distributed in \( [t_{n - 1}, t_n] \), without loss of generality.
+Thus the average \gls{TTF} for a step can be expressed as
+\begin{align*}
+    TTF = (t_{n + 1} - t_{n}) + \frac{1}{2}(t_n - t_{n - 1})
+\end{align*}
+which, for a step with a given delay \ensuremath{\mathbb{D}}, works out to\footnote{%
+    The \num{0}/no-delay case was handled by calculating the empirical average frame \gls{RTT} for these steps, and using this value as the delay \ensuremath{\mathbb{D}}.
+    This yielded an average \gls{TTF} of \SI{0.57}{\second} for these steps.
+}
+\begin{align}
+    TTF &= \mathbb{D} + \frac{1}{2}\mathbb{D}\nonumber\\
+        &= \frac{3}{2}\mathbb{D}
+\end{align}
+In the following, we will forgo the delay values and present results with respect to the adjusted \glspl{TTF}.
 
 \begin{figure}[tb]
     \centering
@@ -95,3 +113,7 @@ The results of this study can be summarized as follows:
 In the following, we will discuss in more detail each of the above conclusions.
 
 \paragraph{Reduced system responsiveness leads to additional behavioral slow-down in users.}
+
+
+
+Compared to the unimpaired case, participants were on average \SI{12}{\percent} slower when subject to a mean \gls{TTF} of \SI{2.475}{\second}, and \num{26} percentage points slower at a mean \gls{TTF} of \SI{4.5}{\second}.
