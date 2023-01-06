@@ -8,7 +8,7 @@ SOURCES := $(DOCNAME).tex \
 
 PDFTEX := pdflatex -synctex=1 -interaction=nonstopmode -file-line-error -shell-escape
 
-.PHONY : clean $(DOCNAME).pdf
+.PHONY : clean $(DOCNAME).pdf update-biblatex
 
 $(DOCNAME).pdf : $(SOURCES)
 	$(PDFTEX) $<
@@ -21,3 +21,9 @@ clean :
 	rm -f *.pdf *.aux *-blx.bib *.bbl *.blg *.dvi *.log *.out *.run.xml *.synctex.gz *.toc *.bcf *.glg *.glo *.gls *.ist *.xdy
 	rm -f body/*.aux
 	rm -f body/**/*.aux
+
+update-biblatex :
+	# tlmgr init-usertree
+	# mkdir -p  /Users/molguin/texmf/tlpkg/backups
+	tlmgr --usermode update --self
+	tlmgr --usermode update biblatex
