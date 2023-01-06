@@ -10,6 +10,8 @@ PDFTEX := pdflatex -synctex=1 -interaction=nonstopmode -file-line-error -shell-e
 
 .PHONY : clean $(DOCNAME).pdf update-biblatex
 
+all : clean $(DOCNAME).pdf
+
 $(DOCNAME).pdf : $(SOURCES)
 	$(PDFTEX) $<
 	biber $(DOCNAME)
