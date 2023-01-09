@@ -25,6 +25,20 @@ We expected delay effects in subjects to be mediated primarily by emotion, and i
 And four, are these effects mediated by personality indicators in any way?
 It was our hypothesis that, among others, the individual trait of \emph{neuroticism}~\cite{john1999big} would play a particularly important role in mediating effects of reduced system responsiveness on subjects.
 
+Our results partially agree with our initial hypotheses.
+We found that reduced system responsiveness induces \emph{additional} behavioral slow-down in users of \gls{WCA}.
+This additional slow-down moreover scales with the strength of the reduction in system responsiveness.
+Furthermore, we note that humans tend to speed up as the task progresses.
+However, as system responsiveness decreases, this effect is strongly dampened.
+We also found that the effects of reduced system responsiveness on users linger for at least \num{4} steps after system responsiveness improves, leading to longer execution times for steps immediately after a period of reduced responsiveness.
+
+Finally, we also found that the above effects are modulated by measures of individual levels of personality.
+In particular, the trait of \emph{neuroticism} seems to play a significant role in modulating users' response to reduced responsiveness in \gls{WCA}.
+
+\todo[inline]{Discuss implications?}
+
+\subsubsection{Methodology}
+
 \begin{figure}[tb]
     \centering
     \begin{subfigure}[t]{.49\textwidth}
@@ -78,12 +92,31 @@ In the following, we will forgo the delay values and present results with respec
 
 The actual \gls{WCA} task employed for this study corresponded to a modified and extended version of the LEGO assembly task introduced in~\cite{chen2015early}.
 Unlike the original design of this task, in which the user is led through the assembly of a specific model, the modified LEGO task consisted of a pseudo-random sequence of steps instructing subjects to add or remove pieces.
-We introduce an experimental design component denoted a \emph{block}, illustrated in \cref{fig:stepblock}, corresponding to a segment of consecutive steps subject to the same delay value.
-To study the effects of a delay applied across multiple steps, we manipulate the length of blocks during the task, using values of \numlist[list-final-separator={, or }]{4;8;12} steps.
-We then generate a pseudo-random permutation of the combinations of block length and delay values, and assign a unique sequence of steps to each combination in order to create \num{21} unique blocks of steps.
-Using a \emph{Latin-square}~\cite{keedwell2015latin} design, we reorder the initial permutation to generate a task for each of the \num{40} participants.
 
-In order to capture metrics relating to the emotional response of humans to changes in system responsiveness, participants were asked to wear an array of biometric sensors.
+We introduced an experimental design component denoted a \emph{block}, illustrated in \cref{fig:stepblock}, corresponding to a segment of consecutive steps subject to the same delay value.
+To study the effects of a delay applied across multiple steps, we manipulated the length of blocks during the task, using values of \numlist[list-final-separator={, or }]{4;8;12} steps.
+Furthermore, we defined a \emph{slice} as a continuous segment of \num{4} steps within a block.
+In other words, \num{4}-step blocks were composed of a single slice, whereas \num{8}- and \num{12}-step blocks were composed respectively of \num{2} and \num{3} consecutive slices.
+
+Using the above experimental design components, we then generated a task for each participant.
+We generated a pseudo-random permutation of the combinations of block length and delay values, and assigned a unique sequence of steps to each combination in order to create \num{21} unique blocks of steps.
+Using a \emph{Latin-square}~\cite{keedwell2015latin} design, we reordered the initial permutation to generate \num{40} tasks.
+
+To measure the extent to which individual differences in each subject affected obtained task-performance results, participants were asked to complete two questionnaires previous to beginning the task;
+the \gls{BFI}~\cite{john1999big} and the \gls{ITQ}~\cite{witmer1998measuring}.
+These correspond to well-established tools for the measurement of individual personality traits in humans.
+The \gls{BFI}~\cite{john1999big} consists of \num{44} questions assessing the traits of
+\begin{enumerate*}[itemjoin={{, }}, itemjoin*={{, and }}]
+    \item agreeableness
+    \item conscientiousness
+    \item extroversion
+    \item neuroticism
+    \item openness
+\end{enumerate*}.
+The \gls{ITQ}~\cite{witmer1998measuring}, on the other hand, assesses involvement, focus, and the tendency to play games, using \num{29} questions.
+The scores for these questionnaires were normalized in post-processing to fall in the \ensuremath{[0, 1]} range for ease of interpretation.
+
+Finally, in order to capture metrics relating to the emotional response of humans to changes in system responsiveness, participants were asked to wear an array of biometric sensors.
 This array included devices to capture four physiological measures:
 \begin{enumerate*}[itemjoin={{, }}, itemjoin*={{, and }}, label={(\arabic*)}]
     \item \gls{GSR} (also known as electrodermal activity)
@@ -91,29 +124,39 @@ This array included devices to capture four physiological measures:
     \item brain activity in the form of \gls{EEG}
     \item heart rate
 \end{enumerate*}.
-Additionally, to measure individual differences in personality between them, participants were asked to complete two questionnaires previous to beginning the task, the \gls{BFI}~\cite{john1999big} and the \gls{ITQ}~\cite{witmer1998measuring}.
-The scores for these questionnaires were normalized in post-processing to fall in the \ensuremath{[0, 1]} range for ease of interpretation.
+However, no statistically significant effects were measured in any of these variables, and as such neither will be discussed in this summary.
+Please refer to \cref{paper:olguinmunoz2021impact} for details.
 
 \subsubsection{Results}
 
-The results of this study can be summarized as follows:
+\begin{figure*}[tb]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[height=13em]{./Figs/2021Impact/ttf_vs_exectime_per_block}
+        \caption{%
+            \gls{TTF} vs average execution time, grouped by block length.
+            Transparent bands indicate \SI{95}{\percent} \glspl{CI}.
+        }\label{fig:ttfvsexectime:block}
+    \end{subfigure}%
+    \hfill%
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[height=13em]{./Figs/2021Impact/ttf_vs_exectime_per_slice}
+        \caption{%
+            \gls{TTF} vs average execution time, grouped by step slice in a block.
+            Slice \num{1} corresponds to steps \numrange{1}{4}, \num{2} to steps \numrange{5}{8}, and \num{3} to steps \numrange{9}{12} in a block.
+            Blocks with \num{4} steps only contribute to slice \num{1}, and blocks with \num{8} steps to slices \num{1} and \num{2}.
+            Transparent bands indicate \SI{95}{\percent} \glspl{CI}.
+        }\label{fig:ttfvsexectime:slice}
+    \end{subfigure}%
+    \caption{Effects of perceived \gls{TTF} on measured step execution times by participants.}\label{fig:ttfvsexectime}
+\end{figure*}
 
-\begin{itemize}
-    \item Reduced system responsiveness induces \emph{additional} behavioral slow-down in users of \gls{WCA}.
-    This additional slow-down moreover scales with the strength of the reduction in system responsiveness.
 
-    \item At higher levels of system responsiveness, humans speed up as the task progresses.
-    However, as system responsiveness decreases, this effect is dampened.
-    Eventually, at the highest levels of system impairment, this effect inverts and humans actually progressively slow-down the longer they spend in a degraded system state.
-
-    \item The effects of reduced system responsiveness on users linger for at least \num{4} steps after system responsiveness improves.
-    \item Measures of individual levels of personality modulate the above effects.
-\end{itemize}
-
-In the following, we will discuss in more detail each of the above conclusions.
-
-\paragraph{Reduced system responsiveness leads to additional behavioral slow-down in users.}
-
-
-
+We found that as system responsiveness decreased, the speed at which participants completed instructions tended to slow down.
 Compared to the unimpaired case, participants were on average \SI{12}{\percent} slower when subject to a mean \gls{TTF} of \SI{2.475}{\second}, and \num{26} percentage points slower at a mean \gls{TTF} of \SI{4.5}{\second}.
+\Cref{fig:ttfvsexectime:block} illustrates this effect clearly;
+for all block lengths, as \gls{TTF} grows we see an accompanying increase in execution times.
+Note that by measuring \emph{step execution time} we are \emph{per se} compensating for the added delay in the measure, and thus this trend must result from the participants' behavioral slow-down as a response to the perceived increase in \gls{TTF}.
+This was confirmed through an \gls{ANOVA}~\cite{fujikoshi1993two} including factors of block length and \gls{TTF}; significant effects were found for both factors and their interaction (\ensuremath{p < 0.01}).
+
+\todo[inline]{Write about slice effects.}
