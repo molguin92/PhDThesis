@@ -151,12 +151,27 @@ Please refer to \cref{paper:olguinmunoz2021impact} for details.
     \caption{Effects of perceived \gls{TTF} on measured step execution times by participants.}\label{fig:ttfvsexectime}
 \end{figure*}
 
+\Cref{fig:ttfvsexectime} shows effects on the measured execution times of participants as perceived \gls{TTF} increased.
+These results have been grouped by block length (\cref{fig:ttfvsexectime:block}), showing the cumulative effects of delay over series of steps, and slice number (\cref{fig:ttfvsexectime:slice}), showing the evolution of these effects within a series of steps at the same level of impairment.
 
-We found that as system responsiveness decreased, the speed at which participants completed instructions tended to slow down.
+\cref{fig:ttfvsexectime:block} shows that as system responsiveness decreased, the speed at which participants completed instructions tended to slow down.
 Compared to the unimpaired case, participants were on average \SI{12}{\percent} slower when subject to a mean \gls{TTF} of \SI{2.475}{\second}, and \num{26} percentage points slower at a mean \gls{TTF} of \SI{4.5}{\second}.
 \Cref{fig:ttfvsexectime:block} illustrates this effect clearly;
 for all block lengths, as \gls{TTF} grows we see an accompanying increase in execution times.
+Moreover, this effect seemed stronger for longer blocks at higher levels of impairment, indicating a slow-down which compounds with the number of steps.
 Note that by measuring \emph{step execution time} we are \emph{per se} compensating for the added delay in the measure, and thus this trend must result from the participants' behavioral slow-down as a response to the perceived increase in \gls{TTF}.
 This was confirmed through an \gls{ANOVA}~\cite{fujikoshi1993two} including factors of block length and \gls{TTF}; significant effects were found for both factors and their interaction (\ensuremath{p < 0.01}).
 
-\todo[inline]{Write about slice effects.}
+On the other hand, in \cref{fig:ttfvsexectime:slice} we observe the evolution of execution times over \emph{slices} of \num{4} steps within blocks.
+This figure illustrates how, at the lowest levels of impairment, users tended to get faster as the task progressed.
+At the lowest \gls{TTF}, the average execution time of steps \num{9} to \num{12} in a block was roughly \textasciitilde\SI{26}{\percent} lower than for steps \num{1} to \num{4}.
+However, this effect is strongly dampened at higher levels of impairment, with the difference between the average execution times of steps in slices \num{2} and \num{3} basically disappearing at the highest \gls{TTF}.
+This was also confirmed through an \gls{ANOVA} on factors slice and \gls{TTF}, finding significant (\ensuremath{p < 0.01}) for both factors and their interaction.
+
+As mentioned before, we also found that the effects of system responsiveness on execution times lingered on after the system moved to a different level of impairment.
+On average, the mean execution time of the first four steps of blocks were roughly \SI{10}{\percent} lower when the previous block was at a \ensuremath{TTF \leq \SI{2.475}{\second}} compared to when the previous block was at a \ensuremath{TTF > \SI{2.475}{\second}}.
+
+Finally, analyses of the correlation between individual subject differences and the above effects highlighted the \gls{BFI} trait of \emph{neuroticism} as an important modulating factor.
+This trait has been linked to low tolerance for stress, high emotional reactivity, as well as higher rates of \emph{delay discounting}~\cite{hirsh2008delay}.
+Out of the three components identified by a \gls{PCA}, which cumulatively accounted for \textasciitilde\SI{73}{\percent} of the variance in the execution time results, neuroticism was present in the first two.
+Furthermore, individual neuroticism scores were found to significantly linearly correlate (\ensuremath{rho = 0.418}, \num{2}-tailed \ensuremath{p < 0.05}) with measured execution times at high \glspl{TTF}.
