@@ -127,7 +127,7 @@ This array included devices to capture four physiological measures:
 However, no statistically significant effects were measured in any of these variables, and as such neither will be discussed in this summary.
 Please refer to \cref{paper:olguinmunoz2021impact} for details.
 
-\subsubsection{Results}
+\subsubsection{Results}\label{impact:results}
 
 \begin{figure*}[tb]
     \centering
@@ -168,10 +168,30 @@ At the lowest \gls{TTF}, the average execution time of steps \num{9} to \num{12}
 However, this effect is strongly dampened at higher levels of impairment, with the difference between the average execution times of steps in slices \num{2} and \num{3} basically disappearing at the highest \gls{TTF}.
 This was also confirmed through an \gls{ANOVA} on factors slice and \gls{TTF}, finding significant (\ensuremath{p < 0.01}) for both factors and their interaction.
 
+\begin{wrapfigure}{l}{.5\textwidth}
+    \centering
+    \includegraphics[height=13em]{figs/2021Impact/previousblock_vs_exectime}
+    \caption{}\label{fig:prevblockvsexectime}
+\end{wrapfigure}
+
 As mentioned before, we also found that the effects of system responsiveness on execution times lingered on after the system moved to a different level of impairment.
-On average, the mean execution time of the first four steps of blocks were roughly \SI{10}{\percent} lower when the previous block was at a \ensuremath{TTF \leq \SI{2.475}{\second}} compared to when the previous block was at a \ensuremath{TTF > \SI{2.475}{\second}}.
+\Cref{fig:prevblockvsexectime} illustrates this effect.
+On average, the mean execution time of the first four steps of blocks was roughly \SI{7}{\percent} lower when the previous block was at a \ensuremath{TTF \leq \SI{2.475}{\second}} compared to when the previous block was at a \ensuremath{TTF > \SI{2.475}{\second}} (single-tailed \ensuremath{p < 0.001}).
 
 Finally, analyses of the correlation between individual subject differences and the above effects highlighted the \gls{BFI} trait of \emph{neuroticism} as an important modulating factor.
 This trait has been linked to low tolerance for stress, high emotional reactivity, as well as higher rates of \emph{delay discounting}~\cite{hirsh2008delay}.
 Out of the three components identified by a \gls{PCA}, which cumulatively accounted for \textasciitilde\SI{73}{\percent} of the variance in the execution time results, neuroticism was present in the first two.
-Furthermore, individual neuroticism scores were found to significantly linearly correlate (\ensuremath{rho = 0.418}, \num{2}-tailed \ensuremath{p < 0.05}) with measured execution times at high \glspl{TTF}.
+Furthermore, individual neuroticism scores were found to significantly linearly correlate (\ensuremath{rho = 0.418}, two-tailed \ensuremath{p < 0.05}) with measured execution times at high \glspl{TTF}.
+
+
+\subsection{Extending the EdgeDroid tool with a realistic model of human behavior}
+
+\cref{paper:olguinmunoz2023realistic} discusses the elaboration of a model of human behavior for \gls{WCA}.
+Built upon the data and results from \cref{paper:olguinmunoz2021impact}, our model is capable of dynamically generating realistic predictions of execution times for steps in a \gls{WCA} based on historical system state data and a parameterized level of neuroticism.
+Furthermore, we implement a new version of the EdgeDroid tool capable of using this new model, together with a novel procedure for the generation of realistic synthetic traces of frames for \gls{WCA}, to fully emulate a human in the context of these systems.
+
+\subsubsection{Designing a realistic model for human timing ins \gls{WCA}}
+
+As evidenced from the results of \cref{paper:olguinmunoz2021impact}, a model capable of generating realistic execution times for \gls{WCA} must take several things in consideration.
+As discussed in \cref{impact:results}, the execution time for a step depends not only on the most recent perceived \gls{TTF}, but also on how long the system has been in the current level of responsiveness.
+Additionally, as shown in \cref{fig:prevblockvsexectime}
