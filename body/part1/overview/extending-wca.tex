@@ -168,21 +168,40 @@ At the lowest \gls{TTF}, the average execution time of steps \num{9} to \num{12}
 However, this effect is strongly dampened at higher levels of impairment, with the difference between the average execution times of steps in slices \num{2} and \num{3} basically disappearing at the highest \gls{TTF}.
 This was also confirmed through an \gls{ANOVA} on factors slice and \gls{TTF}, finding significant (\ensuremath{p < 0.01}) for both factors and their interaction.
 
-\begin{wrapfigure}{l}{.5\textwidth}
-    \centering
-    \includegraphics[height=13em]{Figs/2021Impact/previousblock_vs_exectime}
-    \caption{}\label{fig:prevblockvsexectime}
-\end{wrapfigure}
+\begin{figure}
+    \begin{minipage}[t]{.45\textwidth}
+        \centering
+        \includegraphics[height=13em]{Figs/2021Impact/previousblock_vs_exectime}
+        \caption{Mean execution time of the first slice of steps in a block, grouped by \acs{TTF} of the block immediately preceding the current one.}\label{fig:prevblockvsexectime}
+    \end{minipage}%
+    \hfill%
+    \begin{minipage}[t]{.45\textwidth}
+        \centering
+        \includegraphics[height=13em]{publications/2023EdgeDroid2/figs/new_model/mu_fits_exgaussian_slice0}
+        \caption{%
+            Illustration of the effect of neuroticism on the \ensuremath{\mu} parameter of \acs{exGaussian} distributions fitted to the execution times of steps in slice \num{1}.
+            Fits were achieved through \gls{MLE}.
+        }\label{fig:ttfvsexgaussianmu}
+    \end{minipage}
+\end{figure}
 
-As mentioned before, we also found that the effects of system responsiveness on execution times lingered on after the system moved to a different level of impairment.
+As mentioned before, we found that the effects of system responsiveness on execution times lingered on after the system moved to a different level of impairment.
 \Cref{fig:prevblockvsexectime} illustrates this effect.
 On average, the mean execution time of the first four steps of blocks was roughly \SI{7}{\percent} lower when the previous block was at a \ensuremath{TTF \leq \SI{2.475}{\second}} compared to when the previous block was at a \ensuremath{TTF > \SI{2.475}{\second}} (single-tailed \ensuremath{p < 0.001}).
 
-Finally, analyses of the correlation between individual subject differences and the above effects highlighted the \gls{BFI} trait of \emph{neuroticism} as an important modulating factor.
+Analyses of the correlation between individual subject differences and the above effects highlighted the \gls{BFI} trait of \emph{neuroticism} as an important modulating factor.
 This trait has been linked to low tolerance for stress, high emotional reactivity, as well as higher rates of \emph{delay discounting}~\cite{hirsh2008delay}.
 Out of the three components identified by a \gls{PCA}, which cumulatively accounted for \textasciitilde\SI{73}{\percent} of the variance in the execution time results, neuroticism was present in the first two.
-Furthermore, individual neuroticism scores were found to significantly linearly correlate (\ensuremath{rho = 0.418}, two-tailed \ensuremath{p < 0.05}) with measured execution times at high \glspl{TTF}.
+Individual neuroticism scores were found to significantly linearly correlate (\ensuremath{rho = 0.418}, two-tailed \ensuremath{p < 0.05}) with measured execution times at high \glspl{TTF}.
 
+Finally, we found that execution times were well-fit by \gls{exGaussian} distributions.
+Previous research has established strong arguments for the use of this distribution for the modeling of human reaction times and the timings of human actions~\cite{rohrer1994analysis,palmer2011what,marmolejo_ramos2022generalised}.
+When grouping execution times by low/high neuroticism\footnote{%
+    \emph{Low} refers to values less than the middle value obtainable for neuroticism in the \gls{BFI}; \emph{high} to values greater than or equal to it.
+}, \gls{TTF}, and slice, the best fit statistic obtained using a Kolmogorov-Smirnov goodness-of-fit test~\cite{massey_jr1951kolmogorov} was \num{0.028}, with a \ensuremath{p}-value of \num{0.999}.
+The effects of neuroticism were most easily observed in the \ensuremath{\mu} parameter and the tails of the fitted distribution;
+an example of this can be observed in \cref{fig:ttfvsexgaussianmu}.
+There is a clear and direct correlation between higher neuroticism and higher \ensuremath{\mu} values and longer tails.
 
 \subsection{Extending the EdgeDroid tool with a realistic model of human behavior}
 
@@ -190,8 +209,35 @@ Furthermore, individual neuroticism scores were found to significantly linearly 
 Built upon the data and results from \cref{paper:olguinmunoz2021impact}, our model is capable of dynamically generating realistic predictions of execution times for steps in a \gls{WCA} based on historical system state data and a parameterized level of neuroticism.
 Furthermore, we implement a new version of the EdgeDroid tool capable of using this new model, together with a novel procedure for the generation of realistic synthetic traces of frames for \gls{WCA}, to fully emulate a human in the context of these systems.
 
-\subsubsection{Designing a realistic model for human timing ins \gls{WCA}}
+\subsubsection{Designing a realistic model for human timings in \gls{WCA}}
 
-As evidenced from the results of \cref{paper:olguinmunoz2021impact}, a model capable of generating realistic execution times for \gls{WCA} must take several things in consideration.
 As discussed in \cref{impact:results}, the execution time for a step depends not only on the most recent perceived \gls{TTF}, but also on how long the system has been in the current level of responsiveness.
-Additionally, as shown in \cref{fig:prevblockvsexectime}
+Moreover, as shown in \cref{fig:prevblockvsexectime}, the effects of reduced system responsiveness on generated execution times must be taken into consideration even after the system transitions into a more responsive state.
+All of these effects are also modulated by neuroticism, adding both another layer of complexity and a means of parameterizing the model.
+
+Our timing model produces realistic execution times for each step, according to the above effects.
+We achieve this through the following design:
+
+\begin{enumerate}
+    \item Our model takes two inputs, the measured \gls{TTF} for the most recent step and a level of normalized neuroticism.
+    We use two levels of neuroticism: \emph{low}, for normalized values in the range \ensuremath{[0, 0.5)}; and \emph{high}, for the range \ensuremath{[0.5, 1.0]}.
+    \item The model is stateful, keeping the values of the \num{12} most recent \glspl{TTF} in memory.
+    \item Whenever a new \gls{TTF} is received, the thirteenth most recent \gls{TTF} is dropped, and a weighted average is calculated using the values in memory.
+    This value is obtained using the formula
+    \begin{equation}\label{eq:modelweights}
+    w_{n - i} =
+    \left\{ \begin{array}{ll}
+                \frac{e^{-0.7 i}}{\sum\limits^{12}_{j=1} e^{-0.7 j}} & 1 \leq i \leq 12 \\
+                & \\
+                0 & i > 12
+    \end{array} \right.
+    \end{equation}
+    This results in the \gls{TTF} for the most recent step accounting for approximately \SI{50}{\percent} of the weighted result, with this percentage decaying by a factor of about \ensuremath{\frac{1}{2}} for each step further back in the sequence.
+
+    \item The resulting weighted rolling \gls{TTF} is used to look-up potential values for the execution time in the original data from \cref{paper:olguinmunoz2021impact}.
+    We do this by pre-processing the original data from the \num{40} independent repetitions of the LEGO task with this same rolling weighted average formula, and then binning samples according to the resulting \num{7}-quantiles for weighted \glspl{TTF}.
+    The weighted \gls{TTF} calculated during runtime is then matched to the corresponding bin of samples.
+
+    \item The selected samples are further filtered according to the selected level of neuroticism for the model.
+    \item Finally, a realistic execution time for the step is generated either by directly sampling the execution time values from the selected samples, or first fitting a theoretical \gls{exGaussian} distribution to these values and then sampling the distribution instead.
+\end{enumerate}
