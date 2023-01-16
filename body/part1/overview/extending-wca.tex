@@ -285,3 +285,17 @@ As expected from our discussion in \cref{impact:results}, transitions from a hig
 
 
 \subsubsection{Procedural generation of dynamic traces of video frames for \gls{WCA}}\label{model:traces}
+
+\begin{figure}
+    \centering
+    \includegraphics[height=13em]{publications/2023EdgeDroid2/model_data/frame_probabilities}
+    \caption{%
+        Distribution of processing results for frames captured during the execution of steps in the LEGO task.
+        Note that \emph{Success} results are not included since by definition \ensuremath{P(\text{Success}|t_i) = 1.0} for all normalized instants \ensuremath{t_i \geq 1.0}.
+    }
+    \label{fig:modelframes}
+\end{figure}
+
+
+Our design for a procedure for the generation of synthetic yet realistic traces of video inputs for \gls{WCA} is based on a stochastic approach.
+Analysis of the distribution of processing results of frames during the execution of steps in the LEGO task highlighted a pattern that was independent from execution times, illustrated in 
