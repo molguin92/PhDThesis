@@ -1,4 +1,4 @@
-\section{Extending the methodology in the context of \gls{WCA}}
+\section{Extending the methodology in the context of \acs{WCA}}\label{sec:extendingmethodology}
 
 \todo[inline]{%
     Why do we need to extend the methodology? What was wrong with the approach in the previous section?
@@ -34,8 +34,6 @@ We also found that the effects of reduced system responsiveness on users linger 
 
 Finally, we also found that the above effects are modulated by measures of individual levels of personality.
 In particular, the trait of \emph{neuroticism} seems to play a significant role in modulating users' response to reduced responsiveness in \gls{WCA}.
-
-\todo[inline]{Discuss implications?}
 
 \subsubsection{Methodology}
 
@@ -209,6 +207,19 @@ The effects of neuroticism were most easily observed in the \ensuremath{\mu} par
 an example of this can be observed in \cref{fig:ttfvsexgaussianmu}.
 There is a clear and direct correlation between higher neuroticism and higher \ensuremath{\mu} values and longer tails.
 
+\subsubsection{Implications}
+
+The results summarized above lead to interesting implications for the design and optimization of \gls{WCA} application systems.
+The behavioral slow-down in users as a response to reductions in system responsiveness translates into noticeably extended application lifetimes, even for short durations of impairment.
+Combined with the permanence of these effects for a period even after the system returns to an improved level of responsiveness, this could lead to unconventional consequences for resource allocation, in particular in multi-tenant deployment and in cases where a user may be able to finish the task before the effects of slow-down subside.
+In such cases, it might be more efficient to not divert resources to the impaired application, as fair degradation may not ultimately be beneficial to the system as a whole.
+It might even be more beneficial to divert resources \emph{away} from the impaired application, to ensure optimal system responsiveness for other tenants in the system.
+
+These implications, however, are merely speculative.
+Moreover and as previously discussed, due to the complexity of these systems, accurate study of the actual consequences of the results discussed in the present section can only be achieved through an experimental approach.
+\todo[inline]{Does this need a better transition?}
+
+
 \subsection{Extending the EdgeDroid tool with a realistic model of human behavior}
 
 \cref{paper:olguinmunoz2023realistic} discusses the elaboration of a model of human behavior for \gls{WCA}.
@@ -217,7 +228,7 @@ Furthermore, we implement a new version of the EdgeDroid tool capable of using t
 
 \subsubsection{Design of a realistic model for human timings in \gls{WCA}}
 
-\todo[inline]{Probably needs to repeat a discussion on why the new model is necessary.
+\todo[inline]{Probably needs to repeat a discussion on why the new model is necessary, in a shorter summarized form.
 This discussion should first be presented at the beginning of this section however.}
 
 As discussed in \cref{impact:results}, the execution time for a step depends not only on the most recent perceived \gls{TTF}, but also on how long the system has been in the current level of responsiveness.
@@ -296,7 +307,7 @@ Next, a single \gls{TTF} of \SI{2.5}{\second} was fed to the model, and the gene
 This procedure was repeated \num{600} times.
 As expected from our discussion in \cref{impact:results}, transitions from a higher (\SI{5}{\second}) \gls{TTF} resulted in noticeably inflated execution times (\ensuremath{+\SI{8.5}{\percent}} at a high level of neuroticism) for the first step at \SI{2.5}{\second} \gls{TTF} compared to when the transition was from a lower \gls{TTF}.
 
-\subsubsection{Procedural generation of dynamic traces of video frames for \gls{WCA}}\label{model:traces}
+\subsubsection{Procedural generation of dynamic traces of video frames for \acs{WCA}}\label{model:traces}
 
 Our design for a procedure for the generation of synthetic yet realistic traces of video inputs for \gls{WCA} follows a stochastic approach.
 Analysis of the evolution of the distribution of processing results of frames over their normalized capture instant with respect to step execution time highlighted the pattern illustrated in \cref{fig:modelframes}.
