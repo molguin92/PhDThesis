@@ -1,22 +1,22 @@
-\section{Introduction}\label{sec:intro}
+\section{Introduction}\label{paper:olguinmunoz2019edgedroid:sec:intro}
 
-There is increasing interest from academia and industry in novel applications such as immersive augmented reality (AR) or wearable cognitive assistance (WCA)~\cite{Chatzopoulos:Hyperion,Ha:TowardsWearableCogAssist}, also known as human-in-the-loop applications.
+There is increasing interest from academia and industry in novel applications such as immersive \gls{AR} or \gls{WCA}~\cite{chatzopoulos2017hyperion,ha2014towards}, also known as human-in-the-loop applications.
 These applications aim to seamlessly integrate into the lives of users to provide real-time, context-aware information by capturing user and environment information and leveraging compute-intensive algorithms to analyze the data in order to provide real-time feedback to the user.
-Sensory input, such as video, audio, and other user-related data such as orientation and movement, are examples of what is typically captured, while the backend generally employs machine learning technologies such as Deep Neural Networks (DNN)~\cite{Ha:TowardsWearableCogAssist}.
-\Cref{fig:pipeline2} depicts such a system.
+Sensory input, such as video, audio, and other user-related data such as orientation and movement, are examples of what is typically captured, while the backend generally employs machine learning technologies such as \glspl{DNN}~\cite{ha2014towards}.
+\Cref{paper:olguinmunoz2019edgedroid:fig:pipeline2} depicts such a system.
 These applications are highly latency sensitive, measuring latency as the time from the capture of the sensory information until feedback is received.
-Delays above a certain threshold can hurt the user experience or even make the application unusable~\cite{Chen:AnEmpiricalStudyOfLatency}.
+Delays above a certain threshold can hurt the user experience or even make the application unusable~\cite{chen2017empirical}.
 
 In literature, these challenging latency requirements have so far mainly been addressed through research on the optimal placement of the compute process.
-There is a broad understanding today that with the advent of edge computing, human-in-the-loop applications will become viable~\cite{Bittmann_Edge,flinn2012cyber,Chen:AnEmpiricalStudyOfLatency,Ha:JITProvisioning}.
+There is a broad understanding today that with the advent of edge computing, human-in-the-loop applications will become viable~\cite{bittmann2017edge,flinn2012cyber,chen2017empirical,ha2013just}.
 However, with respect to end-to-end latency, there are many more trade-offs involved than merely the question of where the compute backend is placed.
 A human-in-the-loop application consists of various processing steps that can be influenced during the development of the application.
 What kind of compression to apply to the sensory input on the uplink; which backend algorithms to utilize; how to stage the backend; when to send feedback to the human users; and how to manage congestion on the loop, as well as wireless channel fluctuations --- all these design choices impact the latency of the application.
 There are also many design choices in the infrastructure: how is the sensory input conveyed to the point of computation (i.e.\ by which wireless system; with which transmission/prioritization scheme); which hardware is running at the backend; which operating system; how is the feedback conveyed back to the human user?
 Finally, in production use these applications will most likely run concurrently with others.
 How does this, together with other best-effort applications, impact the latencies perceived by the human user?
-Existing studies~\cite{Ha:TowardsWearableCogAssist, Chen:EarlyImplementation, satya2009case,Chatzopoulos:Hyperion} of this class of applications have only lightly touched upon these issues~\cite{Chen:AnEmpiricalStudyOfLatency}.
-On the other hand, recently published models for end-to-end latency of edge computing architectures~\cite{Zubaidy15,Schiessl17} are quite complex, while not accounting for the specifics of human-in-the-loop applications.
+Existing studies~\cite{ha2014towards,chen2015early,satyanarayanan2009case,chatzopoulos2017hyperion} of this class of applications have only lightly touched upon these issues~\cite{chen2017empirical}.
+On the other hand, recently published models for end-to-end latency of edge computing architectures~\cite{al_zubaidy2015performance,schiessl2017finite} are quite complex, while not accounting for the specifics of human-in-the-loop applications.
 We only have a coarse understanding of the many degrees of freedom upon which end-to-end latency depends.
 
 The goal of this paper is to provide a methodological approach to studying these latency trade-offs, along with a tool, EdgeDroid 1.0\footnote{We plan to make the EdgeDroid 1.0 benchmarking suite available as Free and Open Source Software and the recorded traces under a Creative Commons License.}, that simplifies the benchmarking of human-in-the-loop applications.
@@ -34,25 +34,25 @@ It can also be used for debugging and validation, by comparing the expected exec
 To the best of our knowledge, this experimentally-driven benchmarking approach is the first one towards experimental performance characterization and potential optimization of human-in-the-loop applications
 
 The rest of the paper is structured as follows:
-\Cref{sec:background} presents some background on human-in-the-loop applications.
-\Cref{sec:approach} discusses the general approach taken with EdgeDroid, while \Cref{sec:implementation} exposes the implementation details for EdgeDroid 1.0.
-We show the value of the tool through use case analysis in \Cref{sec:usecases,sec:results}, before discussing future work and concluding in \Cref{sec:conclusions}.
+\cref{paper:olguinmunoz2019edgedroid:sec:background} presents some background on human-in-the-loop applications.
+\cref{paper:olguinmunoz2019edgedroid:sec:approach} discusses the general approach taken with EdgeDroid, while \cref{paper:olguinmunoz2019edgedroid:sec:implementation} exposes the implementation details for EdgeDroid 1.0.
+We show the value of the tool through use case analysis in \Cref{paper:olguinmunoz2019edgedroid:sec:usecases,paper:olguinmunoz2019edgedroid:sec:results}, before discussing future work and concluding in \cref{paper:olguinmunoz2019edgedroid:sec:conclusions}.
 
 
 %\section{Design \& Implementation}\label{sec:design_impl}
-\section{Background}\label{sec:background}
+\section{Background}\label{paper:olguinmunoz2019edgedroid:sec:background}
 
 Human-in-the-loop applications are novel applications aiming to seamlessly integrate into the lives of users and provide real-time, context-aware information.
 
-Given the wide range of applications which fall under this concept, we have chosen to focus our initial efforts on one particular category: task-guidance wearable cognitive assistance (WCA)~\cite{Ha:TowardsWearableCogAssist}.
-We have chosen this type of application for two reasons: one, their relative simplicity in terms of execution flow, and two, the already well-established existing body of work~\cite{Ha:TowardsWearableCogAssist,Chen:EarlyImplementation,Chen:AnEmpiricalStudyOfLatency}.
-Task-guidance WCA applications aim to guide users in the execution of a task by monitoring user actions and providing real-time instructions, usually through wearable sensors and gadgets such as the Google Glass platform.
+Given the wide range of applications which fall under this concept, we have chosen to focus our initial efforts on one particular category: task-guidance \gls{WCA}~\cite{ha2014towards}.
+We have chosen this type of application for two reasons: one, their relative simplicity in terms of execution flow, and two, the already well-established existing body of work~\cite{ha2014towards,chen2015early,chen2017empirical}.
+Task-guidance \gls{WCA} applications aim to guide users in the execution of a task by monitoring user actions and providing real-time instructions, usually through wearable sensors and gadgets such as the Google Glass platform.
 They have many potential use cases including training and assistance for professionals performing complex tasks.
 Imagine for instance a specialized technician performing field repairs on a complex piece of machinery.
-A task-guidance WCA application could offer real-time guidance in this task, by analyzing a real-time video feed from the technician's head-mounted camera and providing step-by-step repair instructions.
+A task-guidance \gls{WCA} application could offer real-time guidance in this task, by analyzing a real-time video feed from the technician's head-mounted camera and providing step-by-step repair instructions.
 
-Broadly speaking, task-guidance WCA applications (and human-in-the-loop in general) process a multitude of inputs in parallel, which are also usually continuous, multidimensional and time-sensitive, e.g.\ video and audio feeds.
-These inputs are passed to the computation backend, where they are processed in the pipeline depicted in \cref{fig:pipeline2}.
+Broadly speaking, task-guidance \gls{WCA} applications (and human-in-the-loop in general) process a multitude of inputs in parallel, which are also usually continuous, multidimensional and time-sensitive, e.g.\ video and audio feeds.
+These inputs are passed to the computation backend, where they are processed in the pipeline depicted in \cref{paper:olguinmunoz2019edgedroid:fig:pipeline2}.
 The first step of the backend processing is detection, which acts as a filter for irrelevant inputs.
 For example, this step could consist of a computer vision detector which discards all frames for which the relevant features were not detected or which were below a set threshold.
 %Given the often complex nature of the inputs, this stage usually employs Machine Learning to process them.
@@ -63,10 +63,10 @@ This representation of the inputs then continues on to the task model, where the
 \begin{figure}[b]
     \centering
     \input{publications/2019EdgeDroid/img/pipeline.tex}
-    \caption{Pipeline of human-in-the-loop applications.}\label{fig:pipeline2}
+    \caption{Pipeline of human-in-the-loop applications.}\label{paper:olguinmunoz2019edgedroid:fig:pipeline2}
 \end{figure}
 
-The task model of a task-guidance WCA is a parameterized representation of the task in question and the steps required to complete it.
+The task model of a task-guidance \gls{WCA} is a parameterized representation of the task in question and the steps required to complete it.
 It can be represented as a Finite State Machine (FSM) \( M\{S, E\} \), where \(S\) is a set of states and \(E\) is a set of edges connecting these states.
 Each state \(s_i \in S\) represents a configuration the application could potentially reach in an arbitrary execution, and each edge \(e_{i,j} \in E\) corresponds to the ability of the application to switch from state \(i\) to state \(j\) based on some user input.
 We make a distinction between the set of \emph{steps} required to complete the task, \(S_s\), and \(S\), since the latter may also contain states which represent user mistakes in the execution of the task.
@@ -75,18 +75,18 @@ Thus, if we call the set of errors \(S_e\), we can further define \(S := S_s \cu
 \begin{figure}[tb]
     \centering
     \input{publications/2019EdgeDroid/img/taskmodel.tex}
-    \captionof{figure}{Segment of the internal task model of a linear task-guidance WCA.}%
-    \label{fig:taskmodel}
+    \captionof{figure}{Segment of the internal task model of a linear task-guidance \acs{WCA}.}%
+    \label{paper:olguinmunoz2019edgedroid:fig:taskmodel}
 \end{figure}
 
-These formalisms are exemplified in \cref{fig:taskmodel}, which represents an arbitrary segment of a linear task-guidance WCA application.
+These formalisms are exemplified in \cref{paper:olguinmunoz2019edgedroid:fig:taskmodel}, which represents an arbitrary segment of a linear task-guidance \gls{WCA} application.
 \(s_{i}, s_{j} \in S\) represent sequential states in the execution of the task, with the edge \(e_{i,j}\) symbolizing the unique correct way of transitioning between them.
 While in \(s_i\) and in the absence of inputs, the task model continuously provides instructions to the user on how to move to \(s_j\).
 We will refer to this type of output as \emph{positive} feedback, since it guides the user forward in the execution of the task.
 On the other hand, in the case of an erroneous input by the user, the task model moves to \(s^{e}_{k}\), where it will constantly provide instructions until the error is corrected and normal execution can resume.
 This type of output directs the user to move backwards in the task model, and thus we will refer to it as \emph{negative} feedback.
 
-\section{Approach of EdgeDroid}\label{sec:approach}
+\section{Approach of EdgeDroid}\label{paper:olguinmunoz2019edgedroid:sec:approach}
 
 A system for benchmarking human-in-the-loop applications needs thus not only to be able to generate realistic, real-time inputs that follow the behavior of a real user but also be able to correctly react to feedback from the target application.
 The design of EdgeDroid 1.0 tackles these challenges from two angles.
@@ -122,17 +122,17 @@ We also do not evaluate the accuracy of the applications themselves, as we consi
 The system \emph{can} however be used to evaluate the trade-off between accuracy and performance, by comparing benchmarks performed using traces corresponding to different levels of accuracy.
 
 
-\section{Implementation of EdgeDroid}\label{sec:implementation}
+\section{Implementation of EdgeDroid}\label{paper:olguinmunoz2019edgedroid:sec:implementation}
 
 \begin{figure}[tb]
     \centering
     \includegraphics[width=.7\columnwidth]{publications/2019EdgeDroid/img/TraceReplay_GenArch}
-    \caption{Architecture of the benchmarking suite.}\label{fig:TraceReplayArch}
+    \caption{Architecture of the benchmarking suite.}\label{paper:olguinmunoz2019edgedroid:fig:TraceReplayArch}
 \end{figure}
 
 %In the following, we will detail the implementation of EdgeDroid 1.0.
 
-The system architecture is composed of a \emph{cloudlet}, where one or more instances of the target application run, and one or more client devices, as pictured in \cref{fig:TraceReplayArch}.
+The system architecture is composed of a \emph{cloudlet}, where one or more instances of the target application run, and one or more client devices, as pictured in \cref{paper:olguinmunoz2019edgedroid:fig:TraceReplayArch}.
 These correspond to completely unaltered instances of the target application, running inside containers~\cite{docker}.
 This allows the suite to extract metrics from them while remaining transparent to the application.
 Here we also deploy the central component of EdgeDroid 1.0, the \emph{control backend}.
@@ -146,11 +146,11 @@ Note that although in the current implementation of the system the backend runs 
 
 The \emph{client emulators} correspond to Android applications with the main purpose of emulating a real user utilizing the target cognitive assistance application.
 The emulators achieve this by mimicking the operation of real clients, but instead of obtaining the input data from the on-board sensors, they extract it from the previously recorded trace.
-They replay this data over the network to the \emph{application instances} employing, as mentioned in \Cref{sec:background}, a \emph{user model}, while simultaneously collecting client-side statistics and measurements.
+They replay this data over the network to the \emph{application instances} employing, as mentioned in \cref{paper:olguinmunoz2019edgedroid:sec:background}, a \emph{user model}, while simultaneously collecting client-side statistics and measurements.
 
 The \emph{client emulators} are remote-controlled --- no interaction with a user is necessary once the application is initialized, simplifying large scale scenarios.
 
-For our initial iteration of the EdgeDroid 1.0 benchmarking suite, we implement a preliminary user model, depicted in \Cref{fig:usermodel}, to run on the \emph{client emulators}, designed with a linear task model in mind.
+For our initial iteration of the EdgeDroid 1.0 benchmarking suite, we implement a preliminary user model, depicted in \cref{paper:olguinmunoz2019edgedroid:fig:usermodel}, to run on the \emph{client emulators}, designed with a linear task model in mind.
 In EdgeDroid 1.0, our model is that of a user who is totally impervious to poor system performance, and suffers no annoyance, fatigue, frustration, nausea or other shortcomings of real human users.
 This leads to a model of a user who responds in a precisely reproducible and deterministic manner to the same system stimulus every time.
 In the future, we envision building upon this approach with many more human-like user models that more accurately emulate attributes such as fatigue and annoyance.
@@ -162,16 +162,16 @@ Note that this model makes no distinction between positive and negative feedback
 \begin{figure}[tb]
     \centering
     \input{publications/2019EdgeDroid/img/usermodel.tex}
-    \captionof{figure}{Preliminary user model.}\label{fig:usermodel}
+    \captionof{figure}{Preliminary user model.}\label{paper:olguinmunoz2019edgedroid:fig:usermodel}
 \end{figure}
 
-\section{Use Cases}\label{sec:usecases}
+\section{Use Cases}\label{paper:olguinmunoz2019edgedroid:sec:usecases}
 
 \begin{table}[tb]
     \centering%
     \small%\ttfamily%
     \caption{Hardware used in the experiments.}%
-    \label{tbl:cloudletclienthardware}%
+    \label{paper:olguinmunoz2019edgedroid:tbl:cloudletclienthardware}%
     \begin{tabular}{@{}l@{\qquad}lclcl@{}}
         \toprule
          & \textbf{CPU}
@@ -210,11 +210,11 @@ EdgeDroid 1.0 would allow them to extract valuable information on where to focus
 
 %\todo[inline]{Also keep in mind that a perhaps more important question relates to on-line application optimization. Think about measures that can be applied at run-time on the side of the infrastructure to improve application performance - this is what one would like to explore here in this section.}
 
-We chose the open source \emph{Gabriel} platform~\cite{Ha:TowardsWearableCogAssist} running the LEGO assistance application~\cite{Chen:AnEmpiricalStudyOfLatency} for our experimentation.
+We chose the open source \emph{Gabriel} platform~\cite{ha2014towards} running the LEGO assistance application~\cite{chen2017empirical} for our experimentation.
 This application guides a user through the assembly of a 2-dimensional LEGO model with visual and auditory instructions.
 This functionality can be observed online.\footnote{\url{https://www.youtube.com/watch?v=7L9U-n29abg}}
 We chose it due to its maturity and stability compared to other applications which run on the \emph{Gabriel} platform, as well as the relative simplicity of the task it performs.
-The application employs a straightforward, linear task model as the one described in \Cref{sec:background}.
+The application employs a straightforward, linear task model as the one described in \cref{paper:olguinmunoz2019edgedroid:sec:background}.
 Each state only allows for one specific correct action by the user, and any other action triggers negative feedback until the application is reset to the previous state.
 The application has several different LEGO models to choose from, all of them roughly equal in complexity.
 The specific task chosen for the experiments detailed in this section consists of the assembly of a 7-piece LEGO model.
@@ -224,7 +224,7 @@ The input to the task model consist of a video stream captured either by an Andr
 It should be noted that the \emph{Gabriel} platform by design always sends an acknowledgment for each input it receives, even when it is discarded, allowing us to measure latency for all inputs.
 
 
-\Cref{tbl:cloudletclienthardware} shows the hardware and software specifications for the cloudlet and the clients.
+\cref{paper:olguinmunoz2019edgedroid:tbl:cloudletclienthardware} shows the hardware and software specifications for the cloudlet and the clients.
 The components communicated through a single consumer-grade WiFi (IEEE 802.11n, \SI{2.4}{\giga\hertz}) access point.
 We considered exclusively off-the-shelves hardware and software.
 To minimize interference during the measurements, we locked the wireless link to the least congested available channel.
@@ -240,63 +240,63 @@ Next, a scenario where the 10 clients were moved to another room roughly \SI{10}
 Finally, we studied an additional optimal single-client scenario focused on latency distributions and jitters within application execution path.
 This scenario is used to showcase the utility of EdgeDroid 1.0 for application developers.
 
-\section{Results}\label{sec:results}
+\section{Results}\label{paper:olguinmunoz2019edgedroid:sec:results}
 
 \begin{figure}
     \centering%
     \includegraphics[width=.85\columnwidth]{publications/2019EdgeDroid/plots/comparison/nofonts/rtt_fb_vs_nofb}%
     \caption{Comparison of round-trip-times for inputs that triggered a state transition in the task model versus inputs that did not.}%
-    \label{fig:comparison:rtt}%
+    \label{paper:olguinmunoz2019edgedroid:fig:comparison:rtt}%
 \end{figure}%
 \begin{figure}
     \centering%
     \includegraphics[width=.85\columnwidth]{publications/2019EdgeDroid/plots/comparison/nofonts/box_feedback}%
     \caption{Distribution of latency across system components for inputs that triggered a state transition in the task model.}%
-    \label{fig:comparison:feedback}%
+    \label{paper:olguinmunoz2019edgedroid:fig:comparison:feedback}%
 \end{figure}%
 \begin{figure}%
     \centering%
     \includegraphics[width=.85\columnwidth]{publications/2019EdgeDroid/plots/comparison/nofonts/box_taskstep}%
     \caption{Round-trip-times for input-feedback cycles associated with state transitions in the internal task model for a single client connected over an optimal wireless link.}%
-    \label{fig:comparison:tasksteps}
+    \label{paper:olguinmunoz2019edgedroid:fig:comparison:tasksteps}
 \end{figure}%
 
 %In \cref{fig:comparison:feedback,fig:comparison:rtt,fig:comparison:tasksteps} we show some of the results obtained from the use case scenarios.
 The results presented in this section provide valuable insights on both the system limits as well as on the application itself.
 
-\Cref{fig:comparison:rtt} presents a comparison of the total measured round-trip-times (RTTs) both for inputs which caused a state transition and inputs that did not.
-Next, \cref{fig:comparison:feedback} shows a comparison of the distribution of latencies across system components for inputs that caused an internal state change in the task model of the application.
+\cref{paper:olguinmunoz2019edgedroid:fig:comparison:rtt} presents a comparison of the total measured round-trip-times (RTTs) both for inputs which caused a state transition and inputs that did not.
+Next, \cref{paper:olguinmunoz2019edgedroid:fig:comparison:feedback} shows a comparison of the distribution of latencies across system components for inputs that caused an internal state change in the task model of the application.
 We differentiate according to the three main components contributing to latency, namely \emph{uplink} and \emph{downlink transmissions}, and \emph{backend processing}.
-Finally, \cref{fig:comparison:tasksteps} depicts the distribution of RTTs for each transition in the internal task model for a single client connected over an optimal wireless link.
+Finally, \cref{paper:olguinmunoz2019edgedroid:fig:comparison:tasksteps} depicts the distribution of RTTs for each transition in the internal task model for a single client connected over an optimal wireless link.
 These metrics were calculated by recording the measured input-feedback cycle delay corresponding to a change in state within the application.
 Thus, for instance, the measurements located at column ``3 to 4'' in the figure correspond to the aggregated round-trip-times for every input-feedback cycle corresponding to a change from state 3 to state 4 within the application task model, for the 100 repetitions of the scenario.
 
 In the following discussion we will refer to inputs which triggered a transition in the task model as \emph{feedback-rich inputs} and those that did not as \emph{feedback-less inputs}.
 
-For the analysis of these results, we will take into consideration the bound of \SI{600}{\milli\second} response time for step-by-step task-guidance derived by the authors of~\cite{Chen:AnEmpiricalStudyOfLatency}.
+For the analysis of these results, we will take into consideration the bound of \SI{600}{\milli\second} response time for step-by-step task-guidance derived by the authors of~\cite{chen2017empirical}.
 This bound marks the point after which further delays in the delivery of feedback to the user start to negatively affect user experience, and allows for a straightforward evaluation of the responsiveness of the system.
 
-We will begin our analysis of the experiment results with \Cref{fig:comparison:rtt}.
+We will begin our analysis of the experiment results with \cref{paper:olguinmunoz2019edgedroid:fig:comparison:rtt}.
 These results present a stark contrast in the round-trip-times for inputs which cause a state transition versus inputs that do not, with RTTs for the former being up to an order of magnitude greater.
 It's worth mentioning though that responses to feedback-less inputs are invisible to the user, and are just included here as a sort of baseline to compare feedback-rich round-trip times with.
 
-We can identify a pair of interesting effects in the scaling of the task-guidance WCA application.
+We can identify a pair of interesting effects in the scaling of the task-guidance \gls{WCA} application.
 One, scaling behavior for the application seems to be linear with respect to the number of clients.
 Two, in the case of the impaired WiFi, the effect on the feedback-rich inputs is very pronounced, with the average of the RTTs for these inputs being over the previously discussed bound of \SI{600}{\milli\second}.
 
 It is worth noting that already at just 10 clients the response times for feedback-rich inputs are very close to the bound.
 Looking at this through the lens of a an application developer, it could hint at a need for optimization of the later parts of the application pipeline, since RTTs for inputs which are discarded in the detection stage of the pipeline (i.e.\ feedback-less inputs) are still well below \SI{200}{\milli\second}.
 
-EdgeDroid 1.0 allows researchers to zoom into specific components of the application feedback loop, as exemplified by \cref{fig:comparison:feedback}.
+EdgeDroid 1.0 allows researchers to zoom into specific components of the application feedback loop, as exemplified by \cref{paper:olguinmunoz2019edgedroid:fig:comparison:feedback}.
 From this figure it is clear that the main component which contributes to latency in the optimal case is the backend processing, further lending credibility to our previous comment on the need for optimization.
 Nevertheless, when the link quality decreases, the delays on the downlink start to overshadow the delays on the processing.
 Here, the downlink time sometimes almost reaches the ideal bound by itself.
 A system designer might then conclude from this that in order to be able to scale the application, their focus needs to be on improving the quality of the wireless link before increasing the processing power on the backend.
 
-Finally, EdgeDroid 1.0 allows even more insights to be gained by homing in to individual steps in a task-guidance WCA. Consider \cref{fig:comparison:tasksteps}.
+Finally, EdgeDroid 1.0 allows even more insights to be gained by homing in to individual steps in a task-guidance \gls{WCA}. Consider \cref{paper:olguinmunoz2019edgedroid:fig:comparison:tasksteps}.
 The figure shows clears spikes in latencies at the transitions from task state 3 to 4 and from task state 4 to 5, which could indicate to the application developer that these specific transitions are ripe for optimization.
 
-\section{Conclusions \& Future Work}\label{sec:conclusions}
+\section{Conclusions \& Future Work}\label{paper:olguinmunoz2019edgedroid:sec:conclusions}
 
 Benchmarking human-in-the-loop applications is hard, given their tight interaction with human users who complicate the scaling and repeatability of experiments.
 In this paper, we have presented a benchmarking suite for this type of applications, called EdgeDroid 1.0, capable of cutting out the need for users in performance evaluations.
@@ -306,21 +306,21 @@ We believe the EdgeDroid 1.0 suite thus represents an important first step towar
 
 Nonetheless, there is still future work to be done.
 
-The user model presented in this paper is only preliminary, and we are currently conducting research in characterizing user behavior when interacting with WCA applications in order to present a more complete model in the future.
-As mentioned in \Cref{sec:implementation}, in EdgeDroid 1.0, our model is that of a user who does not suffer any of the shortcomings of real human users such as annoyance, fatigue, frustration, nausea.
+The user model presented in this paper is only preliminary, and we are currently conducting research in characterizing user behavior when interacting with \gls{WCA} applications in order to present a more complete model in the future.
+As mentioned in \cref{paper:olguinmunoz2019edgedroid:sec:implementation}, in EdgeDroid 1.0, our model is that of a user who does not suffer any of the shortcomings of real human users such as annoyance, fatigue, frustration, nausea.
 Rather, EdgeDroid 1.0 models a perfectly stoic user who is like an automaton and responds in a precisely reproducible and deterministic manner to the same system stimulus every time.
 Of course, no real human user is an automaton.
 In the future, we envision creating  many versions of EdgeDroid (i.e., EdgeDroid 2.0, EdgeDroid 3.0, etc.) that embody more human-like user models that more accurately emulate attributes such as those mentioned above.
 Experimental validation of these human-like user models via user studies will be an important part of our future work.
 
 We are also working on expanding the benchmarking suite to also work first with other types of Wearable Cognitive Assistance, and later with other categories of human-in-the-loop applications.
-Other types of WCA we will consider in future iterations of the tool include real-time task-assistance WCA applications (such as the Ping-Pong application described in~\cite{Chen:EarlyImplementation}), which don't have a linear task model like task-guidance WCA and have tighter latency bounds and context- and information-providing WCA applications, for instance, applications which recognize faces and provide relevant social-media information related to that person.
+Other types of \glspl{WCA} we will consider in future iterations of the tool include real-time task-assistance \gls{WCA} applications (such as the Ping-Pong application described in~\cite{chen2017empirical}), which don't have a linear task model like task-guidance \gls{WCA} and have tighter latency bounds and context- and information-providing \gls{WCA} applications, for instance, applications which recognize faces and provide relevant social-media information related to that person.
 The latter also do not have a linear task model, but present more lax latency bounds.
 
 \begin{acks}
     We thank Bobby Klatzky and Dan Siewiorek for many valuable technical discussions relating to this research.
     We also thank our shepherd, Wenjun Hu, and the anonymous reviewers for helping us improve the paper.
-    This research was supported in part by the National Science Foundation (NSF), grant number CNS-1518865, the VINNOVA grant MERIT (2017--05232).
+    This research was supported in part by the \gls{NSF}, grant number \verb|CNS-1518865|, the VINNOVA grant \verb|MERIT (2017--05232)|.
     Additional support was provided by Intel,\ Vodafone,\ Deutsche~Telekom,\ Verizon,\ Crown~Castle,\ NTT,\ and the Conklin~Kistler family fund.
     Opinions, findings, conclusions or recommendations expressed in this material are those of the authors and do not necessarily reflect the view(s) of their employers or the mentioned funding sources.
 \end{acks}
