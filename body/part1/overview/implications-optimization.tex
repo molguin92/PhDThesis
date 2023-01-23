@@ -4,6 +4,7 @@ In this section, we will discuss the implications of the methodology for the opt
 The discussion presented here is a summarized version of what \cref{paper:olguinmunoz2023realistic} exposes.
 
 \todo[inline]{Do we need more experiments?}
+\todo[inline]{Include discussions on the metrics here (grab inspiration from EdgeDroid2 paper.)}
 
 \subsection{Implications with respect to task completion times}
 
@@ -49,11 +50,16 @@ For the analyses in this subsection and \cref{ssec:implications:energy}, we use 
     t_n = \left( 3\sigma\sqrt {\frac{\alpha}{2\beta}} \right)^{\frac{2}{3}} n^{\frac{2}{3}}
 \end{align}
 where \ensuremath{t_n} once again corresponds to the \ensuremath{n}-th sampling instant in a step.
-Note that any positive real value is valid for \ensuremath{\frac{\alpha}{2\beta}}, and this ratio controls the optimization criteria --- as it goes to infinity, the criteria changes from minimizing wait time (i.e.\ maximizing responsiveness) to minimizing the number of samples per step (i.e.\ minimizing energy consumption).
+Note that any positive real value is valid for \ensuremath{\frac{\alpha}{2\beta}}.
+This ratio controls the optimization criteria --- as it goes to infinity, the criteria changes from minimizing wait time (i.e.\ maximizing responsiveness) to minimizing the number of samples per step (i.e.\ minimizing energy consumption).
 
 The full derivation and explanation of this framework is out of the scope of this summary.
 Please refer to \cref{paper:olguinmunoz2023realistic} and its appendix for a detailed discussion on this optimization approach.
 \todo{Include ref to section?}
+
+\medskip
+
+
 
 
 

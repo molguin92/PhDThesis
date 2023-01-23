@@ -318,7 +318,7 @@ and \emph{repeat}, that is, no change since the last \emph{success} frame) were 
 These results are then used together with a repository of tagged frames for each step to generate a synthetic trace at runtime by:
 \begin{enumerate}
     \item At each sampling instant, calculate the current \ensuremath{t_\text{norm}} with respect to the next desired execution time.
-    \item If \ensuremath{t_\text{norm} >= 1}, send a pre-selected \emph{success}-tagged frame for the current step to the \gls{WCA} backend.
+    \item If \ensuremath{t_\text{norm} \geq 1}, send a pre-selected \emph{success}-tagged frame for the current step to the \gls{WCA} backend.
     \item Otherwise, sample the distribution of result categories at the selected \ensuremath{t_\text{norm}} and return a pre-selected frame matching the selected category.
 \end{enumerate}
 

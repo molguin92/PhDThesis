@@ -1,11 +1,11 @@
 \section{Introduction}
 
-Previous works on cloudlets~\cite{Satya2009Case,Ha2013Impact}, one of the earliest incarnation of edge computing, enable small data-centers at the edge of the Internet. 
+Previous works on cloudlets~\cite{satyanarayanan2009case,ha2013impact}, one of the earliest incarnation of edge computing, enable small data-centers at the edge of the Internet.
 Many futuristic applications become viable with these clusters that are only one wireless hop away. 
-One of the most promising genres of these emerging applications is human-in-the-loop applications such as wearable cognitive assistance~\cite{Ha2014Towards}. 
+One of the most promising genres of these emerging applications is human-in-the-loop applications such as wearable cognitive assistance~\cite{ha2014towards}.
 
 In these applications, sensor data, for example video and audio, are continuously streamed to a cloudlet, where they are analyzed in realtime in order to assist users to complete a particular task. 
-Researchers have built prototypes of these applications to help users assemble LEGO models and IKEA furniture, and even learn how to play ping-pong~\cite{Satya2009Case,Chen2015Early}.
+Researchers have built prototypes of these applications to help users assemble LEGO models and IKEA furniture, and even learn how to play ping-pong~\cite{satyanarayanan2009case,chen2015early}.
 % In general, all human-in-the-loop applications capture in some form user and environment information and typically leverage compute-intensive algorithms to analyze the data in order to provide feedback to the user.
 % On the side of the sensory input, typically video, but also audio as well as further user-related data (like orientation and movement) is captured.
 % This  data is forwarded to the processing unit where the first step is usually to run detection algorithms on the sensory input.
@@ -29,7 +29,7 @@ These principles result in the following characteristics of human-in-the-loop ap
 
 \begin{description}[labelindent=\parindent, listparindent=\parindent, style=unboxed, leftmargin=0cm]
 	\item[Latency Sensitive:] Given their tight interaction with the physical world, the quality of human-in-the-loop applications is determined by the latencies experienced by users. 
-    These applications are different from conventional mobile applications by the low latency requirements inherent to the applications themselves~\cite{Suzuki2016Vehicle,Chen2017Empirical}. 
+    These applications are different from conventional mobile applications by the low latency requirements inherent to the applications themselves~\cite{sasaki2016vehicle,chen2017empirical}.
     For example, consider a Ping-Pong Assistance application that instructs a user where to hit a ball -- any instruction delivered after the user has made a hit is useless.
   Hence, the average and the distribution of end-to-end latency, in particular for \emph{feedback-rich} inputs, can serve as good metrics for a benchmark tool. 
 % Previous work has shown that offload to cloudlet reduces 100ms to 200ms in end-to-end latency from offload to the cloud \cite{Suzuki,Chen:AnEmpiricalStudyOfLatency}.
@@ -37,7 +37,7 @@ These principles result in the following characteristics of human-in-the-loop ap
 % Therefore, low latency is a salient characteristic of cloudlet-enabled applications.
 	
     \item[Compute Intensive:] Cognitive Assistance applications aim to enhance the cognitive capabilities of users, and are thus compute intensive as well due to widespread use of the state-of-art computer vision and machine learning algorithms, particularly \glspl{DNN}.
-    Although mobile devices are becoming increasingly powerful, the gap between mobile and static elements continues to exist~\cite{Flinn2012Cyber}. 
+    Although mobile devices are becoming increasingly powerful, the gap between mobile and static elements continues to exist~\cite{flinn2012cyber}.
     While state-of-the-art DNN object detectors can run at more than 20 \gls{FPS} on a server \gls{GPU}, their performances are much worse on mobile \glspl{GPU} - some models cannot even be loaded due to memory constraints.
     Cloudlet-based applications overcome these challenges by offloading the computation. 
 %    Offloading makes sense when the computation is intensive or special hardwares are needed. 
@@ -55,7 +55,7 @@ For example, in a task guidance application, the reaction speed of the human to 
 Furthermore, large scale evaluation of these applications require the involvement of many human users. % and provide feedback.
 Both these aspects significantly limit experimental studies that could be done to improve architectures, algorithms, and protocols due to costs, efforts as well as reproducibility.
 
-\section{The Measurement Framework}\label{sec:framework}
+\section{The Measurement Framework}\label{paper:olguinmunoz2018demo:sec:framework}
 
 % \begin{figure*}[t]
 % 	\centering
@@ -69,7 +69,7 @@ Both these aspects significantly limit experimental studies that could be done t
 %     	\centering
 % 		\includegraphics[width=\linewidth]{img/TraceReplay_GenArch}
 %         \captionof{figure}{General architecture of the benchmarking suite.}
-% 		\label{fig:TraceReplayArch}
+% 		\label{paper:olguinmunoz2018demo:fig:TraceReplayArch}
 % 	\end{minipage}
 % \end{figure*}
 
@@ -91,7 +91,7 @@ By enabling the client-side to play out the trace from a file, it becomes indepe
 
 %\subsection{User Model}
 
-In order to imitate a human behavior as close as possible, we propose the following user model as shown in Figure~\ref{fig:usermodel}.
+In order to imitate a human behavior as close as possible, we propose the following user model as shown in \cref{paper:olguinmunoz2018demo:fig:usermodel}.
 We assume a user that is patient and does not make mistakes; any error message received from the application backend is ignored. We first divide a trace into steps that corresponds to individual events that should trigger feedback. If a positive feedback is received from the application, we jump ahead in the trace to replay the next step as if a human user reacts to the feedback. 
 On the other hand, whenever the end of the current step is reached without having received any \emph{positive} feedback, the step is rewound a number $\tau$ of seconds.
 To avoid infinite loops, where the application is stuck on a step forever, we have a maximum number of possible rewinds, after which the application shuts down.
@@ -130,11 +130,10 @@ To avoid infinite loops, where the application is stuck on a step forever, we ha
         
         \end{tikzpicture}
     }
-    \caption{State diagram of the user model}
-    \label{fig:usermodel}
+    \caption{State diagram of the user model}\label{paper:olguinmunoz2018demo:fig:usermodel}
 \end{figure}
 
-%A state diagram for the behavior of this user can be seen in Figure \ref{fig:usermodel}.
+%A state diagram for the behavior of this user can be seen in \cref{paper:olguinmunoz2018demo:fig:usermodel}.
 
 % Finally, by enabling this benchmark suite to run on commodity-of-the-shelf hardware, in our example we implemented the suite as an Android app, costs can furthermore be reduced by avoiding expensive gadgets to be available. 
 % The suite is also based on a well-established cognitive assistance application framework, \emph{Gabriel} \cite{Chen:EarlyImplementation,Ha:TowardsWearableCogAssist}, which we believe will further aid in its adoption.
@@ -145,7 +144,7 @@ To avoid infinite loops, where the application is stuck on a step forever, we ha
 
 \subsection{Architecture}
 
-The suite has three elements, as shown in Figure~\ref{fig:TraceReplayArch}:
+The suite has three elements, as shown in \cref{paper:olguinmunoz2018demo:fig:TraceReplayArch}:
 % the \emph{application backend}, the \emph{client emulator}, and the \emph{control backend} or \emph{server}, which interact in the following ways:
 
 \begin{description}[labelindent=\parindent, listparindent=\parindent, style=unboxed, leftmargin=0cm]
@@ -160,16 +159,15 @@ The suite has three elements, as shown in Figure~\ref{fig:TraceReplayArch}:
 \begin{figure}
   \centering
   \includegraphics[width=.7\columnwidth]{publications/2018DemoScalingOnTheEdge/img/TraceReplay_GenArch}
-  \captionof{figure}{General architecture of the benchmarking suite.}
-  \label{fig:TraceReplayArch}
+  \captionof{figure}{General architecture of the benchmarking suite.}\label{paper:olguinmunoz2018demo:fig:TraceReplayArch}
 \end{figure}
 
 \section{Demo Overview}
 
-We will demonstrate the benchmarking framework using the \emph{LEGO Task Guidance} application previously developed by \textcite{Chen2015Early}.
+We will demonstrate the benchmarking framework using the \emph{LEGO Task Guidance} application previously developed by \textcite{chen2015early}.
 This application guides a user step by step in the assembly of a LEGO model; input consists exclusively of video feed of the current state of the assembly, whereas feedback includes visual and auditory components in the form of animations and speech, respectively.
 
-The benchmarking tool will be employed to extract key real-time metrics from this application, \emph{e.g.} average computation and network times, as well as the estimated \emph{user experience} level of the system as a whole (\emph{flawless}, \emph{impaired} or \emph{unusable}, based on the categorization in \cite{Chen2017Empirical}).
+The benchmarking tool will be employed to extract key real-time metrics from this application, \emph{e.g.} average computation and network times, as well as the estimated \emph{user experience} level of the system as a whole (\emph{flawless}, \emph{impaired} or \emph{unusable}, based on the categorization in~\cite{chen2017empirical}).
 
 \section{Discussion and Future Work}
 
@@ -179,6 +177,6 @@ The tool needs to be extended to work on a much a broader spectrum of applicatio
 Furthermore, the current implementation does not support hardware accelerators (e.g. \glspl{GPU}) that are commonly used for \gls{DNN} inference.
 
 In addition, our current user model is simplistic. 
-This model could be expanded to emulate a human user more accurately and realistically, e.g. making mistakes and responding to feedback to correct them.
+This model could be expanded to emulate a human user more accurately and realistically, e.g.\ making mistakes and responding to feedback to correct them.
 
 We plan to extend our work in two directions. First, in addition to emulating user behaviors, we plan to simulate all the components in the system in order to generate reproducible experiments, test individual components of a real system, and identify performance bottlenecks when many users are using an application concurrently. Second, we are going to develop a statistical characterization of the application footprint, based on the data obtained from the tool.
