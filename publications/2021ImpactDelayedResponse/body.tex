@@ -40,7 +40,7 @@ Based on these use cases, we identify three main requirements for \gls{WCA}:\@
 
 \cref{item:pervasive} implies use of lightweight and low-power devices, preferably a wearable device that frees both hands for work.
 \cref{item:interaction}, on the other hand, suggests a level of context sensitivity and proactivity that can only be provided by real-time analysis of sensor inputs such as video and audio feeds.
-The compute-intensive processing suggested by \cref{item:interaction} cannot be met by the lightweight wearable devices suggested by \cref{item:pervasive}.
+The compute-intensive processing suggested by \cref{paper:olguinmunoz2021impact:item:interaction} cannot be met by the lightweight wearable devices suggested by \cref{item:pervasive}.
 Only by offloading computation from a wearable device to cloud-based or edge-based infrastructure can this circle be squared.
 However, offloading implies an extended end-to-end pipeline with many potential sources of queueing, transmission, and processing delays.
 \cref{item:lowlatency} therefore emerges as a key concern, requiring deep understanding of the impact of end-to-end delays on \gls{WCA} users.
@@ -123,12 +123,12 @@ Additionally, we hope that the results we provide might pave the way for the imp
 Such systems would greatly benefit from this knowledge, as it would allow for the design and implementation of realistic models of human behavior, making highly accurate benchmarks a reality in the domain of \gls{WCA}.\@
 
 The structure of this paper is as follows.
-We describe the existing body of research around time perception and the effects of delay on human performance in \cref{sec:background}.
+We describe the existing body of research around time perception and the effects of delay on human performance in \cref{paper:olguinmunoz2021impact:sec:background}.
 \cref{sec:experimentaldesign} presents the experimental design, measures, and specific protocol.
 Then, in \cref{sec:results} we detail the results of our experiment.
-Implications for further modeling of the effects of delay are presented in \cref{sec:discussion} before finally concluding the paper in \cref{sec:conclusion}.
+Implications for further modeling of the effects of delay are presented in \cref{paper:olguinmunoz2021impact:sec:discussion} before finally concluding the paper in \cref{sec:conclusion}.
 
-\section{Background and Related Work}\label{sec:background}
+\section{Background and Related Work}\label{paper:olguinmunoz2021impact:sec:background}
 
 % Overarching theo construct: people perform temp seq task in the framework of cognition and emotion and individual differences mediate response to delay. In particular we view cognition as described by models such as ACT-R as a seq of procedures.
 
@@ -149,7 +149,7 @@ Accordingly, in the following we review background work in the areas of
   \item[(\cref{ssec:potentialmechs})] mechanisms relating human performance to delay.
 \end{enumerate*}
 
-\subsection{Time perception in computing systems}\label{ssec:timeperception}
+\subsection{Time perception in computing systems}\label{paper:olguinmunoz2021impact:ssec:timeperception}
 
 The question of how people respond to delay in a computer system is grounded in how people perceive time.
 Time perception has been described as regulated by an attentional gate that, when opened, starts a cognitive pulse counter~\cite{zakay1995attentional,zakay1996role}.
@@ -178,7 +178,7 @@ For an essentially self-paced task like LEGO assembly, they found two key ranges
 Beyond that, users could begin to show the negative outcomes previously catalogued~\cite{dabrowsky:2011:40years}.
 
 
-\subsection{Mechanisms Relating Delay to Human Performance}\label{ssec:potentialmechs}
+\subsection{Mechanisms Relating Delay to Human Performance}\label{paper:olguinmunoz2021impact:ssec:potentialmechs}
 
 While behavioral changes and negative interaction outcomes have been well documented in prior research on system delay, the specific mechanisms that mediate these outcomes are less well understood. 
 These mechanisms could be cognitive or emotional in origin.
@@ -211,9 +211,9 @@ Hirsh et al.~\cite{hirsh2008delay} found that higher discounting was associated 
 Among computer system users who tend to have relatively high cognitive ability (which presumably describes the present experimental population), this points to neuroticism as a personality factor that might modulate tolerance for waiting. Extraversion could also  be  a moderating factor among the broader target audience of \gls{WCA}, which are intended for relatively inexperienced users of an application.
 These and other measures of individual variation were considered here.
 
-\section{Experimental Design}\label{sec:experimentaldesign}
+\section{Experimental Design}\label{paper:olguinmunoz2021impact:sec:experimentaldesign}
 
-The core elements of our experiment are shown in \cref{fig:experimentaltestbed}:
+The core elements of our experiment are shown in \cref{paper:olguinmunoz2021impact:fig:experimentaltestbed}:
 \begin{itemize}
     \item Subjects interact with a \gls{WCA} while wearing an array of biometric sensors.
     \item The \emph{responsiveness} of the application, i.e.\ the interval of time between an input being provided to the system and the associated output returned to the user, is manipulated in real time. 
@@ -226,7 +226,7 @@ The core elements of our experiment are shown in \cref{fig:experimentaltestbed}:
   \caption{Experimental test-bed.
   Participants interact with the cognitive assistant through task-related inputs and outputs --- in practice, these correspond to the video feed captured by the assistant and the instructions provided by it.
   The assistant itself has been instrumented with a data collection layer, which collects and processes experiment-related data such as biometric signals from the participants (these are merely processed here and do not form part of the inputs to the cognitive assistant as such, however), and a delay buffer, which introduces controlled delays in the transit of information from the core processing component.}%
-  \label{fig:experimentaltestbed}
+  \label{paper:olguinmunoz2021impact:fig:experimentaltestbed}
 \end{figure}
 
 This study was conducted with the approval of the Carnegie Mellon University Institutional Review Board under record number \texttt{STUDY2019\_00000247}. 
@@ -255,7 +255,7 @@ In the following, we will provide some formal definitions relating to the \gls{W
 % \theoremstyle{definition}
 % \begin{definition}[Task and subtask]
 A \emph{task} will be understood as a finite sequence of instructions to be performed in order.
-\emph{Step} will refer to a specific action to be performed by the user, described by a single instruction; e.g. \emph{put a green \(1 \times 3\) brick on the board} (see \cref{fig:task:steps}).
+\emph{Step} will refer to a specific action to be performed by the user, described by a single instruction; e.g. \emph{put a green \(1 \times 3\) brick on the board} (see \cref{paper:olguinmunoz2021impact:fig:task:steps}).
 % We will refer to the interval of time delimited by two consecutive instructions (see \cref{fig:task:steps,fig:cogassist:step}), characterized by the actions of both the user and the assistant.
 A step starts with an instruction being given to the user, and ends when the assistant detects that the user has finished performing it.
 At that point, the assistant either provides a new instruction to the user, or the task ends.
@@ -265,7 +265,7 @@ At that point, the assistant either provides a new instruction to the user, or t
 \begin{figure*}[h]
   \centering
   \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig2.eps}
-  \caption{Example of a Cognitive Assistance task and its component steps.}\label{fig:task:steps}
+  \caption{Example of a Cognitive Assistance task and its component steps.}\label{paper:olguinmunoz2021impact:fig:task:steps}
 \end{figure*}
 
 % \begin{definition}[Step]
@@ -297,7 +297,7 @@ In particular
   % \input{plots/lego_hierarchy_diagram.tex}
   \includegraphics[width=\textwidth]{publications/2021ImpactDelayedResponse/Fig3.eps}
   \caption{Hierarchical cognitive structure of a step in the LEGO task.}
-  \label{fig:lego:hierarchical}
+  \label{paper:olguinmunoz2021impact:fig:lego:hierarchical}
 \end{figure*}
 
 
@@ -315,7 +315,7 @@ Participants performed the instructions on the table, these actions being captur
 \subsection{The Experimental LEGO Task}
 
 For the experimental LEGO task, a key modification was made to the structure of the steps.
-After each the processing of each input is completed, the result is withheld for a variable period of time until a specific target \emph{delay} is reached, as illustrated in \cref{fig:cogassist:step,fig:cogassist:step:delay}.
+After each the processing of each input is completed, the result is withheld for a variable period of time until a specific target \emph{delay} is reached, as illustrated in \cref{paper:olguinmunoz2021impact:fig:cogassist:step,fig:cogassist:step:delay}.
 The length of this delay is one of two independent variables we manipulated for the experiment.
 Seven levels of delay were used --- no added delay (which we will also refer to as \SI{0}{\second} delay), \SIlist{0.6;1.125;1.65;2.175;2.7;3.0}{\second} --- chosen based on the latency bounds found previously by Chen et al.~\cite{Chen:AnEmpiricalStudyOfLatency}.
 % A value of  \SI{600}{\milli\second} was identified as the bound where users start noticing delays in the assistant.
@@ -323,9 +323,9 @@ Seven levels of delay were used --- no added delay (which we will also refer to 
 Our selection of delays is centered around the range of delays where latency is noticeable to users, but the application remains in a ``usable'' state.
 % while including one delay value in the unnoticeable range and one completely in the ``unusable'' range.
 
-In order to study the effects of a delay applied across multiple steps we implement an experimental design component called a \emph{block}, corresponding to a sequence of consecutive steps within a task subject to the same delay; see \cref{fig:cogassist:block}.
+In order to study the effects of a delay applied across multiple steps we implement an experimental design component called a \emph{block}, corresponding to a sequence of consecutive steps within a task subject to the same delay; see \cref{paper:olguinmunoz2021impact:fig:cogassist:block}.
 % \begin{definition}[Block]
-%   A sequence of consecutive steps within a task subject to the same delay; see \cref{fig:cogassist:block}.
+%   A sequence of consecutive steps within a task subject to the same delay; see \cref{paper:olguinmunoz2021impact:fig:cogassist:block}.
 The \emph{length} of blocks is the second of the two independent variables manipulated in our experiment.
 We used values of \numlist{4;8;12} steps, chosen as representative of the number of steps in tasks in the base LEGO Assistant application.
 Additionally, we define the \emph{duration} of a block, as the time elapsed between the start timestamp of the first step in the block and the end timestamp of the final step in the block.
@@ -355,7 +355,7 @@ We therefore define the \emph{execution time} empirically for an individual step
 % We define the \emph{execution time} of a step as the time between the user receiving an instruction for a subtask and them presenting the completed subtask to the system.
 % This, however, could not be measured directly and has to be inferred from the records of inputs processed by the system.
 
-For an arbitrary step, we define the sequence \( \{ t_{0}, t_{1}, \ldots, t_{n} \} \) as the sequence of timestamps corresponding to the sampling instants during the step (see \cref{fig:exectime:diagram}).
+For an arbitrary step, we define the sequence \( \{ t_{0}, t_{1}, \ldots, t_{n} \} \) as the sequence of timestamps corresponding to the sampling instants during the step (see \cref{paper:olguinmunoz2021impact:fig:exectime:diagram}).
 \( t_{0} \) corresponds to the instant when the instruction for the step is given to the user (and the first sample is taken), and \( t_{n} \) to the timestamp of the last sample before a new instruction is given.
 If we define \( t_{c} \) as the instant marking when the user presented the finished step to the system, it must follow that \( t_{n-1} < t_{c} < t_{n} \).
 Due to the discrete sampling of the task state, there remains some imprecision in the estimate of execution time relative to \( t_{c} \).
@@ -367,7 +367,7 @@ We therefore calculate execution time for each step as \( t_{c} - t_{0},\; t_{c}
 %   \centering
 %   \includegraphics[width=.85\textwidth]{images/exec_time_diagram.pdf}
 %   \caption{Visualization of the execution time of a step.}%
-%   \label{fig:exectime:diagram}
+%   \label{paper:olguinmunoz2021impact:fig:exectime:diagram}
 % \end{figure}
 
 % \end{definition}
@@ -383,7 +383,7 @@ We therefore calculate execution time for each step as \( t_{c} - t_{0},\; t_{c}
     Once the user finishes performing the step, the next sample \emph{will} cause the generation of a new instruction.
     % which will subsequently be provided to the user.}%
     }
-    \label{fig:cogassist:step}
+    \label{paper:olguinmunoz2021impact:fig:cogassist:step}
   \end{subfigure}%
   % \medskip%
   \hfill%
@@ -391,14 +391,14 @@ We therefore calculate execution time for each step as \( t_{c} - t_{0},\; t_{c}
     \centering
     \includegraphics[width=\textwidth]{publications/2021ImpactDelayedResponse/Fig4b.eps}
     \caption{In the experimental task, an additional variable segment of time is introduced immediately following the processing of the input frame in order to extend the perceived processing time of the input to a specific target delay.}%
-    \label{fig:cogassist:step:delay}
+    \label{paper:olguinmunoz2021impact:fig:cogassist:step:delay}
   \end{subfigure}
   \medskip%
   \begin{subfigure}[t]{.49\textwidth}
     \centering
     \includegraphics[width=\textwidth]{publications/2021ImpactDelayedResponse/Fig4c.eps}
     \caption{Structure of a block in the experimental task.}%
-    \label{fig:cogassist:block}
+    \label{paper:olguinmunoz2021impact:fig:cogassist:block}
   \end{subfigure}%
   % \medskip%
   \hfill%
@@ -406,7 +406,7 @@ We therefore calculate execution time for each step as \( t_{c} - t_{0},\; t_{c}
     \centering
     \includegraphics[width=\textwidth]{publications/2021ImpactDelayedResponse/Fig4d.eps}
     \caption{Visualization of the execution time of a step.}%
-    \label{fig:exectime:diagram}
+    \label{paper:olguinmunoz2021impact:fig:exectime:diagram}
   \end{subfigure}%
   % \medskip%
   \caption{Components of the cognitive assistance task.}
@@ -432,7 +432,7 @@ See \cref{tab:qscores} for their means and standard deviations.
 
 \begin{table}[h]
   \centering
-  \caption{Means and standard deviations of normalized questionnaire scores.}\label{tab:qscores}
+  \caption{Means and standard deviations of normalized questionnaire scores.}\label{paper:olguinmunoz2021impact:tab:qscores}
   \setlength{\tabcolsep}{0pt} 
   \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}clrr@{}}
     \toprule
@@ -503,7 +503,7 @@ This camera was used to capture the necessary inputs for the LEGO assembly task 
 The second camera was angled horizontally, towards the participant, in order to record their facial expressions during the execution of the task.
 
 Both video feeds were captured at a rate of \num{24}~FPS in parallel processes to ensure a constant rate of capture.
-Examples of the captured frames can be seen in \cref{fig:sampleframes}.
+Examples of the captured frames can be seen in \cref{paper:olguinmunoz2021impact:fig:sampleframes}.
 The video feeds were not used for the present study, but may be utilized in future analysis.
 
 \begin{figure}[h]
@@ -521,10 +521,10 @@ The video feeds were not used for the present study, but may be utilized in futu
     \includegraphics[height=140pt]{publications/2021ImpactDelayedResponse/Fig5b.eps}
     \caption{Frame from the board recording of the same participant.}
   \end{subfigure}
-  \caption{Sample frames captured during the experiment.}\label{fig:sampleframes}
+  \caption{Sample frames captured during the experiment.}\label{paper:olguinmunoz2021impact:fig:sampleframes}
 \end{figure}
 
-\section{Results}\label{sec:results}
+\section{Results}\label{paper:olguinmunoz2021impact:sec:results}
 
 The results consist of execution time per step. and the outcome of physiological variables: heart rate, GSR, and EEG.\@
 Each will be discussed in turn.
@@ -543,13 +543,13 @@ Since the per-step execution time  compensates for the added delay in the measur
 This leads to one of the key outcomes from this study: 
 \emph{participants tend to act more slowly on steps affected by longer delays} --- i.e.\ there is evidence of a pacing effect in users' behavior with respect to the responsiveness of the system.
 
-We confirmed this effect through an \emph{analysis of variance} (ANOVA~\cite{FUJIKOSHI1993ANOVA}) with factors of block length and delay, and found significant main effects of both factors and the interaction, shown in \cref{tab:anova:exectime}.
+We confirmed this effect through an \emph{analysis of variance} (ANOVA~\cite{FUJIKOSHI1993ANOVA}) with factors of block length and delay, and found significant main effects of both factors and the interaction, shown in \cref{paper:olguinmunoz2021impact:tab:anova:exectime}.
 % An ANOVA test uses the \emph{F-test} statistic, which is a ratio of the variability in the data introduced by experimental manipulations (and their interactions) to the variability in the data attributable to randomness.
 % The degrees of freedom represent the number of observations going into each of these variability measures.
 % As we are using within-subject designs, the variability in the data due to randomness is estimated by the differences among subjects with respect to the effects of the experimental variables.
 % The partial-\( \eta^2 \) (\(\eta_{p}^{2}\)) statistic is a measure of effect size, corresponding to the proportion of variance explained by the effect after excluding variance from others, and \( p \)-value, a measure of the probability of the effect under the null hypothesis.
 % Conventionally \( p < .05 \) is the criterion for significance.
-% The current length \( \times \) delay ANOVA found significant main effects of both factors and the interaction, shown in \cref{tab:anova:exectime}.
+% The current length \( \times \) delay ANOVA found significant main effects of both factors and the interaction, shown in \cref{paper:olguinmunoz2021impact:tab:anova:exectime}.
 
 % \begin{figure}[h]
 %     \centering
@@ -565,7 +565,7 @@ We confirmed this effect through an \emph{analysis of variance} (ANOVA~\cite{FUJ
 
 \begin{table}[h]
   \centering
-  \caption{Significant effects on per-step execution time from ANOVA on factors delay and block length.}\label{tab:anova:exectime}
+  \caption{Significant effects on per-step execution time from ANOVA on factors delay and block length.}\label{paper:olguinmunoz2021impact:tab:anova:exectime}
   \setlength{\tabcolsep}{0pt}%
   \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}lrrr@{}}
     \toprule
@@ -583,14 +583,14 @@ For this purpose, the steps within a block were aggregated over sequences of 4, 
 Note that the first slice within a block is procedurally identical for all block lengths, in the sense that a participant currently performing a step in the first slice of a block has no way of predicting if the block ends after step 4 or not.
 The same logic can be applied to slice 2 for blocks of length 8 and 12.
 Accordingly for each participant, slice 1 data (steps 1--4) were pooled over all 3 block lengths, slice 2 (steps 5--8) were combined for block lengths 8 and 12, and slice 3 comprised the last four steps in blocks of length 12.
-An ANOVA on slice number (1--3) and delay (7 values) yielded effects of slice number, delay, and the interaction, detailed in \cref{tab:anova:exectime:slice}.
+An ANOVA on slice number (1--3) and delay (7 values) yielded effects of slice number, delay, and the interaction, detailed in \cref{paper:olguinmunoz2021impact:tab:anova:exectime:slice}.
 As shown in \cref{fig:exectime:delay:slice}, blocks with shorter delays showed a trend for the execution time to progressively decline over the course of the block (i.e., by slice number), indicating that the participant accommodated to the feedback pace with more efficiently timed responses.
 % We refer to the measure at slice 3 as a percentage of the measure at slice 1 as the ``change factor''.
 With the longest delays, where the execution time per step was longest, the slow-down persisted; that is, the system response time hindered the participant's execution throughout the course of the block.
 
 \begin{table}[h]
   \centering
-  \caption{Significant effects on per-step execution time from ANOVA on factors block slice and delay.}\label{tab:anova:exectime:slice}
+  \caption{Significant effects on per-step execution time from ANOVA on factors block slice and delay.}\label{paper:olguinmunoz2021impact:tab:anova:exectime:slice}
   \setlength{\tabcolsep}{0pt} % let TeX compute the intercolumn space
   \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}lrrr@{}}
     \toprule
@@ -608,7 +608,7 @@ With the longest delays, where the execution time per step was longest, the slow
     \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig7.eps}
     \caption{Mean per-step execution time vs.\ delay, by step slice.
     Error bars indicate S.E.M.}
-    \label{fig:exectime:delay:slice}
+    \label{paper:olguinmunoz2021impact:fig:exectime:delay:slice}
 \end{figure}
 
 The data also allowed us to perform sub-analyses to assess the effects of carryover from one delay to another.
@@ -621,13 +621,13 @@ We performed analyses where participants transitioned from either a short- or lo
   \item \SI{2.7}{\second} delay block (40 subjects)
   \item \SI{3.0}{\second} delay block (37 subjects).
 \end{enumerate*}
-The destination delays were chosen so as to maximize the number of participants which contributed samples to the analyses, the results of which are pictured in \cref{fig:exectime:transition}.
+The destination delays were chosen so as to maximize the number of participants which contributed samples to the analyses, the results of which are pictured in \cref{paper:olguinmunoz2021impact:fig:exectime:transition}.
 We found that transitions from long-delay blocks carried over to significantly increase the per-step execution time of initial steps in the destination block for three of the four transitioned-into delays that were assessed (\SIlist{0;2.7;3.0}{\second}, all \( p < .025\)).
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig8.eps}
-  \caption{Per-step execution time across the first four steps after a block transition from block \( B_{k-1} \) to \( B_k \). Error bars indicate S.E.M.}\label{fig:exectime:transition}%
+  \caption{Per-step execution time across the first four steps after a block transition from block \( B_{k-1} \) to \( B_k \). Error bars indicate S.E.M.}\label{paper:olguinmunoz2021impact:fig:exectime:transition}%
 \end{figure}
 
 In summary, we observe two direct effects on execution time due to added delays.
@@ -646,12 +646,12 @@ where \( B \) is an arbitrary block, and \(A_{B} = \{ \overrightarrow{\alpha_0},
 This score would include the time imposed by the delay and the time to decode the instructions and respond by moving the pieces so that the next state was recognized.
 It is only during the last part of the step that explicit movement is required, so any additional accelerations would derive from arbitrary movements while processing and waiting.
 We normalized the sum of the accelerations by the duration of the step to correct for differences in delay and the execution time, which tends to increase with delay as described above.
-An ANOVA on block length and delay showed a significant effect such that movement score decreased with delay, as shown in \cref{tab:anova:acc} and \cref{fig:acc:delaylength}.
+An ANOVA on block length and delay showed a significant effect such that movement score decreased with delay, as shown in \cref{paper:olguinmunoz2021impact:tab:anova:acc} and \cref{fig:acc:delaylength}.
 There was also a significant delay by length interaction, reflecting that delay effects occurred particularly for the longer lengths.
 
 \begin{table}[h]
   \centering
-  \caption{Significant effects on accelerometer data from ANOVA on factors delay and block length.}\label{tab:anova:acc}
+  \caption{Significant effects on accelerometer data from ANOVA on factors delay and block length.}\label{paper:olguinmunoz2021impact:tab:anova:acc}
   \setlength{\tabcolsep}{0pt} % let TeX compute the intercolumn space
   \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}lrrr@{}}
     \toprule
@@ -666,7 +666,7 @@ There was also a significant delay by length interaction, reflecting that delay 
 \begin{figure}[h]
     \centering
     \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig9.eps}
-    \caption{Movement score vs.\ delay, per block length. Error bars indicate S.E.M.}\label{fig:acc:delaylength}
+    \caption{Movement score vs.\ delay, per block length. Error bars indicate S.E.M.}\label{paper:olguinmunoz2021impact:fig:acc:delaylength}
 \end{figure}
 
 We next conducted the same analysis as for execution time, dividing blocks into three ``slices'' of four steps each, such that slice 1 comprised the first four steps of all block lengths, slice 2 the second four steps of blocks of length 8 and 12, and slice 3 the last four steps of blocks 12 steps long.
@@ -675,12 +675,12 @@ As shown in \cref{fig:acc:delayslice} the effect of delay was attributable only 
 \begin{figure}[h]
   \centering
   \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig10.eps}
-  \caption{Movement score vs.\ delay, per block slice. Error bars indicate S.E.M.}\label{fig:acc:delayslice}
+  \caption{Movement score vs.\ delay, per block slice. Error bars indicate S.E.M.}\label{paper:olguinmunoz2021impact:fig:acc:delayslice}
 \end{figure}
 
 \begin{table}[h]
   \centering
-  \caption{Significant effects on accelerometer data from ANOVA on factors delay and slice number.}\label{tab:anova:acc:slice}
+  \caption{Significant effects on accelerometer data from ANOVA on factors delay and slice number.}\label{paper:olguinmunoz2021impact:tab:anova:acc:slice}
   \setlength{\tabcolsep}{0pt} % let TeX compute the intercolumn space
   \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}lrrr@{}}
     \toprule
@@ -712,14 +712,14 @@ Beta EEG showed only an effect of block length, \( F(2,54) = 3.56 \), \( p = .03
 However, this effect was small and not consistent across delays.  
 
 Again the analysis dividing blocks into 4-step slices was conducted, with delay and slice number as factors.  
-For both the alpha and beta bands, ANOVAs  yielded effects only of slice number --- see \cref{tab:anova:egg:alphabeta}.
+For both the alpha and beta bands, ANOVAs  yielded effects only of slice number --- see \cref{paper:olguinmunoz2021impact:tab:anova:egg:alphabeta}.
 Both bands showed the same tendency:  EEG declined as a sequence of steps with the same delay progressed.
-These effects are shown in \cref{fig:logeegpow:slices}.
+These effects are shown in \cref{paper:olguinmunoz2021impact:fig:logeegpow:slices}.
 Thus, EEG taken from frontal locations mimics the execution time data in showing a decline over the course of a block, but unlike the execution time, there was no tendency for the decline in EEG to be reduced at longer delays.
 
 \begin{table}[h]
   \centering
-  \caption{Significant effects on log EEG power from ANOVA on factors delay and block slice.}\label{tab:anova:egg:alphabeta}
+  \caption{Significant effects on log EEG power from ANOVA on factors delay and block slice.}\label{paper:olguinmunoz2021impact:tab:anova:egg:alphabeta}
   \setlength{\tabcolsep}{0pt} % let TeX compute the intercolumn space
   \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}llrrr}
     \toprule
@@ -733,7 +733,7 @@ Thus, EEG taken from frontal locations mimics the execution time data in showing
 \begin{figure}[h]
     \centering
     \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig11.eps}
-    \caption{Log of the average EEG Power for alpha and beta bands per step slice. Error bars indicate S.E.M.}\label{fig:logeegpow:slices}
+    \caption{Log of the average EEG Power for alpha and beta bands per step slice. Error bars indicate S.E.M.}\label{paper:olguinmunoz2021impact:fig:logeegpow:slices}
 \end{figure}
 
 \subsection{Galvanic Skin Response (GSR) and Heart Rate}
@@ -748,7 +748,7 @@ The same was true of the variability in beats per minute (average standard devia
 
 The absence of systematic trends in both these results is interesting in the context of our initial suggestions of potential mechanisms relating delay in the application to human behavior.
 In section \cref{ssec:potentialmechs} we proposed that emotional arousal during the execution of the task was a potential explanation for the effects observed in the human.
-However, these results seem to refute this hypothesis, and will be further discussed in \cref{sec:discussion}.
+However, these results seem to refute this hypothesis, and will be further discussed in \cref{paper:olguinmunoz2021impact:sec:discussion}.
 
 \subsection{Individual Difference Analysis}
 
@@ -769,7 +769,7 @@ GSR was used in a subsidiary analysis, because only 25 participants had both EEG
 
 \begin{table}[h]
   \centering
-  \caption{Principal Component Analysis}\label{tab:pca}
+  \caption{Principal Component Analysis}\label{paper:olguinmunoz2021impact:tab:pca}
   \begin{subtable}[h]{\textwidth}
     \centering
     \caption{Main components identified.}
@@ -819,7 +819,7 @@ It confirms the relationship indicated by the first component in the PCA using t
     \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig12.eps}
     \caption{Correlation between neuroticism score of participants and their execution time in the longest block at the longest delay.
     Pearson correlation coefficient \( r = .40 \); 2-tailed \( p = .01 \).}
-    \label{fig:neuro:exectime:reg}
+    \label{paper:olguinmunoz2021impact:fig:neuro:exectime:reg}
 \end{figure}
 
 On the whole, these results suggest that individual differences in widely accepted personality variables and immersive tendencies moderate the response to delay.
@@ -827,7 +827,7 @@ This fact could have practical implications in the future.
 It could, for instance, provide a tunable parameter for eventual models aiming to emulate human interaction with a \gls{WCA}.\@
 In addition, physiological measures of heart rate and EEG appear not to be direct indicators of  behavioral response to delay, although GSR may be more promising in this regard.
 
-\section{Discussion}\label{sec:discussion}
+\section{Discussion}\label{paper:olguinmunoz2021impact:sec:discussion}
 
 % First summarize the main findings
 We start our discussion with the main results of our experimentation presented in the previous section:
@@ -839,7 +839,7 @@ We start our discussion with the main results of our experimentation presented i
   Moreover, there is a temporal component to this effect; users become progressively slower the more time passes with reduced system responsiveness.
 
   \item Secondly, we find that the effects of behavioral slow-down due to impaired system responsiveness \emph{remain} for at least a few steps after system responsiveness improves.
-  This is evidenced by the longer per-step-execution times of the first four steps of blocks immediately following a high-delay block, as pictured in \cref{fig:exectime:transition}.
+  This is evidenced by the longer per-step-execution times of the first four steps of blocks immediately following a high-delay block, as pictured in \cref{paper:olguinmunoz2021impact:fig:exectime:transition}.
   The question of whether any lingering effect can be measured after these four steps remains open.
 
   \item Thirdly, we evidence a speed-up in execution time over a series of steps; that is, subjects get faster at performing steps as the task progresses.
@@ -904,7 +904,7 @@ More research in this area will surely uncover more complex and interesting beha
 Finally, we believe the data provide parameters that can usefully be integrated into cognitive models of \gls{WCA} that might be constructed under existing architectures like ACT-R.
 These same parameters could be used to modulate the timing and generation of inputs in trace-based workload generation tools such as the EdgeDroid platform~\cite{olguin:2018,olguin:2019}, allowing the tool to use the same trace to generate workloads for a multitude of different user profiles.
 
-\section{Conclusion}\label{sec:conclusion}
+\section{Conclusion}\label{paper:olguinmunoz2021impact:sec:conclusion}
 
 In this paper, we presented the results of a study on the physiological and behavioral reactions of users of \gls{WCA} to delays in the application pipeline.
 Our ultimate aim was to identify and categorize the ways in which humans react to low system responsiveness in step-based cognitive assistance systems.
@@ -917,7 +917,7 @@ Additionally, we found that the strength of this effect is modulated by individu
 
 These results are interesting as they open up hitherto unexplored opportunities for the design, optimization and benchmarking of \gls{WCA} systems.
 In this context, we believe there are two direct and important next steps to be performed.
-The first of these relates to the implications for system optimization and resource allocation discussed in \cref{sec:discussion}.
+The first of these relates to the implications for system optimization and resource allocation discussed in \cref{paper:olguinmunoz2021impact:sec:discussion}.
 We believe these need to be implemented, tested and validated in real setups.
 In particular, we identify two of these implications to be prime candidates for their own experimental studies.
 One, our postulation that in cases where an impaired application is close to finishing, diverting resources to it might not be the most optimal course of action; and two, the possibility that ``fair'' degradation of system responsiveness across applications may be, in some cases, undesirable.
