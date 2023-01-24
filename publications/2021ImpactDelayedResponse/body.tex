@@ -2,6 +2,7 @@
     \glsunset{WCA}
   Wearable Cognitive Assistants (\gls{WCA}) are anticipated to become a widely-used application class, in conjunction with emerging network infrastructures like 5G that incorporate edge computing capabilities.
   While prototypical studies of such applications exist today, the relationship between infrastructure service provisioning and its implication for \gls{WCA} usability is largely unexplored despite the relevance that these applications have for future networks.
+
   This paper presents an experimental study assessing how \gls{WCA} users react to varying end-to-end delays induced by the application pipeline or infrastructure.
   Participants interacted directly with an instrumented task-guidance \gls{WCA} as delays were introduced into the system in a controllable fashion.
   System and task state were tracked in real time, and biometric data from wearable sensors on the participants were recorded.
@@ -13,51 +14,51 @@
 
 \section{Introduction}
 
-Wearable Cognitive Assistants, \gls{WCA} for short, have recently started to garner attention from the research community~\cite{Ha:TowardsWearableCogAssist,Chen:EarlyImplementation}.
+Wearable Cognitive Assistants, \gls{WCA} for short, have recently started to garner attention from the research community~\cite{ha2014towards,chen2015early}.
 They represent a novel category of highly interactive and context-sensitive augmented reality applications, that aim to amplify human cognition in both day-to-day tasks and professional settings.
-Their mode of operation is analogous to how GPS navigation systems guide drivers, by seamlessly providing relevant instructions and feedback relating to the current task at hand.
+Their mode of operation is analogous to how \gls{GPS} navigation systems guide drivers, by seamlessly providing relevant instructions and feedback relating to the current task at hand.
 Note that this implies seamless interaction with the context of the user --- at no moment does the user need to trigger an update explicitly, as the application is constantly tracking the state of the target task.
 An example is an IKEA Assistant~\cite{IKEAAssistant} which monitors the assembly of a piece of furniture in real time, providing timely, step-by-step feedback to guide the user toward completion.
 
-WCA systems were originally inspired by assistive use cases for people suffering from some form of cognitive decline, either through aging or because of traumatic brain injuries~\cite{Ha:TowardsWearableCogAssist,satya2019augmenting}.
-More recently, they have been applied to a broader range of use cases, including step-by-step guidance on complex assembly tasks~\cite{Chen:AnEmpiricalStudyOfLatency}.
-Non-wearable augmented reality and cognitive assistance systems have already been proven to be valuable tools in the industrial workplace~\cite{funk2015caworkplace,gorecky2011cognito}.
+WCA systems were originally inspired by assistive use cases for people suffering from some form of cognitive decline, either through aging or because of traumatic brain injuries~\cite{ha2014towards,satyanarayanan2019augmenting}.
+More recently, they have been applied to a broader range of use cases, including step-by-step guidance on complex assembly tasks~\cite{chen2017empirical}.
+Non-wearable augmented reality and cognitive assistance systems have already been proven to be valuable tools in the industrial workplace~\cite{funk2015cognitive,gorecky2011cognito}.
 Detethering this assistance from its current fixed location will surely make it available to many more fields. 
 
 Based on these use cases, we identify three main requirements for \gls{WCA}:\@
 \begin{enumerate}
-    \item\label{item:pervasive} \gls{WCA} systems should be available whenever the user requires them, without being tethered to a particular physical location. Assistants need to be pervasive and mobile.
+    \item\label{paper:olguinmunoz2021impact:item:pervasive} \gls{WCA} systems should be available whenever the user requires them, without being tethered to a particular physical location. Assistants need to be pervasive and mobile.
 
-    \item\label{item:interaction} Interaction with the system should be immersive and seamless, i.e.\ the assistant should be able to analyze the current context and automatically provide relevant feedback without explicit commands from the user.
+    \item\label{paper:olguinmunoz2021impact:item:interaction} Interaction with the system should be immersive and seamless, i.e.\ the assistant should be able to analyze the current context and automatically provide relevant feedback without explicit commands from the user.
     In this sense, \gls{WCA} is expected to operate much like a human assistant would, by observing the performance of the user and offering guidance proactively.
 
-    \item\label{item:lowlatency} Feedback should be ``quick'', relative to the task at hand. 
+    \item\label{paper:olguinmunoz2021impact:item:lowlatency} Feedback should be ``quick'', relative to the task at hand.
     This requirement is further strengthened by the previously mentioned ``seamless interaction'' characteristic of these systems.
     This means that users will have expectations of constant, immediate feedback as they progress through the task.
     In the case of a step-by-step task like IKEA, delayed feedback might simply confuse or distract the user.
-    However, in a highly interactive task like a \emph{Ping-Pong assistant}~\cite{PingPongAssistant, Chen:EarlyImplementation} late guidance is at best a nuisance and at worst a severe handicap.
+    However, in a highly interactive task like a \emph{Ping-Pong assistant}~\cite{PingPongAssistant,chen2015early} late guidance is at best a nuisance and at worst a severe handicap.
 \end{enumerate}
 
-\cref{item:pervasive} implies use of lightweight and low-power devices, preferably a wearable device that frees both hands for work.
-\cref{item:interaction}, on the other hand, suggests a level of context sensitivity and proactivity that can only be provided by real-time analysis of sensor inputs such as video and audio feeds.
-The compute-intensive processing suggested by \cref{paper:olguinmunoz2021impact:item:interaction} cannot be met by the lightweight wearable devices suggested by \cref{item:pervasive}.
+\cref{paper:olguinmunoz2021impact:item:pervasive} implies use of lightweight and low-power devices, preferably a wearable device that frees both hands for work.
+\cref{paper:olguinmunoz2021impact:item:interaction}, on the other hand, suggests a level of context sensitivity and proactivity that can only be provided by real-time analysis of sensor inputs such as video and audio feeds.
+The compute-intensive processing suggested by \cref{paper:olguinmunoz2021impact:item:interaction} cannot be met by the lightweight wearable devices suggested by \cref{paper:olguinmunoz2021impact:item:pervasive}.
 Only by offloading computation from a wearable device to cloud-based or edge-based infrastructure can this circle be squared.
 However, offloading implies an extended end-to-end pipeline with many potential sources of queueing, transmission, and processing delays.
-\cref{item:lowlatency} therefore emerges as a key concern, requiring deep understanding of the impact of end-to-end delays on \gls{WCA} users.
+\cref{paper:olguinmunoz2021impact:item:lowlatency} therefore emerges as a key concern, requiring deep understanding of the impact of end-to-end delays on \gls{WCA} users.
 
 % However, additional challenges remain in the path toward widespread adoption.
-\cref{item:lowlatency} forms the base motivation for the research presented in this paper.
+\cref{paper:olguinmunoz2021impact:item:lowlatency} forms the base motivation for the research presented in this paper.
 We still have a very limited understanding of how humans react to delays in these systems --- specifically, how changes in system responsiveness impact users.
 \emph{System responsiveness} here denotes a qualitative scale ranging from \emph{high} (that is, not subject to delay or subject to negligible delay with respect to human perception) to \emph{low} (i.e.\ subject to considerable delay).
 % Conversely, QoE is understood to range from \emph{good} (i.e.\ users enjoy interacting with the application) to bad (users dislike interacting with the application).
 Characterizing the relationships between system responsiveness and user behavior and quality of experience is of paramount importance for the design and evaluation of these applications.
-It is generally acknowledged, for instance, that a system going from a state of high responsiveness to one of low responsiveness can cause a drop in quality of experience~\cite{dabrowsky:2011:40years}. 
+It is generally acknowledged, for instance, that a system going from a state of high responsiveness to one of low responsiveness can cause a drop in quality of experience~\cite{dabrowski201140}.
 Furthermore, this could cause users to modify the temporal paramaters of their behavior when interacting with the system, generating a sort of \emph{feedback loop} between user and system.
 A clear understanding of these relationships would allow, for instance, for the development of strategies for load balancing and optimization for large-scale deployment of \gls{WCA}.\@
 % Although maximizing QoE through over-engineered systems and networks would be a ``simple'' solution to this problem, in practice, the prohibitive costs of infrastructure make finding the optimal trade-off between QoE and cost a valuable endeavor.
 
 This paper builds upon preliminary work in the field of time perception and delay characterization of \gls{WCA}.\@
-We expand upon the findings of Ha et al.~\cite{Ha:TowardsWearableCogAssist}, who identified the need for low-latency offloading in \gls{WCA}, and of Chen et al.~\cite{Chen:AnEmpiricalStudyOfLatency}, who outlined the bounds for ``noticeable'' and ``unbearable'' latencies in these systems.
+We expand upon the findings of Ha et al.~\cite{ha2014towards}, who identified the need for low-latency offloading in \gls{WCA}, and of Chen et al.~\cite{chen2017empirical}, who outlined the bounds for ``noticeable'' and ``unbearable'' latencies in these systems.
 While these bounds present a general understanding of when it is likely that a user will stop using an application, they do not provide any insights as to what happens \emph{before} that --- i.e.\ how human behavior changes with system responsiveness.
 We aim to tackle this gap in knowledge through the characterization of human responses to delays in the application pipeline, using latencies in the range defined by the previously established bounds.
 This is an important step toward a more systematic understanding of human behavior in this domain.
@@ -65,7 +66,7 @@ This is an important step toward a more systematic understanding of human behavi
 We present in this paper the design and elaboration of an experimental \gls{WCA} test-bed.
 This test-bed was subsequently employed in a study in which undergraduate students of diverse fields of study, aged between 18 and 25 years old, were asked to interact with and follow the instructions given to them by a cognitive assistant.
 Unbeknownst to the participants, we altered the responsiveness of the system in real-time and recorded the resulting behavioral and physiological reactions. 
-The participants wore an array of biometric sensors measuring physiological responses that have proven useful in assessing cognitive workload during human-computer interaction~\cite{haapalainen2010psycho,kumar2016measurement} such as heart rate and EEG.\@
+The participants wore an array of biometric sensors measuring physiological responses that have proven useful in assessing cognitive workload during human-computer interaction~\cite{haapalainen2010psycho,kumar2016measurement} such as heart rate and \gls{EEG}.\@
 
 Through this experimental set-up, we intended to answer four core research questions relating to human responses to decreased application responsiveness.
 
@@ -98,8 +99,8 @@ Through this experimental set-up, we intended to answer four core research quest
 
   \item \emph{Are these effects mediated by personality indicators in any way?}
   
-  Finally, we hypothesized that the individual trait of \emph{neuroticism}~\cite{john1999:bfi} would play a role in mediating these effects, as it has previously been connected to intolerance for time delay~\cite{hirsh2008delay}.
-  We also expected \emph{focus} and \emph{involvement}~\cite{witmer1998:itq} to play roles in this.
+  Finally, we hypothesized that the individual trait of \emph{neuroticism}~\cite{john1999big} would play a role in mediating these effects, as it has previously been connected to intolerance for time delay~\cite{hirsh2008delay}.
+  We also expected \emph{focus} and \emph{involvement}~\cite{witmer1998measuring} to play roles in this.
 
   The results obtained agree with our hypothesis. 
   We found significant effects of neuroticism on the responses exhibited by subjects, and all three traits were found to play a role through factor analysis.
@@ -119,14 +120,14 @@ Moreover, in multi-user scenarios, the dependency of user slow-down effects on d
 
 Our hope is that the results we provide might prove useful for the understanding and optimization of deployments of \gls{WCA}.\@
 These results represent unexpected, valuable findings, which can be employed to model and understand how users interact with latency in applications and systems, and develop resource allocation and power optimization strategies.
-Additionally, we hope that the results we provide might pave the way for the improvement of performance evaluation tools such as our previous work in \cite{olguin:2018, olguin:2019}.
+Additionally, we hope that the results we provide might pave the way for the improvement of performance evaluation tools such as our previous work in \cite{olguinmunoz2018demoscaling,olguinmunoz2019edgedroid}.
 Such systems would greatly benefit from this knowledge, as it would allow for the design and implementation of realistic models of human behavior, making highly accurate benchmarks a reality in the domain of \gls{WCA}.\@
 
 The structure of this paper is as follows.
 We describe the existing body of research around time perception and the effects of delay on human performance in \cref{paper:olguinmunoz2021impact:sec:background}.
-\cref{sec:experimentaldesign} presents the experimental design, measures, and specific protocol.
-Then, in \cref{sec:results} we detail the results of our experiment.
-Implications for further modeling of the effects of delay are presented in \cref{paper:olguinmunoz2021impact:sec:discussion} before finally concluding the paper in \cref{sec:conclusion}.
+\cref{paper:olguinmunoz2021impact:sec:experimentaldesign} presents the experimental design, measures, and specific protocol.
+Then, in \cref{paper:olguinmunoz2021impact:sec:results} we detail the results of our experiment.
+Implications for further modeling of the effects of delay are presented in \cref{paper:olguinmunoz2021impact:sec:discussion} before finally concluding the paper in \cref{paper:olguinmunoz2021impact:sec:conclusion}.
 
 \section{Background and Related Work}\label{paper:olguinmunoz2021impact:sec:background}
 
@@ -145,8 +146,8 @@ Additionally, we hypothesize that individual diferences between subjects moderat
 
 Accordingly, in the following we review background work in the areas of 
 \begin{enumerate*}[label={}, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
-  \item[(\cref{ssec:timeperception})] time perception
-  \item[(\cref{ssec:potentialmechs})] mechanisms relating human performance to delay.
+  \item[(\cref{paper:olguinmunoz2021impact:ssec:timeperception})] time perception
+  \item[(\cref{paper:olguinmunoz2021impact:ssec:potentialmechs})] mechanisms relating human performance to delay.
 \end{enumerate*}
 
 \subsection{Time perception in computing systems}\label{paper:olguinmunoz2021impact:ssec:timeperception}
@@ -158,24 +159,24 @@ The estimation of an event's duration varies with context of various types
 \begin{enumerate*}[label={(\roman*)}, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
     \item events subsequent to a long or short interval are contracted or extended, respectively~\cite{heron2012duration}
     \item repeated events tend to be perceived as shorter than novel ones~\cite{matthews2011stimulus}
-    \item arousal can expand durations~\cite{droit2011emotion}.
+    \item arousal can expand durations~\cite{droit_volet2011emotion}.
 \end{enumerate*}
 
 Expectations play a critical role in time perception as well~\cite{zakay1995attentional,zakay1996role}.
-It has been shown that people have a general tendency to be hypersensitive to delays in worse-than-expected states, and under-sensitive to meeting or exceeding expectations~\cite{Loewenstein1992anomaliesintertemporalchoice}.
+It has been shown that people have a general tendency to be hypersensitive to delays in worse-than-expected states, and under-sensitive to meeting or exceeding expectations~\cite{loewenstein1992anomalies}.
 Accordingly, failures to meet expected fast response times tend to be experienced as highly negative, whereas fast latencies are not noticed.
 Violations of expectancy have a strong impact on the acceptability of computer systems.
 Users of a computer system anticipate the latency for events, for which the standards only become more stringent as systems improve in response time.
 In immersive systems like \gls{WCA}, which aim to provide seamless interaction, delays are particularly noticeable.
 
-It has long been recognized that slow system response times can undermine cognitive processing, slow the pace of users, and lead to stereotyped behavior and errors, as well as cause negative emotional consequences~\cite{dabrowsky:2011:40years}.
+It has long been recognized that slow system response times can undermine cognitive processing, slow the pace of users, and lead to stereotyped behavior and errors, as well as cause negative emotional consequences~\cite{dabrowski201140}.
 However, standards for what constitute tolerable delays have changed dramatically compared to three decades ago, when delays on the order of \SI{10}{\second} were deemed acceptable~\cite{nielsen1994usability, shneiderman2016designing, seow2008designing}.
 Today's user context, and \gls{WCA} in particular, often demand response times orders of magnitude shorter.
 
-For \gls{WCA} the acceptable range for latencies was explored by Chen et al.~\cite{Chen:AnEmpiricalStudyOfLatency}, by constructing assistants for tasks with a range of time constraints, including step-by-step tasks and more interactive contexts like playing Ping-Pong against a human opponent.
+For \gls{WCA} the acceptable range for latencies was explored by Chen et al.~\cite{chen2017empirical}, by constructing assistants for tasks with a range of time constraints, including step-by-step tasks and more interactive contexts like playing Ping-Pong against a human opponent.
 They then proposed a latency tolerance zone according to the task demands.
 For an essentially self-paced task like LEGO assembly, they found two key ranges of latency; unnoticeable, \SIrange{0}{0.6}{\second}; and impaired, \SIrange{0.6}{2.7}{\second}. 
-Beyond that, users could begin to show the negative outcomes previously catalogued~\cite{dabrowsky:2011:40years}.
+Beyond that, users could begin to show the negative outcomes previously catalogued~\cite{dabrowski201140}.
 
 
 \subsection{Mechanisms Relating Delay to Human Performance}\label{paper:olguinmunoz2021impact:ssec:potentialmechs}
@@ -241,7 +242,7 @@ In total, 40 participants were recruited, all of them of college student age (\n
 
 \subsection{The Cognitive Assistance Application}
 
-We used a modified version of the LEGO Assistant application introduced by Chen et al.~\cite{Chen:EarlyImplementation}.
+We used a modified version of the LEGO Assistant application introduced by Chen et al.~\cite{chen2015early}.
 This application belongs to a category of \gls{WCA}s designed to guide users through the execution of a sequential task.
 % Such applications constitute ``\emph{conversational computing tasks}'' in the taxonomy proposed by \textcite{dabrowsky:2011:40years}.
 The assistant presents a series of instructions to the user in a semi-predetermined order while it monitors the progress in real-time.
@@ -289,7 +290,7 @@ In particular
     \item it is easily understood by users and requires essentially no training
     \item its step-by-step nature simplifies the isolation of the relevant experimental variables and the effects of the delay
     % \item The states of the display can be recognized by simple image processing algorithms and do not require extensive training as for machine-learning-based applications.
-    \item each step has an intrinsic hierarchical cognitive structure (see \cref{fig:lego:hierarchical}), affording multiple levels of cognitive control. 
+    \item each step has an intrinsic hierarchical cognitive structure (see \cref{paper:olguinmunoz2021impact:fig:lego:hierarchical}), affording multiple levels of cognitive control.
 \end{enumerate*}
 
 \begin{figure*}[h]
@@ -315,9 +316,9 @@ Participants performed the instructions on the table, these actions being captur
 \subsection{The Experimental LEGO Task}
 
 For the experimental LEGO task, a key modification was made to the structure of the steps.
-After each the processing of each input is completed, the result is withheld for a variable period of time until a specific target \emph{delay} is reached, as illustrated in \cref{paper:olguinmunoz2021impact:fig:cogassist:step,fig:cogassist:step:delay}.
+After each the processing of each input is completed, the result is withheld for a variable period of time until a specific target \emph{delay} is reached, as illustrated in \cref{paper:olguinmunoz2021impact:fig:cogassist:step,paper:olguinmunoz2021impact:fig:cogassist:step:delay}.
 The length of this delay is one of two independent variables we manipulated for the experiment.
-Seven levels of delay were used --- no added delay (which we will also refer to as \SI{0}{\second} delay), \SIlist{0.6;1.125;1.65;2.175;2.7;3.0}{\second} --- chosen based on the latency bounds found previously by Chen et al.~\cite{Chen:AnEmpiricalStudyOfLatency}.
+Seven levels of delay were used --- no added delay (which we will also refer to as \SI{0}{\second} delay), \SIlist{0.6;1.125;1.65;2.175;2.7;3.0}{\second} --- chosen based on the latency bounds found previously by Chen et al.~\cite{chen2017empirical}.
 % A value of  \SI{600}{\milli\second} was identified as the bound where users start noticing delays in the assistant.
 % Conversely, \SI{2.7}{\second} was identified as the upper bound on delays after which the application is considered to be in such a degraded state it is basically ``unusable''.
 Our selection of delays is centered around the range of delays where latency is noticeable to users, but the application remains in a ``usable'' state.
@@ -420,15 +421,15 @@ The collected data from the experiments fall into four categories: behavioral an
 
 Before beginning the experimental procedure, participants were asked to fill out two questionnaires.
 
-The first of these, the Big Five Inventory of Personality (\emph{BFI}~\cite{john1999:bfi}), consists of 44 questions to be answered on a 5-point \emph{Likert}-type scale, assessing the traits of \emph{agreeableness: detached to compassionate} (8 questions), \emph{conscientiousness: careless to organized} (9 questions), \emph{extroversion: reserved to outgoing} (8 questions), \emph{neuroticism: secure to sensitive} (8 questions), and \emph{openness: cautious to curious} (9 questions).
+The first of these, the \gls{BFI}~\cite{john1999big}), consists of 44 questions to be answered on a 5-point \emph{Likert}-type scale, assessing the traits of \emph{agreeableness: detached to compassionate} (8 questions), \emph{conscientiousness: careless to organized} (9 questions), \emph{extroversion: reserved to outgoing} (8 questions), \emph{neuroticism: secure to sensitive} (8 questions), and \emph{openness: cautious to curious} (9 questions).
 Of these, extroversion and neuroticism have been related to tolerance for delay~\cite{hirsh2008delay}. 
 
-The second survey, the Immersive Tendencies Questionnaire (\emph{ITQ}~\cite{witmer1998:itq}), comprises 29 questions, 28 of which were used for the study (one categorical question was disregarded), assessing the sub-scales of \emph{involvement}, the tendency to become involved in activities; \emph{focus}, the tendency to maintain focus on current activities, and \emph{games}, the tendency to play games.
+The second survey, the \gls{ITQ}~\cite{witmer1998measuring}), comprises 29 questions, 28 of which were used for the study (one categorical question was disregarded), assessing the sub-scales of \emph{involvement}, the tendency to become involved in activities; \emph{focus}, the tendency to maintain focus on current activities, and \emph{games}, the tendency to play games.
 These questions use a 7-point horizontal scale  with opposing descriptors anchoring  the ends.
 Participants were asked to mark the appropriate point in the scale, and these responses were converted to a numerical value between 1 and 7 for processing. 
 
 In post-processing, the obtained scores for both questionnaires were normalized to fall in the \( [0, 1] \) range for ease of interpretation. 
-See \cref{tab:qscores} for their means and standard deviations.
+See \cref{paper:olguinmunoz2021impact:tab:qscores} for their means and standard deviations.
 
 \begin{table}[h]
   \centering
@@ -438,14 +439,14 @@ See \cref{tab:qscores} for their means and standard deviations.
     \toprule
     \textbf{Questionnaire} & \textbf{Metric} & \textbf{Mean} & \textbf{SD}\\
     \midrule
-    \multirow{5}{*}{BFI} 
+    \multirow{5}{*}{\gls{BFI}}
         & Agreeableness &               0.705 &                  0.136 \\
         & Conscientiousness &               0.562 &                  0.149 \\
         & Extroversion &               0.491 &                  0.180 \\
         & Neuroticism &               0.524 &                  0.230 \\
         & Openness &               0.677 &                  0.152 \\
     \cline{1-4}
-    \multirow{4}{*}{ITQ} 
+    \multirow{4}{*}{\gls{ITQ}}
         & Focus &               0.626 &                  0.126 \\
         & Games &               0.463 &                  0.261 \\
         & Involvement &               0.568 &                  0.175 \\
@@ -466,26 +467,26 @@ The participants wore devices to acquire four physiological measures:
 \begin{enumerate*}[itemjoin={{, }},
                   itemjoin*={{, and }},
                   label={{(\arabic*)}}]
-  \item galvanic skin response (\emph{GSR})
+  \item \glsreset{GSR}\gls{GSR}
   \item accelerometer data from the dominant wrist
-  \item brain activity in the form of electroencephalography (\emph{EEG})
+  \item brain activity in the form of \glsreset{EEG}\gls{EEG}
   \item heart rate.
 \end{enumerate*}
 
-These metrics have been used as indicators of stress and cognitive load by an ample body of previous research~\cite{khawadi2015:usinggsrtrust,kuikkaniemi2010:biofeedback,solovey2014:classifyingdriverworkload}.
-GSR (also known as electrodermal activity) can be interpreted as an indicator of physiological arousal and has long been a widely used metric in studies seeking to characterize mental workload~\cite{peterson1907psycho,Healey2005,Son2010,khawadi2015:usinggsrtrust,kuikkaniemi2010:biofeedback,solovey2014:classifyingdriverworkload,}.
-EEG on the other hand has previously been used to measure cognitive load in the context of human-computer interactions~\cite{Antonenko2010,Grimes2008,kumar2016measurement}.
+These metrics have been used as indicators of stress and cognitive load by an ample body of previous research~\cite{khawaji2015using,kuikkaniemi2010influence,solovey2014classifying}.
+\gls{GSR} (also known as electrodermal activity) can be interpreted as an indicator of physiological arousal and has long been a widely used metric in studies seeking to characterize mental workload~\cite{peterson1907psycho,healey2005detecting,son2010age,khawaji2015using,kuikkaniemi2010influence,solovey2014classifying}.
+\gls{EEG} on the other hand has previously been used to measure cognitive load in the context of human-computer interactions~\cite{antonenko2010using,grimes2008feasibility,kumar2016measurement}.
 
-Wrist acceleration, GSR and heart rate data were obtained using the Empatica E4~\cite{empatica:e4} biosensing wristband.
+Wrist acceleration, \gls{GSR} and heart rate data were obtained using the Empatica E4~\cite{empatica:e4} biosensing wristband.
 Accelerometer data was sampled at \SI{32}{\hertz},
-GSR was sampled at \SI{4}{\hertz}, and instantaneous heart rate was calculated from a \emph{blood volume pulse} (BVP) signal sampled at \SI{64}{\hertz}.
+\gls{GSR} was sampled at \SI{4}{\hertz}, and instantaneous heart rate was calculated from a \emph{blood volume pulse} signal sampled at \SI{64}{\hertz}.
 Participants were asked to wear the device for approximately 10--15 minutes before starting the experiment, in order to allow the sensors to reach a stable equilibrium and establish a baseline for the signals.
 
 The E4 wristband was chosen due to its small, non-invasive, and wireless form factor (samples were streamed to the system over Bluetooth LE) and for the fact that its use in research has been experimentally validated in previous studies~\cite{ragot2017emotion, mccarthy2016validation}.
 The E4 also includes a skin temperature thermometer, however the measure was not used for the present study.
 
-For the EEG data we employed the OpenBCI EEG Headband Kit~\cite{openbci:headbandkit} consisting of a number of dry electrodes fastened to a Velcro headband.
-It provides a quick and non-invasive way of obtaining EEG signals from participants.
+For the \gls{EEG} data we employed the OpenBCI \gls{EEG} Headband Kit~\cite{openbci:headbandkit} consisting of a number of dry electrodes fastened to a Velcro headband.
+It provides a quick and non-invasive way of obtaining \gls{EEG} signals from participants.
 Electrodes were placed according to the \emph{10--20 Electrode System}~\cite{eeg1020system:1961} on the \emph{Fp1} and \emph{Fp2} points, in order to capture brain activity in the frontal lobe, with ground and reference electrodes on the right and left earlobes, respectively.
 The signals were sampled at \SI{200}{\hertz} and postprocessed to 
 \begin{enumerate*}[itemjoin={{, }},
@@ -511,7 +512,7 @@ The video feeds were not used for the present study, but may be utilized in futu
   \begin{subfigure}[t]{.35\textwidth}
     \centering
     \includegraphics[height=140pt]{publications/2021ImpactDelayedResponse/Fig5a.eps}
-    \caption{Frame from the face recording of a random participant, clearly showing the locations of the EEG electrodes.}
+    \caption{Frame from the face recording of a random participant, clearly showing the locations of the \gls{EEG} electrodes.}
   \end{subfigure}%
   % \par\bigskip
   % \hspace{.04\textwidth}%
@@ -526,7 +527,7 @@ The video feeds were not used for the present study, but may be utilized in futu
 
 \section{Results}\label{paper:olguinmunoz2021impact:sec:results}
 
-The results consist of execution time per step. and the outcome of physiological variables: heart rate, GSR, and EEG.\@
+The results consist of execution time per step. and the outcome of physiological variables: heart rate, \gls{GSR}, and \gls{EEG}.\@
 Each will be discussed in turn.
 %The temperature data could not be analyzed due to a progressive increase in the sensor data over the course of the session, which obscured effects of the experimental variables.
 
@@ -543,7 +544,7 @@ Since the per-step execution time  compensates for the added delay in the measur
 This leads to one of the key outcomes from this study: 
 \emph{participants tend to act more slowly on steps affected by longer delays} --- i.e.\ there is evidence of a pacing effect in users' behavior with respect to the responsiveness of the system.
 
-We confirmed this effect through an \emph{analysis of variance} (ANOVA~\cite{FUJIKOSHI1993ANOVA}) with factors of block length and delay, and found significant main effects of both factors and the interaction, shown in \cref{paper:olguinmunoz2021impact:tab:anova:exectime}.
+We confirmed this effect through an \emph{analysis of variance} (ANOVA~\cite{fujikoshi1993two}) with factors of block length and delay, and found significant main effects of both factors and the interaction, shown in \cref{paper:olguinmunoz2021impact:tab:anova:exectime}.
 % An ANOVA test uses the \emph{F-test} statistic, which is a ratio of the variability in the data introduced by experimental manipulations (and their interactions) to the variability in the data attributable to randomness.
 % The degrees of freedom represent the number of observations going into each of these variability measures.
 % As we are using within-subject designs, the variability in the data due to randomness is estimated by the differences among subjects with respect to the effects of the experimental variables.
@@ -584,7 +585,7 @@ Note that the first slice within a block is procedurally identical for all block
 The same logic can be applied to slice 2 for blocks of length 8 and 12.
 Accordingly for each participant, slice 1 data (steps 1--4) were pooled over all 3 block lengths, slice 2 (steps 5--8) were combined for block lengths 8 and 12, and slice 3 comprised the last four steps in blocks of length 12.
 An ANOVA on slice number (1--3) and delay (7 values) yielded effects of slice number, delay, and the interaction, detailed in \cref{paper:olguinmunoz2021impact:tab:anova:exectime:slice}.
-As shown in \cref{fig:exectime:delay:slice}, blocks with shorter delays showed a trend for the execution time to progressively decline over the course of the block (i.e., by slice number), indicating that the participant accommodated to the feedback pace with more efficiently timed responses.
+As shown in \cref{paper:olguinmunoz2021impact:fig:exectime:delay:slice}, blocks with shorter delays showed a trend for the execution time to progressively decline over the course of the block (i.e., by slice number), indicating that the participant accommodated to the feedback pace with more efficiently timed responses.
 % We refer to the measure at slice 3 as a percentage of the measure at slice 1 as the ``change factor''.
 With the longest delays, where the execution time per step was longest, the slow-down persisted; that is, the system response time hindered the participant's execution throughout the course of the block.
 
@@ -646,7 +647,7 @@ where \( B \) is an arbitrary block, and \(A_{B} = \{ \overrightarrow{\alpha_0},
 This score would include the time imposed by the delay and the time to decode the instructions and respond by moving the pieces so that the next state was recognized.
 It is only during the last part of the step that explicit movement is required, so any additional accelerations would derive from arbitrary movements while processing and waiting.
 We normalized the sum of the accelerations by the duration of the step to correct for differences in delay and the execution time, which tends to increase with delay as described above.
-An ANOVA on block length and delay showed a significant effect such that movement score decreased with delay, as shown in \cref{paper:olguinmunoz2021impact:tab:anova:acc} and \cref{fig:acc:delaylength}.
+An ANOVA on block length and delay showed a significant effect such that movement score decreased with delay, as shown in \cref{paper:olguinmunoz2021impact:tab:anova:acc} and \cref{paper:olguinmunoz2021impact:fig:acc:delaylength}.
 There was also a significant delay by length interaction, reflecting that delay effects occurred particularly for the longer lengths.
 
 \begin{table}[h]
@@ -670,7 +671,7 @@ There was also a significant delay by length interaction, reflecting that delay 
 \end{figure}
 
 We next conducted the same analysis as for execution time, dividing blocks into three ``slices'' of four steps each, such that slice 1 comprised the first four steps of all block lengths, slice 2 the second four steps of blocks of length 8 and 12, and slice 3 the last four steps of blocks 12 steps long.
-As shown in \cref{fig:acc:delayslice} the effect of delay was attributable only to the later slices, yielding main effect of slice number and delay and an interaction (\cref{tab:anova:acc:slice}). 
+As shown in \cref{paper:olguinmunoz2021impact:fig:acc:delayslice} the effect of delay was attributable only to the later slices, yielding main effect of slice number and delay and an interaction (\cref{paper:olguinmunoz2021impact:tab:anova:acc:slice}).
 
 \begin{figure}[h]
   \centering
@@ -699,27 +700,27 @@ This can be interpreted in the context of the increased execution time at long d
 Assuming that adding or deleting a LEGO block takes essentially the same amount of time and accelerates the wrist similarly at any one step, it appears that the participant simply remains stationary during the extra time that is induced by a series of long delays.
 Accordingly, the acceleration per unit time, our movement score, is reduced.
 
-\subsection{EEG}
-Analyses were conducted on the log EEG power in the alpha band, beta band, and total of all bands measured.
+\subsection{\acs{EEG}}
+Analyses were conducted on the log \gls{EEG} power in the alpha band, beta band, and total of all bands measured.
 Readings from the two frontally placed poles were highly correlated and were pooled into an average.
-Logs were taken for analysis because the EEG distribution tended to have a rightward tail.
+Logs were taken for analysis because the \gls{EEG} distribution tended to have a rightward tail.
 Twelve participants were excluded from the analysis, 9 due to device failure and 3 because of extreme values (i.e., the participant mean of log total power was greater than 3 s.d.s.\ from the mean of all participants).
 
 The analyses then comprised 28 participants.\@
-Omnibus ANOVAs were conducted with delay and block length (number of steps) as factors, on the EEG data from the alpha and beta band.
-The analysis of alpha EEG found no significant effects.
-Beta EEG showed only an effect of block length, \( F(2,54) = 3.56 \), \( p = .035 \), \( \eta^{2}_{p} = .12 \), reflecting a tendency for the 4-step length to produce lower log power (mean 3.9 vs. 4.1 for lengths of 8 and 12).
+Omnibus ANOVAs were conducted with delay and block length (number of steps) as factors, on the \gls{EEG} data from the alpha and beta band.
+The analysis of alpha \gls{EEG} found no significant effects.
+Beta \gls{EEG} showed only an effect of block length, \( F(2,54) = 3.56 \), \( p = .035 \), \( \eta^{2}_{p} = .12 \), reflecting a tendency for the 4-step length to produce lower log power (mean 3.9 vs. 4.1 for lengths of 8 and 12).
 However, this effect was small and not consistent across delays.  
 
 Again the analysis dividing blocks into 4-step slices was conducted, with delay and slice number as factors.  
 For both the alpha and beta bands, ANOVAs  yielded effects only of slice number --- see \cref{paper:olguinmunoz2021impact:tab:anova:egg:alphabeta}.
-Both bands showed the same tendency:  EEG declined as a sequence of steps with the same delay progressed.
+Both bands showed the same tendency:  \gls{EEG} declined as a sequence of steps with the same delay progressed.
 These effects are shown in \cref{paper:olguinmunoz2021impact:fig:logeegpow:slices}.
-Thus, EEG taken from frontal locations mimics the execution time data in showing a decline over the course of a block, but unlike the execution time, there was no tendency for the decline in EEG to be reduced at longer delays.
+Thus, \gls{EEG} taken from frontal locations mimics the execution time data in showing a decline over the course of a block, but unlike the execution time, there was no tendency for the decline in \gls{EEG} to be reduced at longer delays.
 
 \begin{table}[h]
   \centering
-  \caption{Significant effects on log EEG power from ANOVA on factors delay and block slice.}\label{paper:olguinmunoz2021impact:tab:anova:egg:alphabeta}
+  \caption{Significant effects on log \gls{EEG} power from ANOVA on factors delay and block slice.}\label{paper:olguinmunoz2021impact:tab:anova:egg:alphabeta}
   \setlength{\tabcolsep}{0pt} % let TeX compute the intercolumn space
   \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}llrrr}
     \toprule
@@ -733,39 +734,39 @@ Thus, EEG taken from frontal locations mimics the execution time data in showing
 \begin{figure}[h]
     \centering
     \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig11.eps}
-    \caption{Log of the average EEG Power for alpha and beta bands per step slice. Error bars indicate S.E.M.}\label{paper:olguinmunoz2021impact:fig:logeegpow:slices}
+    \caption{Log of the average \gls{EEG} Power for alpha and beta bands per step slice. Error bars indicate S.E.M.}\label{paper:olguinmunoz2021impact:fig:logeegpow:slices}
 \end{figure}
 
-\subsection{Galvanic Skin Response (GSR) and Heart Rate}
-The measure of GSR was the log of total amplitude in the signal.
-To control for effects of block length (steps~\( \times \)~delay) and the slow-down in execution time at longer delays, GSR data were normalized by the temporal duration of the block.
-Due to sensor failure and the elimination of one subject with extreme values of GSR amplitude using the same rule as for EEG, the analysis comprised 34 participants.
+\subsection{\acs{GSR} and Heart Rate}
+The measure of \gls{GSR} was the log of total amplitude in the signal.
+To control for effects of block length (steps~\( \times \)~delay) and the slow-down in execution time at longer delays, \gls{GSR} data were normalized by the temporal duration of the block.
+Due to sensor failure and the elimination of one subject with extreme values of \gls{GSR} amplitude using the same rule as for \gls{EEG}, the analysis comprised 34 participants.
 No systematic trend due to delay or block length was observed.
-In addition, the same analysis of slice position within block length as was performed for the EEG revealed no effects, indicating that GSR was stable across step positions within a block. 
+In addition, the same analysis of slice position within block length as was performed for the \gls{EEG} revealed no effects, indicating that \gls{GSR} was stable across step positions within a block.
 
 Heart rate, measured in beats per minute, averaged \num{90.2}~BPM and showed no trend related to the experimental variables of delay and block length.
 The same was true of the variability in beats per minute (average standard deviation across conditions was \num{20.3}).
 
 The absence of systematic trends in both these results is interesting in the context of our initial suggestions of potential mechanisms relating delay in the application to human behavior.
-In section \cref{ssec:potentialmechs} we proposed that emotional arousal during the execution of the task was a potential explanation for the effects observed in the human.
+In section \cref{paper:olguinmunoz2021impact:ssec:potentialmechs} we proposed that emotional arousal during the execution of the task was a potential explanation for the effects observed in the human.
 However, these results seem to refute this hypothesis, and will be further discussed in \cref{paper:olguinmunoz2021impact:sec:discussion}.
 
 \subsection{Individual Difference Analysis}
 
-The Big 5 personality inventory and Immersive Tendencies Questionnaires (ITQ) were combined with outcome variables in an analysis of individual differences.
+The \gls{BFI} and \gls{ITQ} were combined with outcome variables in an analysis of individual differences.
 Given the previous results, we initially considered the following outcome variables:
 \begin{itemize}
     \item execution time in the most demanding block (length 12, delay \SI{3.0}{\second}); 
-    \item total of alpha and beta bands EEG in the first four steps at all lengths (``Slice 1'');
+    \item total of alpha and beta bands \gls{EEG} in the first four steps at all lengths (``Slice 1'');
     \item average heart rate;
-    \item and average log GSR.\@
+    \item and average log \gls{GSR}.\@
 \end{itemize}
 
-Although the heart rate and GSR data had produced no significant effects in the analysis of experimental variables, they could in principle correlate with experimental outcomes across individuals. 
-A principal-components analysis (\emph{PCA}) on a subset of these variables, shown in \cref{tab:pca}, was ultimately conducted on the 28 participants for which there was EEG data. 
+Although the heart rate and \gls{GSR} data had produced no significant effects in the analysis of experimental variables, they could in principle correlate with experimental outcomes across individuals.
+A \gls{PCA} on a subset of these variables, shown in \cref{paper:olguinmunoz2021impact:tab:pca}, was ultimately conducted on the 28 participants for which there was \gls{EEG} data.
 Three of the personality measures were excluded after initial analyses indicated significant correlations among neuroticism, openness, agreeableness, and extroversion.
 Neuroticism (with poles of sensitivity and security) was selected as most relevant to the issue of response to system delay and was included along with conscientiousness.
-GSR was used in a subsidiary analysis, because only 25 participants had both EEG and GSR measures that were reliable.
+\gls{GSR} was used in a subsidiary analysis, because only 25 participants had both \gls{EEG} and \gls{GSR} measures that were reliable.
 
 \begin{table}[h]
   \centering
@@ -778,12 +779,12 @@ GSR was used in a subsidiary analysis, because only 25 participants had both EEG
       \toprule
       \textbf{Factor} & \textbf{Comp. 1} & \textbf{Comp. 2} & \textbf{Comp. 3} \\
       \midrule
-      BFI Conscientiousness                  & \textcolor{lightgray}{\( -0.022 \)} &                         \( 0.668 \) & \textcolor{lightgray}{\( -0.481 \)} \\
-      BFI Neuroticism                        &                         \( 0.600 \) &                        \( -0.678 \) & \textcolor{lightgray}{\( -0.118 \)} \\
-      ITQ Focus                              &                         \( 0.678 \) &  \textcolor{lightgray}{\( 0.203 \)} &                         \( 0.504 \) \\
-      ITQ Involvement                        &                         \( 0.573 \) &                         \( 0.540 \) &  \textcolor{lightgray}{\( 0.417 \)} \\
+      \gls{BFI} Conscientiousness                  & \textcolor{lightgray}{\( -0.022 \)} &                         \( 0.668 \) & \textcolor{lightgray}{\( -0.481 \)} \\
+      \gls{BFI} Neuroticism                        &                         \( 0.600 \) &                        \( -0.678 \) & \textcolor{lightgray}{\( -0.118 \)} \\
+      \gls{ITQ} Focus                              &                         \( 0.678 \) &  \textcolor{lightgray}{\( 0.203 \)} &                         \( 0.504 \) \\
+      \gls{ITQ} Involvement                        &                         \( 0.573 \) &                         \( 0.540 \) &  \textcolor{lightgray}{\( 0.417 \)} \\
       Exec. Time (delay 3.0 s, length 12)    &                         \( 0.758 \) & \textcolor{lightgray}{\( -0.178 \)} & \textcolor{lightgray}{\( -0.348 \)} \\
-      Log EEG power \( \alpha + \beta \) Slice 1 & \textcolor{lightgray}{\( -0.436 \)} & \textcolor{lightgray}{\( -0.251 \)} &                         \( 0.589 \) \\
+      Log \gls{EEG} power \( \alpha + \beta \) Slice 1 & \textcolor{lightgray}{\( -0.436 \)} & \textcolor{lightgray}{\( -0.251 \)} &                         \( 0.589 \) \\
       \bottomrule
     \end{tabular*}
   \end{subtable}
@@ -803,16 +804,16 @@ GSR was used in a subsidiary analysis, because only 25 participants had both EEG
   \end{subtable}
 \end{table}
 
-The PCA produced three components that accounted for \SI{73.13}{\percent} of the variance in the six factors considered.
-Component 1 included neuroticism, both ITQ scores, and execution time, indicating that more sensitive and immersed individuals tended to slow their responses under extended delay.
+The \gls{PCA} produced three components that accounted for \SI{73.13}{\percent} of the variance in the six factors considered.
+Component 1 included neuroticism, both \gls{ITQ} scores, and execution time, indicating that more sensitive and immersed individuals tended to slow their responses under extended delay.
 Component 2 included conscientiousness and the absence of neuroticism along with immersive involvement, indicating that efficient and secure participants tended to be more involved.
-The third component had positive loadings on EEG in Slice 1 (first four steps of a block) and the focus component of the ITQ.\@
-An additional analysis including heart rate added a component but improved the PCA fit by only \SI{4.5}{\percent}, indicating that any variability in this measure across individuals is unrelated to personality, immersiveness, or outcome.
-A further analysis including GSR produced a solution in which GSR loaded with the first component, along with execution time.
-% A further analysis including GSR again produced a three-component solution, in which GSR loaded with the first component (execution time, sensitivity, immersion). 
+The third component had positive loadings on \gls{EEG} in Slice 1 (first four steps of a block) and the focus component of the \gls{ITQ}.\@
+An additional analysis including heart rate added a component but improved the \gls{PCA} fit by only \SI{4.5}{\percent}, indicating that any variability in this measure across individuals is unrelated to personality, immersiveness, or outcome.
+A further analysis including \gls{GSR} produced a solution in which \gls{GSR} loaded with the first component, along with execution time.
+% A further analysis including \gls{GSR} again produced a three-component solution, in which \gls{GSR} loaded with the first component (execution time, sensitivity, immersion).
 
-\cref{fig:neuro:exectime:reg} shows the correlation between neuroticism and execution time for the block with extreme values of length (12 steps) and delay (\SI{3.0}{\second}), for the full set of 40 participants.
-It confirms the relationship indicated by the first component in the PCA using the smaller sample of 28 participants; that is, higher neuroticism is associated with more responsiveness to delay.
+\cref{paper:olguinmunoz2021impact:fig:neuro:exectime:reg} shows the correlation between neuroticism and execution time for the block with extreme values of length (12 steps) and delay (\SI{3.0}{\second}), for the full set of 40 participants.
+It confirms the relationship indicated by the first component in the \gls{PCA} using the smaller sample of 28 participants; that is, higher neuroticism is associated with more responsiveness to delay.
 
 \begin{figure}[h]
     \centering
@@ -825,7 +826,7 @@ It confirms the relationship indicated by the first component in the PCA using t
 On the whole, these results suggest that individual differences in widely accepted personality variables and immersive tendencies moderate the response to delay.
 This fact could have practical implications in the future.
 It could, for instance, provide a tunable parameter for eventual models aiming to emulate human interaction with a \gls{WCA}.\@
-In addition, physiological measures of heart rate and EEG appear not to be direct indicators of  behavioral response to delay, although GSR may be more promising in this regard.
+In addition, physiological measures of heart rate and \gls{EEG} appear not to be direct indicators of  behavioral response to delay, although \gls{GSR} may be more promising in this regard.
 
 \section{Discussion}\label{paper:olguinmunoz2021impact:sec:discussion}
 
@@ -846,11 +847,11 @@ We start our discussion with the main results of our experimentation presented i
   However, the strength of this effect decreases as delay increases.
   Whereas for blocks without delay users performed the last four steps of a 12-step block on average \SI{36}{\percent} faster than the first four, at the maximum delay this effect practically disappears.
 
-  \item Fourthly, in terms of inter-subject differences, PCA revealed three main factors governing users' response to delay. 
+  \item Fourthly, in terms of inter-subject differences, \gls{PCA} revealed three main factors governing users' response to delay.
   The first factor represents sensitivity to delay as moderated by the ``Big Five'' personality trait of neuroticism and both measures of immersion: focus and involvement.
   Factor two and three represent dedication to the task as opposed to delay intolerance and reflect variables related to attentiveness, respectively.
   In simple terms, these results suggest that the effects of delay are most potent in individuals who are sensitive and involved in the task.
-  The findings appear selective to cognitive assistance tasks like the present ones, inasmuch as the same measures did not correlate with outcomes in other computer-intensive environments such as immersive VR~\cite{quesnel2018you}.
+  The findings appear selective to cognitive assistance tasks like the present ones, inasmuch as the same measures did not correlate with outcomes in other computer-intensive environments such as immersive VR~\cite{quesnel2018are}.
   These correlations are also consistent with previous findings indicating that individuals scoring high in neuroticism tend to be intolerant to delayed reward~\cite{hirsh2008delay}.
 \end{itemize}
 
@@ -860,15 +861,15 @@ In \cref{sec:background}, we initially considered the possibility that delays mi
 These could in turn elicit generalized arousal.
 We also postulated that adapting to delay might progressively deplete cognitive resources in users.
 However, the present data provide relatively little support for these alternatives, in that the predicted measures did not produce the expected statistical trends.
-Specifically, physiological measures of GSR and HR failed to show evidence of differential arousal under long vs.\ short delays, and speed-induced errors and non-completions predicted by resource depletion were not observed.
+Specifically, physiological measures of \gls{GSR} and HR failed to show evidence of differential arousal under long vs.\ short delays, and speed-induced errors and non-completions predicted by resource depletion were not observed.
 The acceleration data further did not indicate that extended delay significantly increases erratic movement.
-% physiological measures of GSR and HR failed to show evidence of differential arousal under long vs.\ short delays, and speed-induced errors and non-completions predicted by resource depletion were not observed.
+% physiological measures of \gls{GSR} and HR failed to show evidence of differential arousal under long vs.\ short delays, and speed-induced errors and non-completions predicted by resource depletion were not observed.
 % The acceleration data further do not indicate that extended delay increases erratic movement.
 To the contrary, the data suggest this effect results from a delay in movement after an instruction is introduced.
 That is, users fail to capitalize on the new information as quickly as they could.
 Thus, contrary to our preliminary postulations, behavioral effects seem to arise from impaired cognitive control mechanisms, and not from emotion or resource depletion.
 We hypothesize that the effects of feedback latency can best be understood as changes in the use of a cognitive plan.
-As was described in \cref{sec:experimentaldesign,fig:lego:hierarchical}, complex cognitive and motor tasks have been modeled as the unfolding of a hierarchy of command, from high-level plans to physical output.
+As was described in \cref{paper:olguinmunoz2021impact:sec:experimentaldesign,paper:olguinmunoz2021impact:fig:lego:hierarchical}, complex cognitive and motor tasks have been modeled as the unfolding of a hierarchy of command, from high-level plans to physical output.
 Long system latencies, we propose, disrupt the automating of such a plan, instead relegating it to attention-based control at the step-by-step level that is easily diverted.
 This also provides a possible explanation for the lingering effects of delay after an acceptable system responsiveness is restored, as users needs time re-adjust and re-automate their cognitive plans.
 
@@ -902,7 +903,7 @@ Although more subtle than expected, and in some cases somewhat counterintuitive,
 Moreover, we also argue these findings represent a first step towards a full-fledged understanding of the relationship between application responsiveness and human behavior.
 More research in this area will surely uncover more complex and interesting behaviors.
 Finally, we believe the data provide parameters that can usefully be integrated into cognitive models of \gls{WCA} that might be constructed under existing architectures like ACT-R.
-These same parameters could be used to modulate the timing and generation of inputs in trace-based workload generation tools such as the EdgeDroid platform~\cite{olguin:2018,olguin:2019}, allowing the tool to use the same trace to generate workloads for a multitude of different user profiles.
+These same parameters could be used to modulate the timing and generation of inputs in trace-based workload generation tools such as the EdgeDroid platform~\cite{olguinmunoz2018demoscaling,olguinmunoz2019edgedroid}, allowing the tool to use the same trace to generate workloads for a multitude of different user profiles.
 
 \section{Conclusion}\label{paper:olguinmunoz2021impact:sec:conclusion}
 
@@ -932,6 +933,6 @@ Another example would be employing the results linking neuroticism to a heighten
 Extending and perfecting these tools will allow for much more realistic benchmarking and testing of \gls{WCA} systems, providing data of significantly better quality and ultimately leading to faster improvement, optimization and adoption of these systems.
 
 \begin{acks}
-  This research was supported in part by the Swedish Foundation for Strategic Research (SSF) under grant \texttt{ITM17-0246} (ExPECA) and the United States National Science Foundation (NSF) under grant number \texttt{CNS-1518865}.
+  This research was supported in part by the \gls{SSF} under grant \texttt{ITM17-0246} (ExPECA) and the \gls{NSF} under grant number \texttt{CNS-1518865}.
   Any opinions, findings, conclusions or recommendations expressed in this material are those of the authors and do not necessarily reflect the view(s) of their employers or funding sources.
 \end{acks}
