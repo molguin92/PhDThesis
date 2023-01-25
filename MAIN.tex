@@ -1,7 +1,5 @@
 \PassOptionsToPackage{x11names}{xcolor}
 \documentclass[electronic,oldfontcommands]{kthesis}
-\usepackage{amsfonts}
-\usepackage{blindtext}
 \input{preamble}
 
 \begin{document}
@@ -36,8 +34,6 @@
 \include{body/abstract}
 \include{body/papers}
 \include{body/acks}
-\printglossary%
-
 
 \mainmatter % Pages 1, 2, 3...
 
@@ -54,9 +50,6 @@
 \chapter{Open questions \& future work}
 \include{body/part1/futurework}
 
-\include{body/part1/references}
-
-
 \renewcommand\chaptername{\newchaptername}
 \addtocontents{toc}{\protect\renewcommand\protect\cftchaptername{\newchaptername~}}
 \renewcommand*{\thechapter}{\Alph{chapter}}
@@ -68,5 +61,9 @@
 \include{publications/2022CLEAVE}
 \include{publications/2022Ainur}
 \include{publications/2023EdgeDroid2}
+
+\backmatter%
+\printglossary%
+\include{body/references}
 
 \end{document}

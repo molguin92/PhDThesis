@@ -1,4 +1,4 @@
-\section{Implications of the methodology in the context of \acs{WCA}}\label{sec:extendingmethodology}
+\section{Implications of the methodology in the context of \glsfmtshort{WCA}}\label{sec:extendingmethodology}
 
 \todo[inline]{%
     Rework this section.
@@ -183,14 +183,14 @@ This was also confirmed through an \gls{ANOVA} on factors slice and \gls{TTF}, f
     \begin{minipage}[t]{.45\textwidth}
         \centering
         \includegraphics[height=13em]{Figs/2021Impact/previousblock_vs_exectime}
-        \caption{Mean execution time of the first slice of steps in a block, grouped by \acs{TTF} of the block immediately preceding the current one.}\label{fig:prevblockvsexectime}
+        \caption{Mean execution time of the first slice of steps in a block, grouped by \glsfmtshort{TTF} of the block immediately preceding the current one.}\label{fig:prevblockvsexectime}
     \end{minipage}%
     \hfill%
     \begin{minipage}[t]{.45\textwidth}
         \centering
         \includegraphics[height=13em]{publications/2023EdgeDroid2/figs/new_model/mu_fits_exgaussian_slice0}
         \caption{%
-            Illustration of the effect of neuroticism on the \ensuremath{\mu} parameter of \acs{exGaussian} distributions fitted to the execution times of steps in slice \num{1}.
+            Illustration of the effect of neuroticism on the \ensuremath{\mu} parameter of \glsfmtshort{exGaussian} distributions fitted to the execution times of steps in slice \num{1}.
             Fits were achieved through \gls{MLE}.
         }\label{fig:ttfvsexgaussianmu}
     \end{minipage}
@@ -227,7 +227,7 @@ Moreover and as previously discussed, due to the complexity of these systems, ac
 \todo[inline]{Does this need a better transition?}
 
 
-\subsection{A new model of human behavior in \acs{WCA}}
+\subsection{A new model of human behavior in \glsfmtshort{WCA}}
 
 \cref{paper:olguinmunoz2023realistic} discusses the elaboration of a model of human behavior for \gls{WCA}.
 Built upon the data and results from \cref{paper:olguinmunoz2021impact}, our model is capable of dynamically generating realistic predictions of execution times for steps in a \gls{WCA} based on historical system state data and a parameterized level of neuroticism.
@@ -314,7 +314,7 @@ Next, a single \gls{TTF} of \SI{2.5}{\second} was fed to the model, and the gene
 This procedure was repeated \num{600} times.
 As expected from our discussion in \cref{impact:results}, transitions from a higher (\SI{5}{\second}) \gls{TTF} resulted in noticeably inflated execution times (\ensuremath{+\SI{8.5}{\percent}} at a high level of neuroticism) for the first step at \SI{2.5}{\second} \gls{TTF} compared to when the transition was from a lower \gls{TTF}.
 
-\subsubsection{Procedural generation of dynamic traces of video frames for \acs{WCA}}\label{model:traces}
+\subsubsection{Procedural generation of dynamic traces of video frames for \glsfmtshort{WCA}}\label{model:traces}
 
 Our design for a procedure for the generation of synthetic yet realistic traces of video inputs for \gls{WCA} follows a stochastic approach.
 Analysis of the evolution of the distribution of processing results of frames over their normalized capture instant with respect to step execution time highlighted the pattern illustrated in \cref{fig:modelframes}.
@@ -360,7 +360,7 @@ In \cref{fig:taskcompletiontimesdiff} we present the results of an experimental 
 We compare the total task durations of emulated \num{45}-step tasks using the EdgeDroid benchmarking tool with the improved model of human behavior to a baseline model.
 Our reference baseline corresponds here to a first order approximation to empirical execution time modeling, using an \gls{exGaussian} distribution fitted to \emph{all} the data points from \cref{paper:olguinmunoz2021impact} (without any grouping) which is randomly sampled to obtain execution time values.
 We perform this experiment on the edge computing testbed discussed in \cref{sec:testbed};
-for simplicity and to magnify the effects of latency, in this setup we use an \acs{IEEE} \num{802.11}b/g physical layer.
+for simplicity and to magnify the effects of latency, in this setup we use an \glsfmtshort{IEEE} \num{802.11}b/g physical layer.
 
 These results show clear and significant differences in task durations between the realistic model and the baseline, with a reduction of up to \SI{11}{\percent} at low levels of resource contention for both levels of neuroticism.
 At higher degrees of resource contention, the high neuroticism parameterization also results in task durations more than \SI{8}{\percent} longer than the baseline.

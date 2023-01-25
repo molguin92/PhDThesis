@@ -1,9 +1,12 @@
+%! suppress = MissingImport
 %! suppress = MissingBibliographystyle
 %! suppress = DiscouragedUseOfDef
 %! suppress = NonMatchingIf
 %! suppress = Makeatletter
 % Packages
 % --------
+\usepackage{amsfonts}
+\usepackage{blindtext}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage[swedish,english]{babel}
@@ -51,10 +54,10 @@
 \usepackage{algpascal}
 \usepackage{multicol}
 \usepackage{lipsum}
-\usepackage[nogroupskip,nonumberlist,automake,shortcuts]{glossaries-extra}
+\usepackage{glossaries}
+\usepackage[nogroupskip,nonumberlist,automake,shortcuts,acronym]{glossaries-extra}
 \usepackage{glossaries-prefix}
 \usepackage{glossary-mcols}
-\usepackage{glossaries}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{makecell}
@@ -75,9 +78,10 @@
 
 % glossary settings
 \setglossarystyle{mcolindexgroup}
-\setabbreviationstyle[acronym]{long-short}
-\makeglossaries%
+\setabbreviationstyle[acronym]{long-short-user}
+\glstoctrue%
 \loadglsentries{body/glossary.tex}
+\makeglossaries%
 
 % bibliography settings
 \bibliography{references,bibliography/bibliography}
