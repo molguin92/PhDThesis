@@ -503,7 +503,7 @@ One camera was angled downwards, towards the table, the LEGO board, and the part
 This camera was used to capture the necessary inputs for the LEGO assembly task as well as to record the actions performed by the user.
 The second camera was angled horizontally, towards the participant, in order to record their facial expressions during the execution of the task.
 
-Both video feeds were captured at a rate of \num{24}~FPS in parallel processes to ensure a constant rate of capture.
+Both video feeds were captured at a rate of \num{24}~\gls{FPS} in parallel processes to ensure a constant rate of capture.
 Examples of the captured frames can be seen in \cref{paper:olguinmunoz2021impact:fig:sampleframes}.
 The video feeds were not used for the present study, but may be utilized in future analysis.
 
@@ -544,7 +544,7 @@ Since the per-step execution time  compensates for the added delay in the measur
 This leads to one of the key outcomes from this study: 
 \emph{participants tend to act more slowly on steps affected by longer delays} --- i.e.\ there is evidence of a pacing effect in users' behavior with respect to the responsiveness of the system.
 
-We confirmed this effect through an \emph{analysis of variance} (ANOVA~\cite{fujikoshi1993two}) with factors of block length and delay, and found significant main effects of both factors and the interaction, shown in \cref{paper:olguinmunoz2021impact:tab:anova:exectime}.
+We confirmed this effect through an \gls{ANOVA}~\cite{fujikoshi1993two} with factors of block length and delay, and found significant main effects of both factors and the interaction, shown in \cref{paper:olguinmunoz2021impact:tab:anova:exectime}.
 % An ANOVA test uses the \emph{F-test} statistic, which is a ratio of the variability in the data introduced by experimental manipulations (and their interactions) to the variability in the data attributable to randomness.
 % The degrees of freedom represent the number of observations going into each of these variability measures.
 % As we are using within-subject designs, the variability in the data due to randomness is estimated by the differences among subjects with respect to the effects of the experimental variables.
@@ -561,12 +561,12 @@ We confirmed this effect through an \emph{analysis of variance} (ANOVA~\cite{fuj
 \begin{figure}[h]
     \centering
     \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig6.eps}
-    \caption{Per-step execution time by block length vs.\ delay. Error bars indicate the Standard Error of the Mean (S.E.M.)}\label{fig:exectime}%    
+    \caption{Per-step execution time by block length vs.\ delay. Error bars indicate the \gls{SEM}}\label{fig:exectime}%
 \end{figure}
 
 \begin{table}[h]
   \centering
-  \caption{Significant effects on per-step execution time from ANOVA on factors delay and block length.}\label{paper:olguinmunoz2021impact:tab:anova:exectime}
+  \caption{Significant effects on per-step execution time from \gls{ANOVA} on factors delay and block length.}\label{paper:olguinmunoz2021impact:tab:anova:exectime}
   \setlength{\tabcolsep}{0pt}%
   \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}lrrr@{}}
     \toprule
@@ -584,14 +584,14 @@ For this purpose, the steps within a block were aggregated over sequences of 4, 
 Note that the first slice within a block is procedurally identical for all block lengths, in the sense that a participant currently performing a step in the first slice of a block has no way of predicting if the block ends after step 4 or not.
 The same logic can be applied to slice 2 for blocks of length 8 and 12.
 Accordingly for each participant, slice 1 data (steps 1--4) were pooled over all 3 block lengths, slice 2 (steps 5--8) were combined for block lengths 8 and 12, and slice 3 comprised the last four steps in blocks of length 12.
-An ANOVA on slice number (1--3) and delay (7 values) yielded effects of slice number, delay, and the interaction, detailed in \cref{paper:olguinmunoz2021impact:tab:anova:exectime:slice}.
+An \gls{ANOVA} on slice number (1--3) and delay (7 values) yielded effects of slice number, delay, and the interaction, detailed in \cref{paper:olguinmunoz2021impact:tab:anova:exectime:slice}.
 As shown in \cref{paper:olguinmunoz2021impact:fig:exectime:delay:slice}, blocks with shorter delays showed a trend for the execution time to progressively decline over the course of the block (i.e., by slice number), indicating that the participant accommodated to the feedback pace with more efficiently timed responses.
 % We refer to the measure at slice 3 as a percentage of the measure at slice 1 as the ``change factor''.
 With the longest delays, where the execution time per step was longest, the slow-down persisted; that is, the system response time hindered the participant's execution throughout the course of the block.
 
 \begin{table}[h]
   \centering
-  \caption{Significant effects on per-step execution time from ANOVA on factors block slice and delay.}\label{paper:olguinmunoz2021impact:tab:anova:exectime:slice}
+  \caption{Significant effects on per-step execution time from \gls{ANOVA} on factors block slice and delay.}\label{paper:olguinmunoz2021impact:tab:anova:exectime:slice}
   \setlength{\tabcolsep}{0pt} % let TeX compute the intercolumn space
   \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}lrrr@{}}
     \toprule
@@ -608,7 +608,7 @@ With the longest delays, where the execution time per step was longest, the slow
     \centering
     \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig7.eps}
     \caption{Mean per-step execution time vs.\ delay, by step slice.
-    Error bars indicate S.E.M.}
+    Error bars indicate \gls{SEM}}
     \label{paper:olguinmunoz2021impact:fig:exectime:delay:slice}
 \end{figure}
 
@@ -628,7 +628,7 @@ We found that transitions from long-delay blocks carried over to significantly i
 \begin{figure}[h]
   \centering
   \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig8.eps}
-  \caption{Per-step execution time across the first four steps after a block transition from block \( B_{k-1} \) to \( B_k \). Error bars indicate S.E.M.}\label{paper:olguinmunoz2021impact:fig:exectime:transition}%
+  \caption{Per-step execution time across the first four steps after a block transition from block \( B_{k-1} \) to \( B_k \). Error bars indicate \gls{SEM}}\label{paper:olguinmunoz2021impact:fig:exectime:transition}%
 \end{figure}
 
 In summary, we observe two direct effects on execution time due to added delays.
@@ -647,12 +647,12 @@ where \( B \) is an arbitrary block, and \(A_{B} = \{ \overrightarrow{\alpha_0},
 This score would include the time imposed by the delay and the time to decode the instructions and respond by moving the pieces so that the next state was recognized.
 It is only during the last part of the step that explicit movement is required, so any additional accelerations would derive from arbitrary movements while processing and waiting.
 We normalized the sum of the accelerations by the duration of the step to correct for differences in delay and the execution time, which tends to increase with delay as described above.
-An ANOVA on block length and delay showed a significant effect such that movement score decreased with delay, as shown in \cref{paper:olguinmunoz2021impact:tab:anova:acc} and \cref{paper:olguinmunoz2021impact:fig:acc:delaylength}.
+An \gls{ANOVA} on block length and delay showed a significant effect such that movement score decreased with delay, as shown in \cref{paper:olguinmunoz2021impact:tab:anova:acc} and \cref{paper:olguinmunoz2021impact:fig:acc:delaylength}.
 There was also a significant delay by length interaction, reflecting that delay effects occurred particularly for the longer lengths.
 
 \begin{table}[h]
   \centering
-  \caption{Significant effects on accelerometer data from ANOVA on factors delay and block length.}\label{paper:olguinmunoz2021impact:tab:anova:acc}
+  \caption{Significant effects on accelerometer data from \gls{ANOVA} on factors delay and block length.}\label{paper:olguinmunoz2021impact:tab:anova:acc}
   \setlength{\tabcolsep}{0pt} % let TeX compute the intercolumn space
   \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}lrrr@{}}
     \toprule
@@ -667,7 +667,7 @@ There was also a significant delay by length interaction, reflecting that delay 
 \begin{figure}[h]
     \centering
     \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig9.eps}
-    \caption{Movement score vs.\ delay, per block length. Error bars indicate S.E.M.}\label{paper:olguinmunoz2021impact:fig:acc:delaylength}
+    \caption{Movement score vs.\ delay, per block length. Error bars indicate \gls{SEM}}\label{paper:olguinmunoz2021impact:fig:acc:delaylength}
 \end{figure}
 
 We next conducted the same analysis as for execution time, dividing blocks into three ``slices'' of four steps each, such that slice 1 comprised the first four steps of all block lengths, slice 2 the second four steps of blocks of length 8 and 12, and slice 3 the last four steps of blocks 12 steps long.
@@ -676,12 +676,12 @@ As shown in \cref{paper:olguinmunoz2021impact:fig:acc:delayslice} the effect of 
 \begin{figure}[h]
   \centering
   \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig10.eps}
-  \caption{Movement score vs.\ delay, per block slice. Error bars indicate S.E.M.}\label{paper:olguinmunoz2021impact:fig:acc:delayslice}
+  \caption{Movement score vs.\ delay, per block slice. Error bars indicate \gls{SEM}}\label{paper:olguinmunoz2021impact:fig:acc:delayslice}
 \end{figure}
 
 \begin{table}[h]
   \centering
-  \caption{Significant effects on accelerometer data from ANOVA on factors delay and slice number.}\label{paper:olguinmunoz2021impact:tab:anova:acc:slice}
+  \caption{Significant effects on accelerometer data from \gls{ANOVA} on factors delay and slice number.}\label{paper:olguinmunoz2021impact:tab:anova:acc:slice}
   \setlength{\tabcolsep}{0pt} % let TeX compute the intercolumn space
   \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}lrrr@{}}
     \toprule
@@ -704,23 +704,23 @@ Accordingly, the acceleration per unit time, our movement score, is reduced.
 Analyses were conducted on the log \gls{EEG} power in the alpha band, beta band, and total of all bands measured.
 Readings from the two frontally placed poles were highly correlated and were pooled into an average.
 Logs were taken for analysis because the \gls{EEG} distribution tended to have a rightward tail.
-Twelve participants were excluded from the analysis, 9 due to device failure and 3 because of extreme values (i.e., the participant mean of log total power was greater than 3 s.d.s.\ from the mean of all participants).
+Twelve participants were excluded from the analysis, 9 due to device failure and 3 because of extreme values (i.e., the participant mean of log total power was greater than 3 standard deviations from the mean of all participants).
 
 The analyses then comprised 28 participants.\@
-Omnibus ANOVAs were conducted with delay and block length (number of steps) as factors, on the \gls{EEG} data from the alpha and beta band.
+Omnibus \glspl{ANOVA} were conducted with delay and block length (number of steps) as factors, on the \gls{EEG} data from the alpha and beta band.
 The analysis of alpha \gls{EEG} found no significant effects.
 Beta \gls{EEG} showed only an effect of block length, \( F(2,54) = 3.56 \), \( p = .035 \), \( \eta^{2}_{p} = .12 \), reflecting a tendency for the 4-step length to produce lower log power (mean 3.9 vs. 4.1 for lengths of 8 and 12).
 However, this effect was small and not consistent across delays.  
 
 Again the analysis dividing blocks into 4-step slices was conducted, with delay and slice number as factors.  
-For both the alpha and beta bands, ANOVAs  yielded effects only of slice number --- see \cref{paper:olguinmunoz2021impact:tab:anova:egg:alphabeta}.
+For both the alpha and beta bands, \glspl{ANOVA}  yielded effects only of slice number --- see \cref{paper:olguinmunoz2021impact:tab:anova:egg:alphabeta}.
 Both bands showed the same tendency:  \gls{EEG} declined as a sequence of steps with the same delay progressed.
 These effects are shown in \cref{paper:olguinmunoz2021impact:fig:logeegpow:slices}.
 Thus, \gls{EEG} taken from frontal locations mimics the execution time data in showing a decline over the course of a block, but unlike the execution time, there was no tendency for the decline in \gls{EEG} to be reduced at longer delays.
 
 \begin{table}[h]
   \centering
-  \caption{Significant effects on log \gls{EEG} power from ANOVA on factors delay and block slice.}\label{paper:olguinmunoz2021impact:tab:anova:egg:alphabeta}
+  \caption{Significant effects on log \gls{EEG} power from \gls{ANOVA} on factors delay and block slice.}\label{paper:olguinmunoz2021impact:tab:anova:egg:alphabeta}
   \setlength{\tabcolsep}{0pt} % let TeX compute the intercolumn space
   \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}\quad}llrrr}
     \toprule
@@ -734,7 +734,7 @@ Thus, \gls{EEG} taken from frontal locations mimics the execution time data in s
 \begin{figure}[h]
     \centering
     \includegraphics[width=.8\textwidth]{publications/2021ImpactDelayedResponse/Fig11.eps}
-    \caption{Log of the average \gls{EEG} Power for alpha and beta bands per step slice. Error bars indicate S.E.M.}\label{paper:olguinmunoz2021impact:fig:logeegpow:slices}
+    \caption{Log of the average \gls{EEG} Power for alpha and beta bands per step slice. Error bars indicate \gls{SEM}.}\label{paper:olguinmunoz2021impact:fig:logeegpow:slices}
 \end{figure}
 
 \subsection{\glsfmtshort{GSR} and Heart Rate}
@@ -744,8 +744,8 @@ Due to sensor failure and the elimination of one subject with extreme values of 
 No systematic trend due to delay or block length was observed.
 In addition, the same analysis of slice position within block length as was performed for the \gls{EEG} revealed no effects, indicating that \gls{GSR} was stable across step positions within a block.
 
-Heart rate, measured in beats per minute, averaged \num{90.2}~BPM and showed no trend related to the experimental variables of delay and block length.
-The same was true of the variability in beats per minute (average standard deviation across conditions was \num{20.3}).
+Heart rate averaged \num{90.2}~\gls{BPM} and showed no trend related to the experimental variables of delay and block length.
+The same was true of the variability in \gls{BPM} (average standard deviation across conditions was \num{20.3}).
 
 The absence of systematic trends in both these results is interesting in the context of our initial suggestions of potential mechanisms relating delay in the application to human behavior.
 In section \cref{paper:olguinmunoz2021impact:ssec:potentialmechs} we proposed that emotional arousal during the execution of the task was a potential explanation for the effects observed in the human.
@@ -861,7 +861,7 @@ In \cref{sec:background}, we initially considered the possibility that delays mi
 These could in turn elicit generalized arousal.
 We also postulated that adapting to delay might progressively deplete cognitive resources in users.
 However, the present data provide relatively little support for these alternatives, in that the predicted measures did not produce the expected statistical trends.
-Specifically, physiological measures of \gls{GSR} and HR failed to show evidence of differential arousal under long vs.\ short delays, and speed-induced errors and non-completions predicted by resource depletion were not observed.
+Specifically, physiological measures of \gls{GSR} and heart rate failed to show evidence of differential arousal under long vs.\ short delays, and speed-induced errors and non-completions predicted by resource depletion were not observed.
 The acceleration data further did not indicate that extended delay significantly increases erratic movement.
 % physiological measures of \gls{GSR} and HR failed to show evidence of differential arousal under long vs.\ short delays, and speed-induced errors and non-completions predicted by resource depletion were not observed.
 % The acceleration data further do not indicate that extended delay increases erratic movement.
