@@ -6,10 +6,12 @@
 % \bibliography{../Refs} % References file
 
 % %--------------------------------------------------
-
-\nocite{*}
-\printbibliography[
-    heading=bibintoc,
-    title=References,
-    notcategory=thesispapers
-]{}
+\begin{multicols*}{2}[\chapter{References}]
+%    \nocite{*}
+    \printbibliography[
+        heading=none,
+%        heading=bibintoc,
+%        title=References,
+        notcategory=thesispapers
+    ]{}
+\end{multicols*}

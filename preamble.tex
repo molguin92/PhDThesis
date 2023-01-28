@@ -33,7 +33,7 @@
 \usepackage[
     giveninits=false,
     style=ieee,
-    sorting=none,
+    sorting=appearance-date-name,
     sortcites,
     hyperref,
     mincitenames=1,
@@ -84,6 +84,30 @@
 \makeglossaries%
 
 % bibliography settings
+% sorting by order of appearance, then by date, then name
+\DeclareSortingScheme{appearance-date-name}{
+    \sort{
+        \field{presort}
+    }
+    \sort[final]{
+        \field{sortkey}
+    }
+    \sort{\citeorder}
+    \sort{
+        \field{sortyear}
+        \field{year}
+    }
+    \sort{
+        \field{sortname}
+        \field{author}
+        \field{editor}
+        \field{translator}
+        \field{sorttitle}
+        \field{title}
+    }
+}
+
+
 \bibliography{references,bibliography/bibliography}
 % included papers
 \DeclareBibliographyCategory{thesispapers}
