@@ -45,7 +45,7 @@ As smart devices, appliances, and sensors become more and more ubiquitous, the n
     }\label{fig:edgecomputing}
 \end{figure}
 
-Edge computing, emerges as a potential answer to these challenges~\cite{satyanarayanan2009case,shi2016promise,shi2016edge,varghese2016challenges,satyanarayanan2017emergence,wang2019towards}.
+Edge computing, emerges as a potential answer to these challenges~\cite{satyanarayanan2009case,shi2016promise,shi2016edge,varghese2016challenges,satyanarayanan2017emergence,bittmann2017edge,wang2019towards}.
 This term refers to a novel distributed computing paradigm, complementary to cloud computing, which tackles the challenges of the cloud by moving computation closer to where it is needed.
 Instead of offloading computation to a datacenter potentially thousands of kilometers away, in edge computing it is offloaded to a micro-datacenter --- a \emph{cloudlet}~\cite{satyanarayanan2009case} --- at the \emph{edge} of the network.
 These coudlets feature most of the key characteristics of cloud datacenters, such as multi-tenancy, virtualization of computing resources, virtually unrestricted access to energy, as well as limited scalability, one or two hops away from the user (see \cref{fig:edgecomputing})
@@ -56,40 +56,43 @@ Mobile \gls{XR}, such as \gls{WCA}~\cite{ha2014towards,chen2018application,wang2
 By processing and aggregating data closer to where its needed, cloudlets can also drastically reduce the amount of traffic going to cloud datacenters.
 Cloudlets also present opportunities for increased data security, privacy, and integrity, by keeping it geographically close to its origin and by allowing for anonymization through denaturing and local aggregation before offloading to cloud services~\cite{satyanarayanan2017emergence}.
 
-\subsection{\glsfmtshort{WCA} and other \glsfmtshort{XR} applications}
+\todo[inline]{Transition to talk about research and tools for Edge computing research.}
 
-There is increasing interest from academia and industry in novel applications such as immersive \gls{AR} or \gls{WCA}~\cite{chatzopoulos2017hyperion,ha2014towards}, also known as human-in-the-loop applications.
-These applications aim to seamlessly integrate into the lives of users to provide real-time, context-aware information by capturing user and environment information and leveraging compute-intensive algorithms to analyze the data in order to provide real-time feedback to the user.
-Sensory input, such as video, audio, and other user-related data such as orientation and movement, are examples of what is typically captured, while the backend generally employs machine learning technologies such as \glspl{DNN}~\cite{ha2014towards}.
-\Cref{paper:olguinmunoz2019edgedroid:fig:pipeline2} depicts such a system.
-These applications are highly latency sensitive, measuring latency as the time from the capture of the sensory information until feedback is received.
-Delays above a certain threshold can hurt the user experience or even make the application unusable~\cite{chen2017empirical}.
+\subsection{\glsfmtlong{WCA}}
 
-In literature, these challenging latency requirements have so far mainly been addressed through research on the optimal placement of the compute process.
-There is a broad understanding today that with the advent of edge computing, human-in-the-loop applications will become viable~\cite{bittmann2017edge,flinn2012cyber,chen2017empirical,ha2013just}.
-However, with respect to end-to-end latency, there are many more trade-offs involved than merely the question of where the compute backend is placed.
-A human-in-the-loop application consists of various processing steps that can be influenced during the development of the application.
-What kind of compression to apply to the sensory input on the uplink; which backend algorithms to utilize; how to stage the backend; when to send feedback to the human users; and how to manage congestion on the loop, as well as wireless channel fluctuations --- all these design choices impact the latency of the application.
-There are also many design choices in the infrastructure: how is the sensory input conveyed to the point of computation (i.e.\ by which wireless system; with which transmission/prioritization scheme); which hardware is running at the backend; which operating system; how is the feedback conveyed back to the human user?
-Finally, in production use these applications will most likely run concurrently with others.
-How does this, together with other best-effort applications, impact the latencies perceived by the human user?
-Existing studies~\cite{ha2014towards,chen2015early,satyanarayanan2009case,chatzopoulos2017hyperion} of this class of applications have only lightly touched upon these issues~\cite{chen2017empirical}.
-On the other hand, recently published models for end-to-end latency of edge computing architectures~\cite{al_zubaidy2015performance,schiessl2017finite} are quite complex, while not accounting for the specifics of human-in-the-loop applications.
-We only have a coarse understanding of the many degrees of freedom upon which end-to-end latency depends.
+There is increasing interest from academia and industry in a novel category of wearable and mobile immersive applications called \gls{WCA}~\cite{ha2014towards,chen2018application,chen2015early,belletier2021wearable,chen2017empirical,wang2020scaling,chatzopoulos2017hyperion}
+They represent a particular class of \gls{AR} applications, aiming amplify human cognition in both day-to-day tasks and professional settings.
+\glspl{WCA} operate in a mode analogous to how \gls{GPS} navigation systems guide drivers, by seamlessly providing relevant instructions and feedback relating to the current task at hand.
+Through the use of sensors (most commonly video inputs), the application follows the progress of the task in realtime by continuously sampling the state of the physical system.
+The input is then parsed to an internal symbolic representation of the state of the task, and whenever a change of state is detected the application provides appropriate feedback or instructions to the user.
+Feedback can be in the form of text, images, video, and/or audio, and guides the user towards the next desired system state.
+If no change in state is detected, the application remains silent and out-of-the-way of the user;
+in other words, samples which capture an intermediate or unfinished state, or simply noise are silently discarded.
+\Cref{fig:wca} illustrates this mode of operation in a \gls{WCA} guiding a user to manipulate a structure composed of LEGO bricks.
 
-The goal of this paper is to provide a methodological approach to studying these latency trade-offs, along with a tool, EdgeDroid 1.0\footnote{We plan to make the EdgeDroid 1.0 benchmarking suite available as Free and Open Source Software and the recorded traces under a Creative Commons License.}, that simplifies the benchmarking of human-in-the-loop applications.
-We view EdgeDroid 1.0 to be the very first, and simplest, of a family of tools that will embody increasingly sophisticated and accurate models of user behavior.
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\textwidth]{Figs/wca_state}
+    \caption{%
+        Mode of operation of \gls{WCA} applications.
+        The assistant continuously samples the state of the monitored task, and provides appropriate feedback once a state change has been detected.
+        Samples that do not result in feedback are silently discarded.
+    }\label{fig:wca}
+\end{figure}
 
-Wearable Cognitive Assistants, \gls{WCA} for short, have recently started to garner attention from the research community~\cite{ha2014towards,chen2015early}.
-They represent a novel category of highly interactive and context-sensitive augmented reality applications, that aim to amplify human cognition in both day-to-day tasks and professional settings.
-Their mode of operation is analogous to how \gls{GPS} navigation systems guide drivers, by seamlessly providing relevant instructions and feedback relating to the current task at hand.
 Note that this implies seamless interaction with the context of the user --- at no moment does the user need to trigger an update explicitly, as the application is constantly tracking the state of the target task.
+Herein lies one of the key characteristics of these applications: the user only consciously interacts with the application whenever they finish an instruction, and thus these are the \emph{only} points in time at which they can notice changes in system responsiveness.
 An example is an IKEA Assistant~\cite{IKEAAssistant} which monitors the assembly of a piece of furniture in real time, providing timely, step-by-step feedback to guide the user toward completion.
 
+
 WCA systems were originally inspired by assistive use cases for people suffering from some form of cognitive decline, either through aging or because of traumatic brain injuries~\cite{ha2014towards,satyanarayanan2019augmenting}.
-More recently, they have been applied to a broader range of use cases, including step-by-step guidance on complex assembly tasks~\cite{chen2017empirical}.
+More recently, they have been applied to a broader range of use cases, including step-by-step guidance on complex assembly tasks~\cite{chen2017empirical,chen2018application}.
 Non-wearable augmented reality and cognitive assistance systems have already been proven to be valuable tools in the industrial workplace~\cite{funk2015cognitive,gorecky2011cognito}.
 Detethering this assistance from its current fixed location will surely make it available to many more fields.
+
+However, these applications are highly latency sensitive, measuring latency as the time from the capture of the sensory information until feedback is received.
+Delays above a certain threshold can hurt the user experience or even make the application unusable~\cite{chen2017empirical}.
+There is a broad understanding today that with the advent of edge computing, human-in-the-loop applications will become viable~\cite{bittmann2017edge,flinn2012cyber,chen2017empirical,ha2013just}.
 
 Based on these use cases, we identify three main requirements for \gls{WCA}:\@
 \begin{enumerate}
@@ -111,16 +114,6 @@ The compute-intensive processing suggested by \cref{paper:olguinmunoz2021impact:
 Only by offloading computation from a wearable device to cloud-based or edge-based infrastructure can this circle be squared.
 However, offloading implies an extended end-to-end pipeline with many potential sources of queueing, transmission, and processing delays.
 \cref{paper:olguinmunoz2021impact:item:lowlatency} therefore emerges as a key concern, requiring deep understanding of the impact of end-to-end delays on \gls{WCA} users.
-
-% However, additional challenges remain in the path toward widespread adoption.
-\cref{paper:olguinmunoz2021impact:item:lowlatency} forms the base motivation for the research presented in this paper.
-We still have a very limited understanding of how humans react to delays in these systems --- specifically, how changes in system responsiveness impact users.
-\emph{System responsiveness} here denotes a qualitative scale ranging from \emph{high} (that is, not subject to delay or subject to negligible delay with respect to human perception) to \emph{low} (i.e.\ subject to considerable delay).
-% Conversely, QoE is understood to range from \emph{good} (i.e.\ users enjoy interacting with the application) to bad (users dislike interacting with the application).
-Characterizing the relationships between system responsiveness and user behavior and quality of experience is of paramount importance for the design and evaluation of these applications.
-It is generally acknowledged, for instance, that a system going from a state of high responsiveness to one of low responsiveness can cause a drop in quality of experience~\cite{dabrowski201140}.
-Furthermore, this could cause users to modify the temporal paramaters of their behavior when interacting with the system, generating a sort of \emph{feedback loop} between user and system.
-A clear understanding of these relationships would allow, for instance, for the development of strategies for load balancing and optimization for large-scale deployment of \gls{WCA}.\@
 
 \begin{figure}
     \centering
@@ -145,15 +138,8 @@ A clear understanding of these relationships would allow, for instance, for the 
     \caption{Key concepts in \gls{WCA}}
 \end{figure}
 
-\glspl{WCA} applications represent a category of novel, context-sensitive and highly-interactive \gls{AR} applications.
 In this work we focus on a particular category --- ``step-based'' \gls{WCA} --- that have as their goal the guiding of a user through a sequential task.
-Examples of such applications are the LEGO and IKEA assistants~\cite{Chen2015LEGO,Chen2018application}, in which users are guided step-by-step through the process of assembling a LEGO model and an IKEA lamp, respectively.
-
-Step-based \glspl{WCA} operate analogously to how \gls{GPS} navigation assistants guide users, by seamlessly and continuously monitoring the progress of the user and autonomously providing relevant instructions and feedback.
-The application follows the progress of the task in ``realtime'' by repeatedly sampling the state of the physical system, most commonly through video frames.
-Whenever the assistant detects that the user has correctly or incorrectly performed an instruction, it provides a new instruction to either advance the task or correct the detected mistake.
-The application otherwise remains silent and out-of-the-way of the user; that is, samples which do not generate a new instruction (e.g.~because they captured an intermediate or unfinished state, or simply noise) are silently discarded.
-Herein lies one of the key characteristics of these applications: the user only consciously interacts with the application whenever they finish an instruction, and thus these are the \emph{only} points in time at which they can notice changes in system responsiveness.
+Examples of such applications are the LEGO and IKEA assistants~\cite{chen2018application}, in which users are guided step-by-step through the process of assembling a LEGO model and an IKEA lamp, respectively.
 
 In order to discuss these applications with precision we provide some definitions relating to their operation.
 First of all, a \emph{step} is formally understood as a specific action to be performed by the user, described by a single instruction, and a \emph{task} consists of a series of steps to be executed in sequence (see \cref{background:fig:wcatask}).
@@ -166,64 +152,79 @@ Take \( \{ t_0, t_1, \ldots, t_{n + 1} \} \) a series of discrete and sequential
 We define \( t_c \) as the point in time at which the user finishes performing the instruction for step \( M \), and the intervals \( t_c - t_0 \), \( t_n - t_c \), and \( t_{n + 1} - t_n \) as the \emph{execution time}, \emph{wait time}, and \emph{last sample \gls{RTT}}, respectively, of a step \( M \).
 The sum of the latter two values (i.e.\ the interval \( t_{n + 1} - t_c \)) we call \emph{\gls{TTF}}, a metric which we will repeatedly refer to in this paper as it directly describes the responsiveness of a \gls{WCA}.
 
-\subsection{Mechanisms relating human behavior to system responsiveness}
+\todo[inline]{Talk about existing research. Prototypes and benchmarking.}
 
-The question of how people respond to delay in a computer system is grounded in how people perceive time.
-Time perception has been described as regulated by an attentional gate that, when opened, starts a cognitive pulse counter~\cite{zakay1995attentional,zakay1996role}.
-More recent research indicates, however, that duration perception is highly malleable and the result of multiple timing mechanisms found in overlapping, flexible neural systems~\cite{bruno2016multiple,wiener2011multiple}.
-The estimation of an event's duration varies with context of various types
-\begin{enumerate*}[label={(\roman*)}, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
-\item events subsequent to a long or short interval are contracted or extended, respectively~\cite{heron2012duration}
-\item repeated events tend to be perceived as shorter than novel ones~\cite{matthews2011stimulus}
-\item arousal can expand durations~\cite{droit_volet2011emotion}.
-\end{enumerate*}
+In literature, these challenging latency requirements have so far mainly been addressed through research on the optimal placement of the compute process.
+There is a broad understanding today that with the advent of edge computing, human-in-the-loop applications will become viable~\cite{bittmann2017edge,flinn2012cyber,chen2017empirical,ha2013just}.
+However, with respect to end-to-end latency, there are many more trade-offs involved than merely the question of where the compute backend is placed.
+A human-in-the-loop application consists of various processing steps that can be influenced during the development of the application.
+What kind of compression to apply to the sensory input on the uplink; which backend algorithms to utilize; how to stage the backend; when to send feedback to the human users; and how to manage congestion on the loop, as well as wireless channel fluctuations --- all these design choices impact the latency of the application.
+There are also many design choices in the infrastructure: how is the sensory input conveyed to the point of computation (i.e.\ by which wireless system; with which transmission/prioritization scheme); which hardware is running at the backend; which operating system; how is the feedback conveyed back to the human user?
+Finally, in production use these applications will most likely run concurrently with others.
+How does this, together with other best-effort applications, impact the latencies perceived by the human user?
+Existing studies~\cite{ha2014towards,chen2015early,satyanarayanan2009case,chatzopoulos2017hyperion} of this class of applications have only lightly touched upon these issues~\cite{chen2017empirical}.
+On the other hand, recently published models for end-to-end latency of edge computing architectures~\cite{al_zubaidy2015performance,schiessl2017finite} are quite complex, while not accounting for the specifics of human-in-the-loop applications.
+We only have a coarse understanding of the many degrees of freedom upon which end-to-end latency depends.
 
-Expectations play a critical role in time perception as well~\cite{zakay1995attentional,zakay1996role}.
-It has been shown that people have a general tendency to be hypersensitive to delays in worse-than-expected states, and under-sensitive to meeting or exceeding expectations~\cite{loewenstein1992anomalies}.
-Accordingly, failures to meet expected fast response times tend to be experienced as highly negative, whereas fast latencies are not noticed.
-Violations of expectancy have a strong impact on the acceptability of computer systems.
-Users of a computer system anticipate the latency for events, for which the standards only become more stringent as systems improve in response time.
-In immersive systems like \gls{WCA}, which aim to provide seamless interaction, delays are particularly noticeable.
 
-It has long been recognized that slow system response times can undermine cognitive processing, slow the pace of users, and lead to stereotyped behavior and errors, as well as cause negative emotional consequences~\cite{dabrowski201140}.
-However, standards for what constitute tolerable delays have changed dramatically compared to three decades ago, when delays on the order of \SI{10}{\second} were deemed acceptable~\cite{nielsen1994usability, shneiderman2016designing, seow2008designing}.
-Today's user context, and \gls{WCA} in particular, often demand response times orders of magnitude shorter.
-
-For \gls{WCA} the acceptable range for latencies was explored by Chen et al.~\cite{chen2017empirical}, by constructing assistants for tasks with a range of time constraints, including step-by-step tasks and more interactive contexts like playing Ping-Pong against a human opponent.
-They then proposed a latency tolerance zone according to the task demands.
-For an essentially self-paced task like LEGO assembly, they found two key ranges of latency; unnoticeable, \SIrange{0}{0.6}{\second}; and impaired, \SIrange{0.6}{2.7}{\second}.
-Beyond that, users could begin to show the negative outcomes previously catalogued~\cite{dabrowski201140}.
-
-While behavioral changes and negative interaction outcomes have been well documented in prior research on system delay, the specific mechanisms that mediate these outcomes are less well understood.
-These mechanisms could be cognitive or emotional in origin.
-
-A first possible explanation comes from research on cognitive and motor planning.
-Delay may move users from relatively automatic to more attention-demanding processing.
-Cognitive and motor tasks are commonly described as a hierarchical system, progressing from high-level goals to the sequence of commands that accomplishes them.
-As competency in a task increases, execution of the hierarchy becomes increasingly automated.
-Automatization has been described from a computational perspective in {Anderson's ACT-R}~model as the compiling of multiple productions into one~\cite{neves1981knowledge}.
-Neural measurements indicate that with automaticity, control moves from frontal brain areas to more posterior ones~\cite{jeon2015degree,puttemans2005changes}, and similar distinctions have been related to temporal processing~\cite{lewis2003distinct,koch2009neural,lee2019limiting}.
-
-Although activities guided by a \gls{WCA} are not simple motor actions, immediate feedback after each of a series of repeated actions should promote development and automatic execution of a hierarchical plan.
-Delays, in contrast, would disrupt such a plan through the loss of automated control~\cite{lee2019limiting}.
-
-A second, alternative explanation of delay effects appeals to emotional systems rather than cognitive processes.
-As users of a system become emotionally aroused by delay, they may be subject to generalized arousal, causing decrements in performance~\cite{lee2019limiting}.
-
-Finally, a third potential explanation of delay effects is what has been called ``ego depletion'', the notion that expending effort on self-control eliminates resources needed for further effort~\cite{baumeister74tice,lin2020strong}.
-
-The various processing accounts of delay effects predict different outcomes, which we will consider in the context of the current data.
-If delay increases attentional demands on cognitive processes, responses should be slowed and errors expected, particularly on time-critical tasks.
-Generalized arousal triggered by emotional stress from delay should emerge in physiological measures, such as increased heart rate or skin conductivity.
-Arousal can also reduce movement smoothness or add erratic gestures~\cite{pijpers2003anxiety}.
-Ego depletion has been found to produce premature responses culminating in error~\cite{lin2020strong}, or to lead to abandoning a task entirely~\cite{baumeister74tice}.
-
-Over-arching prescriptions for tolerable system response time have not tended to take into account individual differences in users with respect to salient variables like cognitive ability or personality.
-Relevant research can be found in studies of delay discounting, the tendency to devalue rewards for which one must wait.
-High discounting rates, indicative of waiting intolerance, have been associated with negative social and academic outcomes.
-Hirsh et al.~\cite{hirsh2008delay} found that higher discounting was associated with extraversion among those with low cognitive function, whereas lower discounting was associated with emotional stability (low neuroticism) for people with high cognitive function.
-Among computer system users who tend to have relatively high cognitive ability (which presumably describes the present experimental population), this points to neuroticism as a personality factor that might modulate tolerance for waiting. Extraversion could also  be  a moderating factor among the broader target audience of \gls{WCA}, which are intended for relatively inexperienced users of an application.
-These and other measures of individual variation were considered here.
+%\subsection{Mechanisms relating human behavior to system responsiveness}
+%
+%The question of how people respond to delay in a computer system is grounded in how people perceive time.
+%Time perception has been described as regulated by an attentional gate that, when opened, starts a cognitive pulse counter~\cite{zakay1995attentional,zakay1996role}.
+%More recent research indicates, however, that duration perception is highly malleable and the result of multiple timing mechanisms found in overlapping, flexible neural systems~\cite{bruno2016multiple,wiener2011multiple}.
+%The estimation of an event's duration varies with context of various types
+%\begin{enumerate*}[label={(\roman*)}, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
+%\item events subsequent to a long or short interval are contracted or extended, respectively~\cite{heron2012duration}
+%\item repeated events tend to be perceived as shorter than novel ones~\cite{matthews2011stimulus}
+%\item arousal can expand durations~\cite{droit_volet2011emotion}.
+%\end{enumerate*}
+%
+%Expectations play a critical role in time perception as well~\cite{zakay1995attentional,zakay1996role}.
+%It has been shown that people have a general tendency to be hypersensitive to delays in worse-than-expected states, and under-sensitive to meeting or exceeding expectations~\cite{loewenstein1992anomalies}.
+%Accordingly, failures to meet expected fast response times tend to be experienced as highly negative, whereas fast latencies are not noticed.
+%Violations of expectancy have a strong impact on the acceptability of computer systems.
+%Users of a computer system anticipate the latency for events, for which the standards only become more stringent as systems improve in response time.
+%In immersive systems like \gls{WCA}, which aim to provide seamless interaction, delays are particularly noticeable.
+%
+%It has long been recognized that slow system response times can undermine cognitive processing, slow the pace of users, and lead to stereotyped behavior and errors, as well as cause negative emotional consequences~\cite{dabrowski201140}.
+%However, standards for what constitute tolerable delays have changed dramatically compared to three decades ago, when delays on the order of \SI{10}{\second} were deemed acceptable~\cite{nielsen1994usability, shneiderman2016designing, seow2008designing}.
+%Today's user context, and \gls{WCA} in particular, often demand response times orders of magnitude shorter.
+%
+%For \gls{WCA} the acceptable range for latencies was explored by Chen et al.~\cite{chen2017empirical}, by constructing assistants for tasks with a range of time constraints, including step-by-step tasks and more interactive contexts like playing Ping-Pong against a human opponent.
+%They then proposed a latency tolerance zone according to the task demands.
+%For an essentially self-paced task like LEGO assembly, they found two key ranges of latency; unnoticeable, \SIrange{0}{0.6}{\second}; and impaired, \SIrange{0.6}{2.7}{\second}.
+%Beyond that, users could begin to show the negative outcomes previously catalogued~\cite{dabrowski201140}.
+%
+%While behavioral changes and negative interaction outcomes have been well documented in prior research on system delay, the specific mechanisms that mediate these outcomes are less well understood.
+%These mechanisms could be cognitive or emotional in origin.
+%
+%A first possible explanation comes from research on cognitive and motor planning.
+%Delay may move users from relatively automatic to more attention-demanding processing.
+%Cognitive and motor tasks are commonly described as a hierarchical system, progressing from high-level goals to the sequence of commands that accomplishes them.
+%As competency in a task increases, execution of the hierarchy becomes increasingly automated.
+%Automatization has been described from a computational perspective in {Anderson's ACT-R}~model as the compiling of multiple productions into one~\cite{neves1981knowledge}.
+%Neural measurements indicate that with automaticity, control moves from frontal brain areas to more posterior ones~\cite{jeon2015degree,puttemans2005changes}, and similar distinctions have been related to temporal processing~\cite{lewis2003distinct,koch2009neural,lee2019limiting}.
+%
+%Although activities guided by a \gls{WCA} are not simple motor actions, immediate feedback after each of a series of repeated actions should promote development and automatic execution of a hierarchical plan.
+%Delays, in contrast, would disrupt such a plan through the loss of automated control~\cite{lee2019limiting}.
+%
+%A second, alternative explanation of delay effects appeals to emotional systems rather than cognitive processes.
+%As users of a system become emotionally aroused by delay, they may be subject to generalized arousal, causing decrements in performance~\cite{lee2019limiting}.
+%
+%Finally, a third potential explanation of delay effects is what has been called ``ego depletion'', the notion that expending effort on self-control eliminates resources needed for further effort~\cite{baumeister74tice,lin2020strong}.
+%
+%The various processing accounts of delay effects predict different outcomes, which we will consider in the context of the current data.
+%If delay increases attentional demands on cognitive processes, responses should be slowed and errors expected, particularly on time-critical tasks.
+%Generalized arousal triggered by emotional stress from delay should emerge in physiological measures, such as increased heart rate or skin conductivity.
+%Arousal can also reduce movement smoothness or add erratic gestures~\cite{pijpers2003anxiety}.
+%Ego depletion has been found to produce premature responses culminating in error~\cite{lin2020strong}, or to lead to abandoning a task entirely~\cite{baumeister74tice}.
+%
+%Over-arching prescriptions for tolerable system response time have not tended to take into account individual differences in users with respect to salient variables like cognitive ability or personality.
+%Relevant research can be found in studies of delay discounting, the tendency to devalue rewards for which one must wait.
+%High discounting rates, indicative of waiting intolerance, have been associated with negative social and academic outcomes.
+%Hirsh et al.~\cite{hirsh2008delay} found that higher discounting was associated with extraversion among those with low cognitive function, whereas lower discounting was associated with emotional stability (low neuroticism) for people with high cognitive function.
+%Among computer system users who tend to have relatively high cognitive ability (which presumably describes the present experimental population), this points to neuroticism as a personality factor that might modulate tolerance for waiting. Extraversion could also  be  a moderating factor among the broader target audience of \gls{WCA}, which are intended for relatively inexperienced users of an application.
+%These and other measures of individual variation were considered here.
 
 \subsection{\glsfmtshortpl{NCS} and other \glsfmtshortpl{CPS}}
 
