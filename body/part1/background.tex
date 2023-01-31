@@ -59,16 +59,59 @@ Cloudlets also present opportunities for increased data security, privacy, and i
 \todo[inline]{Transition to talk about research and tools for Edge computing research.}
 
 \subsection{\glsfmtlong{WCA}}
+\glsreset{WCA}
 
 There is increasing interest from academia and industry in a novel category of wearable and mobile immersive applications called \gls{WCA}~\cite{ha2014towards,chen2018application,chen2015early,belletier2021wearable,chen2017empirical,wang2020scaling,chatzopoulos2017hyperion}
 They represent a particular class of \gls{AR} applications, aiming amplify human cognition in both day-to-day tasks and professional settings.
-\glspl{WCA} operate in a mode analogous to how \gls{GPS} navigation systems guide drivers, by seamlessly providing relevant instructions and feedback relating to the current task at hand.
+\glspl{WCA} operate in a mode analogous to how \gls{GPS} navigation systems guide drivers, by seamlessly providing relevant instructions and feedback relating to the current task at hand and staying out of the way of the user when guidance is not required.
+These systems were originally inspired by assistive use cases for people suffering from some form of cognitive decline due to aging, illness, or traumatic brain injury~\cite{ha2014towards,satyanarayanan2019augmenting}.
+More recently, their scope has been expanded to include a broader range of use cases, including complex assembly tasks~\cite{chen2017empirical,chen2018application,wang2020scaling,wang2019towards,ha2014towards}.
+Non-wearable cognitive assistance systems for assembly tasks have already been proven to be valuable tools in the industrial workplace~\cite{funk2015cognitive,gorecky2011cognito}, and it is understood that the detethering of these system for their use in wearable scenarios opens up a multitude of possibilities.
+\todo[inline]{Develop a bit further. Talk about more reactive setups like ping pong too.}
+
+We identify a number of defining characteristics of \gls{WCA}.
+One, and as the name implies, \glspl{WCA} are available whenever the user requires them, without being tethered to a particular physical location;
+they are pervasive and mobile~\cite{ha2014towards}.
+
+Next, interaction with \glspl{WCA} is immersive and seamless.
+As mentioned above, \glspl{WCA} operate in a manner similar to \gls{GPS} guidance systems.
 Through the use of sensors (most commonly video inputs), the application follows the progress of the task in realtime by continuously sampling the state of the physical system.
 The input is then parsed to an internal symbolic representation of the state of the task, and whenever a change of state is detected the application provides appropriate feedback or instructions to the user.
 Feedback can be in the form of text, images, video, and/or audio, and guides the user towards the next desired system state.
 If no change in state is detected, the application remains silent and out-of-the-way of the user;
 in other words, samples which capture an intermediate or unfinished state, or simply noise are silently discarded.
 \Cref{fig:wca} illustrates this mode of operation in a \gls{WCA} guiding a user to manipulate a structure composed of LEGO bricks.
+Assistants should be able to analyze the current context and automatically provide relevant feedback without explicit commands from the user.
+\gls{WCA} is expected to operate much like a human assistant would, by observing the performance of the user and offering guidance proactively.
+
+Note that this mode interaction implies seamless integration of the application with the context of the user and the real world.
+The user does not trigger an update explicitly at any point, leading to one of the key characteristics of \gls{WCA}.
+The only points in time at which a user can consciously notice and interact with the application is whenever they are \emph{expecting} feedback.
+An important corollary of this is that these are therefore the \emph{only} points in time at which users can notice changes in system responsiveness.
+
+Finally, feedback in \gls{WCA} systems should be provided ``quickly'' (relative to the task at hand) to the user.
+This goes hand in hand with the previous characteristic of seamless interaction, as users will have expectations of constant and immediate feedback as they interact with the system.
+As is the case for most \gls{XR} applications, delayed feedback in \gls{WCA} can have severe negative consequences for the quality of the user experience.
+Depending on the task, these consequences can range from simply distracting or annoying the user (in the case of less interactive tasks such as step-by-step assembly), to actively handicapping user performance (in the case of highly interactive tasks).
+
+The above characteristics together lead to interesting consequences for \gls{WCA} system design.
+Their wearable nature directly implies use of lightweight and battery-powered devices, greatly constrained in terms of energy and computing resources.
+The requirement of immersive and seamless interaction suggests a level of context sensitivity and proactivity that can only be provided by real-time analysis of sensor inputs such as video and audio feeds.
+This kind of compute- and energy-intensive processing is unfeasible to be performed on wearable devices, and thus these applications necessarily make use of compute offloading.
+As explained above, the cloud is unsuitable as an offloading point for these applications, given the high latencies incurred, and there is thus a broad understanding today that with the advent of edge computing, \glspl{WCA} will become a practical reality~\cite{bittmann2017edge,flinn2012cyber,chen2017empirical,ha2013just,wang2020scaling,chen2018application,ha2014towards}.
+
+There's more to end-to-end latency than merely the question of where the compute backend is placed, however.
+The design of any complex application such as \gls{WCA} involves a multitude of decisions with the potential to influence the system responsiveness as experienced by the user.
+These decisions include those on the implementation side (compression standards, algorithms, protocols, etc.), as well as on the infrastructure side (physical network layer, traffic prioritization, etc.).
+Existing studies of this class of applications have only recently started to delve more deeply upon these issues~\cite{chen2017empirical,wang2019towards,wang2020scaling,ha2014towards,chen2015early,satyanarayanan2009case,chatzopoulos2017hyperion}.
+Recently published models for end-to-end latency of edge computing architectures, on the other hand, are quite complex, while not accounting for the specifics of human-in-the-loop applications and in many cases limited to very constrained scenarios and analyses~\cite{al_zubaidy2015performance,schiessl2017finite,moothedath2022energy2,moothedath2022energy1,moothedath2021energy}.
+The present thesis aims to contribute to this body of work by presenting and discussing a viable methodology for the design and evaluation of these systems.
+
+\subsubsection{Characterization of \glsfmtshort{WCA}}
+
+\todo[inline]{%
+    Needs reformulating. Right now is just copy of EdgeDroid2 paper section.
+}
 
 \begin{figure}
     \centering
@@ -79,41 +122,6 @@ in other words, samples which capture an intermediate or unfinished state, or si
         Samples that do not result in feedback are silently discarded.
     }\label{fig:wca}
 \end{figure}
-
-Note that this implies seamless interaction with the context of the user --- at no moment does the user need to trigger an update explicitly, as the application is constantly tracking the state of the target task.
-Herein lies one of the key characteristics of these applications: the user only consciously interacts with the application whenever they finish an instruction, and thus these are the \emph{only} points in time at which they can notice changes in system responsiveness.
-An example is an IKEA Assistant~\cite{IKEAAssistant} which monitors the assembly of a piece of furniture in real time, providing timely, step-by-step feedback to guide the user toward completion.
-
-
-WCA systems were originally inspired by assistive use cases for people suffering from some form of cognitive decline, either through aging or because of traumatic brain injuries~\cite{ha2014towards,satyanarayanan2019augmenting}.
-More recently, they have been applied to a broader range of use cases, including step-by-step guidance on complex assembly tasks~\cite{chen2017empirical,chen2018application}.
-Non-wearable augmented reality and cognitive assistance systems have already been proven to be valuable tools in the industrial workplace~\cite{funk2015cognitive,gorecky2011cognito}.
-Detethering this assistance from its current fixed location will surely make it available to many more fields.
-
-However, these applications are highly latency sensitive, measuring latency as the time from the capture of the sensory information until feedback is received.
-Delays above a certain threshold can hurt the user experience or even make the application unusable~\cite{chen2017empirical}.
-There is a broad understanding today that with the advent of edge computing, human-in-the-loop applications will become viable~\cite{bittmann2017edge,flinn2012cyber,chen2017empirical,ha2013just}.
-
-Based on these use cases, we identify three main requirements for \gls{WCA}:\@
-\begin{enumerate}
-    \item \gls{WCA} systems should be available whenever the user requires them, without being tethered to a particular physical location. Assistants need to be pervasive and mobile.
-
-    \item Interaction with the system should be immersive and seamless, i.e.\ the assistant should be able to analyze the current context and automatically provide relevant feedback without explicit commands from the user.
-    In this sense, \gls{WCA} is expected to operate much like a human assistant would, by observing the performance of the user and offering guidance proactively.
-
-    \item Feedback should be ``quick'', relative to the task at hand.
-    This requirement is further strengthened by the previously mentioned ``seamless interaction'' characteristic of these systems.
-    This means that users will have expectations of constant, immediate feedback as they progress through the task.
-    In the case of a step-by-step task like IKEA, delayed feedback might simply confuse or distract the user.
-    However, in a highly interactive task like a \emph{Ping-Pong assistant}~\cite{PingPongAssistant,chen2015early} late guidance is at best a nuisance and at worst a severe handicap.
-\end{enumerate}
-
-\cref{paper:olguinmunoz2021impact:item:pervasive} implies use of lightweight and low-power devices, preferably a wearable device that frees both hands for work.
-\cref{paper:olguinmunoz2021impact:item:interaction}, on the other hand, suggests a level of context sensitivity and proactivity that can only be provided by real-time analysis of sensor inputs such as video and audio feeds.
-The compute-intensive processing suggested by \cref{paper:olguinmunoz2021impact:item:interaction} cannot be met by the lightweight wearable devices suggested by \cref{paper:olguinmunoz2021impact:item:pervasive}.
-Only by offloading computation from a wearable device to cloud-based or edge-based infrastructure can this circle be squared.
-However, offloading implies an extended end-to-end pipeline with many potential sources of queueing, transmission, and processing delays.
-\cref{paper:olguinmunoz2021impact:item:lowlatency} therefore emerges as a key concern, requiring deep understanding of the impact of end-to-end delays on \gls{WCA} users.
 
 \begin{figure}
     \centering
@@ -151,20 +159,6 @@ Take \( \{ t_0, t_1, \ldots, t_{n + 1} \} \) a series of discrete and sequential
 \( t_{n + 1} \) is then the instant at which the result for sample \( t_n \) is returned and the instruction for step \( M + 1 \) is provided.
 We define \( t_c \) as the point in time at which the user finishes performing the instruction for step \( M \), and the intervals \( t_c - t_0 \), \( t_n - t_c \), and \( t_{n + 1} - t_n \) as the \emph{execution time}, \emph{wait time}, and \emph{last sample \gls{RTT}}, respectively, of a step \( M \).
 The sum of the latter two values (i.e.\ the interval \( t_{n + 1} - t_c \)) we call \emph{\gls{TTF}}, a metric which we will repeatedly refer to in this paper as it directly describes the responsiveness of a \gls{WCA}.
-
-\todo[inline]{Talk about existing research. Prototypes and benchmarking.}
-
-In literature, these challenging latency requirements have so far mainly been addressed through research on the optimal placement of the compute process.
-There is a broad understanding today that with the advent of edge computing, human-in-the-loop applications will become viable~\cite{bittmann2017edge,flinn2012cyber,chen2017empirical,ha2013just}.
-However, with respect to end-to-end latency, there are many more trade-offs involved than merely the question of where the compute backend is placed.
-A human-in-the-loop application consists of various processing steps that can be influenced during the development of the application.
-What kind of compression to apply to the sensory input on the uplink; which backend algorithms to utilize; how to stage the backend; when to send feedback to the human users; and how to manage congestion on the loop, as well as wireless channel fluctuations --- all these design choices impact the latency of the application.
-There are also many design choices in the infrastructure: how is the sensory input conveyed to the point of computation (i.e.\ by which wireless system; with which transmission/prioritization scheme); which hardware is running at the backend; which operating system; how is the feedback conveyed back to the human user?
-Finally, in production use these applications will most likely run concurrently with others.
-How does this, together with other best-effort applications, impact the latencies perceived by the human user?
-Existing studies~\cite{ha2014towards,chen2015early,satyanarayanan2009case,chatzopoulos2017hyperion} of this class of applications have only lightly touched upon these issues~\cite{chen2017empirical}.
-On the other hand, recently published models for end-to-end latency of edge computing architectures~\cite{al_zubaidy2015performance,schiessl2017finite} are quite complex, while not accounting for the specifics of human-in-the-loop applications.
-We only have a coarse understanding of the many degrees of freedom upon which end-to-end latency depends.
 
 
 %\subsection{Mechanisms relating human behavior to system responsiveness}
