@@ -1,4 +1,4 @@
-\section{Use case validation}\label{sec:experiments}
+\section{Use case validation}\label{paper:olguinmunoz2022cleave:experiments}
 
 In this section, we demonstrate the utility of \gls{CLEAVE} by walking readers through an example use case.
 With this, we aim to showcase the ability of our framework to provide accurate and repeatable measurements of the performance of \glspl{NCS} deployed on edge computing infrastructure.
@@ -9,18 +9,19 @@ The connection between plant and server is over a WiFi (IEEE 802.11n) link.
 Moreover, there are a number of video-streaming applications running concurrently on the Edge setup.
 
 We believe this to be an interesting and representative use-case scenario for a number of reasons.
-Firstly, the inverted pendulum is broadly used as a benchmark in control-system literature, see for instance\ \cite{Baumann2018LowPower} and\ \cite{Natale2004InvPendEthernet}.
+Firstly, the inverted pendulum is broadly used as a benchmark in control-system literature, see for instance\ \cite{baumann2018evaluating} and\ \cite{natale2004inverted}.
 A key reason for this is that such a relatively simplistic system allows for straightforward reparametrization to obtain varied system dynamics, which in turn makes a broader range of experiments possible.
-Secondly, similar, albeit non-Edge-enabled, setups have been a reality in industry for almost two decades, as evidenced by\ \cite{Gupta2010NCSOverview}.
+Secondly, similar, albeit non-Edge-enabled, setups have been a reality in industry for almost two decades, as evidenced by\ \cite{gupta2010networked}.
 Thirdly, although real deployments would most assuredly employ mobile technologies due to the added benefits of mobility and range, the \glspl{RTT} offered by these technologies are higher, or at best equal, those offered by WiFi.
 4G, for instance, has average \glspl{RTT} of around a few hundred milliseconds, which is orders of magnitude greater than the values measured in our scenario, and current 5G deployments offer \gls{RTT} values barely matching the sub-\SI{10}{\milli\second} values we obtain for WiFi.
 Thus, we argue that using WiFi allows for more experimental freedom, as the system can be tweaked to obtain worse \glspl{RTT} more akin to those of mobile technologies while still having the option to study best-case scenarios with very low-latencies.
-Finally, video analytics is one of the main proposed use cases for edge computing~\cite{Ananthanarayanan2017Analytics,Yi2017Analytics,Wang2018Analytics}, and thus we foresee edge \gls{NCS} deployments being deployed in parallel with such applications in the future.
+Finally, video analytics is one of the main proposed use cases for edge computing~\cite{ananthanarayanan2017real,yi2017lavea,wang2018bandwidth}, and thus we foresee edge \gls{NCS} deployments being deployed in parallel with such applications in the future.
 However, before deployment can become a reality, key questions such as: 
-``what are the baseline requirements of the \gls{NCS}?''; ``what are the achievable best-case end-to-end latencies in the system?''; and
-``how does the concurrent video-streaming traffic affect \gls{NCS} stability?'' need to be answered.
+``what are the baseline requirements of the \gls{NCS}?'';
+``what are the achievable best-case end-to-end latencies in the system?'';
+and ``how does the concurrent video-streaming traffic affect \gls{NCS} stability?'' need to be answered.
 
-We attempt to study these questions using the experimental setup in \cref{fig:cleave:expsetup}.
+We attempt to study these questions using the experimental setup in \cref{paper:olguinmunoz2022cleave:fig:cleave:expsetup}.
 \gls{CLEAVE} is deployed on a testbed consisting of \num{10} Raspberry Pi 4B  clients connected wirelessly to an IEEE 802.11n \gls{AP}.
 Connected to the Ethernet backbone of this \gls{AP} is a general-purpose \verb|x86_64| desktop computer acting as a Cloudlet/Edge server.
 
@@ -28,11 +29,11 @@ Connected to the Ethernet backbone of this \gls{AP} is a general-purpose \verb|x
 
 \begin{figure}
     \centering
-    \includegraphics[width=.95\columnwidth]{publications/2022CLEAVE/images/CLEAVE_experiment_setup}
+    \includegraphics[width=.95\textwidth]{publications/2022CLEAVE/images/CLEAVE_experiment_setup}
     \caption{
         The setup used for our experimentation. 
         % Containerized versions of the core CLEAVE emulation components are deployed inside a Docker Swarm Overlay Network spanning \num{10} Raspberry Pi 4B clients connected to a single Cloudlet over an IEEE 802.11n \gls{AP}.
-    }\label{fig:cleave:expsetup}
+    }\label{paper:olguinmunoz2022cleave:fig:cleave:expsetup}
 \end{figure}
 
 The first step in our case study is to evaluate the baseline performance of the control system, both locally and over the network.
@@ -49,23 +50,24 @@ After the initial \num{10} runs, we identify that setups with sampling rates of 
 We further note that setups with \SI{0}{\milli\second} additional delay are always stable and thus also disregard them.
 Remaining setups, i.e.\ sampling rates \( \geq \) \SI{20}{\hertz} and artificial delays \( \geq \) \SI{25}{\milli\second}, are repeated an additional \num{20} times for better statistical significance.
 
-This repeated experimentation and data collection while ``zooming in'' on particular setups is facilitated by \gls{CLEAVE}'s design.
+This repeated experimentation and data collection while ``zooming in'' on particular setups is facilitated by \gls{CLEAVE}s design.
 Scenarios are executed automatically in batches using a simple Python script which interacts with Docker through the widely adopted \emph{docker-py}\footnote{Docker SDK for Python: \url{https://docker-py.readthedocs.io/en/stable/}} library.
-This is \gls{CLEAVE}'s first advantage over existing frameworks; it is designed with cloud and edge technology and paradigms in mind, making integration with existing systems convenient.
+This is \gls{CLEAVE}s first advantage over existing frameworks;
+it is designed with cloud and edge technology and paradigms in mind, making integration with existing systems convenient.
 
 \begin{figure}[t]
     \centering
-    \begin{subfigure}[t]{\columnwidth}
+    \begin{subfigure}[t]{.7\textwidth}
         \centering
         \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_single_loop_toppled}
-        \caption{Fraction of toppled plants.}\label{fig:single:topple}
+        \caption{Fraction of toppled plants.}\label{paper:olguinmunoz2022cleave:fig:single:topple}
     \end{subfigure}\\
-    \begin{subfigure}[t]{\columnwidth}
+    \begin{subfigure}[t]{.7\textwidth}
         \centering
         \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_single_loop_rms}
-        \caption{Mean angle \gls{RMS}; red line indicates \( y = 180 \).}\label{fig:single:rms}
+        \caption{Mean angle \gls{RMS}; red line indicates \( y = 180 \).}\label{paper:olguinmunoz2022cleave:fig:single:rms}
     \end{subfigure}\\
-    \begin{subfigure}[t]{\columnwidth}
+    \begin{subfigure}[t]{.7\textwidth}
         \centering
         \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_single_loop_rtts}
         \caption{
@@ -76,22 +78,23 @@ This is \gls{CLEAVE}'s first advantage over existing frameworks; it is designed 
         Baseline results.
         Error bars indicate \SI{95}{\percent} \glspl{CI}.
         }%
-    \label{fig:single}
+    \label{paper:olguinmunoz2022cleave:fig:single}
 \end{figure}
 
-\cref{fig:single} shows a summary of the results relating to the single-loop scenarios:
-\cref{fig:single:topple} shows the fraction of plants that toppled in each scenario, and \cref{fig:single:rms} shows the average \gls{RMS} for the absolute pendula angles.
+\cref{paper:olguinmunoz2022cleave:fig:single} shows a summary of the results relating to the single-loop scenarios:
+\cref{paper:olguinmunoz2022cleave:fig:single:topple} shows the fraction of plants that toppled in each scenario, and \cref{paper:olguinmunoz2022cleave:fig:single:rms} shows the average \gls{RMS} for the absolute pendula angles.
 \cref{fig:single:rtt} shows average latency due to network and processing (excluding synthetic delays) for both single-loop scenarios.
 Packet losses were below \SI{0.2}{\percent} for all parametrizations of the single-loop scenario over the network, and \SI{0}{\percent} for all parametrizations of the local-only setup.
 
-As expected, higher sampling rates tend to correlate with better quality of control; at higher sampling rates the system was able to reach stability at higher \glspl{RTT}.
+As expected, higher sampling rates tend to correlate with better quality of control;
+at higher sampling rates the system was able to reach stability at higher \glspl{RTT}.
 These initial results already hint at interesting consequences for such an edge-bound \gls{NCS} deployment.
-For instance, it is clear from \cref{fig:single:topple,fig:single:rms} that network delays can, to a certain extent, be compensated for by increasing the sampling rate of the system.
+For instance, it is clear from \cref{paper:olguinmunoz2022cleave:fig:single:topple,paper:olguinmunoz2022cleave:fig:single:rms} that network delays can, to a certain extent, be compensated for by increasing the sampling rate of the system.
 A corollary of this is, conversely, that at lower network latencies \glspl{NCS} are able to stabilize at lower sampling rates.
 Adaptive sampling might thus be a viable method for optimizing resource utilization.
 
 Once baselines for single loops in the use case scenario have been established, we can proceed to studying the interaction between the \glspl{NCS} and the video-streaming applications.
-We deploy \num{6} control loops on the experimental setup depicted in \cref{fig:cleave:expsetup}.
+We deploy \num{6} control loops on the experimental setup depicted in \cref{paper:olguinmunoz2022cleave:fig:cleave:expsetup}.
 On the remaining \num{4} clients we run the \emph{iperf3}\footnote{iperf3: \url{https://iperf.fr/}} traffic load generator, each generating \SI[per-mode=symbol]{6.5}{\mega\bit\per\second} of uplink \gls{UDP} traffic.
 This emulates the load generated on the network by \SI{1080}{p} Full-HD video streaming, originating from the clients and terminating in the cloudlet.
 Based on the baseline results, we execute setups with \gls{NCS} plant sampling rates of \SIlist{20;40;60}{\hertz}.
@@ -100,46 +103,46 @@ Once again, repetitions of this scenario are executed automatically in batches u
 
 \begin{figure}[t]
     \centering
-    \begin{subfigure}[h]{.22\textwidth}
+    \begin{subfigure}[h]{.5\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_topple_frac}
-        \caption{Toppled plants.}\label{fig:video:toppled}
+        \includegraphics[width=.8\textwidth]{publications/2022CLEAVE/plots/fixed_video_topple_frac}
+        \caption{Toppled plants.}\label{paper:olguinmunoz2022cleave:fig:video:toppled}
     \end{subfigure}%
-    \hfill%
-    \begin{subfigure}[h]{.22\textwidth}
+%    \hfill%
+    \begin{subfigure}[h]{.5\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_angle_rms}
-        \caption{Angle \gls{RMS}.}\label{fig:video:rms}
+        \includegraphics[width=.8\textwidth]{publications/2022CLEAVE/plots/fixed_video_angle_rms}
+        \caption{Angle \gls{RMS}.}\label{paper:olguinmunoz2022cleave:fig:video:rms}
     \end{subfigure}\\
-    \begin{subfigure}[h]{.22\textwidth}
+    \begin{subfigure}[h]{.5\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_drop_frac}
-        \caption{Packet losses.}\label{fig:video:drop}
+        \includegraphics[width=.8\textwidth]{publications/2022CLEAVE/plots/fixed_video_drop_frac}
+        \caption{Packet losses.}\label{paper:olguinmunoz2022cleave:fig:video:drop}
     \end{subfigure}%
-    \hfill%
-    \begin{subfigure}[h]{.22\textwidth}
+%    \hfill%
+    \begin{subfigure}[h]{.5\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{publications/2022CLEAVE/plots/fixed_video_rtt}
-        \caption{\glspl{RTT}.}\label{fig:video:rtt}
+        \includegraphics[width=.8\textwidth]{publications/2022CLEAVE/plots/fixed_video_rtt}
+        \caption{\glspl{RTT}.}\label{paper:olguinmunoz2022cleave:fig:video:rtt}
     \end{subfigure}%
     \caption{
         Multi-loop, resource-constrained setup results.
         Error bars indicate \SI{95}{\percent} \glspl{CI} in all plots.
-    }\label{fig:video:results}
+    }\label{paper:olguinmunoz2022cleave:fig:video:results}
 \end{figure}
 
-\cref{fig:video:results} shows a summary of the results obtained.
-\cref{fig:video:toppled} shows the fraction of repetitions of each setup in which \emph{at least} one plant failed to maintain stability and toppled.
-\cref{fig:video:rms} shows the \gls{RMS} for the pendulum angles for each setup, only considering data from plants that did not topple.
-\cref{fig:video:drop} shows the fraction of \gls{UDP} datagrams dropped, averaged over all plants and repetitions per setup.
-\cref{fig:video:rtt} shows the measured end-to-end plant-side \gls{RTT}, averaged over all plants and repetitions per setup.
+\cref{paper:olguinmunoz2022cleave:fig:video:results} shows a summary of the results obtained.
+\cref{paper:olguinmunoz2022cleave:fig:video:toppled} shows the fraction of repetitions of each setup in which \emph{at least} one plant failed to maintain stability and toppled.
+\cref{paper:olguinmunoz2022cleave:fig:video:rms} shows the \gls{RMS} for the pendulum angles for each setup, only considering data from plants that did not topple.
+\cref{paper:olguinmunoz2022cleave:fig:video:drop} shows the fraction of \gls{UDP} datagrams dropped, averaged over all plants and repetitions per setup.
+\cref{paper:olguinmunoz2022cleave:fig:video:rtt} shows the measured end-to-end plant-side \gls{RTT}, averaged over all plants and repetitions per setup.
 
 These results are interesting in their counter-intuitiveness compared to the single-loop baseline results.
-While the baselines might lead us to think that higher sampling rates are always better for the stability of control systems, \cref{fig:video:toppled,fig:video:rms} show this not to be the case for \gls{NCS} in resource-constrained scenarios.
+While the baselines might lead us to think that higher sampling rates are always better for the stability of control systems, \cref{paper:olguinmunoz2022cleave:fig:video:toppled,paper:olguinmunoz2022cleave:fig:video:rms} show this not to be the case for \gls{NCS} in resource-constrained scenarios.
 \SI{60}{\hertz} was the least stable configuration, with at least one pendulum toppling in around \SI{16}{\percent} of the repetitions, and mean pendulum angle \gls{RMS} circa \num{3} times that of the \SI{40}{\hertz} scenario.
 \SI{40}{\hertz} was in turn the second worst configuration --- although it presented no toppled pendula, average angle \gls{RMS} doubled that of the \SI{20}{\hertz} setup.
 
-\cref{fig:video:drop,fig:video:rtt} explains these behaviors.
+\cref{paper:olguinmunoz2022cleave:fig:video:drop,paper:olguinmunoz2022cleave:fig:video:rtt} explain these behaviors.
 Whereas both the \SIlist{20;40}{\hertz} setups show losses well below \SI{5}{\percent}, the \SI{60}{\hertz} scenario shows an average of around \SI{13}{\percent} of datagrams lost.
 The differences in \glspl{RTT} results are equally telling; \glspl{RTT} for the \SI{60}{\hertz} setup were on average approx.\ \num{3} times those for the \SIlist{20;40}{\hertz} setups.
 These results stem from the contention for network resources, and hint at important trade-offs system designers will have to take into consideration when designing and developing \glspl{NCS} for deployment on the Edge.
