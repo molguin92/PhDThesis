@@ -62,12 +62,22 @@ Cloudlets also present opportunities for increased data security, privacy, and i
 \glsreset{WCA}
 
 There is increasing interest from academia and industry in a novel category of wearable and mobile immersive applications called \gls{WCA}~\cite{ha2014towards,chen2018application,chen2015early,belletier2021wearable,chen2017empirical,wang2020scaling,chatzopoulos2017hyperion}
-They represent a particular class of \gls{AR} applications, aiming amplify human cognition in both day-to-day tasks and professional settings.
+They represent a particular class of \gls{AR} applications, aiming to amplify human cognition in both day-to-day tasks and professional settings.
 \glspl{WCA} operate in a mode analogous to how \gls{GPS} navigation systems guide drivers, by seamlessly providing relevant instructions and feedback relating to the current task at hand and staying out of the way of the user when guidance is not required.
 These systems were originally inspired by assistive use cases for people suffering from some form of cognitive decline due to aging, illness, or traumatic brain injury~\cite{ha2014towards,satyanarayanan2019augmenting}.
 More recently, their scope has been expanded to include a broader range of use cases, including complex assembly tasks~\cite{chen2017empirical,chen2018application,wang2020scaling,wang2019towards,ha2014towards}.
 Non-wearable cognitive assistance systems for assembly tasks have already been proven to be valuable tools in the industrial workplace~\cite{funk2015cognitive,gorecky2011cognito}, and it is understood that the detethering of these system for their use in wearable scenarios opens up a multitude of possibilities.
 \todo[inline]{Develop a bit further. Talk about more reactive setups like ping pong too.}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\textwidth]{Figs/wca_state}
+    \caption{%
+        Mode of operation of \gls{WCA} applications.
+        The assistant continuously samples the state of the monitored task, and provides appropriate feedback once a state change has been detected.
+        Samples that do not result in feedback are silently discarded.
+    }\label{fig:wca}
+\end{figure}
 
 We identify a number of defining characteristics of \gls{WCA}.
 One, and as the name implies, \glspl{WCA} are available whenever the user requires them, without being tethered to a particular physical location;
@@ -109,57 +119,47 @@ The present thesis aims to contribute to this body of work by presenting and dis
 
 \subsubsection{Characterization of \glsfmtshort{WCA}}
 
-\todo[inline]{%
-    Needs reformulating. Right now is just copy of EdgeDroid2 paper section.
-}
-
 \begin{figure}
     \centering
-    \includegraphics[width=.9\textwidth]{Figs/wca_state}
-    \caption{%
-        Mode of operation of \gls{WCA} applications.
-        The assistant continuously samples the state of the monitored task, and provides appropriate feedback once a state change has been detected.
-        Samples that do not result in feedback are silently discarded.
-    }\label{fig:wca}
+    \includegraphics[width=.9\textwidth]{publications/2023EdgeDroid2/figs/step_time}
+    \caption[]{%
+        Breakdown of a step in a \gls{WCA} into its timing components.
+        \ensuremath{t_k | k \in \{1, \ldots, n \}} correspond to sampling instants.
+        \ensuremath{t_0} indicates the instant at which the instruction for step \ensuremath{M} is provided to the user and the first sample for said step is captured.
+        The instruction for step \ensuremath{M + 1} is provided at \ensuremath{t_{n+1}}.
+        Finally, \ensuremath{t_c} marks the instant at which the user finishes the instruction, and \ensuremath{t_n} the instant of capture of the first sample after the instruction has been completed;
+        this sample therefore also corresponds to the final sample of step \ensuremath{M}.
+        Figure originally included in \cref{paper:olguinmunoz2023realistic}.
+    }\label{fig:wcastep}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \begin{subfigure}{\columnwidth}
-        \centering
-        \includegraphics[width=\columnwidth]{publications/2023EdgeDroid2/figs/task.png}
-        \caption{%
-            Overview of a task in a \gls{WCA}, composed of a series of steps.
-            Each steps starts with an instruction being provided to the user and ends with the instruction for the next step.
-            The \gls{WCA} continuously samples the task state, automatically triggering transitions between steps as correct (or incorrect) states are recognized.
-        }\label{background:fig:wcatask}
-    \end{subfigure}\\
-    \begin{subfigure}{\columnwidth}
-        \centering
-        \includegraphics[width=\columnwidth]{publications/2023EdgeDroid2/figs/step_time.png}
-        \caption{%
-            Breakdown of a step into its timing components.
-            The instruction for step \( M \) and \( M + 1 \) are provided to the user at \( t_0 \) and \( t_{n+1} \), respectively.
-            \( t_k | k \in \{1, \ldots, n \} \) correspond to the \gls{WCA} sampling instants for step \( M \), and \( t_c \) marks the instant at which the user finishes performing the instruction.
-        }\label{background:fig:wcastep}
-    \end{subfigure}
-    \caption{Key concepts in \gls{WCA}}
-\end{figure}
+An important portion of the present thesis deals with the modeling of human behavior for the benchmarking of \gls{WCA}.
+We focus in particular on \emph{step-based} \gls{WCA}, i.e.\ assistance applications which have as their goal the guidance of a user through a task, using a series of instructions.
+In this section, we will provide some definitions relating to the operation of these applications.
 
-In this work we focus on a particular category --- ``step-based'' \gls{WCA} --- that have as their goal the guiding of a user through a sequential task.
-Examples of such applications are the LEGO and IKEA assistants~\cite{chen2018application}, in which users are guided step-by-step through the process of assembling a LEGO model and an IKEA lamp, respectively.
+As discussed above, \glspl{WCA} track the state of the real world through sampling of inputs, most commonly of video feeds.
+In step-based \glspl{WCA}, the state in question refers to the progress of some arbitrary, sequential task, such as the assembly of a LEGO model or of a piece of IKEA furniture~\cite{chen2018application}.
+We will formally define \emph{task} as a well-defined sequence of instructions to be performed in order to achieve a final goal state, and further define a \emph{step} within a task as a specific action to be performed by the user, described by a single instruction.
+A step begins when the corresponding instruction is provided to the user, and ends when the instruction for the next step is provided;
+the time interval between these two events will be referred to as the \emph{step duration}.
 
-In order to discuss these applications with precision we provide some definitions relating to their operation.
-First of all, a \emph{step} is formally understood as a specific action to be performed by the user, described by a single instruction, and a \emph{task} consists of a series of steps to be executed in sequence (see \cref{background:fig:wcatask}).
-A step begins when the corresponding instruction is provided to the user, and ends when the instruction for the next step is provided; we call the time interval between these two events the \emph{step duration}.
+In the following, please refer to \cref{fig:wcastep}.
+\ensuremath{\{ t_0, t_1, \ldots, t_{n + 1} \}} corresponds to a series of discrete and sequential sampling instants, such that \ensuremath{t_0} corresponds to the instant at which the instruction for step \ensuremath{M} is provided and the first sample of the step is taken.
+\ensuremath{t_n} corresponds to the instant at which the final sample of step \ensuremath{M} is taken;
+this sample is the first sample to capture the finished state of the step.
+At this point, the application transitions to the next step \ensuremath{M + 1}, and thus \ensuremath{t_{n + 1}} is the instant at which the next instruction is provided and step \ensuremath{M + 1} begins.
+We will also refer to the interval \ensuremath{t_{n + 1} - t_n} as the \emph{last sample \gls{RTT}}.
 
-\glspl{WCA} employ sampling, most commonly of video feeds, to keep track of the state of the real world.
-Take \( \{ t_0, t_1, \ldots, t_{n + 1} \} \) a series of discrete and sequential sampling instants at which the \gls{WCA} captures the state of the physical system, as illustrated in \cref{background:fig:wcastep}.
-\( t_0 \) corresponds to the instant at which the instruction for step \( M \) is provided and the first sample is taken, and \( t_n \) to the instant at which the final sample (i.e.\ which captures the final state of step \( M \)) is taken.
-\( t_{n + 1} \) is then the instant at which the result for sample \( t_n \) is returned and the instruction for step \( M + 1 \) is provided.
-We define \( t_c \) as the point in time at which the user finishes performing the instruction for step \( M \), and the intervals \( t_c - t_0 \), \( t_n - t_c \), and \( t_{n + 1} - t_n \) as the \emph{execution time}, \emph{wait time}, and \emph{last sample \gls{RTT}}, respectively, of a step \( M \).
-The sum of the latter two values (i.e.\ the interval \( t_{n + 1} - t_c \)) we call \emph{\gls{TTF}}, a metric which we will repeatedly refer to in this paper as it directly describes the responsiveness of a \gls{WCA}.
-
+\glsreset{TTF}%
+From this characterization, we can define key variables relating to human behavior with respect to the sampling behavior of these applications.
+If we understand \ensuremath{t_c} as the point in time at which the user finishes executing the instruction for step \ensuremath{M}, then
+\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}, label={(\arabic*)}]
+    \item \ensuremath{t_c - t_0} corresponds to the \emph{step execution time}, that is, the time it has taken the user to complete the instruction
+    \item \ensuremath{t_n - t_c} is the \emph{wait time}, an interval of time during which the task has been finished, but no sample capturing the new state has been taken yet
+    \item finally, the interval \ensuremath{t_{n + 1} - t_c} we call \emph{\gls{TTF}}, and refers to the time the user spends waiting for a new instruction.
+\end{enumerate*}
+These values are key to understanding human perception of responsiveness in these systems, and therefore also to the optimization of resource consumption in \gls{WCA}.
+We will refer to them extensively in \cref{chap:contributions}.
 
 %\subsection{Mechanisms relating human behavior to system responsiveness}
 %
