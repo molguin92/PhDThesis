@@ -152,13 +152,13 @@ These results are once again in line with our findings in~\cite{olguinmunoz:impa
 
 Apart from the aforementioned timing and performance data, for~\cite{olguinmunoz:impact2021} we also recorded all collected video frame samples together with matching metadata.
 For each video frame submitted to the \gls{WCA} during the tasks, we recorded
-\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
+\begin{inlineenum}
     \item the raw video frame captured
     \item sample submission timestamp
     \item \gls{WCA} processing completed timestamp
     \item result or acknowledgement returned timestamp
     \item a tag representing the result of the \gls{WCA} processing
-\end{enumerate*}.
+\end{inlineenum}.
 The tags assigned corresponded to:
 \begin{description}[font={\bfseries\ttfamily}, wide]
     \item[SUCCESS:] frames which triggered a transition to a new step (or the correction of a previous mistake) in the logical task model of the \gls{WCA}, and thus cause the generation of feedback to the user.
@@ -211,11 +211,11 @@ Using the above insights, together with the corresponding recorded video frames,
 We first prepare a discretized representation of the probability density map in \cref{fig:frameprobs}.
 We segment the normalized instant value into a number of discrete bins (\num{25} in this work), and calculate the relative fraction of frames for each category in each bin.
 For each step, given
-\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
+\begin{inlineenum}
     \item a collection of random non-\texttt{SUCCESS}, non-\texttt{REPEAT} frames (at least one frame for each of the \texttt{BLANK} and \texttt{LOW\_CONFIDENCE} categories)
     \item an appropriate \texttt{SUCCESS} video frame containing the correct state for the step
     \item an appropriate \texttt{REPEAT} video frame containing the correct state for the \emph{previous} step
-\end{enumerate*},
+\end{inlineenum},
 we can then procedurally generate a trace by randomly selecting appropriate frames according to the distributions presented in \cref{fig:frameprobs}.
 In other words, for each sampling instant in a step with a given execution time \( t_\text{exec} \):
 \begin{enumerate}
