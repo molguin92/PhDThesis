@@ -1,21 +1,21 @@
-\section{The Ainur Framework}\label{sec:ainur}
+\section{The Ainur Framework}\label{paper:olguinmunoz2022airnur:ainur}
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.9\linewidth]{publications/2022Ainur/figures/overview.jpg}
-    \caption{Layered structure of an Ainur experiment}\label{fig:overview}
+    \includegraphics[width=\textwidth]{publications/2022Ainur/figures/overview}
+    \caption{Layered structure of an Ainur experiment}\label{paper:olguinmunoz2022airnur:fig:overview}
 \end{figure}
 
 \begin{figure*}
     \centering
-    \includegraphics[width=0.8\textwidth]{publications/2022Ainur/figures/flow2.png}
-    \caption{Lifecycle of an experimental run in Ainur. Blocks in orange are optional.}\label{fig:flow}
+    \includegraphics[width=\textwidth]{publications/2022Ainur/figures/flow2}
+    \caption{Lifecycle of an experimental run in Ainur. Blocks in orange are optional.}\label{paper:olguinmunoz2022airnur:fig:flow}
 \end{figure*}
 
 \begin{figure*}
     \centering
-    \includegraphics[width=.8\textwidth]{publications/2022Ainur/figures/network.png}
-    \caption{Network structure assumed by Ainur.}\label{fig:network}
+    \includegraphics[width=\textwidth]{publications/2022Ainur/figures/network}
+    \caption{Network structure assumed by Ainur.}\label{paper:olguinmunoz2022airnur:fig:network}
 \end{figure*}
 
 Ainur is designed as an end-to-end wireless network testbed management framework, fully flexible in terms of the communication network stack, computation hosts, and the distributed application deployed on top.
@@ -28,13 +28,13 @@ Conceptually, in Ainur, an experiment is decomposed into a layered structure, co
     \item computation hosts
     \item communication networks connecting the hosts
 \end{enumerate*}.
-In \cref{fig:overview}, the workload is represented by a client-server process pair.
+In \cref{paper:olguinmunoz2022airnur:fig:overview}, the workload is represented by a client-server process pair.
 These could correspond, for instance, to the emulation of an inverted pendulum and a matching controller.
 However, Ainur makes no assumptions about the nature of the workloads deployed on the framework, and virtually any process or combination of processes can be used.
 
 Hosts correspond to either bare-metal machines or cloud instances on \gls{AWS} \gls{EC2}.
 Users are free to combine and interconnect these in any configuration.
-Ainur can provision wired networks over ethernet, and supports a number of software-defined wireless communication stacks, currently including WiFi, 4G \gls{LTE}, and 5G.
+Ainur can provision wired networks over ethernet, and supports a number of software-defined wireless communication stacks, currently including Wi-Fi, 4G \gls{LTE}, and 5G.
 To realize these various wireless communication protocols, it is assumed that the testbed is equipped with \gls{USRP} \gls{SDR}s and some computation hosts dedicated to signal processing and/or radio management.
 
 To collect data from workloads, Ainur configures both a shared, distributed, storage location which all processes can reach, as well as a logging service which automatically captures structured and unstructured data from the standard output of workload processes.
@@ -56,18 +56,18 @@ Below we briefly touch on the most important of these:
 
     \item[Containers:]
     We leverage Docker containers to great extent for the virtualization and orchestration of workloads, as well as the encapsulation and management of complex network configurations.
-    See \cref{ssec:containers} for more details.    
+    See \cref{paper:olguinmunoz2022airnur:containers} for more details.
 
     \item[\gls{AWS} and \texttt{boto3}:]
     Ainur employs the Amazon \texttt{boto3} library for Python to directly interface with \gls{AWS} \gls{EC2} and deploy, configure, and manage remote cloud instances.
     
     \item[\gls{OAI}:]
-    \gls{OAI} is an open-source project that implements 3GPP technology on general purpose \texttt{x86} computing hardware and off-the-shelf \glspl{SDR} like the \gls{USRP}~\cite{KALTENBERGER2020107284}.
+    \gls{OAI} is an open-source project that implements 3GPP technology on general purpose \texttt{x86} computing hardware and off-the-shelf \glspl{SDR} like the \gls{USRP}~\cite{kaltenberger2020openairinterface}.
     Ainur can deploy, configure, and manage \gls{OAI} software components that implement 4G \gls{LTE} and 5G \gls{NR}.
     
     \item[Mango Communications 802.11:]
-    Finally, the Mango Communications project implements real-time 802.11 (WiFi) MAC and PHY in Xilinx \glspl{FPGA}.
-    It can be used on a variety of hardware platforms including \gls{USRP} \glspl{SDR}, and is employed in Ainur to provision end-to-end WiFi links.
+    Finally, the Mango Communications project implements real-time 802.11 (Wi-Fi) MAC and PHY in Xilinx\\\glspl{FPGA}.
+    It can be used on a variety of hardware platforms including \gls{USRP} \glspl{SDR}, and is employed in Ainur to provision end-to-end Wi-Fi links.
 \end{description}
 
 \subsection{Main Software Components}
@@ -78,7 +78,8 @@ The architectural modules of the framework can broadly be classified according t
 
 \begin{description}[]
     \item[Configuration Layer:]
-    The lowest layer of Ainur. It handles the parsing of configuration files describing experimental scenarios.
+    The lowest layer of Ainur.
+    It handles the parsing of configuration files describing experimental scenarios.
     Optional, as it is only needed when Ainur is running experiments described in a declarative manner.
 
     \item[Logging layer:]
@@ -89,7 +90,7 @@ The architectural modules of the framework can broadly be classified according t
     \item[Physical Layer:] 
     Creates and deploys the underlying physical connections of the workload data network.
     This layer interacts with hardware such as managed switches and \glspl{SDR} (and their associated computation hosts) to create links between the desired workload hosts.
-    These links correspond to ethernet, WiFi, and even an entire software-defined 4G \gls{LTE} and 5G networks.
+    These links correspond to ethernet, Wi-Fi, and even an entire software-defined 4G \gls{LTE} and 5G networks.
 
     \item[Cloud Layer:]
     Handles integration with cloud services (currently, \gls{AWS} \gls{EC2}).
@@ -105,7 +106,7 @@ The architectural modules of the framework can broadly be classified according t
     It also establishes overlay networks abstracting away the physical topology and allowing containers to interconnect through dynamically assigned hostnames.
 \end{description}
 
-\subsection{Containerization}\label{ssec:containers}
+\subsection{Containerization}\label{paper:olguinmunoz2022airnur:containers}
 
 Containers are a key cloud-native technology for the virtualization and sandboxing of arbitrary processes~\cite{merkel2014docker}.
 They allow for easy packaging of software in predefined, consistent, and conflict-free execution environments, including all necessary dependencies.
@@ -141,8 +142,8 @@ It automatically decouples data sources from containers running on different sys
 
 \begin{figure}
     \centering
-    \includegraphics[width=.8\columnwidth]{publications/2022Ainur/figures/network-minimal.png}
-    \caption{Minimal testbed setup on which Ainur can be deployed.}\label{fig:network:minimal}
+    \includegraphics[height=25em]{publications/2022Ainur/figures/network-minimal}
+    \caption{Minimal testbed setup on which Ainur can be deployed.}\label{paper:olguinmunoz2022airnur:fig:network:minimal}
 \end{figure}
 
 The framework is released as \gls{FOSS} under a permissive Apache license.
@@ -154,11 +155,10 @@ Apart from generic ones regarding the presence of necessary authentication infor
 Ainur runs in a dedicated control host and the management plane resides in a physically distinct network from the workload data.
 This is a key requirement to be able to reconfigure the physical links in the workload data network without disrupting management traffic.
 
-A full-featured, and rather complex deployment is depicted in \cref{fig:network}, including a number of optional testbed features such as offload to the cloud through \gls{VPN} gateways.
-However, a minimal a setup can be achieved with a control host, at least two workload hosts, and a couple of managed (smart) switches, as illustrated in \cref{fig:network:minimal}.
+A full-featured, and rather complex deployment is depicted in \cref{paper:olguinmunoz2022airnur:fig:network}, including a number of optional testbed features such as offload to the cloud through \gls{VPN} gateways.
+However, a minimal a setup can be achieved with a control host, at least two workload hosts, and a couple of managed (smart) switches, as illustrated in \cref{paper:olguinmunoz2022airnur:fig:network:minimal}.
 The only requirements for the aforementioned hosts are that a general purpose Linux distribution such as Ubuntu can be deployed on them, and --- in the case of the workload hosts --- the presence of two network interfaces.
 Thus, a minimal testbed can be achieved cheaply and quickly by employing small single-board computers such as Raspberry Pi, Jetson Nano, or BeagleBone units.
 Finally, the configuration and deployment of an Ainur-compatible testbed can be easily automated with tools such as Ansible, and playbooks for this effect can be made available to the community upon request.
 
 % Also assumed is the existence of \gls{VPN} gateways to the cloud, time synchronization, and configured hostname lookups (possibly using a \gls{DNS} service).
-
