@@ -75,7 +75,7 @@ Thus, if we call the set of errors \(S_e\), we can further define \(S := S_s \cu
 \begin{figure}[tb]
     \centering
     \input{publications/2019EdgeDroid/img/taskmodel.tex}
-    \captionof{figure}{Segment of the internal task model of a linear task-guidance \glsfmtshort{WCA}.}%
+    \captionof{figure}{Segment of the internal task model of a linear task-guidance \acs{WCA}.}%
     \label{paper:olguinmunoz2019edgedroid:fig:taskmodel}
 \end{figure}
 
@@ -225,7 +225,7 @@ It should be noted that the \emph{Gabriel} platform by design always sends an ac
 
 
 \cref{paper:olguinmunoz2019edgedroid:tbl:cloudletclienthardware} shows the hardware and software specifications for the cloudlet and the clients.
-The components communicated through a single consumer-grade WiFi (IEEE 802.11n, \SI{2.4}{\giga\hertz}) access point.
+The components communicated through a single consumer-grade Wi-Fi (IEEE 802.11n, \SI{2.4}{\giga\hertz}) access point.
 We considered exclusively off-the-shelves hardware and software.
 To minimize interference during the measurements, we locked the wireless link to the least congested available channel.
 %Intel\textregistered \@ TurboBoost\texttrademark \@ technology was activated on the cloudlet CPU and the frequency of all cores locked to \SI{3.7}{\giga\hertz} to ensure consistency across experiments.
@@ -235,7 +235,7 @@ This way, the time between the start of any two clients in any repetition of the
 We also only take into account metrics collected while \emph{all} clients were concurrently running.
 
 Our measurements were obtained from series of scenarios, repeated 100 times each.
-We performed three \emph{optimal} scenarios with 1, 5 and 10 clients each, the signal strength of the WiFi link being an excellent \SI{-40}{\dBm}.
+We performed three \emph{optimal} scenarios with 1, 5 and 10 clients each, the signal strength of the Wi-Fi link being an excellent \SI{-40}{\dBm}.
 Next, a scenario where the 10 clients were moved to another room roughly \SI{10}{\meter} away, thus degrading the network link to an average measured strength of \SI{-73}{\dBm}.
 Finally, we studied an additional optimal single-client scenario focused on latency distributions and jitters within application execution path.
 This scenario is used to showcase the utility of EdgeDroid 1.0 for application developers.
@@ -282,7 +282,7 @@ It's worth mentioning though that responses to feedback-less inputs are invisibl
 
 We can identify a pair of interesting effects in the scaling of the task-guidance \gls{WCA} application.
 One, scaling behavior for the application seems to be linear with respect to the number of clients.
-Two, in the case of the impaired WiFi, the effect on the feedback-rich inputs is very pronounced, with the average of the RTTs for these inputs being over the previously discussed bound of \SI{600}{\milli\second}.
+Two, in the case of the impaired Wi-Fi, the effect on the feedback-rich inputs is very pronounced, with the average of the RTTs for these inputs being over the previously discussed bound of \SI{600}{\milli\second}.
 
 It is worth noting that already at just 10 clients the response times for feedback-rich inputs are very close to the bound.
 Looking at this through the lens of a an application developer, it could hint at a need for optimization of the later parts of the application pipeline, since RTTs for inputs which are discarded in the detection stage of the pipeline (i.e.\ feedback-less inputs) are still well below \SI{200}{\milli\second}.

@@ -16,10 +16,10 @@ A general overview of these can be seen in \cref{fig:network}.
 
 In particular, the network follows a split architecture composed of two sub-networks: a control network for control plane data, and a workload data network for workload payload traffic.
 It is designed like this to
-\begin{enumerate*}[itemjoin={{, }}, itemjoin*={{, and }}]
+\begin{inlineenum}
     \item be able to dynamically reconfigure, segment, and route the workload data network for different experiments
     \item ensure consistent and accurate network traffic measurements (\glspl{RTT}, bandwidth, etc.) on the workload data network, uncontaminated by control traffic.
-\end{enumerate*}
+\end{inlineenum}
 
 \begin{description}[style=unboxed]
     \item[Control network]
@@ -58,7 +58,7 @@ This is to avoid issues that could arise from having the control plane residing 
 Hosts on which workloads are to be deployed must at the very least have \emph{two} network interfaces. 
 One interface is connected to the control network for remote management, and the other to the workload data network, used for workload traffic.
 
-Workload nodes may additionally have WiFi interfaces, but that is not a requirement.
+Workload nodes may additionally have Wi-Fi interfaces, but that is not a requirement.
 
 \subsubsection{Software requirements}
 

@@ -145,10 +145,10 @@ In particular, we view cognition as described by models such as {ACT-R}~\cite{ne
 Additionally, we hypothesize that individual diferences between subjects moderate responses to delays in the feedback during the execution of a task. 
 
 Accordingly, in the following we review background work in the areas of 
-\begin{enumerate*}[label={}, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
+\begin{inlineenum}[label={}, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
   \item[(\cref{paper:olguinmunoz2021impact:ssec:timeperception})] time perception
   \item[(\cref{paper:olguinmunoz2021impact:ssec:potentialmechs})] mechanisms relating human performance to delay.
-\end{enumerate*}
+\end{inlineenum}
 
 \subsection{Time perception in computing systems}\label{paper:olguinmunoz2021impact:ssec:timeperception}
 
@@ -156,11 +156,11 @@ The question of how people respond to delay in a computer system is grounded in 
 Time perception has been described as regulated by an attentional gate that, when opened, starts a cognitive pulse counter~\cite{zakay1995attentional,zakay1996role}.
 More recent research indicates, however, that duration perception is highly malleable and the result of multiple timing mechanisms found in overlapping, flexible neural systems~\cite{bruno2016multiple,wiener2011multiple}. 
 The estimation of an event's duration varies with context of various types
-\begin{enumerate*}[label={(\roman*)}, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
+\begin{inlineenum}[label={(\roman*)}, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
     \item events subsequent to a long or short interval are contracted or extended, respectively~\cite{heron2012duration}
     \item repeated events tend to be perceived as shorter than novel ones~\cite{matthews2011stimulus}
     \item arousal can expand durations~\cite{droit_volet2011emotion}.
-\end{enumerate*}
+\end{inlineenum}
 
 Expectations play a critical role in time perception as well~\cite{zakay1995attentional,zakay1996role}.
 It has been shown that people have a general tendency to be hypersensitive to delays in worse-than-expected states, and under-sensitive to meeting or exceeding expectations~\cite{loewenstein1992anomalies}.
@@ -243,7 +243,7 @@ In total, 40 participants were recruited, all of them of college student age (\n
 \subsection{The Cognitive Assistance Application}
 
 We used a modified version of the LEGO Assistant application introduced by Chen et al.~\cite{chen2015early}.
-This application belongs to a category of \gls{WCA}s designed to guide users through the execution of a sequential task.
+This application belongs to a category of \gls{WCA}'s designed to guide users through the execution of a sequential task.
 % Such applications constitute ``\emph{conversational computing tasks}'' in the taxonomy proposed by \textcite{dabrowsky:2011:40years}.
 The assistant presents a series of instructions to the user in a semi-predetermined order while it monitors the progress in real-time.
 Whenever the application detects that the user has correctly performed an instruction, it provides a new one.
@@ -284,14 +284,14 @@ The system monitors progress through a video feed and provides timely feedback i
 
 The LEGO assistant has features that make it a good target for assessment of delay effects in a cognitive assistant.
 In particular
-\begin{enumerate*}[itemjoin={{, }},
+\begin{inlineenum}[itemjoin={{, }},
                   itemjoin*={{, and }},
                   label={{(\arabic*)}}]
     \item it is easily understood by users and requires essentially no training
     \item its step-by-step nature simplifies the isolation of the relevant experimental variables and the effects of the delay
     % \item The states of the display can be recognized by simple image processing algorithms and do not require extensive training as for machine-learning-based applications.
     \item each step has an intrinsic hierarchical cognitive structure (see \cref{paper:olguinmunoz2021impact:fig:lego:hierarchical}), affording multiple levels of cognitive control.
-\end{enumerate*}
+\end{inlineenum}
 
 \begin{figure*}[h]
   \centering
@@ -464,14 +464,14 @@ In particular, it made possible the easy segmentation of the other time-series d
 
 \subsubsection{Biometric Data}
 The participants wore devices to acquire four physiological measures:
-\begin{enumerate*}[itemjoin={{, }},
+\begin{inlineenum}[itemjoin={{, }},
                   itemjoin*={{, and }},
                   label={{(\arabic*)}}]
   \item \glsreset{GSR}\gls{GSR}
   \item accelerometer data from the dominant wrist
   \item brain activity in the form of \glsreset{EEG}\gls{EEG}
   \item heart rate.
-\end{enumerate*}
+\end{inlineenum}
 
 These metrics have been used as indicators of stress and cognitive load by an ample body of previous research~\cite{khawaji2015using,kuikkaniemi2010influence,solovey2014classifying}.
 \gls{GSR} (also known as electrodermal activity) can be interpreted as an indicator of physiological arousal and has long been a widely used metric in studies seeking to characterize mental workload~\cite{peterson1907psycho,healey2005detecting,son2010age,khawaji2015using,kuikkaniemi2010influence,solovey2014classifying}.
@@ -489,12 +489,12 @@ For the \gls{EEG} data we employed the OpenBCI \gls{EEG} Headband Kit~\cite{open
 It provides a quick and non-invasive way of obtaining \gls{EEG} signals from participants.
 Electrodes were placed according to the \emph{10--20 Electrode System}~\cite{eeg1020system:1961} on the \emph{Fp1} and \emph{Fp2} points, in order to capture brain activity in the frontal lobe, with ground and reference electrodes on the right and left earlobes, respectively.
 The signals were sampled at \SI{200}{\hertz} and postprocessed to 
-\begin{enumerate*}[itemjoin={{, }},
+\begin{inlineenum}[itemjoin={{, }},
                   itemjoin*={{, and }},
                   label={{(\arabic*)}}]
   \item remove frequencies outside the \SIrange{0.1}{40}{\hertz} range
   \item smooth out noise (using the technique proposed by Agarwal et al.~\cite{agarwal2017eeg}).
-\end{enumerate*}
+\end{inlineenum}
 
 \subsubsection{Video recordings}
 
@@ -616,12 +616,12 @@ The data also allowed us to perform sub-analyses to assess the effects of carryo
 Specifically, we measured the per-step execution time for the first four steps of a block when participants transferred from a relatively long delay (\SIrange{2.175}{3.0}{\second}) versus a short delay (\SIrange{0}{1.65}{\second}).
 Note that use of the first four steps controls for block length.
 We performed analyses where participants transitioned from either a short- or long-delay block into a
-\begin{enumerate*}[label=(\roman*), before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
+\begin{inlineenum}[label=(\roman*), before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
   \item no delay block (36 subjects)
   \item \SI{1.65}{\second} delay block (40 subjects)
   \item \SI{2.7}{\second} delay block (40 subjects)
   \item \SI{3.0}{\second} delay block (37 subjects).
-\end{enumerate*}
+\end{inlineenum}
 The destination delays were chosen so as to maximize the number of participants which contributed samples to the analyses, the results of which are pictured in \cref{paper:olguinmunoz2021impact:fig:exectime:transition}.
 We found that transitions from long-delay blocks carried over to significantly increase the per-step execution time of initial steps in the destination block for three of the four transitioned-into delays that were assessed (\SIlist{0;2.7;3.0}{\second}, all \( p < .025\)).
 
@@ -700,7 +700,7 @@ This can be interpreted in the context of the increased execution time at long d
 Assuming that adding or deleting a LEGO block takes essentially the same amount of time and accelerates the wrist similarly at any one step, it appears that the participant simply remains stationary during the extra time that is induced by a series of long delays.
 Accordingly, the acceleration per unit time, our movement score, is reduced.
 
-\subsection{\glsfmtshort{EEG}}
+\subsection{\acs{EEG}}
 Analyses were conducted on the log \gls{EEG} power in the alpha band, beta band, and total of all bands measured.
 Readings from the two frontally placed poles were highly correlated and were pooled into an average.
 Logs were taken for analysis because the \gls{EEG} distribution tended to have a rightward tail.
@@ -737,7 +737,7 @@ Thus, \gls{EEG} taken from frontal locations mimics the execution time data in s
     \caption{Log of the average \gls{EEG} Power for alpha and beta bands per step slice. Error bars indicate \gls{SEM}.}\label{paper:olguinmunoz2021impact:fig:logeegpow:slices}
 \end{figure}
 
-\subsection{\glsfmtshort{GSR} and Heart Rate}
+\subsection{\acs{GSR} and Heart Rate}
 The measure of \gls{GSR} was the log of total amplitude in the signal.
 To control for effects of block length (steps~\( \times \)~delay) and the slow-down in execution time at longer delays, \gls{GSR} data were normalized by the temporal duration of the block.
 Due to sensor failure and the elimination of one subject with extreme values of \gls{GSR} amplitude using the same rule as for \gls{EEG}, the analysis comprised 34 participants.

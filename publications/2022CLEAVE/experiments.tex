@@ -5,16 +5,16 @@ With this, we aim to showcase the ability of our framework to provide accurate a
 
 We present the following use case scenario.
 A simple \gls{NCS} consisting of an \emph{inverted pendulum} plant controlled by a \emph{proportional-differential} controller is to be deployed on an Edge server.
-The connection between plant and server is over a WiFi (IEEE 802.11n) link.
+The connection between plant and server is over a Wi-Fi (IEEE 802.11n) link.
 Moreover, there are a number of video-streaming applications running concurrently on the Edge setup.
 
 We believe this to be an interesting and representative use-case scenario for a number of reasons.
 Firstly, the inverted pendulum is broadly used as a benchmark in control-system literature, see for instance\ \cite{baumann2018evaluating} and\ \cite{natale2004inverted}.
 A key reason for this is that such a relatively simplistic system allows for straightforward reparametrization to obtain varied system dynamics, which in turn makes a broader range of experiments possible.
 Secondly, similar, albeit non-Edge-enabled, setups have been a reality in industry for almost two decades, as evidenced by\ \cite{gupta2010networked}.
-Thirdly, although real deployments would most assuredly employ mobile technologies due to the added benefits of mobility and range, the \glspl{RTT} offered by these technologies are higher, or at best equal, those offered by WiFi.
-4G, for instance, has average \glspl{RTT} of around a few hundred milliseconds, which is orders of magnitude greater than the values measured in our scenario, and current 5G deployments offer \gls{RTT} values barely matching the sub-\SI{10}{\milli\second} values we obtain for WiFi.
-Thus, we argue that using WiFi allows for more experimental freedom, as the system can be tweaked to obtain worse \glspl{RTT} more akin to those of mobile technologies while still having the option to study best-case scenarios with very low-latencies.
+Thirdly, although real deployments would most assuredly employ mobile technologies due to the added benefits of mobility and range, the \glspl{RTT} offered by these technologies are higher, or at best equal, those offered by Wi-Fi.
+4G, for instance, has average \glspl{RTT} of around a few hundred milliseconds, which is orders of magnitude greater than the values measured in our scenario, and current 5G deployments offer \gls{RTT} values barely matching the sub-\SI{10}{\milli\second} values we obtain for Wi-Fi.
+Thus, we argue that using Wi-Fi allows for more experimental freedom, as the system can be tweaked to obtain worse \glspl{RTT} more akin to those of mobile technologies while still having the option to study best-case scenarios with very low-latencies.
 Finally, video analytics is one of the main proposed use cases for edge computing~\cite{ananthanarayanan2017real,yi2017lavea,wang2018bandwidth}, and thus we foresee edge \gls{NCS} deployments being deployed in parallel with such applications in the future.
 However, before deployment can become a reality, key questions such as: 
 ``what are the baseline requirements of the \gls{NCS}?'';
@@ -39,10 +39,10 @@ Connected to the Ethernet backbone of this \gls{AP} is a general-purpose \verb|x
 The first step in our case study is to evaluate the baseline performance of the control system, both locally and over the network.
 We configure \gls{CLEAVE} to run a single loop with both plant and controller co-located on the Edge server, and we also configure a separate setup with an identical loop executed over the wireless link.
 For both of these setups, we execute a series of scenarios varying:
-\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
+\begin{inlineenum}
     \item the sampling rate of the Plant state, setting it to \SIlist[list-final-separator={, or }]{5;10;20;40;60}{\hertz}
     \item the responsiveness of the Controller, adding fixed delays of \SIlist[list-final-separator={, or }]{0;25;50}{\milli\second} after the processing of each sample.
-\end{enumerate*}
+\end{inlineenum}
 
 We run repeated executions of each combination of these parameters at least \num{10} times, for both the networked and ``local-only'' setups.
 Each execution lasts for \SI{5}{\minute}, during which we collect detailed data on both the state of the controlled system as well as on the data sent over the network.
@@ -50,9 +50,9 @@ After the initial \num{10} runs, we identify that setups with sampling rates of 
 We further note that setups with \SI{0}{\milli\second} additional delay are always stable and thus also disregard them.
 Remaining setups, i.e.\ sampling rates \( \geq \) \SI{20}{\hertz} and artificial delays \( \geq \) \SI{25}{\milli\second}, are repeated an additional \num{20} times for better statistical significance.
 
-This repeated experimentation and data collection while ``zooming in'' on particular setups is facilitated by \gls{CLEAVE}s design.
+This repeated experimentation and data collection while ``zooming in'' on particular setups is facilitated by \gls{CLEAVE}'s design.
 Scenarios are executed automatically in batches using a simple Python script which interacts with Docker through the widely adopted \emph{docker-py}\footnote{Docker SDK for Python: \url{https://docker-py.readthedocs.io/en/stable/}} library.
-This is \gls{CLEAVE}s first advantage over existing frameworks;
+This is \gls{CLEAVE}'s first advantage over existing frameworks;
 it is designed with cloud and edge technology and paradigms in mind, making integration with existing systems convenient.
 
 \begin{figure}[t]

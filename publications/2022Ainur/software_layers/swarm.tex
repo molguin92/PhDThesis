@@ -27,11 +27,11 @@ with DockerSwarm() as swarm:
 
 This layer handles the configuration and deployment of a Docker Swarm over the controlled hosts (including cloud instances) for the orchestration of containerized workloads.
 It is implemented as a class \mintinline{python}{DockerSwarm} with appropriate methods for
-\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
+\begin{inlineenum}
     \item connecting and configuring manager and worker nodes to the Swarm
     \item fetching required Docker container images to all configured nodes
     \item finally, deploying distributed workloads as stacks of Docker containers
-\end{enumerate*}.
+\end{inlineenum}.
 Additionally, the class defines appropriate \mintinline{python}{__enter__} and \mintinline{python}{__exit__} magic methods allowing it to be used as a context manager.
 
 A simple example of the usage of this class and its basic \gls{API} can be observed in \cref{lst:swarm:example}, and in the following we will detail the major steps in operating this class:

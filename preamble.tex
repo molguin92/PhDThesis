@@ -12,7 +12,7 @@
 \usepackage[swedish,english]{babel}
 \usepackage{todonotes}
 \usepackage{csquotes}
-\usepackage[inline]{enumitem}
+\usepackage{enumitem}
 \usepackage{caption}   % to align the table caption to the right/left
 \usepackage{subcaption}
 \usepackage{placeins}
@@ -75,6 +75,14 @@
 \usepackage[all]{hypcap}
 \usepackage{soul}
 %\usepackage{wrapfig2}
+
+% enumitem
+\newlist{inlineenum}{enumerate*}{1}
+\setlist*[inlineenum]{
+    label=(\arabic*),
+    itemjoin={{; }},
+    itemjoin*={{; and }},
+}
 
 % glossary settings
 \setglossarystyle{mcolindexgroup}

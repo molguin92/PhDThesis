@@ -4,12 +4,12 @@ On the other, networked systems are more and more based on software instead of d
 The complexity of these systems, as well as their softwarization are expected to continue growing, driving in turn an expanding interest in testbed-based experimental research in wireless systems.
 
 Over the last years, several small- to mid-scale testbeds have emerged that leverage a large degree of freedom with respect to hardware and software, for example, the 
-\begin{enumerate*}[itemjoin={{, }}, itemjoin*={{, and }}]
+\begin{inlineenum}
     \item \gls{COSMOS}
     \item \gls{POWDER}
     \item \gls{ARA}
     \item Drexel Grid \gls{SDR}
-\end{enumerate*} testbeds.
+\end{inlineenum} testbeds.
 \gls{COSMOS} is a testbed spanning an area of roughly \num{1} square mile (\SI{2.6}{\kilo\meter\squared}) featuring \glspl{SDR}, \si{\milli\meter}-wave equipment, optical fibers, cloud integration, and compute for core network functionality and application data processing~\cite{yu2019cosmos,raychaudhuri2020challenge}.
 It contains over \num{200} rooftop, intermediate, and mobile nodes, and is controlled and managed by a central node.
 \gls{COSMOS} relies on the \gls{OMF} (originally developed for ORBIT~\cite{ott2005orbit}), and employs the \gls{OEDL}, a domain-specific imperative language based on Ruby, for experiment development and definition.
@@ -50,10 +50,10 @@ Furthermore, we make Ainur available to the community as \gls{FOSS}.
 It can be obtained from the {KTH-EXPECA/Ainur} repository on GitHub~\cite{ainur:github}, released under an Apache version \num{2.0} license.
 
 The rest of this paper is structured as follows.
-\cref{paper:olguinmunoz2022airnur:ainur} presents the framework as well as the key concepts and technologies supporting its design and architecture.
+\cref{paper:olguinmunoz2022ainur:ainur} presents the framework as well as the key concepts and technologies supporting its design and architecture.
 This section also discusses briefly the assumptions made about the underlying hardware on which the framework is set to run, and we present an overview of our experimental testbed.
-Next, \cref{paper:olguinmunoz2022airnur:demo} describes two demonstration procedures through which we will showcase the flexibility and potential of this tool for the automatic, repeatable, end-to-end experimentation in the context of wireless testbeds.
-Finally, in \cref{paper:olguinmunoz2022airnur:conclusion} we summarize our contributions, discuss future directions, and conclude this paper.
+Next, \cref{paper:olguinmunoz2022ainur:demo} describes two demonstration procedures through which we will showcase the flexibility and potential of this tool for the automatic, repeatable, end-to-end experimentation in the context of wireless testbeds.
+Finally, in \cref{paper:olguinmunoz2022ainur:conclusion} we summarize our contributions, discuss future directions, and conclude this paper.
 
 
 % \todo[inline]{

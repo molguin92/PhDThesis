@@ -1,7 +1,7 @@
 \subsubsection{Physical Layer}
 
 This layer creates and deploy the underlying physical connections of the data network and is implemented in the \mintinline{python}{PhysicalLayer} class. 
-Types of connections handled by this layer could be ethernet and WiFi links, or even an entire software-defined 4G \gls{LTE} network.
+Types of connections handled by this layer could be ethernet and Wi-Fi links, or even an entire software-defined 4G \gls{LTE} network.
 
 In order to ensure flexibility, we make no assumptions on the wired connections between the data hosts or radios.
 On the other hand, an arbitrary data plane could require wired connections between two hosts, or a host and a radio.
@@ -25,31 +25,31 @@ It unifies the interaction of Ainur with the wireless implementation in the foll
     Hence, any host can exchange packets through those gates if the appropriate VLANs are created on the data network managed switch.
 \end{enumerate}
 
-Currently, WiFi and \gls{LTE} implementations are available.
+Currently, Wi-Fi and \gls{LTE} implementations are available.
 User-defined implementation for other wireless connections are possible and encouraged.
 
 We introduce how the current implementations work in the following.
 
 \begin{description}[style=nextline]
-    \item[SDR-based WiFi Network]
+    \item[SDR-based Wi-Fi Network]
     The \mintinline{python}{SDRWifi} class handles the configuration and deployment of a software-defined IEEE 802.11 network using the Mangocomm software package and its supported software-defined radios \footnote{See https://mangocomm.com/802.11-mac-phy/}.
     It lunches a Docker container on the same machine to communicate with the \glspl{SDR} over the control network.
-    This communication is for the configuration and monitoring the WiFi nodes.
-    In a WiFi network, a radio is either \emph{station} or \emph{access point}.
+    This communication is for the configuration and monitoring the Wi-Fi nodes.
+    In a Wi-Fi network, a radio is either \emph{station} or \emph{access point}.
     To initialize a \mintinline{python}{SDRWifi} class, the user is required to provide two lists containing the access points and station nodes instances as described below.
     
-    \mintinline{python}{APSoftwareDefinedRadio} class represents a WiFi access point.
+    \mintinline{python}{APSoftwareDefinedRadio} class represents a Wi-Fi access point.
     It advertises a network with a specific SSID on a radio channel and waits for the incoming connections.
 
-    \mintinline{python}{StationSoftwareDefinedRadio} class is used for the station WiFi nodes.
-    It searches for an WiFi \gls{SSID} among the networks that are being advertised and attempts for establishing the connection.
+    \mintinline{python}{StationSoftwareDefinedRadio} class is used for the station Wi-Fi nodes.
+    It searches for an Wi-Fi \gls{SSID} among the networks that are being advertised and attempts for establishing the connection.
     
-    When a WiFi network is up and an station is connected, the data network interfaces of the radios behave as if an ethernet cable is connecting them.
+    When a Wi-Fi network is up and an station is connected, the data network interfaces of the radios behave as if an ethernet cable is connecting them.
     Thus, the client hosts and the server hosts can be on the same ip layer subnets.
     \begin{figure}[t]
         \centering
         \includegraphics[width=0.8\linewidth]{figures/wifi.png}
-        \caption{An example of WiFi network topology in data network and its corresponding \glspl{VLAN}}
+        \caption{An example of Wi-Fi network topology in data network and its corresponding \glspl{VLAN}}
         \label{fig:wifi}
     \end{figure}
 
@@ -62,7 +62,7 @@ We introduce how the current implementations work in the following.
     \gls{LTE} \gls{EPC} consists of HSS, MME, SPGW-U, and SPGW-C services which can be run on the same host.
     For each \gls{eNodeB} or \gls{UE}, a software-defined radio and a host for signal processing must be specified additionally.
     The resulting topology of an \gls{LTE} network in Ainur is depicted in Figure \ref{fig:lte}.
-    Unlike WiFi wireless connection, due to the fact that \gls{LTE} creates an internal ip network and that introduces routing complexities, the server host and the client host cannot be on the same subnet in the ip layer.
+    Unlike Wi-Fi wireless connection, due to the fact that \gls{LTE} creates an internal ip network and that introduces routing complexities, the server host and the client host cannot be on the same subnet in the ip layer.
     
 
     \begin{figure}[t]
@@ -76,5 +76,3 @@ We introduce how the current implementations work in the following.
 
 
 \end{description}
-
-

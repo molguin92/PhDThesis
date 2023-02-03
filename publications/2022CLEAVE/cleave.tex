@@ -69,10 +69,10 @@ This base class must be initialized with a property name (corresponding to the m
 \textbf{Actuator Base Class}:
 Performs the processing of actuation values obtained over the network from the \emph{Controller}.
 It is initialized with a property name corresponding to the name of the actuated \emph{State} attribute, and provides two abstract methods which must be implemented by extending classes:
-\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
+\begin{inlineenum}
 \item \mintinline{python}{set_value()}, called by the framework whenever a new value for the corresponding actuated attribute is received
 \item \mintinline{python}{get_actuation()}, called on every time-step and must return a value to apply to the actuated attribute.
-\end{enumerate*}
+\end{inlineenum}
 %\end{itemize}
 %\end{description}
 

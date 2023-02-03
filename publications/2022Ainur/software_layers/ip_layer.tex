@@ -8,7 +8,7 @@ This class exposes two main \gls{API} methods, \mintinline{python}{self.add_host
 \begin{description}[]
     \item[\mintinline{python}{LANLayer.add_hosts(self, layer2)}]
     This method takes a \mintinline{python}{PhysicalLayer} object instance and configures \gls{IP} layer connectivity on the hosts within.
-    This includes assigning \gls{IP} addresses to interfaces, configuring default and static routes, as well as authenticating and connecting to the desired access point in the case of WiFi.
+    This includes assigning \gls{IP} addresses to interfaces, configuring default and static routes, as well as authenticating and connecting to the desired access point in the case of Wi-Fi.
     The underlying implementation uses Ansible to write Netplan YAML configuration files on the target hosts and subsequently apply the network configuration.
 
     \item[\mintinline{python}{LANLayer.tear_down(self)}]

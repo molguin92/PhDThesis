@@ -8,12 +8,12 @@ The implementation of this class uses \verb|boto3| for interaction with the \gls
 
 Each instance of this class is associated with a specific \gls{AWS} region, and manages the end-to-end lifecycle of an arbitrary number of \gls{AWS} \gls{EC2} instances on said region.
 Specifically, \mintinline{python}{CloudInstances} handles
-\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}]
+\begin{inlineenum}
     \item configuring the necessary prerequisites for deploying the instances (security groups and private access keys)
     \item deploying the instances and waiting for them to successfully boot
     \item shutting down and terminating the instances
     \item cleaning up access keys and security groups
-\end{enumerate*}.
+\end{inlineenum}.
 Instances of this class can be used as context managers, automating this way the termination of instances and cleanup of resources when execution exits the \mintinline{python}{with} block.
 
 By default, \mintinline{python}{CloudInstances} spawns instances of type \verb|t3.micro|, with at least one security group allowing inbound \gls{SSH} traffic and unrestricted traffic between instances.

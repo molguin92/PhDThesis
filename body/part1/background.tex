@@ -58,7 +58,7 @@ Cloudlets also present opportunities for increased data security, privacy, and i
 
 \todo[inline]{Transition to talk about research and tools for Edge computing research.}
 
-\subsection{\glsfmtlong{WCA}}
+\subsection{\acl{WCA}}
 \glsreset{WCA}
 
 There is increasing interest from academia and industry in a novel category of wearable and mobile immersive applications called \gls{WCA}~\cite{ha2014towards,chen2018application,chen2015early,belletier2021wearable,chen2017empirical,wang2020scaling,chatzopoulos2017hyperion}
@@ -120,7 +120,7 @@ Recently published models for end-to-end latency of edge computing architectures
 }
 The present thesis aims to contribute to this body of work by presenting and discussing a viable methodology for the design and evaluation of these systems.
 
-\subsubsection{Characterization of \glsfmtshort{WCA}}
+\subsubsection{Characterization of \acs{WCA}}
 
 \begin{figure}
     \centering
@@ -156,11 +156,11 @@ We will also refer to the interval \ensuremath{t_{n + 1} - t_n} as the \emph{las
 \glsreset{TTF}%
 From this characterization, we can define key variables relating to human behavior with respect to the sampling behavior of these applications.
 If we understand \ensuremath{t_c} as the point in time at which the user finishes executing the instruction for step \ensuremath{M}, then
-\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; and }}, label={(\arabic*)}]
+\begin{inlineenum}
     \item \ensuremath{t_c - t_0} corresponds to the \emph{step execution time}, that is, the time it has taken the user to complete the instruction
     \item \ensuremath{t_n - t_c} is the \emph{wait time}, an interval of time during which the task has been finished, but no sample capturing the new state has been taken yet
     \item finally, the interval \ensuremath{t_{n + 1} - t_c} we call \emph{\gls{TTF}}, and refers to the time the user spends waiting for a new instruction.
-\end{enumerate*}
+\end{inlineenum}
 These values are key to understanding human perception of responsiveness in these systems, and therefore also to the optimization of resource consumption in \gls{WCA}.
 We will refer to them extensively in \cref{chap:contributions}.
 
@@ -170,11 +170,11 @@ We will refer to them extensively in \cref{chap:contributions}.
 %Time perception has been described as regulated by an attentional gate that, when opened, starts a cognitive pulse counter~\cite{zakay1995attentional,zakay1996role}.
 %More recent research indicates, however, that duration perception is highly malleable and the result of multiple timing mechanisms found in overlapping, flexible neural systems~\cite{bruno2016multiple,wiener2011multiple}.
 %The estimation of an event's duration varies with context of various types
-%\begin{enumerate*}[label={(\roman*)}, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
+%\begin{inlineenum}[label={(\roman*)}, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
 %\item events subsequent to a long or short interval are contracted or extended, respectively~\cite{heron2012duration}
 %\item repeated events tend to be perceived as shorter than novel ones~\cite{matthews2011stimulus}
 %\item arousal can expand durations~\cite{droit_volet2011emotion}.
-%\end{enumerate*}
+%\end{inlineenum}
 %
 %Expectations play a critical role in time perception as well~\cite{zakay1995attentional,zakay1996role}.
 %It has been shown that people have a general tendency to be hypersensitive to delays in worse-than-expected states, and under-sensitive to meeting or exceeding expectations~\cite{loewenstein1992anomalies}.
@@ -223,7 +223,7 @@ We will refer to them extensively in \cref{chap:contributions}.
 %Among computer system users who tend to have relatively high cognitive ability (which presumably describes the present experimental population), this points to neuroticism as a personality factor that might modulate tolerance for waiting. Extraversion could also  be  a moderating factor among the broader target audience of \gls{WCA}, which are intended for relatively inexperienced users of an application.
 %These and other measures of individual variation were considered here.
 
-\subsection{\glsfmtshortpl{NCS} and other \glsfmtshortpl{CPS}}
+\subsection{\acsp{NCS} and other \acsp{CPS}}
 
 The number and applications of \glspl{CPS}~\cite{Rajkumar2010CPS} --- i.e.\ systems in which a real, physical mechanism is controlled by a computer --- have exploded in recent years.
 However, this rapid increase in adoption has mostly been limited to industrial contexts.
@@ -248,10 +248,10 @@ Conversely, other studies choose to instead use completely \emph{simulated} \gls
 The authors in\ \cite{Ma2019DynamicSched} have opted for such an approach.
 These studies often employ combinations of physical and network simulation tools trying to capture the complex dynamics of \glspl{NCS}.
 Finally, some experimental studies instead employ \emph{virtualized} approaches, in which either
-\begin{enumerate*}[itemjoin={{; }}, itemjoin*={{; or }}]
+\begin{inlineenum}[itemjoin={{; }}, itemjoin*={{; or }}]
     \item a real network interacts with a simulated or emulated control system~\cite{Wang2020VoltageControl}
     \item a simulated network interacts with a real control system~\cite{Natale2004InvPendEthernet}.
-\end{enumerate*}
+\end{inlineenum}
 
 As evidenced above, experimental research in \glspl{NCS} includes varied heterogeneous hardware and software platforms, methodologies and key performance indicators.
 This, in turn, leads to hardware, software, and methodology fragmentation, as different studies tend to prefer approaches more favored in their respective communities.
@@ -273,12 +273,12 @@ On the other, networked systems are more and more based on software instead of d
 The complexity of these systems, as well as their softwarization are expected to continue growing, driving in turn an expanding interest in testbed-based experimental research in wireless systems.
 
 Over the last years, several small- to mid-scale testbeds have emerged that leverage a large degree of freedom with respect to hardware and software, for example, the
-\begin{enumerate*}[itemjoin={{, }}, itemjoin*={{, and }}]
+\begin{inlineenum}
     \item \gls{COSMOS}
     \item \gls{POWDER}
     \item \gls{ARA}
     \item Drexel Grid \gls{SDR}
-\end{enumerate*} testbeds.
+\end{inlineenum} testbeds.
 \gls{COSMOS} is a testbed spanning an area of roughly \num{1} square mile (\SI{2.6}{\kilo\meter\squared}) featuring \glspl{SDR}, \si{\milli\meter}-wave equipment, optical fibers, cloud integration, and compute for core network functionality and application data processing~\cite{Cosmos1,cosmos2}.
 It contains over \num{200} rooftop, intermediate, and mobile nodes, and is controlled and managed by a central node.
 \gls{COSMOS} relies on the \gls{OMF} (originally developed for ORBIT~\cite{orbit}), and employs the \gls{OEDL}, a domain-specific imperative language based on Ruby, for experiment development and definition.
