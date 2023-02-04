@@ -66,6 +66,8 @@ Two examples of such applications, of relevance for the present work, are \acl{W
 These applications had been hitherto inviable to implement due to the limitations of cloud offloading, but have now become a practical reality thanks to \gls{MEC}.
 We will discuss these in depth in their respective sections, \cref{background:wca} and \cref{background:ncs}.
 
+\todo[inline]{Something feels missing here}
+
 Finally, we must note a closely related concept; \emph{fog} computing.
 Introduced by \citeauthor{bonomi2012fog}~\cite{bonomi2012fog} in\ \citeyear{bonomi2012fog}, fog computing concerns itself with the distribution of computing power between the cloud and the edge.
 This stands in contrast to the stated primary goal of edge computing, which is the reduction of latency and jitter by offloading computation to infrastructure as close to the user as possible.
@@ -122,17 +124,30 @@ The above characteristics together lead to interesting consequences for \gls{WCA
 Their wearable nature directly implies use of lightweight and battery-powered devices, greatly constrained in terms of energy and computing resources.
 The requirement of immersive and seamless interaction suggests a level of context sensitivity and proactivity that can only be provided by real-time analysis of sensor inputs such as video and audio feeds.
 This kind of compute- and energy-intensive processing is unfeasible to be performed on wearable devices, and thus these applications necessarily make use of compute offloading.
-As explained above, the cloud is unsuitable as an offloading point for these applications, given the high latencies incurred, and there is thus a broad understanding today that with the advent of edge computing, \glspl{WCA} will become a practical reality~\cite{bittmann2017edge,flinn2012cyber,chen2017empirical,ha2013just,wang2020scaling,chen2018application,ha2014towards}.
+As explained above, the cloud is unsuitable as an offloading point for these applications, given the high latencies incurred, and there is thus a broad understanding today that with the advent of edge computing, \glspl{WCA} will become a practical reality~\cite{ha2014towards,wang2020scaling,chen2018application,olguinmunoz2021impact}.
 
-There's more to end-to-end latency than merely the question of where the compute backend is placed, however.
+\medskip
+In literature, research on \gls{WCA} has focused mostly on the implementation of prototype applications and platforms.
+\citeauthor{ha2014towards}~\cite{ha2014towards} coined the term \acl{WCA} in\ \citeyear{ha2014towards}.
+Their work described a first prototype system employing a Google Glass wearable device, and identified the challenges of offloading the computation for such an application to the cloud.
+\cite{chen2015early} and~\cite{chen2018application} further develop this platform, and produce a number of different assistive applications such as the aforementioned LEGO and IKEA assistants, and others such as a Ping-Pong assistant capable of providing real-time hints to players of table tennis.
+Yet another platform for \gls{WCA} is introduced in~\cite{chatzopoulos2017hyperion}, with the goal of providing real-time contextual information in text-form to users.
+Furthermore, important work has been done in the implementation of such systems for industrial and factory applications~\cite{belletier2021wearable}.
+
+In later years, an body of work studying the optimization of these applications has emerged.
+A seminal work in this field is~\cite{chen2017empirical}, in which the authors establish hard and soft latency bounds for acceptable performance in \gls{WCA}.
+\citeauthor{wang2019towards}~\cite{wang2019towards} explore strategies for scalable \gls{WCA} on the edge through different adaptive sampling and resource allocation schemes;
+this is further developed in the authors' PhD thesis later on~\cite{wang2020scaling}.
+\cite{moothedath2021energy},\ \cite{moothedath2022energy1}, and~\cite{moothedath2022energy2} studied the potential for energy optimization in \gls{WCA} through convex optimization of the sampling strategies employed.
+In~\cite{george2020openrtist}, the authors introduce \emph{OpenRTiST}, a benchmarking tool for immersive, latency-sensitive, and bandwidth-hungry applications on edge computing leveraging \glspl{DNN} to perform real-time style transfer on a live video feed.
+
+The present thesis aims to contribute to this body of work by presenting and discussing a viable methodology for the design and evaluation of these systems.
+There's more to end-to-end latency, \gls{WCA} performance, and scalability than merely the question of where the compute backend is placed, however.
 The design of any complex application such as \gls{WCA} involves a multitude of decisions with the potential to influence the system responsiveness as experienced by the user.
 These decisions include those on the implementation side (compression standards, algorithms, protocols, etc.), as well as on the infrastructure side (physical network layer, traffic prioritization, etc.).
-Existing studies of this class of applications have only recently started to delve more deeply upon these issues~\cite{chen2017empirical,wang2019towards,wang2020scaling,ha2014towards,chen2015early,satyanarayanan2009case,chatzopoulos2017hyperion}.
-Recently published models for end-to-end latency of edge computing architectures, on the other hand, are quite complex, while not accounting for the specifics of human-in-the-loop applications and in many cases limited to very constrained scenarios and analyses~\cite{al_zubaidy2015performance,schiessl2017finite,moothedath2022energy2,moothedath2022energy1,moothedath2021energy}.
-\todo[inline]{%
-    Maybe also present ``other'' research on WCA here? E.g.\ other research in WCA has focused on... So-and-so have... blah blah.
-}
-The present thesis aims to contribute to this body of work by presenting and discussing a viable methodology for the design and evaluation of these systems.
+As expressed above, existing studies of this class of applications have only recently started to delve more deeply upon these issues.add
+Our work in~\cite{olguinmunoz2018demoscaling,olguinmunoz2019edgedroid} introduces the first ever model for realistic emulation of these applications on real hardware.
+Our characterization of human timings in these systems in~\cite{olguinmunoz2021impact}, and our subsequent design of a realistic model for human behavior in \gls{WCA} constitute novel insights and tools for the optimization of these systems.
 
 \subsubsection{Characterization of \acs{WCA}}
 
