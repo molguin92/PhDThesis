@@ -10,6 +10,7 @@ jobs:
         with:
           run: |
             apk add make perl
+            tlmgr update --all
             make
       - uses: actions/upload-artifact@v2
         with:
