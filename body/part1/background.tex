@@ -1,11 +1,12 @@
 \section{Background \& related work}
+\glsresetall%
 \todo[inline]{%
     \textcite{satyanarayanan2009case}
 
     Other papers detailing the advantages of Edge computing.
 
     Next, what applications benefit from the Edge?
-    \gls{WCA}! Mention both the main body of work (by Satya et.\ al.) but also other authors out there.
+    \glsfmtshort{WCA}! Mention both the main body of work (by Satya et.\ al.) but also other authors out there.
     Main points: prototypes and characterization of system latencies and load.
 }
 
@@ -24,16 +25,14 @@ services can be scaled simply by spawning more \glspl{VM}.
 The specialized nature of cloud providers, the scale of modern datacenters, and the use of virtualization also make the cloud highly reliable.
 When hardware fails, recovering is simply a matter of migrating the service container or \gls{VM} to an available compute node~\cite{endo2016high}.
 
-However, the cloud is not suitable for everything, and presents important drawbacks and challenges for latency-sensitive applications.
+However, the cloud is not suitable for everything, and presents important drawbacks and challenges for latency-sensitive and/or bandwidth-intensive applications.
 In order to achieve the necessary economies of scale, cloud datacenters are designed to serve users distributed across vast geographical areas.
 These installations are thus often located ``far'' from potential users;
 for instance, at the time of writing, \gls{AWS} processes traffic from all of Scandinavia and the Baltic countries through a single datacenter in Stockholm~\cite{awsregions}.
-This leads to prohibitively high latencies for both highly interactive immersive applications such as mobile \gls{XR} and for \glspl{CPS} and \glspl{NCS}~\cite{satyanarayanan2009case,varghese2016challenges,shi2016promise}.
+This leads to prohibitively high latencies for both highly interactive immersive applications such as mobile \gls{XR} and for \glspl{CPS} and \glspl{NCS}~\cite{tolia2006quantifying,lagar2007interactive,satyanarayanan2009case,varghese2016challenges,shi2016promise}.
 The former category requires \emph{motion-to-photon} latencies (i.e.\ time between input capture and feedback) below \SI{60}{\milli\second} for interactions to be perceived as fluid and responsive by the user~\cite{chen2017empirical}; the latter can require sub-\SI{10}{\milli\second} latencies, for instance in the case of vehicular safety systems.
 Such latencies are unfeasible to consistently achieve with cloud computing~\cite{dang2021cloudy}.
-
-Current cloud infrastructures are also ill-suited to deal with the bandwidth requirements of the \gls{IOT} and of mobile computing.
-As smart devices, appliances, and sensors become more and more ubiquitous, the network architectures of modern datacenters face significant challenges to deal with the massively increasing volume of traffic~\cite{shi2016edge,wang2019towards}.
+On the other hand, as smart devices, appliances, and sensors become more and more ubiquitous, the network architectures of modern datacenters face increasing challenges to deal with the massively increasing volume of traffic~\cite{shi2016edge,wang2019towards}.
 
 \begin{figure}
     \centering
@@ -45,20 +44,35 @@ As smart devices, appliances, and sensors become more and more ubiquitous, the n
     }\label{fig:edgecomputing}
 \end{figure}
 
-Edge computing, emerges as a potential answer to these challenges~\cite{satyanarayanan2009case,shi2016promise,shi2016edge,varghese2016challenges,satyanarayanan2017emergence,bittmann2017edge,wang2019towards}.
-This term refers to a novel distributed computing paradigm, complementary to cloud computing, which tackles the challenges of the cloud by moving computation closer to where it is needed.
-Instead of offloading computation to a datacenter potentially thousands of kilometers away, in edge computing it is offloaded to a micro-datacenter --- a \emph{cloudlet}~\cite{satyanarayanan2009case} --- at the \emph{edge} of the network.
-These coudlets feature most of the key characteristics of cloud datacenters, such as multi-tenancy, virtualization of computing resources, virtually unrestricted access to energy, as well as limited scalability, one or two hops away from the user (see \cref{fig:edgecomputing})
+\medskip
+Edge computing emerges as a potential answer to these challenges~\cite{satyanarayanan2009case,shi2016promise,shi2016edge,varghese2016challenges,satyanarayanan2017emergence,bittmann2017edge,wang2019towards}.
+The conceptual foundation for this concept was laid by \citeauthor{satyanarayanan2009case}~\cite{satyanarayanan2009case} in\ \citeyear{satyanarayanan2009case}.
+As an answer to the prohibitively high latencies of cloud computing, the authors proposed an extension of the existing cloud computing paradigm with compute nodes at the edge of the Internet.
+Instead of offloading computation to a datacenter potentially thousands of kilometers away, in edge computing it is offloaded to a micro-datacenter at the \emph{edge} of the network close to the user.
+\citeauthor{satyanarayanan2009case} named these compute nodes \emph{cloudlets}, and envisioned them as featuring most of the key characteristics of cloud datacenters, such as multi-tenancy, virtualization of computing resources, virtually unrestricted access to energy, as well as limited scalability, all while being one or two hops away from the user (see \cref{fig:edgecomputing})
+This built on previous work on \emph{cyber foraging}~\cite{noble1997agile,flinn1999energy,satyanarayanan2001pervasive}.
+Cyber foraging refers to the extension and amplification of the capabilities of mobile and wearable devices by offloading computation and data manipulation to nearby infrastructure.
+This reduces energy consumption and allows for the deployment of otherwise unfeasible workloads on mobile hardware.
 
-The architecture of edge computing offers several advantages.
-Thanks to their proximity to users, cloudlets can serve highly latency-sensitive and resource-intensive applications with extremely low latencies while still providing orders of magnitude more computing and energy resources than those present on mobile and wearable devices.
-Mobile \gls{XR}, such as \gls{WCA}~\cite{ha2014towards,chen2018application,wang2020scaling,chen2017empirical,chen2018application}, and 5G-enabled \glspl{CPS} and \glspl{NCS}~\cite{sasaki2016vehicle,wang2018bandwidth,wan2020efficient} are uniquely poised to take advantage of these characteristic of edge computing.
-By processing and aggregating data closer to where its needed, cloudlets can also drastically reduce the amount of traffic going to cloud datacenters.
+The architecture of edge computing offers several advantages, the primary being the significant reduction of latency.
+Cloudlets can serve highly latency-sensitive and resource-intensive applications with extremely low latencies while still providing orders of magnitude more computing and energy resources than those present on mobile and wearable devices.
+Other advantages include bandwidth reduction and improved privacy.
+By processing and aggregating data closer to where its needed, edge computing can drastically reduce the amount of traffic going to cloud datacenters.
 Cloudlets also present opportunities for increased data security, privacy, and integrity, by keeping it geographically close to its origin and by allowing for anonymization through denaturing and local aggregation before offloading to cloud services~\cite{satyanarayanan2017emergence}.
 
-\todo[inline]{Transition to talk about research and tools for Edge computing research.}
+In later years, edge computing has been paired with novel mobile networking standards such as 5G~\cite{hassan2019edge,pham2020survey,wan2020efficient}.
+This combination is often referred to as \gls{MEC}, and has the potential to enable unprecedented use-cases requiring stringent latency bounds and high bandwidths.
+Two examples of such applications, of relevance for the present work, are \acl{WCA}~\cite{ha2014towards,chen2018application,wang2020scaling,chen2017empirical,chen2018application} and \acl{NCS}~\cite{sasaki2016vehicle,wang2018bandwidth,wan2020efficient}.
+These applications had been hitherto inviable to implement due to the limitations of cloud offloading, but have now become a practical reality thanks to \gls{MEC}.
+We will discuss these in depth in their respective sections, \cref{background:wca} and \cref{background:ncs}.
 
-\subsection{\acl{WCA}}
+Finally, we must note a closely related concept; \emph{fog} computing.
+Introduced by \citeauthor{bonomi2012fog}~\cite{bonomi2012fog} in\ \citeyear{bonomi2012fog}, fog computing concerns itself with the distribution of computing power between the cloud and the edge.
+This stands in contrast to the stated primary goal of edge computing, which is the reduction of latency and jitter by offloading computation to infrastructure as close to the user as possible.
+The motivating factor for the fog paradigm is the aggregation of data and reduction of bandwidth requirements for the \gls{IOT}.
+By aggregating, transforming, and filtering data at multiple levels in the network, fog computing aims to reduce the load placed on cloud datacenters by massive sensor networks~\cite{yi2015survey}.
+
+\subsection{\acl{WCA}}\label{background:wca}
 \glsreset{WCA}
 
 There is increasing interest from academia and industry in a novel category of wearable and mobile immersive applications called \gls{WCA}~\cite{ha2014towards,chen2018application,chen2015early,belletier2021wearable,chen2017empirical,wang2020scaling,chatzopoulos2017hyperion}
@@ -223,7 +237,7 @@ We will refer to them extensively in \cref{chap:contributions}.
 %Among computer system users who tend to have relatively high cognitive ability (which presumably describes the present experimental population), this points to neuroticism as a personality factor that might modulate tolerance for waiting. Extraversion could also  be  a moderating factor among the broader target audience of \gls{WCA}, which are intended for relatively inexperienced users of an application.
 %These and other measures of individual variation were considered here.
 
-\subsection{\acsp{NCS} and other \acsp{CPS}}
+\subsection{\acsp{NCS}}\label{background:ncs}
 
 The number and applications of \glspl{CPS}~\cite{Rajkumar2010CPS} --- i.e.\ systems in which a real, physical mechanism is controlled by a computer --- have exploded in recent years.
 However, this rapid increase in adoption has mostly been limited to industrial contexts.
