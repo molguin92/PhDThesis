@@ -68,23 +68,21 @@ Two examples of such applications, of relevance for the present work, are \acl{W
 These applications had been hitherto inviable to implement due to the limitations of cloud offloading in mobile and wearable contexts, but have now become a practical reality thanks to \gls{MEC}.
 We will discuss these in depth in their respective sections, \cref{background:wca} and \cref{background:ncs}.
 
-\subsection{\acl{WCA}}\label{background:wca}
-\glsreset{WCA}
-
-There is increasing interest from academia and industry in a novel category of wearable and mobile immersive applications called \gls{WCA}~\cite{ha2014towards,chen2018application,chen2015early,belletier2021wearable,chen2017empirical,wang2020scaling,chatzopoulos2017hyperion}
-They represent a particular class of \gls{AR} applications, aiming to amplify human cognition in both day-to-day tasks and professional settings.
+\subsection{\glsfmtlong{WCA}}\label{background:wca}
 
 \begin{figure}
     \centering
     \includegraphics[width=.9\textwidth]{Figs/wca_state}
     \caption{%
-        Mode of operation of \gls{WCA} applications.
+        Mode of operation of \acs{WCA} applications.
         The assistant continuously samples the state of the monitored task, and provides appropriate feedback once a state change has been detected.
         Samples that do not result in feedback are silently discarded.
     }\label{fig:wca}
 \end{figure}
 
-\glspl{WCA} operate in a mode analogous to how \gls{GPS} navigation systems guide drivers, by seamlessly providing relevant instructions and feedback relating to the current task at hand and staying out of the way of the user when guidance is not required.
+\glsreset{WCA}
+\gls{WCA} refers to a novel category of wearable and mobile immersive applications which aim to amplify human cognition in both day-to-day tasks and professional settings.
+\glspl{WCA} work in a mode analogous to how \gls{GPS} navigation systems guide drivers, by seamlessly providing relevant instructions and feedback relating to the current task at hand and staying out of the way of the user when guidance is not required.
 These applications operate much like a human assistant would, by observing the performance of the user and offering guidance proactively.
 Through the use of sensors (most commonly video inputs), the application follows the progress of the task in realtime by continuously sampling the state of the physical system.
 The input is parsed to an internal symbolic representation of the state of the task;
@@ -241,50 +239,109 @@ We will refer to them extensively in \cref{chap:contributions}.
 %Among computer system users who tend to have relatively high cognitive ability (which presumably describes the present experimental population), this points to neuroticism as a personality factor that might modulate tolerance for waiting. Extraversion could also  be  a moderating factor among the broader target audience of \gls{WCA}, which are intended for relatively inexperienced users of an application.
 %These and other measures of individual variation were considered here.
 
-\subsection{\acsp{NCS}}\label{background:ncs}
+\subsection{\glsfmtlongpl{NCS}}\label{background:ncs}
+\todo[inline]{Needs citations.}
 
-The number and applications of \glspl{CPS}~\cite{Rajkumar2010CPS} --- i.e.\ systems in which a real, physical mechanism is controlled by a computer --- have exploded in recent years.
-However, this rapid increase in adoption has mostly been limited to industrial contexts.
-Although \glspl{CPS} present huge opportunities for all facets of society, they have yet to reach our daily lives in any relevant scale due to their stringent operational requirements.
-This is about to change, however, as with the advent of novel wireless communication technologies as well as networking paradigms, such as cellular 5G and edge computing~\cite{Satya2017Emergence}, consumer-grade \glspl{CPS} will be made possible.
-These technologies meet two key requirements of \glspl{CPS}: real-time capabilities (through extremely low end-to-end latencies), and context- and locality-awareness, and will most likely become the backbone of \gls{CPS} in the future.
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figs/control_system}
+        \caption{%
+            Traditional control system.
+        }
+    \end{subfigure}%
+    \hfill%
+    \begin{subfigure}[t]{0.50\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figs/networked_control_system}
+        \caption{%
+            \acl{NCS}.
+        }
+    \end{subfigure}
+    \caption{%
+        Comparison between traditional control systems and \aclp{NCS}.
+        In an \aclp{NCS}, controller and plant are physically separated and both actuation commands and sensor inputs are shared through a general purpose \acs{TCP}/\acs{IP} network.
+    }\label{fig:csvsncs}
+\end{figure}
 
-\glspl{NCS}~\cite{Gupta2010NCSOverview}, a type of \gls{CPS} wherein multiple networked actuators and sensors form a part of the same automatic control system will benefit from the adoption of these technologies.
-Depending on the physical system being controlled, \glspl{NCS} can have stringent timing and reliability requirements for communication that conventional cloud paradigms and cellular networks cannot meet~\cite{Wan2020Efficient}.
-This necessitates sophisticated tools for the performance evaluation of future system architectures, as well as novel NCS design paradigm.
+\glsreset{NCS}
+\glspl{NCS} are a type of control system that involves the integration of communication networks into traditional control systems.
+A control system is a collection of devices or subsystems that work together to achieve a desired behavior or outcome of a physical system.
+Control systems are composed of
+\begin{inlineenum}
+    \item a \emph{plant}
+    \item \emph{sensors}
+    \item \emph{actuators}
+    \item a \emph{controller}
+\end{inlineenum}.
+Plant refers to the physical system being controlled.
+Sensors sample and encode the state of the plant and transmit it to the controller.
+The controller processes these inputs, and generates control signals to be sent to the actuators, which modify the plant's behavior.
+The overall goal of a control system is to regulate a process or a physical system to meet desired specifications or objectives, such as maintaining a constant temperature, tracking a set trajectory, or regulating the speed of a machine.
+
+\glspl{NCS}~\cite{gupta2010networked} aim to enhance and extend the capabilities of traditional control systems by decoupling the controller from the plant, sensors, and actuators and interconnecting them with general-purpose \acs{TCP}/\acs{IP} networks;
+see \cref{fig:csvsncs}.
+This allows for remote monitoring and control, which enhances the reliability and safety of the control system, which is particularly useful in applications where real-time monitoring and control are critical, such as in industrial automation and transportation systems.
+\glspl{NCS} also enable the integration of multiple control systems, as well as centralized control of multiple plants by a single controller.
+This leads to enhanced scalability and flexibility, and allows improved coordination and collaboration among systems.
+Furthermore, \glspl{NCS} provide greater access to information, as they enable the exchange of data and information between control components and systems, leading to more informed decision-making and improved performance.
+
+\glspl{NCS} have become increasingly popular in recent years due to advances in communication and control technologies, as well as the increasing demand for real-time, remote, and distributed control.
+They have found use in varied applications, such as industrial automation, transportation systems, and smart buildings, and some have attempted to leverage the cloud for centralized, distributed control in what has been called \emph{cloud control systems}~\cite{xia2015cloud}
+However, depending on the physical system being controlled, \glspl{NCS} can have stringent timing and reliability requirements for communication that conventional cloud paradigms simply cannot meet~\cite{wan2020efficient}.
+This has led their adoption to be limited mostly to industrial environments.
+This is about to change, however, as with the advent of edge computing, paired with novel wireless communication technologies such as cellular 5G, consumer-grade \glspl{NCS} will be made possible.
+These technologies will likely become the backbone of consumer-grade, widely-deployed \glspl{NCS}, enabling real-time capabilities through extremely low end-to-end latencies together with context- and locality-awareness.
+
+\medskip
+Research in \glspl{NCS} has mostly focused on addressing the challenges imposed by the introduction of best-effort communication networks into traditional control systems.
+Network delays (latency), losses, and \emph{jitter} --- referring to the variation in random network delays --- are at the forefront of these challenges.
+They have partially been addressed through the clever placement of the controller (e.g.\ by employing edge computing)~\cite{sasaki2017layered,sasaki2016vehicle}, as well as through the development of control algorithms capable of accounting for the effects of the network~\cite{zhang2013network}.
+\todo[inline]{TODO FINISH}
+
+%\glspl{NCS}~\cite{Gupta2010NCSOverview}, a type of \gls{CPS} wherein multiple networked actuators and sensors form a part of the same automatic control system will benefit from the adoption of these technologies.
+%Depending on the physical system being controlled, \glspl{NCS} can have stringent timing and reliability requirements for communication that conventional cloud paradigms and cellular networks cannot meet~\cite{Wan2020Efficient}.
+%This necessitates sophisticated tools for the performance evaluation of future system architectures, as well as novel NCS design paradigm.
 
 %Due to their potential advantages for industrial and commercial settings, there exist works~\cite{Zhang2016Survey} dedicated to the modelling and performance characterization of \glspl{NCS}, improving NCSs by distributing control functions across networks, facilitating centralized coordination, control, and monitoring.
 
-One the one hand, related literature in \glspl{NCS} leverages to a large extent theoretical models, at the price of being able to capture networked systems effects only on a coarse level.
-%follows a theoretical approach, and only a small fraction of it deals with experimental studies.
-On the other, there exist several approaches when considering experimental methodologies.
-%A number of works concerning \glspl{NCS} deal with experimental studies.
-%\glspl{NCS} have an inherently inter-domain nature intertwining knowledge from the fields of communications, computing, and control theory in ways that cannot be studied in isolation, leading to various different approaches to such studies.
-One such approach uses setups in which the complete system is built on top of real hardware.
-This approach is employed in the works of Baumann \emph{et al.}~\cite{Baumann2018LowPower} and Cuenca \emph{et al.}~\cite{Cuenca2019UAV}; in both of these, the authors implement their approach on physical testbeds.
-Conversely, other studies choose to instead use completely \emph{simulated} \gls{NCS} setups.
-The authors in\ \cite{Ma2019DynamicSched} have opted for such an approach.
-These studies often employ combinations of physical and network simulation tools trying to capture the complex dynamics of \glspl{NCS}.
-Finally, some experimental studies instead employ \emph{virtualized} approaches, in which either
-\begin{inlineenum}[itemjoin={{; }}, itemjoin*={{; or }}]
-    \item a real network interacts with a simulated or emulated control system~\cite{Wang2020VoltageControl}
-    \item a simulated network interacts with a real control system~\cite{Natale2004InvPendEthernet}.
-\end{inlineenum}
+%One the one hand, related literature in \glspl{NCS} leverages to a large extent theoretical models, at the price of being able to capture networked systems effects only on a coarse level.
+%%follows a theoretical approach, and only a small fraction of it deals with experimental studies.
+%On the other, there exist several approaches when considering experimental methodologies.
+%%A number of works concerning \glspl{NCS} deal with experimental studies.
+%%\glspl{NCS} have an inherently inter-domain nature intertwining knowledge from the fields of communications, computing, and control theory in ways that cannot be studied in isolation, leading to various different approaches to such studies.
+%One such approach uses setups in which the complete system is built on top of real hardware.
+%This approach is employed in the works of Baumann \emph{et al.}~\cite{Baumann2018LowPower} and Cuenca \emph{et al.}~\cite{Cuenca2019UAV}; in both of these, the authors implement their approach on physical testbeds.
+%Conversely, other studies choose to instead use completely \emph{simulated} \gls{NCS} setups.
+%The authors in\ \cite{Ma2019DynamicSched} have opted for such an approach.
+%These studies often employ combinations of physical and network simulation tools trying to capture the complex dynamics of \glspl{NCS}.
+%Finally, some experimental studies instead employ \emph{virtualized} approaches, in which either
+%\begin{inlineenum}[itemjoin={{; }}, itemjoin*={{; or }}]
+%    \item a real network interacts with a simulated or emulated control system~\cite{Wang2020VoltageControl}
+%    \item a simulated network interacts with a real control system~\cite{Natale2004InvPendEthernet}.
+%\end{inlineenum}
+%
+%As evidenced above, experimental research in \glspl{NCS} includes varied heterogeneous hardware and software platforms, methodologies and key performance indicators.
+%This, in turn, leads to hardware, software, and methodology fragmentation, as different studies tend to prefer approaches more favored in their respective communities.
+%Furthermore, existing studies tend to focus on individual aspects and components of a system, thus producing results which do not provide a complete image of the \gls{NCS}.
+%This has caused a gap in knowledge pertaining to the reproducibility and comparison of experimental studies on these systems.
+%
+%Zoppi \emph{et al.}~\cite{Zoppi2020NCSBench} made the first (and to the best of our knowledge, the only) attempt at tackling this challenge in their work.
+%In their work, they proposed a platform called NCSBench, to be used for reproducible benchmarking in NCS.\
+%Their methodology utilizes joint knowledge of control, computation, and communication.
+%In their work various architectural elements and the corresponding delays associated with the NCS are modelled.
+%Multiple experimental parameters and certain observable key performance indicators are defined and utilized in the implementation.
+%This work however utilizes a physical LEGO\textregistered{}\ Mindstorms EV3 Core Set\texttrademark{}\  based plant for the implementation, preventing instantaneous changes in plant characteristics and component parametrizations.
+%Furthermore, relying on physical objects like an inverted pendulum limits scalability of the experimentation in practice.
 
-As evidenced above, experimental research in \glspl{NCS} includes varied heterogeneous hardware and software platforms, methodologies and key performance indicators.
-This, in turn, leads to hardware, software, and methodology fragmentation, as different studies tend to prefer approaches more favored in their respective communities.
-Furthermore, existing studies tend to focus on individual aspects and components of a system, thus producing results which do not provide a complete image of the \gls{NCS}.
-This has caused a gap in knowledge pertaining to the reproducibility and comparison of experimental studies on these systems.
+\subsubsection{Related methodologies and tools}
 
-Zoppi \emph{et al.}~\cite{Zoppi2020NCSBench} made the first (and to the best of our knowledge, the only) attempt at tackling this challenge in their work.
-In their work, they proposed a platform called NCSBench, to be used for reproducible benchmarking in NCS.\
-Their methodology utilizes joint knowledge of control, computation, and communication.
-In their work various architectural elements and the corresponding delays associated with the NCS are modelled.
-Multiple experimental parameters and certain observable key performance indicators are defined and utilized in the implementation.
-This work however utilizes a physical LEGO\textregistered{}\ Mindstorms EV3 Core Set\texttrademark{}\  based plant for the implementation, preventing instantaneous changes in plant characteristics and component parametrizations.
-Furthermore, relying on physical objects like an inverted pendulum limits scalability of the experimentation in practice.
+The work we present in this thesis lies at the intersection of research on edge computing, \gls{WCA} applications, and \acl{CPS} such as \glspl{NCS}, each of these topics representing a vast body of research.
+Of principal interest to us are works dealing with the optimization of \gls{WCA} and \glspl{NCS} deployed on distributed systems such as edge computing.
+Below we will summarize the key milestones in literature relating to this.
 
-\subsubsection{Benchmarking tools for edge computing}
+\paragraph{Experimental platforms for Edge Computing}
 
 Experimental research in the area of wireless networking has received ever increasing attention over the last years, driven, on the one hand, by the complexity of modern networked systems and corresponding applications.
 On the other, networked systems are more and more based on software instead of dedicated hardware, which allows experimental testbeds to be rededicated simply through an update as system versions evolve --- in contrast to the redeployment of hardware necessitated \numrange[range-phrase={--}]{10}{15} years ago.
