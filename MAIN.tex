@@ -37,7 +37,7 @@
 
 \mainmatter % Pages 1, 2, 3...
 
-\tableofcontents*{}
+\tableofcontents%
 
 \part{Summary}\label{part:summary}
 \chapter{Introduction \& Background}\label{chap:introduction}
@@ -63,6 +63,7 @@
 \include{publications/2023EdgeDroid2}
 
 \backmatter%
+\bookmarksetup{startatroot}%
 \printglossary[type=\acronymtype]%
 \include{body/references}
 
