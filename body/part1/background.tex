@@ -338,49 +338,59 @@ They have partially been addressed through the clever placement of the controlle
 \subsubsection{Related methodologies and tools}
 
 The work we present in this thesis lies at the intersection of research on edge computing, \gls{WCA} applications, and \acl{CPS} such as \glspl{NCS}, each of these topics representing a vast body of research.
-Of principal interest to us are works dealing with the optimization of \gls{WCA} and \glspl{NCS} deployed on distributed systems such as edge computing.
+Of principal interest to us are works dealing with the experimental optimization of \gls{WCA} and \glspl{NCS} deployed on distributed systems such as edge computing.
 Below we will summarize the key milestones in literature relating to this.
 
 \paragraph{Experimental platforms for Edge Computing}
 
-Experimental research in the area of wireless networking has received ever increasing attention over the last years, driven, on the one hand, by the complexity of modern networked systems and corresponding applications.
-On the other, networked systems are more and more based on software instead of dedicated hardware, which allows experimental testbeds to be rededicated simply through an update as system versions evolve --- in contrast to the redeployment of hardware necessitated \numrange[range-phrase={--}]{10}{15} years ago.
-The complexity of these systems, as well as their softwarization are expected to continue growing, driving in turn an expanding interest in testbed-based experimental research in wireless systems.
+Research in edge computing is still in its early stages, although it has been steadily increasing in the last decade as researchers, businesses, and organizations recognize the benefits of bringing computing and storage capabilities closer to the source of data.
+Standardization is however still a major unsolved challenge in this field, and thus most research hitherto has relied on ad-hoc methodologies and/or platforms.\todo{Citation}
 
-Over the last years, several small- to mid-scale testbeds have emerged that leverage a large degree of freedom with respect to hardware and software, for example, the
+Nonetheless, the last few years have seen the emergence of a number of small- to mid-scale platforms and testbeds for edge computing research.
+Several of these are additionally driven by research interests in novel mobile networking technologies and \gls{MEC}, as well as in the virtualization of network functions.
+Of particular interest to us are the
 \begin{inlineenum}
-    \item \gls{COSMOS}
-    \item \gls{POWDER}
-    \item \gls{ARA}
-    \item Drexel Grid \gls{SDR}
+    \item \acs{GENI}
+    \item Chameleon
+    \item \acs{COSMOS}
+    \item \acs{POWDER}
+    \item \acs{ARA}
+    \item EdgeNet
+%    \item Drexel Grid \gls{SDR}
 \end{inlineenum} testbeds.
-\gls{COSMOS} is a testbed spanning an area of roughly \num{1} square mile (\SI{2.6}{\kilo\meter\squared}) featuring \glspl{SDR}, \si{\milli\meter}-wave equipment, optical fibers, cloud integration, and compute for core network functionality and application data processing~\cite{Cosmos1,cosmos2}.
-It contains over \num{200} rooftop, intermediate, and mobile nodes, and is controlled and managed by a central node.
-\gls{COSMOS} relies on the \gls{OMF} (originally developed for ORBIT~\cite{orbit}), and employs the \gls{OEDL}, a domain-specific imperative language based on Ruby, for experiment development and definition.
 
-\gls{POWDER} promises research on wireless and mobile networks with a level of programmability down to the waveform~\cite{powder}.
-The testbed spans a \SI{15}{\kilo\meter\squared} area and features about \num{15} fixed programmable radio nodes, based on off-the-shelves \glspl{SDR} and featuring edge-like compute capabilities and integration with cloud resources, which interact with \num{50} mobile nodes.
-\gls{POWDER} experiments are defined and developed in \emph{profiles}, which correspond to \gls{VM} images containing the necessary software and configurations.
-These profiles are defined through using \gls{RSpec}\footnote{\url{https://groups.geni.net/geni/wiki/GENIExperimenter/RSpecs}} documents.
+\gls{GENI} is a testbed deployed across more than fifty sites across the \gls{USA}.
+Originally designed for ``the development, deployment, and validation of transformative, at-scale concepts in network science, services, and security''~\cite{berman2014geni}, \gls{GENI} today combines local edge compute resources with mobile network last-hop connectivity for \gls{MEC} experimentation~\cite{gosain2017geni}.
+The wireless-capable sites incorporate single-hop access to compute, storage, and network resource, making \gls{GENI} a compelling edge computing platform.
 
-The \gls{ARA} platform is an at-scale testbed for wireless research spanning a rural area with a diameter of over \SI{60}{\kilo\meter} in Iowa~\cite{zhang2022ara}.
-Its core goal is the study and deployment of advanced wireless platforms and technologies in real-world agricultural and rural settings.
-It includes a broad range of wireless platforms ranging from low-\gls{UHF} massive \gls{MIMO} to \unit{\milli\meter}Wave, deployed through both \glspl{SDR} and programmable \gls{COTS} radios, as well as automated ground vehicles, cameras and sensors.
-\gls{ARA}'s software stack, ARASoft, is based upon the highly flexible and powerful \gls{CHI} software suite from the Chameleon testbed project~\cite{keahey2020lessons}, which in turn is based on the widely adopted OpenStack~\cite{openstack} cloud-computing framework.
-This affords the \gls{ARA} testbed a high degree of flexibility, as well as lowers the learning curve for new contributors and users.
+The Chameleon testbed is a research platform originally designed for the study and evaluation of cloud computing systems~\cite{keahey2020lessons}, but which has recently been expanded to target edge computing research through the \acs{CHI}@Edge project.
+Chameleon is a collaborative project operated by a consortium of research institutions and industry partners, and is designed to provide a flexible and reconfigurable infrastructure for researchers to experiment with and test various cloud computing technologies, algorithms, and configurations.
+The testbed provides a highly reconfigurable array of hardware and software resources, including servers, storage systems, and networking equipment, able to simulate various cloud and edge computing scenarios.
 
-Finally, the \emph{Drexel Grid \gls{SDR} Testbed} features \glspl{SDR} that connect either over-the-air, through a channel emulator, or over a combination of the two, to facilitate realistic and reproducible experimentation~\cite{DrexelGrid}.
-Primarily intended for \gls{SDR}-centric research, it does not integrate any core, cloud or edge components.
-However, the testbed extensively employs the \gls{LXC} runtime for the deployment of both experimental code and \gls{SDR} software, which affords users great freedom when it comes to the development of experiments.
+\gls{COSMOS} is a testbed deployed in New York City (State of New York, \gls{USA}), containing over \num{200} rooftop, intermediate, and mobile nodes.
+The testbeds main \emph{raison d'etre} is \gls{MEC} research, with a strong emphasis on wireless networks.
+The system includes \glspl{SDR}, \si{\milli\meter}-wave equipment, optical fibers, cloud integration, and edge compute for core network functionality and application data processing~\cite{yu2019cosmos,raychaudhuri2020challenge}.
 
-Experimentation is key to to fully understanding the implications of next-generation wireless systems, cloud, and edge computing paradigms, and thus more of these testbeds are sure to emerge in the near future.
-Yet, little work has so far been devoted to general-purpose, hardware-agnostic software frameworks for the management and automation of such systems.
-Existing platforms implement their own, ad-hoc software solutions which are not compatible with other testbeds, and in many cases are not even compatible with reigning cloud-native standards.
-This is, for instance, the case with \gls{COSMOS} and \gls{POWDER}; their reliance on domain-specific languages limits their integration with cloud-native solutions, which generally build upon general-purpose languages such as Python and Go.
-These testbeds further leverage virtualization technology based on \glspl{VM} instead of more lightweight and edge-compatible solutions such as containers.
+\gls{POWDER} is described by the authors of~\cite{breen2020powder} as a ``city-scale, remotely accessible, end-to-end software defined platform supporting a broad range of wireless and mobile related research''.
+It features roughly \num{15} fixed programmable radio nodes, based on off-the-shelves \glspl{SDR}, distributed across a \SI{15}{\kilo\meter\squared} area in Salt Lake City (State of Utah, \gls{USA}).
+These radio nodes are combined with edge-based compute nodes as well as cloud resources for full \gls{MEC} experimentation.
 
-To the best of our knowledge, CloudRAFT~\cite{cloudraft} is the only work to tackle (to a certain extent) this challenge.
-CloudRAFT corresponds to a cloud-based framework for mobile network experimentation, with a focus on simplifying the management of testbed resources.
-The goal of this project is to integrate, coordinate, share, and improve upon existing testbeds; and employs pre-built \glspl{VM} containing the necessary software for experiments.
-Although it provides some automation for testbed resource provisioning and experiment execution, its focus is largely rather on the sharing and partitioning of testbed systems.
-Testbeds currently working with CloudRAFT include a variety of domain-specific setups, including \pgls{SDR}-based testbed as a well as a ground vehicular robot for mobility-related experimentation.
+The \gls{ARA} platform~\cite{zhang2022ara} is a highly flexible testbed based on the \gls{CHI} software suite originally developed for the aforementioned Chameleon testbed~\cite{keahey2020lessons}.
+\gls{ARA} is developed by researchers at Iowa State University in Ames, Iowa (\gls{USA}), and spans a rural area with a diameter of over \SI{60}{\kilo\meter}~\cite{zhang2022ara}.
+Its core goal is the study and deployment of advanced edge computing and wireless platforms and technologies in real-world agricultural and rural settings, and includes a broad range of wireless technologies deployed through both \glspl{SDR} and programmable \gls{COTS} radios, as well as automated ground vehicles, cameras and sensors.
+
+EdgeNet deviates from the approaches described above and represents a fully software-based, massively distributed public platform for edge computing research~\cite{cappos2018edgenet,senel2021edgenet1,senel2021edgenet2}.
+It consists of a public, modified and customized Kubernetes~\cite{kubernetes} cluster.
+The EdgeNet software is available for anyone to download;
+individuals and organizations can quickly deploy self-hosted edge nodes which are then made available to anyone using the platform.
+The end result is a flexible and scalable global edge cloud simplifying research and prototype development in edge and cloud computing.
+A similar, closely-related project is KubeEdge~\cite{xiong2018extend}, a software framework for extending Kubernetes clusters from the cloud to the edge.
+
+Finally, a number of other, small-scale approaches also exist.
+In~\cite{gedawy2016cumulus}, the authors propose Cumulus, a prototype testbed for edge compute offloading in \gls{IOT} with the explicit goal of providing a generic and heterogeneous platform for edge computing research.
+The authors of~\cite{rimal2018experimental} propose an experimental testbed for two-tiered edge architectures in the context of \gls{FIWI} edge computing.
+This testbed is then employed to validate wireless access and compute resource scheduling strategies in these systems.
+In~\cite{yamanaka2021design}, the authors present an experimental edge computing testbed capable of determining the offload location of a workload based on desired latency parameters.
+\cite{diao2019scalable} propose yet another Kubernetes-based testbed based for edge task offloading based on heterogeneous hardware including low-power single-board computers such as Raspberry Pis and Jetson Nanos.
+Finally,\ \cite{moorthy2022cloudraft} proposes \gls{CLOUDRAFT}, a cloud-based framework for mobile network experimentation, with a focus on simplifying the management of testbed resources.
+The goal of this project is to integrate, coordinate, share, and improve upon existing testbeds through a common interface.
