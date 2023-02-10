@@ -1,71 +1,59 @@
-\section{A methodology for the study of feedback-loop systems in Edge Computing}\label{summary:methodology}
+\section{A methodology for the study of latency-sensitive applications in Edge Computing}\label{summary:methodology}
 
-\todo[inline]{%
-    Discuss the methodology in general terms.
-    Avoid going too deeply into WCA or NCSs here, just talk about the advantages of our approach.
-    Refer to first two EdgeDroid papers as well as CLEAVE paper for examples.
-    Intertwine them.
-}
+This thesis makes a contribution to the field of Edge Computing by investigating the applications of a methodology for the study of latency-sensitive applications deployed on Edge infrastructure.
+These applications, such as \gls{WCA} and \glspl{NCS}, are challenging to study and scale due to their cyber-physical nature, complexity, and requirements for low latency and high reliability.
 
-\subsection{Use case: \acs{WCA}}\glsreset{WCA}
-
-\todo[inline]{Discuss, at high level, the advantages of this methodology for WCA.
-Challenges, opportunities. Maybe refer to the ``use cases'' of the first edgedroid paper.}
-
-\subsection{Use case: \acsp{NCS}}\glsreset{NCS}
-
-\todo[inline]{Discuss, at high level, the advantages ofthis methodology for NCSs.
-Refer back to related work. }
-
-\subsection{Tools for the application of the methodology}
-
-\todo[inline]{Here we actually present the tools}
-
-\subsubsection{\acs{WCA}: EdgeDroid}
-
-\subsubsection{\acsp{NCS}: CLEAVE}
-
-\subsubsection{Testbeds: Ainur}
-
-
-\todo[inline]{%
-Everything below is ``old'' stuff that needs to be re-edited.%
-}
+The main focus of this thesis is to enhance the accuracy and realism of results related to Edge infrastructure, particularly in regard to the network.
+The proposed methodology aims to provide a more comprehensive and realistic assessment of the performance of these latency-sensitive applications, allowing for a better understanding of the strengths and limitations of Edge Computing in this context.
+Our results will contribute to the development of new techniques and approaches for improving the performance and reliability of Edge Computing systems.
 
 \begin{figure}
     \centering
-    \includegraphics[width=.8\textwidth]{Figs/methodology.png}
+    \includegraphics[width=.8\textwidth]{Figs/methodology}
     \caption{%
-        Overview of the proposed methodology for the study of feedback-loop systems on edge computing infrastructure.
+        Overview of the proposed methodology for the study of latency-sensitive systems on edge computing infrastructure.
         The  client side of the system is replaced with an emulation executed on a general-purpose computing device.
         The backend/server side of the system along with the network remain unchanged.
     }\label{fig:methodology}
 \end{figure}
 
-As discussed above, benchmarking infrastructures for edge-bound applications featuring feedback-loops is challenging, in particular when dealing with applications with high sensitivity to latency (such as \gls{NCS}) or with human involvement (such as \gls{WCA}).
-In the following, we introduce our methodological framework for tackling this challenge.
+Our methodology is based on the emulation of target workloads on actual Edge infrastructure;
+see \cref{fig:methodology}.
+We replace the client side of the system with a realistic emulation of the desired behaviors;
+this emulation is implemented in software deployed on \gls{COTS} general-purpose computing devices.
+In our initial implementation, these correspond to low-cost, easily replaceable and scalable Raspberry Pi 4 Model B~\cite{raspberrypi} \glspl{SBC}.
+We aim to maintain the backend software and hardware, as well as the network, unchanged with respect to the real-world deployment, in order to preserve as much realism as possible in the effects arising from the hardware and network.
 
-A general overview of our methodology is illustrated in \cref{fig:methodology}.
-It is based on the core idea of executing an emulation of the target workload on top of the real hardware on which it is to be deployed.
-We replace the client side of the system with a realistic emulation of the desired behaviors; this emulation is implemented in software deployed on \gls{COTS} general-purpose computing devices.
-The backend side and the network are not changed.
+As discussed in \cref{chap:relatedwork}, most research in this field falls into either simulated or fully-practical real-world approaches.
+Our emulated methodology presents several advantages over these alternatives.
+Firstly, it preserves the realism of effects stemming from the hardware and network.
+Employing emulations allows our methodology to realize a more realistic testing environment than a simulated approach and can provide results that are closer to what would be seen in the real-world.
+Of particular interest to us are effects due to network factors such as contention, congestion control, and medium access.
+These effects are often of stochastic or chaotic natures, and are thus complex to capture in simulations.
 
-Two main arguments drive this approach.
-One, the difficulty of scaling the number of clients in these systems in a research context.
+Secondly, it allows for easier scaling of studies compared to real-world studies.
 The systems we target exhibit a centralized nature in which a potentially large number of clients offload computation to a single central compute node.
-The client-side component of the applications of interest for this research is often complex to scale, either due to the involvement of humans (as in the case of \gls{WCA}) or due its cyber-physical nature (in \glspl{NCS}).
-Emulating this component reduces this complexity by moving it into the software domain, allowing for easier scaling through the use of cheap, general-purpose hardware such as single-board computers (e.g. Raspberry Pis, Beaglebones, etc.).
+The client-side component of the applications of interest for this research is often complex to scale.
+In the case of interactive and immersive applications, scaling the number of human users can be a significant challenge, as recruiting participants is an expensive and time-consuming endeavor.
+On the other hand, scaling applications involving \glspl{CPS} such as \glspl{NCS} can be prohibitively complex and expensive depending on the specific hardware involved.
+In many cases, these systems are made-to-order, further increasing the cost as economies of scale cannot be employed.
+Emulating the workload component reduces complexity by moving it into the software domain, allowing for easier scaling through the use of cheap, \gls{COTS} general-purpose hardware such as the aforementioned \glspl{SBC}.
 
-And two, it maintains the realism of the most complex parts of the system.
+Thirdly, in hand with the previous point, emulating the workload provides improved repeatability and replicability.
+Repeating a study becomes a matter of re-running the workload on the same testbed;
+in turn, studies can be replicated simply by obtaining the same or equivalent software workload and deploying it on a comparable testbed.
+These are complex tasks to accomplish in real-world approaches, particularly when dealing with humans.
 
-\todo[inline]{Fix and finish}
+Finally, it improves extensibility significantly.
+Replicating the methodology for other workloads simply requires developing a new piece of software to emulate the new workload.
+This can further be simplified by employing softwareplatforms for the emulation of categories of workloads, as well will discuss later on in this thesis.
 
-In the following, we will discuss the initial implementation of this methodology to two different classes of applications.
-We first discuss the methodology in the context of a human-in-the-loop application, \gls{WCA}, in section \cref{ssec:methodology:wca}.
-Then, in \cref{ssec:methodology:ncs}, we present an exploration into it's utility for the study of \glspl{NCS}.
+In the following subsections we will discuss two illustrative use-cases for our methodology; \acl{WCA} and \acl{NCS} research and benchmarking.
+\Cref{summary:methodology:usecase_wca} discusses the application of our methodology to \gls{WCA}.
+This work was originally published in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}.
+Next, in \cref{summary:methodology:usecase_ncs} we expand this discussion to \glspl{NCS}, a discussion originally approached in \cref{paper:olguinmunoz2022cleave}.
 
-
-%\subsection{Applying the methodology to \acs{WCA}}\label{ssec:methodology:wca}
+\subsection{Use case: \acl{WCA}}\label{summary:methodology:usecase_wca}
 
 \begin{figure}
     \centering
@@ -76,7 +64,7 @@ Then, in \cref{ssec:methodology:ncs}, we present an exploration into it's utilit
             High level conceptual design of our methodology for \gls{WCA}.
             We replace the human by a trace-driven emulation.
             This allows us to maintain realism in inputs sent over the network to the compute process on the backend, while simplifying the design of the client software.
-        }
+        }\label{fig:methodology:wca:conceptual}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{.45\textwidth}
@@ -118,20 +106,21 @@ Then, in \cref{ssec:methodology:ncs}, we present an exploration into it's utilit
     \end{subfigure}
     \caption{%
         Overview of our first implementation of the methodology for \gls{WCA}.
-    }\label{fig:edgedroid1:trace}
+        Figures originally published in \cref{paper:olguinmunoz2019edgedroid}.
+    }
 \end{figure}
 
-We first introduce our methodology in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}.
-The former corresponds to an extended abstract paper which discusses a high level overview of our approach; the latter presents a deeper, more complete discussion about the implementation together with some first experimental results.
-
-The overall goal of these papers is to explore this methodological approach as applied to \gls{WCA}.
-As discussed in \cref{chap:introduction}, the main challenge to benchmarking \gls{WCA} --- and other ``human-in-the-loop'' applications on the edge --- concerns the involvement of human beings in their operation.
+We first introduce our methodology and its applicability to \gls{WCA} in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}.
+The former corresponds to an extended abstract paper which discusses a high level overview of our approach;
+the latter presents a deeper, more complete discussion about the implementation together with some first experimental results.
+As discussed in \cref{chap:introduction}\todo{Was it really here?}, the main challenge to benchmarking \gls{WCA} --- and other ``human-in-the-loop'' applications on the edge --- concerns the involvement of human beings in their operation.
 Humans are unreliable, and, perhaps more importantly, hard to scale.
-\todo[inline]{More reasons}
 
+\todo[inline]{Move part of this to the ``tools'' section?}
 The implementation of the client-side emulation necessary for our methodology follows in these works a trace-based design.
+\Cref{fig:methodology:wca:conceptual} presents a diagram of our conceptual approach to this implementation.
 We introduce a tool, \emph{EdgeDroid \num{1.0}}, which replays a pre-recorded trace of sensory inputs to the original \gls{WCA} backend.
-The tool is implemented in Android, allowing for its easy deployment on the same kind of \gls{COTS} mobile devices on which real \gls{WCA} applications are intended to run in the future.
+The tool is implemented in Android, allowing for its easy deployment on the same kind of \gls{COTS} mobile and/or wearable devices (e.g.\ Google Glass~\cite{googleglass}) on which real \gls{WCA} applications are intended to run in the future.
 Furthermore, this tool is instrumented, allowing us to collected a multitude of system-level metrics at runtime which can then be analyzed.
 On the other hand, the trace in question corresponds to a pre-recorded sequence of sensory inputs obtained from a real execution of the \gls{WCA} by a human volunteer.
 The trace is recorded in a near-ideal setting, such that it does not include either human mistakes or segments with degraded system responsiveness.
@@ -146,3 +135,33 @@ Compatible traces can be easily obtained simply by instrumenting existing \gls{W
 
 The final advantage corresponds to extensibility.
 As long as the tasks belong to the same category of \gls{WCA} applications (in this case, step-based cognitive assistance), using a trace makes extending the tool to different tasks merely a matter of recording a new trace.
+\todo[inline]{}
+
+\medskip
+We proceed to demonstrate the practical utility of our methodology as applied to \gls{WCA} by setting up a series of scenarios.
+We deployed a \emph{Gabriel}-powered~\cite{chen2018application} \gls{WCA} application on a small testbed consisting of
+\begin{inlineenum}
+    \item a server computer acting as a cloudlet
+    \item a 802.11n Wi-Fi \gls{AP} connected to the cloudlet via ethernet
+    \item \num{10} Android smartphones connected wirelessly to the \gls{AP}, emulating users for the application
+\end{inlineenum}.
+Three scenarios were considered, corresponding to setups with \num{1} and \num{10} clients under ideal circumstances, plus an additional scenario with \num{10} clients located at a distance from the \gls{AP} such that the signal strength was significantly degraded.
+Each scenario was repeated a \num{100} times for statistical validity.
+
+
+
+
+\subsection{Use case: \acsp{NCS}}\label{summary:methodology:usecase_ncs}
+
+\todo[inline]{Discuss, at high level, the advantages ofthis methodology for NCSs.
+Refer back to related work. }
+
+\subsection{Tools for the application of the methodology}
+
+\todo[inline]{Here we actually present the tools}
+
+\subsubsection{\acs{WCA}: EdgeDroid}
+
+\subsubsection{\acsp{NCS}: CLEAVE}
+
+\subsubsection{Testbeds: Ainur}

@@ -1,16 +1,5 @@
-\section{Background \& related work}
+\section{Edge computing}
 \glsresetall%
-\todo[inline]{%
-    \textcite{satyanarayanan2009case}
-
-    Other papers detailing the advantages of Edge computing.
-
-    Next, what applications benefit from the Edge?
-    \glsfmtshort{WCA}! Mention both the main body of work (by Satya et.\ al.) but also other authors out there.
-    Main points: prototypes and characterization of system latencies and load.
-}
-
-\subsection{Edge computing}
 
 Edge computing is a novel distributed computing paradigm, emerging from a need to overcome the drawbacks of offloading computation and data to the cloud.
 Cloud computing, the reigning distributed computing model, allows users to access shared pools of resources such as servers, databases, and applications, over the internet~\cite{gai2012towards}.
@@ -68,7 +57,7 @@ Two examples of such applications, of relevance for the present work, are \acl{W
 These applications had been hitherto inviable to implement due to the limitations of cloud offloading in mobile and wearable contexts, but have now become a practical reality thanks to \gls{MEC}.
 We will discuss these in depth in their respective sections, \cref{background:wca} and \cref{background:ncs}.
 
-\subsubsection{Experimental research in Edge Computing}
+\subsection{Experimental research in Edge Computing}
 
 The last few years have seen the emergence of a number of small- to mid-scale platforms and testbeds for edge computing research.
 Several of these are additionally driven by research interests in novel mobile networking technologies and \gls{MEC}, as well as in the virtualization of network functions.
@@ -120,17 +109,7 @@ Finally,\ \cite{moorthy2022cloudraft} proposes \gls{CLOUDRAFT}, a cloud-based fr
 The goal of this project is to integrate, coordinate, share, and improve upon existing testbeds through a common interface.
 
 
-\subsection{\glsfmtlong{WCA}}\label{background:wca}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=.9\textwidth]{Figs/wca_state}
-    \caption{%
-        Mode of operation of \acs{WCA} applications.
-        The assistant continuously samples the state of the monitored task, and provides appropriate feedback once a state change has been detected.
-        Samples that do not result in feedback are silently discarded.
-    }\label{fig:wca}
-\end{figure}
+\section{\glsfmtlong{WCA}}\label{background:wca}
 
 \glsreset{WCA}
 \gls{WCA} refers to a novel category of wearable and mobile immersive applications which aim to amplify human cognition in both day-to-day tasks and professional settings.
@@ -143,6 +122,16 @@ This feedback can be in the form of text, images, video, and/or audio, and guide
 If no change in state is detected, the application remains silent and out-of-the-way.
 In other words, the application silently discards samples which capture an intermediate or unfinished state, or simply are too noisy to be processed.
 \Cref{fig:wca} illustrates this mode of operation in a \gls{WCA} guiding a user to manipulate a structure composed of LEGO bricks.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\textwidth]{Figs/wca_state}
+    \caption{%
+        Mode of operation of \acs{WCA} applications.
+        The assistant continuously samples the state of the monitored task, and provides appropriate feedback once a state change has been detected.
+        Samples that do not result in feedback are silently discarded.
+    }\label{fig:wca}
+\end{figure}
 
 As the name implies, \glspl{WCA} are available whenever the user requires them, without being tethered to a particular physical location;
 they are pervasive and mobile~\cite{ha2014towards}.
@@ -185,7 +174,7 @@ On the other hand, recently published models for end-to-end latency of edge comp
 Our work in~\cite{olguinmunoz2018demoscaling,olguinmunoz2019edgedroid} introduces the first ever model for realistic emulation of these applications on real hardware.
 Our characterization of human timings in these systems in~\cite{olguinmunoz2021impact}, and our subsequent design of a realistic model for human behavior in \gls{WCA} constitute novel insights and tools for the optimization of these systems.
 
-\subsubsection{Characterization of \acs{WCA}}
+\subsection{Characterization of \acs{WCA}}
 
 \begin{figure}
     \centering
@@ -291,8 +280,30 @@ We will refer to them extensively in \cref{chap:contributions}.
 %Among computer system users who tend to have relatively high cognitive ability (which presumably describes the present experimental population), this points to neuroticism as a personality factor that might modulate tolerance for waiting. Extraversion could also  be  a moderating factor among the broader target audience of \gls{WCA}, which are intended for relatively inexperienced users of an application.
 %These and other measures of individual variation were considered here.
 
-\subsection{\glsfmtlongpl{NCS}}\label{background:ncs}
+\section{\glsfmtlongpl{NCS}}\label{background:ncs}
+\glsreset{NCS}
 \todo[inline]{Needs citations.}
+
+\glspl{NCS} are a type of control system that involves the integration of communication networks into traditional control systems.
+A control system is a collection of devices or subsystems that work together to achieve a desired behavior or outcome of a physical system.
+Control systems are composed of
+\begin{inlineenum}
+    \item a \emph{plant}
+    \item \emph{sensors}
+    \item \emph{actuators}
+    \item a \emph{controller}
+\end{inlineenum}.
+Plant refers to the physical system being controlled.
+Sensors sample and encode the state of the plant and transmit it to the controller.
+The controller processes these inputs, and generates control signals to be sent to the actuators, which modify the plant's behavior.
+The overall goal of a control system is to regulate a process or a physical system to meet desired specifications or objectives, such as maintaining a constant temperature, tracking a set trajectory, or regulating the speed of a machine.
+
+\glspl{NCS}~\cite{gupta2010networked} aim to enhance and extend the capabilities of traditional control systems by decoupling the controller from the plant, sensors, and actuators and interconnecting them with general-purpose \acs{TCP}/\acs{IP} networks;
+see \cref{fig:csvsncs}.
+This allows for remote monitoring and control, which enhances the reliability and safety of the control system, which is particularly useful in applications where real-time monitoring and control are critical, such as in industrial automation and transportation systems.
+\glspl{NCS} also enable the integration of multiple control systems, as well as centralized control of multiple plants by a single controller.
+This leads to enhanced scalability and flexibility, and allows improved coordination and collaboration among systems.
+Furthermore, \glspl{NCS} provide greater access to information, as they enable the exchange of data and information between control components and systems, leading to more informed decision-making and improved performance.
 
 \begin{figure}
     \centering
@@ -316,28 +327,6 @@ We will refer to them extensively in \cref{chap:contributions}.
         In an \aclp{NCS}, controller and plant are physically separated and both actuation commands and sensor inputs are shared through a general purpose \acs{TCP}/\acs{IP} network.
     }\label{fig:csvsncs}
 \end{figure}
-
-\glsreset{NCS}
-\glspl{NCS} are a type of control system that involves the integration of communication networks into traditional control systems.
-A control system is a collection of devices or subsystems that work together to achieve a desired behavior or outcome of a physical system.
-Control systems are composed of
-\begin{inlineenum}
-    \item a \emph{plant}
-    \item \emph{sensors}
-    \item \emph{actuators}
-    \item a \emph{controller}
-\end{inlineenum}.
-Plant refers to the physical system being controlled.
-Sensors sample and encode the state of the plant and transmit it to the controller.
-The controller processes these inputs, and generates control signals to be sent to the actuators, which modify the plant's behavior.
-The overall goal of a control system is to regulate a process or a physical system to meet desired specifications or objectives, such as maintaining a constant temperature, tracking a set trajectory, or regulating the speed of a machine.
-
-\glspl{NCS}~\cite{gupta2010networked} aim to enhance and extend the capabilities of traditional control systems by decoupling the controller from the plant, sensors, and actuators and interconnecting them with general-purpose \acs{TCP}/\acs{IP} networks;
-see \cref{fig:csvsncs}.
-This allows for remote monitoring and control, which enhances the reliability and safety of the control system, which is particularly useful in applications where real-time monitoring and control are critical, such as in industrial automation and transportation systems.
-\glspl{NCS} also enable the integration of multiple control systems, as well as centralized control of multiple plants by a single controller.
-This leads to enhanced scalability and flexibility, and allows improved coordination and collaboration among systems.
-Furthermore, \glspl{NCS} provide greater access to information, as they enable the exchange of data and information between control components and systems, leading to more informed decision-making and improved performance.
 
 \glspl{NCS} have become increasingly popular in recent years due to advances in communication and control technologies, as well as the increasing demand for real-time, remote, and distributed control.
 They have found use in varied applications, such as industrial automation, transportation systems, and smart buildings, and some have attempted to leverage the cloud for centralized, distributed control in what has been called \emph{cloud control systems}~\cite{xia2015cloud}
