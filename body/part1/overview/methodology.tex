@@ -26,28 +26,37 @@ We aim to maintain the backend software and hardware, as well as the network, un
 
 As discussed in \cref{chap:relatedwork}, most research in this field falls into either simulated or fully-practical real-world approaches.
 Our emulated methodology presents several advantages over these alternatives.
-Firstly, it preserves the realism of effects stemming from the hardware and network.
+To begin with, and perhaps most importantly, it makes our approach portable and applicable to real edge computing deployments.
+By limiting the emulation to the workload, our approach can be directly employed on pre-existing edge computing infrastructure in order to benchmark applications before they are deployed.
+This makes our approach valuable to not only to the research community, but also to system designers and application developers.
+
+In hand with the previous point, it allows for easier scaling compared to real-world studies.
+The systems we target exhibit a centralized nature in which a potentially large number of clients offload computation to a single central compute node.
+The client-side component of the applications of interest for this research is often complex to scale.
+Consider a system owner interested in studying the performance of some edge computing setup for latency-sensitive applications.
+In the case of interactive and immersive applications, scaling the number of human users is a significant challenge, as recruiting participants is an expensive and time-consuming endeavor.
+Scaling applications involving \glspl{CPS} such as \glspl{NCS} can be prohibitively complex and expensive depending on the specific hardware involved.
+In many cases, these systems are made-to-order, further increasing the cost as economies of scale cannot be employed.
+On the other hand, a simulated approach requires modeling not only the application workload, but also the edge computing system and infrastructure.
+Due to the intricate nature of contemporary cloud and edge computing setups, which frequently involve multiple tiers of proxies, load balancers, virtualized computing units, and network functions, the modeling of such systems can quickly become an overly complex endeavor.
+
+Our approach circumvents both of these limitations.
+Emulating the workload component reduces complexity by moving it into the software domain, allowing for easier scaling through the use of cheap, \gls{COTS} general-purpose hardware such as the aforementioned \glspl{SBC}.
+Furthermore, it preserves the realism of effects stemming from the hardware and network.
 Employing emulations allows our methodology to realize a more realistic testing environment than a simulated approach and can provide results that are closer to what would be seen in the real-world.
 Of particular interest to us are effects due to network factors such as contention, congestion control, and medium access.
 These effects are often of stochastic or chaotic natures, and are thus complex to capture in simulations.
 
-Secondly, it allows for easier scaling of studies compared to real-world studies.
-The systems we target exhibit a centralized nature in which a potentially large number of clients offload computation to a single central compute node.
-The client-side component of the applications of interest for this research is often complex to scale.
-In the case of interactive and immersive applications, scaling the number of human users can be a significant challenge, as recruiting participants is an expensive and time-consuming endeavor.
-On the other hand, scaling applications involving \glspl{CPS} such as \glspl{NCS} can be prohibitively complex and expensive depending on the specific hardware involved.
-In many cases, these systems are made-to-order, further increasing the cost as economies of scale cannot be employed.
-Emulating the workload component reduces complexity by moving it into the software domain, allowing for easier scaling through the use of cheap, \gls{COTS} general-purpose hardware such as the aforementioned \glspl{SBC}.
-
-Thirdly, in hand with the previous point, emulating the workload provides improved repeatability and replicability.
+Emulating the workload also provides improved repeatability and replicability.
 Repeating a study becomes a matter of re-running the workload on the same testbed;
 in turn, studies can be replicated simply by obtaining the same or equivalent software workload and deploying it on a comparable testbed.
 These are complex tasks to accomplish in real-world approaches, particularly when dealing with humans.
 
-Finally, it improves extensibility significantly.
+Finally, our methodology improves extensibility significantly.
 Replicating the methodology for other workloads simply requires developing a new piece of software to emulate the new workload.
-This can further be simplified by employing softwareplatforms for the emulation of categories of workloads, as well will discuss later on in this thesis.
+This can further be simplified by employing software platforms for the emulation of categories of workloads, as well will discuss later on in this thesis.
 
+\medskip
 In the following subsections we will discuss two illustrative use-cases for our methodology; \acl{WCA} and \acl{NCS} research and benchmarking.
 \Cref{summary:methodology:usecase_wca} discusses the application of our methodology to \gls{WCA}.
 This work was originally published in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}.
@@ -145,8 +154,9 @@ We deployed a \emph{Gabriel}-powered~\cite{chen2018application} \gls{WCA} applic
     \item a 802.11n Wi-Fi \gls{AP} connected to the cloudlet via ethernet
     \item \num{10} Android smartphones connected wirelessly to the \gls{AP}, emulating users for the application
 \end{inlineenum}.
-Three scenarios were considered, corresponding to setups with \num{1} and \num{10} clients under ideal circumstances, plus an additional scenario with \num{10} clients located at a distance from the \gls{AP} such that the signal strength was significantly degraded.
+Three scenarios were considered, corresponding to setups under ideal network conditions with \num{1} and \num{10} clients, plus an additional scenario with \num{10} clients located at a distance from the \gls{AP} such that the signal strength was significantly degraded.
 Each scenario was repeated a \num{100} times for statistical validity.
+These setups already showcase the flexibility of our approach.
 
 
 
