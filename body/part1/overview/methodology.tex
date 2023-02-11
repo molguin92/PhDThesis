@@ -1,3 +1,11 @@
+This thesis presents a comprehensive study on latency-sensitive applications in Edge Computing.
+The primary contribution of this research is a methodology for analyzing and evaluating the performance of these applications.
+The methodology is validated through the examination of two initial case studies, \gls{WCA} and \glspl{NCS}.
+In addition to the methodology, this thesis includes several other key contributions.
+A prototype testbed and accompanying software framework have been developed to provide a platform for conducting experiments in Edge Computing.
+Furthermore, a further deeper exploration into the \gls{WCA} case studied yielded the first-ever model of human behavior in \gls{WCA}, which is a significant advancement in the field.
+The methodology, the case studies, and the prototype testbed provide valuable insights into the performance of latency-sensitive applications in Edge Computing and can be used as a basis for future research in this area.
+
 \section{A methodology for the study of latency-sensitive applications in Edge Computing}\label{summary:methodology}
 
 This thesis makes a contribution to the field of Edge Computing by investigating the applications of a methodology for the study of latency-sensitive applications deployed on Edge infrastructure.
@@ -57,12 +65,12 @@ Replicating the methodology for other workloads simply requires developing a new
 This can further be simplified by employing software platforms for the emulation of categories of workloads, as well will discuss later on in this thesis.
 
 \medskip
-In the following subsections we will discuss two illustrative use-cases for our methodology; \acl{WCA} and \acl{NCS} research and benchmarking.
+In the following subsections we will discuss two illustrative case studies for our methodology; \acl{WCA} and \acl{NCS} research and benchmarking.
 \Cref{summary:methodology:usecase_wca} discusses the application of our methodology to \gls{WCA}.
 This work was originally published in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}.
 Next, in \cref{summary:methodology:usecase_ncs} we expand this discussion to \glspl{NCS}, a discussion originally approached in \cref{paper:olguinmunoz2022cleave}.
 
-\subsection{Use case: \acl{WCA}}\label{summary:methodology:usecase_wca}
+\subsection{Case study: \acl{WCA}}\label{summary:methodology:usecase_wca}
 
 \begin{figure}
     \centering
@@ -125,7 +133,6 @@ the latter presents a deeper, more complete discussion about the implementation 
 As discussed in \cref{chap:introduction}\todo{Was it really here?}, the main challenge to benchmarking \gls{WCA} --- and other ``human-in-the-loop'' applications on the edge --- concerns the involvement of human beings in their operation.
 Humans are unreliable, and, perhaps more importantly, hard to scale.
 
-\todo[inline]{Move part of this to the ``tools'' section?}
 The implementation of the client-side emulation necessary for our methodology follows in these works a trace-based design.
 \Cref{fig:methodology:wca:conceptual} presents a diagram of our conceptual approach to this implementation.
 We introduce a tool, \emph{EdgeDroid \num{1.0}}, which replays a pre-recorded trace of sensory inputs to the original \gls{WCA} backend.
@@ -144,7 +151,6 @@ Compatible traces can be easily obtained simply by instrumenting existing \gls{W
 
 The final advantage corresponds to extensibility.
 As long as the tasks belong to the same category of \gls{WCA} applications (in this case, step-based cognitive assistance), using a trace makes extending the tool to different tasks merely a matter of recording a new trace.
-\todo[inline]{}
 
 \medskip
 We proceed to demonstrate the practical utility of our methodology as applied to \gls{WCA} by setting up a series of scenarios.
@@ -161,20 +167,12 @@ These setups already showcase the flexibility of our approach.
 
 
 
-\subsection{Use case: \acsp{NCS}}\label{summary:methodology:usecase_ncs}
+\subsection{Case study: \acsp{NCS}}\label{summary:methodology:usecase_ncs}
 
-\todo[inline]{Discuss, at high level, the advantages ofthis methodology for NCSs.
+\todo[inline]{Discuss, at high level, the advantages of this methodology for NCSs.
 Refer back to related work. }
 
-\subsection{Tools for the application of the methodology}
-
-\todo[inline]{Here we actually present the tools}
-
-\subsubsection{\acs{WCA}: EdgeDroid}
-
-\subsubsection{\acsp{NCS}: CLEAVE}
-
-\subsubsection{ExPECA Testbed \& the Ainur software stack}
+\subsection{ExPECA Testbed \& the Ainur software stack}
 
 After our initial implementation and experimentation with our methodology for \gls{WCA} applications, it became clear that our research would benefit greatly from the establishment of a testbed on which our methodology could be deployed.
 A testbed would
