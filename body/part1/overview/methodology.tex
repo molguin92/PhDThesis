@@ -184,7 +184,7 @@ A testbed would
 Additionally, such a testbed would benefit other research happening in the group.
 
 These reasons led to the establishment of the \gls{EXPECA} testbed at \pgls{KTH}.
-\gls{EXPECA} is an \gls{SSF}-funded infrastructure project targeting the development and provisioning of an edge computing infrastructure for research into novel applications and network architectures.
+\gls{EXPECA} is a \gls{SSF}-funded infrastructure project targeting the development and provisioning of an edge computing infrastructure for research into novel applications and network architectures.
 It consists of a cluster of hardware-reconfigurable \gls{COTS} computing nodes interconnected using managed switches and \glspl{SDR}.
 This allows us to quickly, on-the-fly, and in an automated fashion change the characteristics of the cluster and the network, in order to study different Edge- and Cloud-computing deployments and the applications that run on them.
 
@@ -198,23 +198,28 @@ This allows us to quickly, on-the-fly, and in an automated fashion change the ch
 \end{figure}
 
 The initial prototype architecture of \gls{EXPECA} is illustrated in \cref{fig:expeca}.
-\emph{Workload hosts} act as client-side user devices.
+\emph{Workload hosts} act as client-side user devices;
+in our prototype, these corresponded to \num{10} Raspberry Pi 4 Model B boards.
 These devices connect to either a cloudlet or cloud computing instances over the \emph{workload data network}.
-Through intelligent configuration of \acsp{VLAN} and routing, traffic on this network can be forced to flow through the attached \acsp{SDR}, on of them acting as a wireless connection client and the other as an access point.
+Through clever configuration of \acsp{VLAN} and routing, traffic on this network can be forced to flow through the attached \acsp{SDR} and their associated radio processing hosts.
 This allows us to seamlessly switch out the physical layer for experiments.
-Alternatively, workload hosts can connect wirelessly via Wi-Fi to an \acs{SDR} acting as an \acs{AP}.
+We implemented configurations wherein one of the \glspl{SDR} acted as a 4G or 5G base station and the other one as a cellular client.
+An alternative setup had the workload hosts connect wirelessly via Wi-Fi to one of the radios acting as an \gls{AP}
 Finally, the \emph{control network} is used for the out-of-band configuration of testbed resources, and the \acs{VPN} links allow direct tunneled connections to cloud compute nodes on \acs{AWS}.
 
-An implementation of this prototype was employed for the studies in \cref{paper:olguinmunoz2022cleave,paper:olguinmunoz2023realistic}.
-As an initial deployment of our testbed concept, it employed
-\begin{inlineenum}[itemjoin={{; }}, itemjoin*={{; and finally }}]
-    \item \num{10} Raspberry Pi 4 Model B boards, acting as workload hosts
-    \item two additional Raspberry Pi 4 Model boards acting as \gls{VPN} gateways as well as hosting necessary time synchronization and \gls{DNS} nameserver software
-    \item a cloudlet
-    \item a logging and management server
-    \item a configurable number of \gls{AWS} \gls{EC2} cloud instances acting as cloud compute nodes
-    \item two managed switches,
-    \item two \glspl{SDR} with associated radio stack processing hosts
-\end{inlineenum}.
+The above prototype was formally introduced in \cref{paper:olguinmunoz2022ainur}, together with the software framework we developed for its automation and experiment orchestration, \emph{Ainur}.
+Ainur is a highly flexible end-to-end wireless network testbed management framework.
+Its objective is to facilitate the study of the effects of communication and computation elements on the performance of distributed applications.
+To achieve this, Ainur provides a Python \gls{API} that allows researchers to describe experiments in a procedural manner, with plans to eventually offer toolkits for declarative configuration.
 
-The above prototype was formally introduced in \cref{paper:olguinmunoz2022ainur}, together with the software framework employed for its automation and experiment orchestration.
+The architecture of Ainur closely resembles the conceptual layers of the \acs{TCP}/\acs{IP} stack, and the framework utilizes containerization throughout.
+This includes the deployment and orchestration of workloads, support for different physical layer configurations, and automated collection of logs.
+To support this, the framework leverages Docker Swarm~\cite{docker,merkel2014docker,Swarm2021} as the container orchestration layer.
+Docker Swarm was chosen for its lightweight nature, simple configuration, and inclusion in the default Docker runtime installation.
+This allows Ainur to remain agnostic to the nature of the workloads and support a wide range of applications and system architectures, without having to consider library dependencies.
+
+Ainur also leverages containerization for the communication stack, which can nowadays be deployed on general-purpose processors using \gls{O-RAN} and \glspl{SDR}.
+This allows for the distribution of the communication stack across multiple hosts, providing researchers with the ability to study the effects of communication and computation elements on the performance of distributed applications.
+
+Both Ainur and \gls{EXPECA} were utilized in \cref{paper:olguinmunoz2022cleave,paper:olguinmunoz2023realistic}.
+\todo[inline]{finish}
