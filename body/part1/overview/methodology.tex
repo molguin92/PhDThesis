@@ -1,4 +1,4 @@
-This thesis presents a comprehensive study on latency-sensitive applications in Edge Computing.
+As summarized in \cref{sec:summary_contributions}, this thesis presents a comprehensive study on latency-sensitive applications in Edge Computing.
 The primary contribution of this research is a methodology for analyzing and evaluating the performance of these applications.
 The methodology is validated through the examination of two initial case studies, \gls{WCA} and \glspl{NCS}.
 In addition to the methodology, this thesis includes several other key contributions.
@@ -11,7 +11,7 @@ The methodology, the case studies, and the prototype testbed provide valuable in
 This thesis makes a contribution to the field of Edge Computing by investigating the applications of a methodology for the study of latency-sensitive applications deployed on Edge infrastructure.
 These applications, such as \gls{WCA} and \glspl{NCS}, are challenging to study and scale due to their cyber-physical nature, complexity, and requirements for low latency and high reliability.
 
-The main focus of this thesis is to enhance the accuracy and realism of results related to Edge infrastructure, particularly in regard to the network.
+The main focus of this work is to enhance the accuracy and realism of results related to Edge infrastructure, particularly in regard to the network.
 The proposed methodology aims to provide a more comprehensive and realistic assessment of the performance of these latency-sensitive applications, allowing for a better understanding of the strengths and limitations of Edge Computing in this context.
 Our results will contribute to the development of new techniques and approaches for improving the performance and reliability of Edge Computing systems.
 
@@ -130,27 +130,24 @@ Next, in \cref{summary:methodology:usecase_ncs} we expand this discussion to \gl
 We first introduce our methodology and its applicability to \gls{WCA} in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}.
 The former corresponds to an extended abstract paper which discusses a high level overview of our approach;
 the latter presents a deeper, more complete discussion about the implementation together with some first experimental results.
-As discussed in \cref{chap:introduction}\todo{Was it really here?}, the main challenge to benchmarking \gls{WCA} --- and other ``human-in-the-loop'' applications on the edge --- concerns the involvement of human beings in their operation.
+As discussed in \cref{chap:introduction,chap:relatedwork}\todo{Was it really here?}, the main challenge to benchmarking \gls{WCA} --- and other ``human-in-the-loop'' applications on the edge --- concerns the involvement of human beings in their operation.
 Humans are unreliable, and, perhaps more importantly, hard to scale.
 
 The implementation of the client-side emulation necessary for our methodology follows in these works a trace-based design.
+The trace-based approach is chosen for three reasons:
+\begin{inlineenum}
+    \item realism in terms of payloads sent over the network
+    \item simplicity without complex modeling of human behavior
+    \item extensibility through the recording of new traces for different tasks in the same category of WCA applications
+\end{inlineenum}.
+This approach provides a realistic execution path while being easily obtainable through instrumentation of existing WCA client applications and easily extensible to different tasks.
+
 \Cref{fig:methodology:wca:conceptual} presents a diagram of our conceptual approach to this implementation.
 We introduce a tool, \emph{EdgeDroid \num{1.0}}, which replays a pre-recorded trace of sensory inputs to the original \gls{WCA} backend.
 The tool is implemented in Android, allowing for its easy deployment on the same kind of \gls{COTS} mobile and/or wearable devices (e.g.\ Google Glass~\cite{googleglass}) on which real \gls{WCA} applications are intended to run in the future.
 Furthermore, this tool is instrumented, allowing us to collected a multitude of system-level metrics at runtime which can then be analyzed.
 On the other hand, the trace in question corresponds to a pre-recorded sequence of sensory inputs obtained from a real execution of the \gls{WCA} by a human volunteer.
 The trace is recorded in a near-ideal setting, such that it does not include either human mistakes or segments with degraded system responsiveness.
-Once recorded, the trace is manually segmented into the logical component steps of the task, and these are replayed in sequence back to the backend by the EdgeDroid tool.
-
-We opt for a trace-based approach for our first implementation of the methodology for \gls{WCA} for three key reasons.
-The first of these is the level of realism if affords in terms of the payloads sent over the network and, in particular, processed by the backend.
-Using a trace ensures that the same computation is performed on the edge as if a human was involved, while also ensuring a reproducible application execution path.
-
-The second is simplicity, as such an approach does not require complex modeling of human behavioral patterns, merely the observation and recording of them.
-Compatible traces can be easily obtained simply by instrumenting existing \gls{WCA} client applications to record all captured inputs.
-
-The final advantage corresponds to extensibility.
-As long as the tasks belong to the same category of \gls{WCA} applications (in this case, step-based cognitive assistance), using a trace makes extending the tool to different tasks merely a matter of recording a new trace.
 
 \medskip
 We proceed to demonstrate the practical utility of our methodology as applied to \gls{WCA} by setting up a series of scenarios.
@@ -163,6 +160,8 @@ We deployed a \emph{Gabriel}-powered~\cite{chen2018application} \gls{WCA} applic
 Three scenarios were considered, corresponding to setups under ideal network conditions with \num{1} and \num{10} clients, plus an additional scenario with \num{10} clients located at a distance from the \gls{AP} such that the signal strength was significantly degraded.
 Each scenario was repeated a \num{100} times for statistical validity.
 These setups already showcase the flexibility of our approach.
+
+\todo[inline]{Finish?}
 
 \subsection{Case study: \acsp{NCS}}\label{summary:methodology:usecase_ncs}
 
@@ -187,6 +186,7 @@ It is compatible with container technologies such as Docker~\cite{docker}, makin
     }\label{fig:cleavesetup}
 \end{figure}
 
+\medskip
 We study the validity of our methodology and the implementation of the software framework through a simple scenario, illustrated in \cref{fig:cleavesetup}.
 An inverted pendulum plant controlled by a proportional-differential controller is deployed on an Edge server over a Wi-Fi link, while video-streaming applications run concurrently on the setup.
 The inverted pendulum is a popular benchmark in control-system literature, and the setup allows for straightforward reparametrization and a broad range of experiments.

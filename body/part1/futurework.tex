@@ -1,3 +1,54 @@
+\section{Conclusions}
+
+\section{Open questions \& future work}
+
+The present thesis presents a comprehensive exploration into the application of our methodology for \glspl{NCS} and specially for \gls{WCA}.
+Nonetheless, a number of key questions remain open for future research in this field.
+
+The first of these relates to the applicability of the methodology to other systems and applications in an Edge Computing context.
+In this thesis, we have delved deep into its applicability for step-based \gls{WCA} and performed a shallower case study into its advantages for \gls{NCS} research.
+The question remains whether our methodology is suitable for
+\begin{inlineenum}
+%    \item other categories of \gls{WCA} which do not follow a pre-defined, linear task model (e.g.\ \citeauthor{chen2018application}s Ping-Pong assistant application)
+%    \item more complex \glspl{NCS}, for instance involving more complex controllers and system architectures
+    \item other, non-\gls{WCA} \gls{XR} applications, such as more general mobile \gls{AR} and \gls{VR}
+    \item other more general categories of \glspl{CPS}
+\end{inlineenum}.
+The results we have so far obtained would indicate that our methodology is in fact applicable to a broad spectrum of interactive and \gls{CPS} applications on Edge Computing, but these results should be validated by domain-specific studies.
+
+In line with the more general questions posed above, we identify a number of more specific questions related to the individual contributions to literature made by this thesis.
+Beginning with the tool, EdgeDroid, introduced in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid,paper:olguinmunoz2023realistic}, we believe there are opportunities for its extension toward other classes of \gls{WCA} applications.
+Our current model only targets a particular class of step-based \gls{WCA} with a linear task model, but our tool --- and by extension, our methodology --- could be applied to similar applications without much difficulty.
+
+In that same vein, our data~\cite{olguinmunoz:impact2021} only considers young undergraduate students at a highly competitive university in the United States.
+An extension of this dataset and the model of human behavior developed in \cref{paper:olguinmunoz2023realistic} towards a more representative sample of the general population would surely be a valuable endeavor.
+Such research could also determine new individual difference factors that would substantially impact response to \gls{WCA} in novel populations, something which would represent a valuable contribution to literature in \gls{HCI} in general.
+
+The optimization framework employed in \cref{paper:olguinmunoz2023realistic} to study the implications of our methodology for the optimization of \gls{WCA} could be improved by expanding it towards distributions which better describe the behavior of human execution times.
+Currently, the framework assumes executions times are Rayleigh-distributed, however in literature these values are generally understood to follow an \glx{exGaussian} distribution.
+Moreover, the utility of the framework could be significantly increased by considering extensions towards scenarios with multiple clients and a distributed solution.
+
+\medskip
+Opportunities for future research exist also in regard to our work on applying the methodology to \gls{NCS}.
+Currently, \gls{CLEAVE} includes a small repertoire of emulations and controllers.
+We are planning to extend this with the goal of creating an open library of \glspl{NCS} to share with the community.
+
+
+\todo[inline]{Finish talking about CLEAVE.}
+
+\todo[inline]{Then talk about tremendous opportunities for EXPECA and Ainur. Talk about future of EXPECA.}
+
+At the moment, the interactions of \gls{CLEAVE} and tools such as Docker are still quite superficial.
+Our goal is to achieve a much tighter integration, e.g.\ by providing the toolkit as pre-packaged container images.
+Finally, the validity of the results obtained by the framework will have to be verified through more thorough, realistic scenarios than what we have been able to show in this work.
+In particular, we intend to perform large-scale experimentation targetting 5G cellular deployments, as this technology is set to become the backbone of edge networks in the near future.
+
+
+
+
+
+
+
 Extending methodology to other classes of \gls{WCA}.
 Ping-pong is the typical example --- look for other classes too.
 

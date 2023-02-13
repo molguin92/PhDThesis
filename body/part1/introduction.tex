@@ -1,24 +1,36 @@
 \section{Introduction}
 
-\todo[inline]{
-    Introduction here. Why do we need this work?
-    Maybe rename.
-}
+The advancement of technology has brought about new computing paradigms and network technologies that have the potential to revolutionize the way we think about and approach computing and communication.
+One of the most promising of these is Edge Computing, which seeks to bring computing closer to the end user, reducing latency and increasing reliability.
+Another key player in this space is 5G, the latest generation of mobile communication networks that offers higher data rates, lower latency, and improved reliability.
+The combination of these two technologies holds great promise for the deployment of latency-sensitive applications, including \glspl{CPS}, \glspl{NCS}, and \gls{WCA} applications, among others.
 
-\todo[inline]{
-    Reorganize EdgeDroid, Cleave, Ainur, together.
+Despite these advancements, there are still significant challenges in understanding and scaling these systems, particularly in regard to their cyber-physical nature, complexity, and requirements for low latency and high reliability.
+The aim of this thesis is to make a contribution to the field by investigating the applications of a methodology for the study of latency-sensitive applications deployed on Edge infrastructure and network technologies such as 5G.
+The proposed methodology aims to enhance the accuracy and realism of results related to Edge infrastructure and 5G networks, particularly in regard to network performance.
+Our results will contribute to the development of new techniques and approaches for improving the performance and reliability of \gls{MEC}.
 
-    Pull in multi-loop results for EdgeDroid?
+Our methodology is based on the emulation of target workloads on actual Edge infrastructure.
+We replace the client side of the system with a realistic emulation of the desired behaviors, implemented in software deployed on \gls{COTS} general-purpose computing devices.
+In our initial implementation, these correspond to low-cost, easily replaceable, and scalable Raspberry Pi 4 Model B \glspl{SBC}.
 
-    Think about experiments.
-}
+Emulating the workload component reduces complexity by moving it into the software domain, allowing for easier scaling through the use of cheap, COTS general-purpose hardware such as \glspl{SBC}.
+It also preserves the realism of effects stemming from the hardware and network.
+In particular, the methodology allows us to capture effects due to network factors such as contention, congestion control, and medium access, which are often of stochastic or chaotic natures and complex to capture in simulations.
 
-\section{Summary of the key contributions of this thesis}
+The methodology also provides improved repeatability and replicability.
+Repeating a study becomes a matter of re-running the workload on the same testbed, and studies can be replicated simply by obtaining the same or equivalent software workload and deploying it on a comparable testbed.
+These are complex tasks to accomplish in real-world approaches, particularly when dealing with humans.
+
+Our methodology provides a comprehensive and realistic assessment of the performance of latency-sensitive applications deployed on Edge infrastructure.
+The approach provides valuable insights for researchers, system designers, and application developers, and will contribute to the development of new techniques and approaches for improving the performance and reliability of Edge Computing and 5G systems.
+
+\section{Summary of the key contributions of this thesis}\label{sec:summary_contributions}
 
 This thesis presents three core contributions to the existing body of research in edge computing, as well as a number of secondary ones.
-Firstly, we introduce a methodological approach to studying system responsiveness versus resource consumption trade-offs in edge-bound feedback-loop systems such as \gls{WCA} and \gls{NCS}.
+Firstly, we introduce a methodological approach to studying system responsiveness versus resource consumption trade-offs in edge-bound latency-sensitive applications such as \gls{WCA} and \gls{NCS}.
 This approach is based on the emulation of the client-side workload, while maintaining the \emph{real} server-side process as well as network stack.
-We validate this methodology by example, presenting implementations of its application in the context of \gls{WCA} and \glspl{NCS}, and introduce a software framework for the orchestration of the edge computing testbeds necessary for its implementation.
+We validate this methodology by example, presenting case studies of its application in the context of \gls{WCA} and \glspl{NCS}, and introduce a software framework for the orchestration of the edge computing testbeds necessary for its implementation.
 
 Secondly, we present a deeper exploration of this methodology for \gls{WCA} and introduce the first ever model for the end-to-end emulation of human timing behavior in \gls{WCA}.
 This model is built from a thorough characterization of these behaviors, the data for which we obtain from a comprehensive human-subject study.
@@ -60,8 +72,6 @@ Participants were also asked to fill out two personality indicator questionnaire
 \cref{paper:olguinmunoz2023realistic} then concludes this line of work, building upon the insights and data obtained in \cref{paper:olguinmunoz2021impact} to develop the first ever data-driven model of human timings for \gls{WCA}.
 The model is validated against previously obtained results, both through simulated, controlled executions and deployments on a real edge computing testbed.
 This work also explores potential implications of this model for \gls{WCA} system optimization potential, particularly in the domains of energy consumption and sampling strategies.
-
-\section{Open questions \& future work}
 
 \section{Structure of this thesis}
 
