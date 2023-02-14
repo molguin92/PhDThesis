@@ -5,57 +5,69 @@
 The present thesis presents a comprehensive exploration into the application of our methodology for \glspl{NCS} and specially for \gls{WCA}.
 Nonetheless, a number of key questions remain open for future research in this field.
 
-The first of these relates to the applicability of the methodology to other systems and applications in an Edge Computing context.
-In this thesis, we have delved deep into its applicability for step-based \gls{WCA} and performed a shallower case study into its advantages for \gls{NCS} research.
-The question remains whether our methodology is suitable for
+The first concern is the applicability of the methodology to other systems and applications in the context of Edge Computing.
+This thesis explores the methodology's use for step-based \gls{WCA} in depth, and also performs a less thorough case study on its benefits for \gls{NCS} research.
+The question remains if the methodology is suitable for
 \begin{inlineenum}
-%    \item other categories of \gls{WCA} which do not follow a pre-defined, linear task model (e.g.\ \citeauthor{chen2018application}s Ping-Pong assistant application)
-%    \item more complex \glspl{NCS}, for instance involving more complex controllers and system architectures
     \item other, non-\gls{WCA} \gls{XR} applications, such as more general mobile \gls{AR} and \gls{VR}
     \item other more general categories of \glspl{CPS}
 \end{inlineenum}.
-The results we have so far obtained would indicate that our methodology is in fact applicable to a broad spectrum of interactive and \gls{CPS} applications on Edge Computing, but these results should be validated by domain-specific studies.
+The results obtained thus far indicate that the methodology is applicable to a wide range of interactive and \gls{CPS} applications in Edge Computing, but these results should be confirmed by domain-specific studies.
 
-In line with the more general questions posed above, we identify a number of more specific questions related to the individual contributions to literature made by this thesis.
-Beginning with the tool, EdgeDroid, introduced in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid,paper:olguinmunoz2023realistic}, we believe there are opportunities for its extension toward other classes of \gls{WCA} applications.
-Our current model only targets a particular class of step-based \gls{WCA} with a linear task model, but our tool --- and by extension, our methodology --- could be applied to similar applications without much difficulty.
+In accordance with the broader questions mentioned above, this thesis also raises specific questions related to its individual contributions to the literature.
+The EdgeDroid tool, introduced in papers \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid,paper:olguinmunoz2023realistic}, has the potential for further development to support other forms of \gls{WCA} applications.
+Currently, the tool is only designed for a specific class of step-based \gls{WCA} with a linear task model.
+However, the tool, and by extension the methodology, could be easily adapted to similar applications.
 
-In that same vein, our data~\cite{olguinmunoz:impact2021} only considers young undergraduate students at a highly competitive university in the United States.
-An extension of this dataset and the model of human behavior developed in \cref{paper:olguinmunoz2023realistic} towards a more representative sample of the general population would surely be a valuable endeavor.
-Such research could also determine new individual difference factors that would substantially impact response to \gls{WCA} in novel populations, something which would represent a valuable contribution to literature in \gls{HCI} in general.
+We identify the potential for expanding the dataset presented in \cref{paper:olguinmunoz2021impact} to include a more diverse range of participants.
+The current dataset is limited to young undergraduate students from a highly selective university in the \gls{USA}.
+Adding participants from different demographic groups would enhance the representativeness of the data and increase the generalizability of the findings.
+This would also provide an opportunity to extend the human timing model presented in \cref{paper:olguinmunoz2023realistic} to better reflect the behavior of a broader range of users.
 
-The optimization framework employed in \cref{paper:olguinmunoz2023realistic} to study the implications of our methodology for the optimization of \gls{WCA} could be improved by expanding it towards distributions which better describe the behavior of human execution times.
-Currently, the framework assumes executions times are Rayleigh-distributed, however in literature these values are generally understood to follow an \gls{exGaussian} distribution.
-Moreover, the utility of the framework could be significantly increased by considering extensions towards scenarios with multiple clients and a distributed solution.
+The optimization framework described in \cref{paper:olguinmunoz2023realistic} can be enhanced in two ways.
+Firstly, the framework assumes that human execution times follow a Rayleigh distribution, but in reality, they are often modeled with an \gls{exGaussian} distribution.
+Secondly, the framework can be made more practical by incorporating the optimization of scenarios with multiple clients and a distributed solution.
+
+There are numerous avenues for further investigation in the optimization and development of \gls{WCA}.
+While this thesis has explored the optimization of sampling and energy consumption, there are several other dimensions of these systems that can be examined.
+These include resource allocation, task scheduling, user identification and classification, as well as guaranteeing both \gls{QoE} and \gls{QoS}.
+Each of these areas presents opportunities for future work and could lead to significant advancements in the field of \gls{WCA}.
 
 \medskip
-Opportunities for future research exist also in regard to our work on applying the methodology to \gls{NCS}.
+Our research on applying the methodology to \glspl{NCS} presents promising potential for future work.
+While \cref{paper:olguinmunoz2022cleave} provides an initial exploration, further investigation through more realistic and thorough experimentation is necessary to validate the results obtained by the framework.
+To this end, we aim to conduct larger-scale experiments that utilize cutting-edge networking technologies, including 5G and future advancements such as 6G.
+By exploring the full range of networking technologies and scenarios, we can ensure that our methodology is robust and applicable to a wide range of \gls{NCS}.
+
+We also intend to extend the functionality of the \gls{CLEAVE} tool significantly, primarily to target a wider variety of \glspl{NCS} deployments.
 Currently, \gls{CLEAVE} includes a small repertoire of emulations and controllers.
 We are planning to extend this with the goal of creating an open library of \glspl{NCS} to share with the community.
 
+\medskip
+Finally, we see tremendous opportunities for testbed-driven research in Edge Computing.
+Our current efforts in this context aim towards the extension of our Ainur framework and its integration with \gls{CHI}~\cite{keahey2020lessons}.
+We believe Ainur's unique focus on fully-automated end-to-end wireless edge computing experimentation makes it valuable addition to the \gls{CHI} stack.
+At the same time, integrating with \gls{CHI} will provide a number of features and functionalities which will greatly expand Ainurs potential, such as resource reservation, multi-tenant testbed access, and automated bare-metal and \gls{VM}-host instantiation.
 
-\todo[inline]{Finish talking about CLEAVE.}
+The \gls{EXPECA} testbed is undergoing a major expansion and improvement.
+%The aim is to enhance its capabilities and hardware to meet the ever-increasing demands of the industry.
+The expansion consists of three main components;
+\begin{inlineenum}
+    \item a hardware upgrade
+    \item a small scale, private 5G deployment
+    \item a campus-wide 5G deployment
+\end{inlineenum}.
+Firstly, the \gls{EXPECA}s hardware is receiving a complete overhaul.
+We are replacing our initial Raspberry Pi-based prototype with a number of industry grade servers.
+Secondly, a small-scale private 5G deployment using industrial-grade equipment is currently being deployed.
+This will provide a controlled environment for testing and evaluating 5G technologies and applications.
+The use of industrial-grade equipment ensures that the results obtained from the tests are reliable and can be directly applied to real-world scenarios.
+Thirdly, the testbed will be extended to a campus-wide deployment at \gls{KTH} in Stockholm.
+This will provide an opportunity for a larger-scale deployment of 5G and \gls{MEC} technologies and applications, allowing for testing in real-world settings.
+The campus-wide deployment will also serve as a platform for researchers and industry professionals to collaborate and exchange ideas.
+The combined efforts of the small-scale private deployment and the campus-wide deployment at \gls{KTH} will significantly enhance the capabilities and knowledge of the \gls{EXPECA} testbed, positioning it as a leading platform for 5G and \gls{MEC} research and innovation.
 
-\todo[inline]{Then talk about tremendous opportunities for EXPECA and Ainur. Talk about future of EXPECA.}
-
-At the moment, the interactions of \gls{CLEAVE} and tools such as Docker are still quite superficial.
-Our goal is to achieve a much tighter integration, e.g.\ by providing the toolkit as pre-packaged container images.
-Finally, the validity of the results obtained by the framework will have to be verified through more thorough, realistic scenarios than what we have been able to show in this work.
-In particular, we intend to perform large-scale experimentation targetting 5G cellular deployments, as this technology is set to become the backbone of edge networks in the near future.
-
-
-
-
-
-
-
-Extending methodology to other classes of \gls{WCA}.
-Ping-pong is the typical example --- look for other classes too.
-
-Extending methodology to other systems.
-\gls{AR}, \gls{XR} in general?
-Closed-loop control? (Although we already started with CLEAVE).
-
-Further optimization of \gls{WCA} systems.
-In this thesis we touch upon sampling, but other dimensions can also be optimized.
-Resource allocation, scheduling, user identification and classification, QoS/QoE guarantees?
+In conclusion, the present dissertation provides a comprehensive examination of the methodology for \glspl{NCS} and \gls{WCA}, but there are still many open questions that need to be addressed in future research.
+The EdgeDroid tool and the dataset have the potential to be extended, and the optimization framework employed in the thesis could be improved.
+We also plan to extend the functionality of the \gls{CLEAVE} tool and perform large-scale experimentation on novel networking technologies.
+There are also significant opportunities for testbed-driven research in Edge Computing through the \gls{EXPECA} testbed.
