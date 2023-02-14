@@ -374,29 +374,52 @@ At higher degrees of resource contention, the high neuroticism parameterization 
 In the present section and the following we briefly discuss the implications of our methodology on the optimization potential of number of samples and energy consumption per step, respectively.
 Both these analyses depend on an understanding of the tradeoffs between resource consumption and responsiveness in \gls{WCA};
 fewer samples per step translates into longer sampling periods, and lower energy consumption tends to be made possible by processing fewer bits of data per step.
-As such, we employ in these sections an optimization framework for the optimization of said trade-offs based primarily upon the work of Moothedath et al.~\cite{moothedath2021energy,moothedath2022energy1,moothedath2022energy2}.
-We note that objective metrics relating to sampling and the responsiveness of a \gls{WCA} system will present itself as a linear combination of the number of expected samples and expected wait time per step plus some constant term:
-\begin{align}
-    \mathcal{E} = \alpha\mathbb{E}[\mathcal{S}] + \beta\mathbb{E}[\mathcal{W}] + C\label{eq:genericopt}
-\end{align}
-The above objective function is generic, and can be adapted to any metric which relates to the sampling and responsiveness of \gls{WCA} by modifying the factors \ensuremath{\alpha}, \ensuremath{\beta}, and \ensuremath{C}.
 
-For the analyses in this subsection and \cref{ssec:implications:energy}, we use the solution
-\begin{align}
-    t_n = \left( 3\sigma\sqrt {\frac{\alpha}{2\beta}} \right)^{\frac{2}{3}} n^{\frac{2}{3}}
-\end{align}
-where \ensuremath{t_n} once again corresponds to the \ensuremath{n}-th sampling instant in a step.
-Note that any positive real value is valid for \ensuremath{\frac{\alpha}{2\beta}}.
-This ratio controls the optimization criteria --- as it goes to infinity, the criteria changes from minimizing wait time (i.e.\ maximizing responsiveness) to minimizing the number of samples per step (i.e.\ minimizing energy consumption).
-
-The full derivation and explanation of this framework is out of the scope of this summary.
-Please refer to \cref{paper:olguinmunoz2023realistic} and its appendix for a detailed discussion on this optimization approach.
-\todo{Include ref to section?}
+We employ in these sections an optimization framework based primarily upon the work of Moothedath et al.~\cite{moothedath2021energy,moothedath2022energy1,moothedath2022energy2}.
+The goal of this framework is to balance between increased responsiveness due to higher sampling rates and reduced resource consumption and network congestion caused by excessive sampling.
+In general, any objective metric in these applications which relates to sampling and the responsiveness of the system will present itself
+as a linear combination between \ensuremath{\mathbb{E}[\mathcal{S}]} and \ensuremath{\mathbb{E}[\mathcal{W}]} plus terms independent of the number of samples or wait time:
+\begin{alignat}{1}
+    \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C\;
+\end{alignat}
+The constants \ensuremath{\alpha}, \ensuremath{\beta}, and \ensuremath{C} modify the objective function from one metric to another.
 
 \medskip
+For the problem of minimizing the number of samples, an unconstrained optimization of the above equation leads to a single sample at \ensuremath{t \rightarrow \infty} and an infinite wait time.
+Thus, a constrained optimization is performed with an upper bound \ensuremath{w_0} for the expected wait time, i.e.\ \ensuremath{\mathbb{E}[\mathcal{W}] \leq w_0}.
+The below equation is derived in \cref{paper:olguinmunoz2023realistic} for finding appropriate \ensuremath{\alpha} and \ensuremath{\beta} for this problem:
+\begin{alignat}{1}\label{eq:sampling}
+\frac{\alpha}{\beta}=\frac{2\sqrt{2}\,w_0^2}{(\mathlarger{\Gamma}(\tfrac{3}{4}))^2\,\sigma}\approx1.9\frac{w_0^2}{\sigma}
+\end{alignat}
+This solution assumes execution times distributed according to a Rayleigh distribution with parameter \ensuremath{\sigma}.
+\ensuremath{\mathlarger{\Gamma}(x)} is the Gamma function.
+Note that the full derivation and explanation of this solution is out of the scope of this summary;
+please refer to the paper and its appendix for a detailed discussion on this optimization approach.
 
+A reference scheme from~\cite{wang2019towards} is introduced which adjusts the sampling rate at each sampling instant \ensuremath{t} according to the estimated likelihood of the user finishing the step.
+The scheme uses a static Gaussian distribution for all steps.
 
+We compare the effects of the optimization approach with the timing models to the reference scheme.
+We implement a sample-count-optimized aperiodic sampling scheme using \cref{eq:sampling} to determine the optimum sampling instants and the values for \ensuremath{\alpha} and \ensuremath{\beta}.
+The scheme includes an embedded human timing model that measures the perceived system responsiveness and updates the \ensuremath{\sigma} parameter at every step.
+The reference scheme is implemented using the Gaussian distribution fitted to the execution times in \cref{paper:olguinmunoz2021impact}.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{publications/2023EdgeDroid2/figs/new_model/sampling_optimization}
+    \caption{%
+        Round-trip time versus mean number of captured samples per step, averaged over all \num{100} repetitions of the experiment.
+        Note the logarithmic scale on the vertical axis.
+        Error bars indicate \SI{95}{\percent} \glspl{CI}.
+        Summary of results for experiment comparing the sample-count-optimized aperiodic sampling scheme to the reference schemes and \textcite{wang2019towards}'s \gls{CDF}-based approach.
+        Figure originally published in \cref{paper:olguinmunoz2023realistic}.
+    }
+\end{figure}
+
+Simulations are performed using these sampling schemes implemented in Python.
+The sample-count-optimized aperiodic scheme results in a lower mean number of samples per step compared to the reference scheme, while still satisfying the expected wait time bound.
+In addition, the results show that the embedded timing model significantly improves the performance of the sample-count-optimized aperiodic scheme compared to using fixed values for \ensuremath{\alpha} and \ensuremath{\beta}.
+These results demonstrate the efficacy of the optimization approach, combined with our novel model of human behavior, in minimizing sampling rates in \gls{WCA} applications while still meeting responsiveness requirements.
 
 
 \subsection{Implications with respect to raw energy consumption}\label{ssec:implications:energy}
