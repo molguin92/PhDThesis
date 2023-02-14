@@ -379,7 +379,7 @@ We employ in these sections an optimization framework based primarily upon the w
 The goal of this framework is to balance between increased responsiveness due to higher sampling rates and reduced resource consumption and network congestion caused by excessive sampling.
 In general, any objective metric in these applications which relates to sampling and the responsiveness of the system will present itself
 as a linear combination between \ensuremath{\mathbb{E}[\mathcal{S}]} and \ensuremath{\mathbb{E}[\mathcal{W}]} plus terms independent of the number of samples or wait time:
-\begin{alignat}{1}
+\begin{alignat}{1}\label{eq:tradeoff}
     \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C\;
 \end{alignat}
 The constants \ensuremath{\alpha}, \ensuremath{\beta}, and \ensuremath{C} modify the objective function from one metric to another.
@@ -408,18 +408,67 @@ The reference scheme is implemented using the Gaussian distribution fitted to th
     \centering
     \includegraphics[width=\textwidth]{publications/2023EdgeDroid2/figs/new_model/sampling_optimization}
     \caption{%
-        Round-trip time versus mean number of captured samples per step, averaged over all \num{100} repetitions of the experiment.
-        Note the logarithmic scale on the vertical axis.
+        Round-trip time versus mean number of captured samples per step (logarithmic Y-axis).
         Error bars indicate \SI{95}{\percent} \glspl{CI}.
-        Summary of results for experiment comparing the sample-count-optimized aperiodic sampling scheme to the reference schemes and \textcite{wang2019towards}'s \gls{CDF}-based approach.
         Figure originally published in \cref{paper:olguinmunoz2023realistic}.
-    }
+    }\label{fig:samplingresults}
 \end{figure}
 
-Simulations are performed using these sampling schemes implemented in Python.
-The sample-count-optimized aperiodic scheme results in a lower mean number of samples per step compared to the reference scheme, while still satisfying the expected wait time bound.
-In addition, the results show that the embedded timing model significantly improves the performance of the sample-count-optimized aperiodic scheme compared to using fixed values for \ensuremath{\alpha} and \ensuremath{\beta}.
-These results demonstrate the efficacy of the optimization approach, combined with our novel model of human behavior, in minimizing sampling rates in \gls{WCA} applications while still meeting responsiveness requirements.
+Simulations were performed in Python to test different sampling schemes.
+The results from these simulations are presented in \Cref{fig:samplingresults}.
+The figure compares the performance of four sampling schemes:
+\begin{inlineenum}
+    \item the sample-count-optimized approach described above
+    \item \citeauthor{wang2019towards}s adaptive approach based on a Gaussian distribution
+    \item a \emph{greedy}, completely unoptimized approach
+    \item an \emph{offline optimum} scheme which perfectly predicts execution times in order to only sample once per step
+\end{inlineenum}.
+
+The results indicate that the sample-count-optimized aperiodic scheme results in a lower mean number of samples per step compared to the reference scheme proposed by \citeauthor{wang2019towards}.
+This was achieved while still satisfying the expected wait time bound.
+
+The performance of the sample-count-optimized aperiodic scheme was further enhanced by incorporating the timing model that reflects human behavior.
+The timing model allows for a more precise optimization of the sampling rate in \gls{WCA} applications, which minimizes the number of samples needed while still meeting the responsiveness requirements.
+These results highlight the effectiveness of the optimization approach and the significance of the timing model in optimizing sampling rates, as well as provide further validation of our methodology.
 
 
 \subsection{Implications with respect to raw energy consumption}\label{ssec:implications:energy}
+
+We also optimize for energy consumption in \gls{WCA}.
+Energy consumption in these applications depends on various factors such as the number of samples captured, communication power and delays, among others.
+Hence, minimizing the number of samples captured is not a guarantee of reducing energy consumption.
+We therefore take the general solution for \cref{eq:tradeoff} and find the appropriate values of \ensuremath{\alpha} and \ensuremath{\beta} to minimize the energy consumed per step, represented by \ensuremath{\mathcal{E}=E}.
+With feedback given even to the discarded samples in our model and communication delay defined as the total delay in either direction, we have,
+\begin{alignat}{2}
+    \mathrm{E}=&\;\mathcal{S}\tau_cP_c+(\mathcal{T}+\mathcal{W}+\tau_\mathrm{p}+\tau_\mathrm{c}-\mathcal{S}\tau_c)P_0\nonumber\\
+    % &=s\tau_c(P_c-P_0^{(t)})+wP_0^{(t)}+(\tau+\tau_c+\tau_p) P_0^{(t)}+\tau_cP_c\\
+    =&\;\tau_{\text{c}}(P_{\text{c}} -P_0)\mathcal{S}+\mathcal{W}P_0+(\mathcal{T}+\tau_{\text{p}} +\tau_{\text{c}}) P_0\nonumber\\
+    &\Rightarrow \alpha=\tau_{\text{c}}(P_{\text{c}} -P_0),\text{ and }\beta=P_0
+\end{alignat}
+\( \tau_\text{p} \) and \( \tau_\text{c} \) correspond to the processing and two-way communication delay for each sample.
+\( P_\text{c} \) and \( P_0 \) correspond to the communication and idle power, respectively, of the \gls{WCA} client device.
+
+We perform an experiment to implement the energy-optimized aperiodic sampling scheme, replacing the sample-count-optimized sampling scheme.
+The energy-optimized scheme uses the calculated values of \ensuremath{\alpha} and \ensuremath{\beta} to minimize energy consumption.
+The values of communication power, \ensuremath{P_{\text{c}}}, and idle power, \ensuremath{P_0}, are estimated from previous research.
+The processing delay, \ensuremath{\tau_{\text{p}}}, is set to a constant value across all experiments, and the communication delay, \ensuremath{\tau_{\text{c}}}, is calculated as the \gls{RTT} minus the processing delay.
+As before, the optimized sampling scheme includes an embedded timing model to provide updated predictions for \ensuremath{\sigma} at every step.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{publications/2023EdgeDroid2/figs/new_model/energy_optimization_diff}
+    \caption{%
+        Percentage difference in mean per step energy consumption by the energy-optimized sampling scheme with respect to the three reference schemes.
+        Error bars indicate \SI{95}{\percent} \glspl{CI}, calculated using a two-sided t-test.
+        Figure originally published in \cref{paper:olguinmunoz2023realistic}.
+    }\label{fig:energyresults}
+\end{figure}
+
+The results of our experiments, illustrated partially in \cref{fig:energyresults}, show that this energy-optimized scheme outperforms the reference schemes, with a significant reductions in energy consumption.
+Our approach is consistently consumes \SI{20}{\percent} less energy than \textcite{wang2019towards}'s approach, and is able to achieve up energy savings of up to \SI{40}{\percent} with respect to the greedy scheme.
+Furthermore, our approach is more consistent and reliable, exhibiting a flat curve of energy consumption much akin to that of the offline optimum in behavior.
+
+Our findings have important implications for the development and deployment of \gls{WCA} systems.
+We have demonstrated that it is possible to significantly reduce the energy consumption of these systems while still maintaining a reasonable \gls{RTT}.
+This can help extend the battery life of wearable devices, making  systems more practical and usable for a wider range of users.
+The results of this study can serve as a valuable reference for future work in energy optimization for \acl{WCA} systems.
