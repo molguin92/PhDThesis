@@ -229,14 +229,12 @@ Furthermore, the success of our experimentation shows that our methodology, impl
 
 \subsection{ExPECA Testbed \& the Ainur software stack}
 
-After our initial implementation and experimentation with our methodology for \gls{WCA} applications, it became clear that our research would benefit greatly from the establishment of a testbed on which our methodology could be deployed.
-A testbed would
-\begin{inlineenum}
-    \item speed up subsequent research by removing the need for ad-hoc implementations for each new study
-    \item provide a standardized baseline, allowing for easier comparisons between studies.
-    \todo[inline]{More}
-\end{inlineenum}.
-Additionally, such a testbed would benefit other research happening in the group.
+After our initial implementation and experimentation with our methodology for \gls{WCA} applications, we realized that creating a testbed for experimental Edge Computing research for would significantly enhance our work.
+Establishing such testbed would provide a dedicated and controlled environment that can accelerate future research by eliminating the need for ad-hoc implementations for each new study.
+Moreover, having a standardized baseline would make it easier to compare results across different studies.
+THe testbed could serve as a platform for researchers to test new ideas and compare them to the results of previous experiments.
+This would enable more efficient and accurate assessments of the methodology's performance and facilitate the development of new methods and techniques.
+Additionally, by establishing a testbed, we could provide a platform for other researchers within our group to conduct their research and experiments.
 
 These reasons led to the establishment of the \gls{EXPECA} testbed at \pgls{KTH}.
 \gls{EXPECA} is a \gls{SSF}-funded infrastructure project targeting the development and provisioning of an edge computing infrastructure for research into novel applications and network architectures.
@@ -245,7 +243,7 @@ This allows us to quickly, on-the-fly, and in an automated fashion change the ch
 
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{publications/2022Ainur/figures/network}
+    \includegraphics[width=.9\textwidth]{publications/2022Ainur/figures/network}
     \caption{
         Prototype architecture of \acs{EXPECA}.
         Figure originally published in \cref{paper:olguinmunoz2022ainur}.
@@ -262,7 +260,7 @@ We implemented configurations wherein one of the \glspl{SDR} acted as a 4G or 5G
 An alternative setup had the workload hosts connect wirelessly via Wi-Fi to one of the radios acting as an \gls{AP}
 Finally, the \emph{control network} is used for the out-of-band configuration of testbed resources, and the \acs{VPN} links allow direct tunneled connections to cloud compute nodes on \acs{AWS}.
 
-The above prototype was formally introduced in \cref{paper:olguinmunoz2022ainur}, together with the software framework we developed for its automation and experiment orchestration, \emph{Ainur}.
+We also introduce a software framework we developed for its automation and experiment orchestration, \emph{Ainur}.
 Ainur is a highly flexible end-to-end wireless network testbed management framework.
 Its objective is to facilitate the study of the effects of communication and computation elements on the performance of distributed applications.
 To achieve this, Ainur provides a Python \gls{API} that allows researchers to describe experiments in a procedural manner, with plans to eventually offer toolkits for declarative configuration.
@@ -276,5 +274,6 @@ This allows Ainur to remain agnostic to the nature of the workloads and support 
 Ainur also leverages containerization for the communication stack, which can nowadays be deployed on general-purpose processors using \gls{O-RAN} and \glspl{SDR}.
 This allows for the distribution of the communication stack across multiple hosts, providing researchers with the ability to study the effects of communication and computation elements on the performance of distributed applications.
 
-Both Ainur and \gls{EXPECA} were utilized in \cref{paper:olguinmunoz2022cleave,paper:olguinmunoz2023realistic}.
-\todo[inline]{finish}
+Finally, we note that both Ainur and \gls{EXPECA} were utilized for experimentation in \cref{paper:olguinmunoz2022cleave,paper:olguinmunoz2023realistic}.
+The use of these tools was, however, during their development and prototyping, and they have thus not been referred to by name in these works.
+Their first formal appearance was in \cref{paper:olguinmunoz2022ainur}.
