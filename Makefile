@@ -23,6 +23,8 @@ clean :
 	rm -f *.pdf *.aux *-blx.bib *.bbl *.blg *.dvi *.log *.out *.run.xml *.synctex.gz *.toc *.bcf *.glg *.glo *.gls *.ist *.xdy
 	rm -f body/*.aux
 	rm -f body/**/*.aux
+	rm -f publications/*.aux
+	rm -f publications/**/*.aux
 
 update-biblatex :
 	# tlmgr init-usertree

@@ -31,9 +31,9 @@
 
 \frontmatter % Pages i, ii, iii, iv, v etc.
 
-\include{body/abstract}
-\include{body/papers}
-\include{body/acks}
+\input{body/abstract}
+\input{body/papers}
+\input{body/acks}
 
 \mainmatter % Pages 1, 2, 3...
 
@@ -41,32 +41,32 @@
 
 \part{Summary}\label{part:summary}
 \chapter{Introduction \& Overview}\label{chap:introduction}
-\include{body/part1/introduction}
+\input{body/part1/introduction}
 
 \chapter{Background \& Related Work}\label{chap:relatedwork}
-\include{body/part1/background}
+\input{body/part1/background}
 
 \chapter{Key Contributions \& Results}\label{chap:contributions}
-\include{body/part1/overview}
+\input{body/part1/overview}
 
 \chapter{Conclusions \& future work}
-\include{body/part1/futurework}
+\input{body/part1/futurework}
 
 \renewcommand\chaptername{\newchaptername}
 \addtocontents{toc}{\protect\renewcommand\protect\cftchaptername{\newchaptername~}}
 \renewcommand*{\thechapter}{\Alph{chapter}}
 \part{Publications}\label{part:publications}
 
-\include{publications/2018DemoScaling}
-\include{publications/2019EdgeDroid}
-\include{publications/2021Impact}
-\include{publications/2022CLEAVE}
-\include{publications/2022Ainur}
-\include{publications/2023EdgeDroid2}
+\input{publications/2018DemoScaling}
+\input{publications/2019EdgeDroid}
+\input{publications/2021Impact}
+\input{publications/2022CLEAVE}
+\input{publications/2022Ainur}
+\input{publications/2023EdgeDroid2}
 
 \backmatter%
 \bookmarksetup{startatroot}%
 \printglossary[type=\acronymtype]%
-\include{body/references}
+\input{body/references}
 
 \end{document}
