@@ -124,9 +124,26 @@ We deployed a \emph{Gabriel}-powered~\cite{chen2018application} \gls{WCA} applic
 \end{inlineenum}.
 Three scenarios were considered, corresponding to setups under ideal network conditions with \num{1} and \num{10} clients, plus an additional scenario with \num{10} clients located at a distance from the \gls{AP} such that the signal strength was significantly degraded.
 Each scenario was repeated a \num{100} times for statistical validity.
-These setups already showcase the flexibility of our approach.
 
-\todo[inline]{Finish?}
+These setups already showcase the flexibility of our approach.
+Our trace-based implementation of the methodology allows for detailed measurements of system performance at different levels, from individual components to specific task steps.
+This provides valuable insights into the bottlenecks and areas for optimization in the system.
+We find, for example, that \glspl{RTT} for feedback-rich inputs are up to an order of magnitude greater than feedback-less inputs\footnote{%
+    In the context of \gls{WCA}, \emph{feedback-rich} inputs refer to inputs which trigger a transition in step in the internal task model of the application and thus cause the generation of feedback which is then provided to the user.
+    Conversely, \emph{feedback-less} inputs are inputs which are silently discarded at the backend and do not generated noticeable feedback.
+}.\todo{Figure}
+
+
+
+For example, the results suggest that improving the quality of the wireless link should be a priority for scaling the application, and that the transitions from task state 3 to 4 and from task state 4 to 5 are ripe for optimization. The flexibility of the methodology also allows researchers to zoom into specific components or steps of the system to gain deeper insights, which can inform the design and development of future systems.
+
+Our use case scenarios measure the round-trip times (RTTs) for inputs that caused a step transition versus inputs that did not, as well as the distribution of latencies across system components and individual task steps.
+The results show that RTTs for feedback-rich inputs are up to an order of magnitude greater than feedback-less inputs, and that the main component contributing to latency is backend processing.
+The study also reveals that the system scales linearly with respect to the number of clients, but the impaired Wi-Fi greatly affects the performance of feedback-rich inputs, with delays sometimes exceeding the threshold for acceptable user experience.
+
+
+
+Overall, the study demonstrates the usefulness of the trace-based methodology in evaluating system performance, and highlights the importance of considering feedback-rich inputs when testing the responsiveness of task-guidance applications. The results also underscore the need for optimization of system components and the importance of network quality in delivering a satisfactory user experience.
 
 \subsection{Case study: \acsp{NCS}}\label{summary:methodology:usecase_ncs}
 
