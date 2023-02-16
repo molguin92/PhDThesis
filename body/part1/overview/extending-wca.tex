@@ -237,14 +237,20 @@ Furthermore, we implement a new version of the EdgeDroid tool capable of using t
 
 \subsubsection{Design of a realistic model for human timings in \gls{WCA}}
 
-\todo[inline]{Probably needs to repeat a discussion on why the new model is necessary, in a shorter summarized form.
-This discussion should first be presented at the beginning of this section however.}
+Our current model of human behavior has a limitation that we need to address.
+The model we have discussed so far emulates a rigid and unyielding human who is not affected by low responsiveness in the system.
+This is not an accurate representation of real human behavior, and in the following we present a more realistic human model that takes into consideration the perceived feedback latency and its effects on human reactions.
 
+Our new model is based on the comprehensive study of human behavior in the presence of feedback latency outlined in \cref{paper:olguinmunoz2021impact}, and has significant implications for the optimization of edge computing systems.
+By incorporating a more accurate representation of human behavior into our methodology, we can better assess the impact of system design choices on the end-user experience.
+This, in turn, enables future research into optimization strategies that are more effective at improving the overall quality of service for edge computing applications.
+
+\medskip
 As discussed in \cref{impact:results}, the execution time for a step depends not only on the most recent perceived \gls{TTF}, but also on how long the system has been in the current level of responsiveness.
 Moreover, as shown in \cref{fig:prevblockvsexectime}, the effects of reduced system responsiveness on generated execution times must be taken into consideration even after the system transitions into a more responsive state.
 All of these effects are also modulated by neuroticism, adding both another layer of complexity and a means of parameterizing the model.
 
-Our timing model produces realistic execution times for each step, according to the above effects.
+Our new timing model produces realistic execution times for each step, according to the above effects.
 We achieve this through the following design:
 
 \begin{enumerate}
