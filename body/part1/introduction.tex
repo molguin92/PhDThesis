@@ -49,13 +49,13 @@ This work presents the first empirical results obtained with our methodological 
 We assume in these works a human which is impervious to poor system performance, and suffers no annoyance, fatigue, frustration, nausea or other shortcomings of real human users.
 The result is a model of a user who responds in a precisely reproducible and deterministic manner to the same system stimulus every time.
 
-\cref{paper:olguinmunoz2022cleave}, on the other hand, presents a discussion on the implementation of this methodology for \glspl{NCS}.
-As discussed above, these applications are similarly difficult as \gls{WCA} to benchmark (in particular at scale on multi-tenant systems) due to their client-side complexity, but in particular because of their often extreme sensitivity to latency.
-\todo[inline]{More argumentation or refer to previous section.}
-We apply thus in this work our methodology to \gls{NCS} through the implementation of a tool for the emulation and subsequent deployment of these systems on edge computing infrastructure.
-This tool allows us to both emulate the physical components of a relatively simple control system plant and deploy real algorithms for its control.
-The software acts as a middleware which abstracts away the network from the development of these workloads, allowing for quick prototyping and deployment.
-This work also showcases the scalability and flexibility of our approach, allowing us to deploy scenarios with a large number of loops without the need for domain-specific hardware.
+In \cref{paper:olguinmunoz2022cleave}, we extend our methodology to the study of control systems for \glspl{NCS} on Edge Computing.
+These applications are similarly difficult to benchmark as \gls{WCA}, particularly at scale on multi-tenant systems, due to their client-side complexity and extreme sensitivity to latency.
+To address these challenges, we introduce a tool, \acs{CLEAVE}, for the emulation and subsequent deployment of these systems on edge computing infrastructure.
+This tool allows us both emulate the physical components of a relatively simple control system plant and deploy real algorithms for its control.
+The middleware software abstracts away the network from the development of these workloads, enabling quick prototyping and deployment.
+We then present use-case scenarios demonstrating the scalability and flexibility of their approach by deploying scenarios with a large number of loops without the need for domain-specific hardware.
+This work showcases the applicability of the methodology beyond wearable cognitive assistance and highlights the potential of our approach for other edge computing applications.
 
 \cref{paper:olguinmunoz2022ainur} presents a tangential contribution.
 It introduces the software framework used in \cref{paper:olguinmunoz2023realistic,paper:olguinmunoz2022cleave} for the orchestration of the edge computing testbeds on which the developed tools were deployed.
@@ -73,6 +73,24 @@ Participants were also asked to fill out two personality indicator questionnaire
 The model is validated against previously obtained results, both through simulated, controlled executions and deployments on a real edge computing testbed.
 This work also explores potential implications of this model for \gls{WCA} system optimization potential, particularly in the domains of energy consumption and sampling strategies.
 
-\section{Structure of this thesis}
+\section{Structure of this dissertation}
 
-\todo[inline]{This thesis is structured as follows.}
+This dissertation is structured into two parts.
+\cref{part:summary} presents a summary of the research, introducing the topic, discussing related work, and highlighting key contributions.
+Next, in \cref{part:publications} we present the publications that form the core of this thesis.
+
+\cref{part:summary} is further structured into four main chapters.
+\cref{chap:introduction} serves as an introduction to the topic and outlines the key contributions of this work.
+It sets the stage for the subsequent chapters by providing a high-level overview of the research problem and its significance.
+
+In \cref{chap:relatedwork}, we present theoretical background and related work.
+The chapter provides a comprehensive review of the existing literature, highlighting the current state-of-the-art and identifying any gaps in knowledge.
+We discuss context for our research, and establish the foundation for the contributions presented in the dissertation.
+
+\cref{chap:contributions} is the core of \cref{part:summary} and provides a detailed summary of the contributions made in this dissertation.
+We discuss methods, tools, and findings that were developed and obtained throughout the course of our research.
+We aim to demonstrate the significance of our work and how it contributes to the field.
+
+Finally, \cref{chap:conclusions} concludes the dissertation and outlines avenues for future research.
+We summarize the key findings and contributions of the thesis, and briefly discuss the implications of our findings and contributions for the field.
+This chapter also identifies open questions and areas for further research, providing opportunities to build on the work presented in this thesis.
