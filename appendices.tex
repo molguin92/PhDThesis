@@ -1,4 +1,5 @@
-\appendix{}\label[appendixwithoutnumber]{appx1}
+%\appendix{}
+\section{Appendix}\label[appendixwithoutnumber]{appx1}
 % \subsection*{Sampling optimisation}
 
 In this appendix, we give the mathematical derivation of the optimum aperiodic sampling interval discussed in \cref{ssec:optframework}.
@@ -7,7 +8,7 @@ We start with the general solution, where the objective function to be minimized
     \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C\nonumber
 \end{alignat}
 
-We first borrow the idea of checkpointing density from~\cite{Satoshi1992Optimal} and define an instantaneous sampling rate function $r(t)$ which is related to $\{t_n\}$ such that,
+We first borrow the idea of checkpointing density from~\cite{satoshi1992optimal} and define an instantaneous sampling rate function $r(t)$ which is related to $\{t_n\}$ such that,
 \begin{alignat}{1}
 {\int_{t_{n-1}}^{t_n}}r(t)\dif t=1,\;\forall n\geq1\label{rt}
 \end{alignat}
@@ -72,7 +73,7 @@ We can thus find the energy penalty using \cref{Es} and \cref{Ew} as
 \mathcal{E}&=\int_{0}^{\infty}\Big(\alpha g(t)+\dfrac{\beta}{2g'(t)}\Big)f_{\mathcal{T}}(t)\,\mathrm{d}t
 \end{alignat*}
 
-As per the Euler-Lagrange equation from the calculus of variations~\cite{Bellman1954Dynamic,Arfken2015Calculus}, the extreme value of $\mathcal{E}$ is obtained at 
+As per the Euler-Lagrange equation from the calculus of variations~\cite{bellman1954dynamic,arfken2013calculus}, the extreme value of $\mathcal{E}$ is obtained at
 \begin{alignat}{1}
 r^*(t)&=\sqrt{\dfrac{\beta f_\mathcal{T}(t)}{2\alpha\bar{F}_\mathcal{T}(t)}}.\\
 \intertext{Thus, for a Rayleigh distributed $\mathcal{T}$ with parameter $\sigma$,}
@@ -83,7 +84,7 @@ r^*(t)&=\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\\
 &\;t_n=\Big(3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\Big)^{\frac{2}{3}}n^{\frac{2}{3}}\label{tnRayleigh}.
 x\end{alignat}
 % Note that throughout the paper we use a exGaussian distribution but not Rayleigh. This is because, 
-Note that, due to the close similarity in their density functions, the task times can be approximated fairly equally to an \gls{exGaussian} distribution as well as a Rayleigh distribution, with the former attracting more attention from works like~\cite{Rohrer1994analysis,Palmer2011shapes,Marmolejo2022generalised}.
+Note that, due to the close similarity in their density functions, the task times can be approximated fairly equally to an \gls{exGaussian} distribution as well as a Rayleigh distribution, with the former attracting more attention from works like~\cite{rohrer1994analysis,palmer2011what,marmolejo_ramos2022generalised}.
 This is the reason why the above results are applicable in this work where we have predominantly considered \gls{exGaussian} distribution.
 Furthermore, we have also verified the closeness of the results as well as the validity of the approximations made in the proofs using distribution fitting and simulations.
 

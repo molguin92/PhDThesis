@@ -7,7 +7,7 @@ In the context of \gls{WCA}, we will understand \emph{application lifetime} as t
 This is an important metric for \gls{WCA} optimization, as it directly relates to system resource utilization and contention, and to energy consumption.
 
 In order to illustrate the consequences of using a less realistic model that does not take into account higher order effects, we introduce here a reference model to which we will compare our more realistic models.
-This model represents a first-order approximation to empirical execution time modeling, and consist simply of an \gls{exGaussian} distribution fitted to all execution time samples collected for~\cite{olguinmunoz:impact2021}.
+This model represents a first-order approximation to empirical execution time modeling, and consist simply of an \gls{exGaussian} distribution fitted to all execution time samples collected for~\cite{olguinmunoz2021impact}.
 This distribution is then randomly sampled at runtime to obtain execution times for each step, without any adjustment to the current state of the system.
 
 We start by studying application lifetimes in a controlled, ideal setup by using the timing models to generate execution times for sequences of \num{100} steps subject to constant \glspl{TTF}.
@@ -17,15 +17,16 @@ This is done for \num{25} linearly distributed \glspl{TTF} in the \SIrange[]{0}{
 
 \begin{figure}
     \centering
-    \begin{subfigure}[]{\columnwidth}
+    \begin{subfigure}[t]{.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{publications/2023EdgeDroid2/figs/new_model/lifetime_all_ttfs.png}
         \caption{%
             Evolution of mean application lifetimes as \glspl{TTF} increase.
             Error bars indicate \SI{95}{\percent} \glspl{CI}.
         }
-    \end{subfigure}
-    \begin{subfigure}[]{\columnwidth}
+    \end{subfigure}%
+    \hfill%
+    \begin{subfigure}[t]{.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{publications/2023EdgeDroid2/figs/new_model/lifetime_diff.png}
         \caption{%
@@ -44,7 +45,7 @@ However, at high neuroticism, the model once again results in a considerable dif
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{publications/2023EdgeDroid2/figs/EdgeDroid2ExperimentalSetup.png}
+    \includegraphics[width=.9\textwidth]{publications/2023EdgeDroid2/figs/EdgeDroid2ExperimentalSetup}
     \caption{%
         Experimental setup used to study the implications of the realistic models of human behavior for \gls{WCA}.
         We deploy containerized instances of the client-server loop running the models on a testbed consisting of \num{10} Raspberry Pi clients connected to a cloudlet over a \gls{COTS} \gls{IEEE} \num{802.11}b/g access point.
@@ -53,23 +54,32 @@ However, at high neuroticism, the model once again results in a considerable dif
 
 Next we study the effects of first- versus second-order models in a more realistic setting.
 The models, reference and realistic, are deployed on the Raspberry Pi clients of the testbed depicted in \cref{fig:expsetup}.
-For this, the timing models and frame generator are integrated into a custom Python3 client for the Gabriel \gls{WCA} platform~\cite{Chen2018application}, which are then paired with real instances of Gabriel deployed on the cloudlet.
+For this, the timing models and frame generator are integrated into a custom Python3 client for the Gabriel \gls{WCA} platform~\cite{chen2018application}, which are then paired with real instances of Gabriel deployed on the cloudlet.
 Clients and cloudlet communicate over an \gls{IEEE} \num{802.11}b/g wireless network.
 Our choice of wireless standard is simply motivated by a desire to amplify the potential effects of network congestion.
 
 \begin{figure}
     \centering
-    \begin{subfigure}[]{\columnwidth}
+    \begin{subfigure}[t]{.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{publications/2023EdgeDroid2/figs/new_model/lifetime_testbed.png}
+        \includegraphics[width=\textwidth]{publications/2023EdgeDroid2/figs/new_model/lifetime_testbed}
         \caption{%
             Mean application lifetimes per testbed configuration.
             Note that due to the low number of samples, means have been calculated using the geometric instead of arithmetic average. 
             Error bars indicate \SI{95}{\percent} \glspl{CI}, calculated using bootstrapping.
         }
-    \end{subfigure}
-    \par\bigskip
-    \begin{subtable}{\columnwidth}
+    \end{subfigure}%
+    \hfill%
+    \begin{subfigure}[t]{.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{publications/2023EdgeDroid2/figs/new_model/lifetime_testbed_diff}
+        \caption{%
+            Percentage difference in mean application lifetimes with respect to the reference model.
+            Confidence intervals have been omitted due to the low number of samples and the use of the geometric mean.
+        }
+    \end{subfigure}\\
+    \bigskip
+    \begin{subtable}{\textwidth}
         \centering
         \begin{tabular}{lrrrr}
             \toprule
@@ -79,19 +89,10 @@ Our choice of wireless standard is simply motivated by a desire to amplify the p
         \end{tabular}
         \caption{Mean measured \glspl{RTT} for each testbed configuration.}
     \end{subtable}
-    \par\bigskip
-    \begin{subfigure}[]{\columnwidth}
-        \centering
-        \includegraphics[width=\textwidth]{publications/2023EdgeDroid2/figs/new_model/lifetime_testbed_diff.png}
-        \caption{%
-            Percentage difference in mean application lifetimes with respect to the reference model.
-            Confidence intervals have been omitted due to the low number of samples and the use of the geometric mean.
-        }
-    \end{subfigure}
     \caption{Application lifetimes in the realistic scenarios.}\label{fig:testbed_lifetimes}
 \end{figure}
 
-We deploy configurations running \num{45}-step versions of the LEGO task described in~\cite{olguinmunoz:impact2021}.
+We deploy configurations running \num{45}-step versions of the LEGO task described in~\cite{olguinmunoz2021impact}.
 The testbed configurations include setups with \numlist{1;4;7;10} clients.
 Due to having limited time, each combination of testbed and timing model configuration is only repeated \num{10} times.
 The results are presented in \cref{fig:testbed_lifetimes}.

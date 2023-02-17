@@ -1,11 +1,12 @@
 \section{A model of human behavior for \gls{WCA}}\label{sec:model}
 
-In the following, we employ the above insights together with the data collected for~\cite{olguinmunoz:impact2021} to design and build a probabilistic model of human behavior for \gls{WCA}.
+In the following, we employ the above insights together with the data collected for~\cite{olguinmunoz2021impact} to design and build a probabilistic model of human behavior for \gls{WCA}.
 We detail the construction of a model which uses the data collected to generate, at runtime, realistic execution times. 
 In order to accurately emulate the behavior of a human, such a model needs to implement two main behaviors.
 First, it needs to generate realistic execution times for each step in the task, considering the current and historical impairment of the \gls{WCA} system, as well as salient individual-difference measures.
 We detail this in \cref{ssec:model:exectimes}.
-Neuroticism is incorporated in this aspect of the model, as it is the most salient individual difference in the data; however, other factors such as immersive tendency could be treated similarly.
+Neuroticism is incorporated in this aspect of the model, as it is the most salient individual difference in the data;
+however, other factors such as immersive tendency could be treated similarly.
 Second, the model must produce sequences of input samples for each step mimicking what a real human would generate; this is explained in \cref{ssec:model:frames}. 
 % Finally, in \cref{ssec:model:obtaining} we briefly discuss where implementations of this model can be obtained.
 
@@ -14,7 +15,7 @@ Second, the model must produce sequences of input samples for each step mimickin
 
 % As expressed in \cref{ssec:plos}, for \textcite{olguinmunoz:impact2021} we collected timing and task performance data for \num{40} participants performing a \num{169}-step task, guided by a \gls{WCA}, as well as personality trait scores for each participant.
 % For this paper, we use this data to construct a probabilistic model for the generation of realistic execution times.
-The processing of the data from~\cite{olguinmunoz:impact2021} for the generation of execution times can be summarized as a grouping according to discretized levels of neuroticism and a weighted rolling average of \gls{TTF}.
+The processing of the data from~\cite{olguinmunoz2021impact} for the generation of execution times can be summarized as a grouping according to discretized levels of neuroticism and a weighted rolling average of \gls{TTF}.
 The resulting collections of execution times represent the distributions of these values for users with specific levels of neuroticism, interacting with systems at specific states of impairment and recent histories of impairment.
 These distributions can then be sampled to produce new, realistic execution times.
 In the following, we detail the step-by-step processing of this data and construction of the probabilistic model.
@@ -78,7 +79,7 @@ We implement these two variants of the model in Python 3.10, and verify their co
 \subsubsection{Verifying the behavior of the timing model}\label{ssec:model:verification}
 % \todo[inline]{Based on the 4 main conclusions of the PLOS paper.}
 
-We verify the behavior of the above described model with respect to the four main conclusions of our work in~\cite{olguinmunoz:impact2021}, which were previously discussed in \cref{ssec:plos}.
+We verify the behavior of the above described model with respect to the four main conclusions of our work in~\cite{olguinmunoz2021impact}, which were previously discussed in \cref{ssec:plos}.
 These are reformulated as objectives below:
 
 \begin{enumerate}
@@ -95,7 +96,7 @@ These are reformulated as objectives below:
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{publications/2023EdgeDroid2/figs/new_model/ttf_to_exectime.png}
+    \includegraphics[width=\textwidth]{publications/2023EdgeDroid2/figs/new_model/ttf_to_exectime}
     \caption{%
         Effects of feeding three different \glspl{TTF} (\emph{low}, \SI{0}{\second}, \emph{medium}, \SI{2.5}{\second}, or \emph{high}, \SI{5}{\second}) into the model on the generated execution times.
         Higher \glspl{TTF} directly lead to higher execution times.
@@ -112,7 +113,7 @@ At low neuroticism, the average difference between execution times at low versus
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{publications/2023EdgeDroid2/figs/new_model/exectime_over_steps.png}
+    \includegraphics[height=25em]{publications/2023EdgeDroid2/figs/new_model/exectime_over_steps}
     \caption{%
     Effects of prolonged exposure to constant levels of system impairment on the model.
     At low (\SI{0}{\second}) \gls{TTF}, the models speed-up over time; conversely at high (\SI{5.0}{\second}) \gls{TTF}, the models either present no change or drastically increase their generated execution times, depending on the level of neuroticism.
@@ -130,7 +131,7 @@ This is once again in line with our previous findings, as we had previously conc
 
 \begin{figure*}
     \centering
-    \includegraphics[width=\textwidth]{publications/2023EdgeDroid2/figs/new_model/transitions.png}
+    \includegraphics[width=\textwidth]{publications/2023EdgeDroid2/figs/new_model/transitions}
     \caption{%
         Effects of changes in system impairment on subsequently generated execution times.
         These effects linger on after the change, and thus execution times immediately after a transition are either consistently lower or higher than otherwise at the new \gls{TTF}, depending on the old \gls{TTF}.
@@ -145,12 +146,12 @@ Each sample is tagged according to the relation between origin and destination \
 As before, we run \num{600} repetitions of this procedure for each combination of model configuration, origin \gls{TTF}, and destination \gls{TTF}.
 Execution times generated immediately after a transition from a higher \gls{TTF} into a lower one are consistently higher than execution times generated without a preceding change in \glspl{TTF}.
 Conversely, execution times are consistently lower than otherwise immediately after a change from a lower \gls{TTF} into a higher one.
-These results are once again in line with our findings in~\cite{olguinmunoz:impact2021}, in which we found lingering effects of transitions between levels of system impairment on human execution times.
+These results are once again in line with our findings in~\cite{olguinmunoz2021impact}, in which we found lingering effects of transitions between levels of system impairment on human execution times.
 
 
 \subsection{Generating realistic samples}\label{ssec:model:frames}
 
-Apart from the aforementioned timing and performance data, for~\cite{olguinmunoz:impact2021} we also recorded all collected video frame samples together with matching metadata.
+Apart from the aforementioned timing and performance data, for~\cite{olguinmunoz2021impact} we also recorded all collected video frame samples together with matching metadata.
 For each video frame submitted to the \gls{WCA} during the tasks, we recorded
 \begin{inlineenum}
     \item the raw video frame captured
@@ -200,14 +201,14 @@ That is, any frame captured immediately at or after the execution time has been 
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{publications/2023EdgeDroid2/model_data/frame_probabilities.png}
+    \includegraphics[width=.9\textwidth]{publications/2023EdgeDroid2/model_data/frame_probabilities}
     \caption{%
         Probability density of frame result tags as a step progresses.
         Note that \texttt{SUCCESS} frames are not included as --- by definition --- the probability for success frames is \num{1} for all normalized instant values greater than or equal to \num{1.0}.
     }\label{fig:frameprobs}
 \end{figure}
 
-Using the above insights, together with the corresponding recorded video frames, we devise a scheme for the procedural generation of a synthetic trace for any step in \gls{WCA} task in the same category as those used in~\cite{olguinmunoz:impact2021}.
+Using the above insights, together with the corresponding recorded video frames, we devise a scheme for the procedural generation of a synthetic trace for any step in \gls{WCA} task in the same category as those used in~\cite{olguinmunoz2021impact}.
 We first prepare a discretized representation of the probability density map in \cref{fig:frameprobs}.
 We segment the normalized instant value into a number of discrete bins (\num{25} in this work), and calculate the relative fraction of frames for each category in each bin.
 For each step, given
