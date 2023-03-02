@@ -1,0 +1,3 @@
+[submodule "personal_bibliography"]
+	path = personal_bibliography
+	url = github.com:molguin92/MolguinBibliography.git
