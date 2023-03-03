@@ -1,0 +1,103 @@
+%! suppress = MissingImport
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[htt]{hyphenat}  % for linebreaks in texttt
+\usepackage{import}
+\usepackage[pdftex]{graphicx}
+\usepackage{indentfirst}
+\graphicspath{{./images/}{./plots/}{./figures}}
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\usepackage{amsmath}
+\usepackage{relsize}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[d]{esvect}
+\usepackage{url}
+\usepackage{orcidlink}
+\usepackage{caption}
+\usepackage[subrefformat=parens]{subcaption}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{tabularx}
+\usepackage[all]{hypcap}
+\usepackage[capitalize,nameinlink,noabbrev]{cleveref}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage[detect-weight=true,detect-family=true,binary-units=true,list-units=single,range-units=single]{siunitx}
+\sisetup{list-final-separator = {, and }}
+\usepackage[nogroupskip,nonumberlist,automake,shortcuts,acronym]{glossaries-extra}
+\usepackage{glossaries-prefix}
+\newcommand*\dif{\,\mathrm{d}}
+\newcommand*\df{\mathrm{d}}
+\newcommand*\ts{T_{\text{s}}}
+\usepackage[
+    style=numeric-comp,
+    sorting=none,
+    sortcites,
+    hyperref,
+    mincitenames=1,
+    maxcitenames=2,
+    maxbibnames=2,
+    minbibnames=1,
+    citestyle=numeric-comp, % for [1, 2] instead of [1], [2]
+    backend=biber
+]{biblatex}
+\usepackage[inline]{enumitem}
+
+% enumitem
+\newlist{inlineenum}{enumerate*}{1}
+\setlist*[inlineenum]{
+    label=(\arabic*),
+    itemjoin={{; }},
+    itemjoin*={{; and }},
+}
+\setlist[description]{font=\normalfont\underline}
+
+
+% glossary settings
+%\setglossarystyle{mcolindexgroup}
+\setabbreviationstyle[acronym]{long-short-user}
+\glstoctrue%
+\makeglossaries%
+\loadglsentries{./glossary.tex}
+
+
+% bibliography settings
+\bibliography{./personal_bibliography/bibliography,./references}
+\AtBeginBibliography{\small}
+\AtEveryBibitem{\clearfield{day}}
+\AtEveryBibitem{\clearfield{isbn}}
+% \AtEveryBibitem{\clearfield{url}}
+\AtEveryBibitem{\clearfield{series}}
+\AtEveryBibitem{\clearlist{location}}
+\AtEveryBibitem{\clearfield{doi}}
+
+% SI settings
+\sisetup{list-final-separator = {, and }}
+\DeclareSIUnit{\belmilliwatt}{Bm}
+\DeclareSIUnit{\dBm}{\deci\belmilliwatt}
+
+% table captions
+\captionsetup[table]{justification=centerlast,
+    labelsep=newline,
+    font=sf,
+    textfont=footnotesize}
+
+% for dealing with ACM's stupid bibtex requirements
+% \usepackage{biblatex2bibitem}
+% \usepackage[nosort,compress]{cite}
+
+% hack for appendix
+\crefname{appendixwithoutnumber}{appendix}{appendices}
+\crefformat{appendixwithoutnumber}{#2the \appendixname#3}
+\Crefformat{appendixwithoutnumber}{#2The \appendixname#3}
+
+\hypersetup{
+    hidelinks,
+    colorlinks=true,
+    allcolors=black,
+    pdfstartview=Fit,
+    breaklinks=true
+}
+
+\newcommand{\edgedroid}{EdgeDroid~\num{2.0}}
