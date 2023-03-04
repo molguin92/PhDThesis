@@ -1,0 +1,158 @@
+\section{Background of \gls{WCA}}\label{sec:background}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[width=.9\textwidth]{figs/task}
+        \caption{%
+            Overview of a task in a \gls{WCA}, composed of a series of steps.
+            Each steps starts with an instruction being provided to the user and ends with the instruction for the next step.
+            The \gls{WCA} continuously samples the task state, automatically triggering transitions between steps as correct (or incorrect) states are recognized.
+        }\label{fig:task}
+    \end{subfigure}\\
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[width=.9\textwidth]{figs/step_time}
+        \caption{%
+            Breakdown of a step into its timing components.
+            The instruction for step \( M \) and \( M + 1 \) are provided to the user at \( t_0 \) and \( t_{n+1} \), respectively.
+            \( t_k | k \in \{1, \ldots, n \} \) correspond to the \gls{WCA} sampling instants for step \( M \), and \( t_c \) marks the instant at which the user finishes performing the instruction.
+        }\label{fig:step}
+    \end{subfigure}
+    \caption{Key concepts in \gls{WCA}}
+\end{figure}
+
+\glspl{WCA} applications represent a category of novel, context-sensitive and highly-interactive \gls{AR} applications.
+In this work we focus on a particular category --- ``step-based'' \gls{WCA} --- that have as their goal the guiding of a user through a sequential task.
+Examples of such applications are the LEGO and IKEA assistants~\cite{chen2015early,chen2018application}, in which users are guided step-by-step through the process of assembling a LEGO model and an IKEA lamp, respectively.
+
+Step-based \glspl{WCA} operate analogously to how \gls{GPS} navigation assistants guide users, by seamlessly and continuously monitoring the progress of the user and autonomously providing relevant instructions and feedback.
+The application follows the progress of the task in ``realtime'' by repeatedly sampling the state of the physical system, most commonly through video frames.
+Whenever the assistant detects that the user has correctly or incorrectly performed an instruction, it provides a new instruction to either advance the task or correct the detected mistake.
+The application otherwise remains silent and out-of-the-way of the user;
+that is, samples which do not generate a new instruction (e.g.~because they captured an intermediate or unfinished state, or simply noise) are silently discarded.
+Herein lies one of the key characteristics of these applications: the user only consciously interacts with the application whenever they finish an instruction, and thus these are the \emph{only} points in time at which they can notice changes in system responsiveness.
+
+In order to discuss these applications with precision we provide some definitions relating to their operation.
+First of all, a \emph{step} is formally understood as a specific action to be performed by the user, described by a single instruction, and a \emph{task} consists of a series of steps to be executed in sequence (see \cref{fig:task}).
+A step begins when the corresponding instruction is provided to the user, and ends when the instruction for the next step is provided; we call the time interval between these two events the \emph{step duration}.
+
+\glspl{WCA} employ sampling, most commonly of video feeds, to keep track of the state of the real world.
+Take \( \{ t_0, t_1, \ldots, t_{n + 1} \} \) a series of discrete and sequential sampling instants at which the \gls{WCA} captures the state of the physical system, as illustrated in \cref{fig:step}.
+\( t_0 \) corresponds to the instant at which the instruction for step \( M \) is provided and the first sample is taken, and \( t_n \) to the instant at which the final sample (i.e.\ which captures the final state of step \( M \)) is taken. 
+\( t_{n + 1} \) is then the instant at which the result for sample \( t_n \) is returned and the instruction for step \( M + 1 \) is provided.
+We define \( t_c \) as the point in time at which the user finishes performing the instruction for step \( M \), and the intervals \( t_c - t_0 \), \( t_n - t_c \), and \( t_{n + 1} - t_n \) as the \emph{execution time}, \emph{wait time}, and \emph{last sample \gls{RTT}}, respectively, of a step \( M \).
+The sum of the latter two values (i.e.\ the interval \( t_{n + 1} - t_c \)) we call \emph{\gls{TTF}}, a metric which we will repeatedly refer to in this paper as it directly describes the responsiveness of a \gls{WCA}.
+
+% It should be noted 
+% it must follow that (see also~\cite{olguinmunoz:impact2021})\footnote{\( U(a, b) \) represents the continuous uniform distribution in the open interval \( (a, b) \).}
+% % \todo[inline]{I think it's an assumption rather than a must. Specifically, it is not uniform if the general execution time distribution is Rayleigh/ExpGaussian -vishnu}
+% \begin{align}\label{eq:tc}
+%     t_c &\thicksim U(t_{n - 1}, t_n)
+% \end{align}
+
+% Current implementations, such as those in~\cite{Chen2015LEGO,Chen2018application}, employ \emph{greedy} sampling.
+% In this scheme, a new sample is immediately taken as soon as an acknowledgement is received for the previous sample.
+% This means that the interval between these sampling instants is not necessarily constant, as it is subject to fluctuations due to resource contention on both the network and compute side.
+% It also has as a consequence that acknowledgements must be provided even for those samples which do not cause the generation of a new instruction --- these acknowledgements are simply used for flow control and do not generate user-noticeable feedback.
+
+\subsection{The effects of changes in responsiveness on human behavior}\label{ssec:plos}
+
+In~\cite{olguinmunoz2021impact} we studied the effects of system responsiveness on human behavior in step-based \gls{WCA} in a controlled experiment.
+We employed a modified and instrumented version of the above-mentioned, step-based LEGO \gls{WCA}~\cite{chen2015early}.
+\num{40} subjects interacted with the assistant, performing a \num{169}-step task while we altered the responsiveness in realtime and captured key application and task performance metrics.
+Additionally, we also employed questionnaires to evaluate personality traits of the participants, and correlated these results with the task performance metrics.
+
+We used \emph{delay} and execution time as the variables for system responsiveness and human behavior, respectively.
+\emph{Delay} corresponded to a temporarily fixed time duration for the processing interval of each frame.
+That is, if during a series of steps delay was set to \( D \) seconds, the feedback for each frame was provided to the user \( D \) seconds after frame capture.
+The correlation between this variable and execution time was then studied.
+To compensate for the distribution of \( t_c \)\footnote{\( t_c \), and conversely the wait time \( \mathcal{W} \) of a step, can be assumed to be uniformly distributed in the interval \( [t_{n - 1}, t_n] \) without loss of generality.}~\cite{olguinmunoz2021impact}, in the present work we adjust the nominal delay \( D \) by a factor \num{1.5}.
+We will refer to this adjusted delay as \emph{\glspl{TTF}}.
+
+% Delay, however, was merely an experimental tool, and if we consider
+% \begin{inlineenum}
+%     \item that \( t_c \), and conversely the wait time \( \mathcal{W} \) of a step, can be assumed to be uniformly distributed in the interval \( [t_{n - 1}, t_n] \) without loss of generality~\cite{olguinmunoz:impact2021}
+%     \item that for a step subject to delay \( D \), \( t_k - t_{k - 1} = D \) for all \( k \in \{1, 2, \ldots, n\} \)
+% \end{inlineenum},
+% then it follows that the expected \gls{TTF} for steps subject to a delay \( D \) can be expressed as
+
+% \begin{align}
+%     \mathbb{E}\left[\text{\gls{TTF}}\right] &= \mathbb{E}\left[\mathcal{W}\right] + D
+%     = \mathbb{E}\left[U(t_{n - 1}, t_n)\right] + D\nonumber\\
+%     &= \mathbb{E}\left[U(0, D)\right] + D
+%     = \frac{1}{2}D + D = \frac{3}{2}D\label{eq:ttf}
+% \end{align}
+
+% Ergo, we can directly re-parameterize the data from~\cite{olguinmunoz:impact2021} to use \gls{TTF} instead of delay by simply multiplying the delay value of each step by \num{1.5}.
+
+Our findings can be summarized as follows:
+\begin{enumerate}
+    \item System slow-down induces \emph{additional} behavioral slow-down which scales with the decrease in system responsiveness.
+    Compared to the unimpaired case, participants were on average \SI{12}{\percent} slower when subject to a mean \gls{TTF} of \SI{2.475}{\second}, and \num{26} percentage points slower at a mean \gls{TTF} of \SI{4.5}{\second}.
+
+    \item\label{item:speedup} At lower \glspl{TTF}, humans get faster at performing steps as the task progresses,
+    For sequences of \num{12} steps in an unimpaired application state, humans executed the final four steps on average \SI{36}{\percent} faster than they did the first four.
+    However, this effect is dampened by reduced system responsiveness, and actually inverts at the highest levels of system impairment;
+    humans actually become progressively slower the longer they spend in a degraded system state.
+
+    \item\label{item:remain} The effects of system slow-down on human behavior remain for a while even after system responsiveness improves.
+    These effects are noticeable for at least \num{4} steps after the return to a high-responsiveness state. 
+    
+    \item The above effects are modulated by measures of individual levels of personality characteristics and focus.
+    % We will discuss this in detail below in \cref{ssec:moderationeffects}
+\end{enumerate}
+
+\subsubsection{Moderation of effects by individual characteristics}\label{ssec:moderationeffects}
+
+We recorded variables related to well-known individual differences, encompassing both the \glspl{BFI}~\cite{john1999big}, and the \glspl{ITQ}~\cite{witmer1998measuring}.
+Out of the individual-difference variables, the most salient effect on performance corresponded to \emph{neuroticism}, a \gls{BFI} trait linked to low tolerance for stress and high emotional reactivity, and which has previously been linked to higher \emph{delay discounting} rates~\cite{hirsh2008delay}.
+Delay discounting is the tendency to devalue rewards for which one must wait; high rates, indicative of waiting intolerance, have been associated with negative social and academic outcomes.
+
+% Bobby suggested we remove this figure and just give the pearson coeff.
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\textwidth]{figs/new_model/correlation_neuro_exectime.png}
+%     \caption{%
+%         Correlation between neuroticism and the mean execution time of the last four steps in segments of \num{12} steps subject to the same \gls{TTF} in~\textcite{olguinmunoz:impact2021}.
+%         Pearson correlation coefficient \( \rho = 0.418 \), 2-tailed \( p < 0.05 \).
+%     }\label{fig:neuroexectimecorrel}
+% \end{figure}
+
+In this work, we will use a normalized scale to describe neuroticism, derived from the minimum and maximum obtainable values for this variable in the \gls{BFI}~\cite{john1999big}.
+\emph{Low} and \emph{high} neuroticism will refer to the \( [0.0, 0.5) \) and \( [0.5, 1.0] \) ranges respectively.
+
+Linear regression showed a significant correlation between individual neuroticism scores and the execution time late in a series of high-delay steps, \( \rho = 0.418 \), \num{2}-tailed \( p < 0.05 \)
+Neuroticism was further identified as a modulating factor for the pacing effects through a \gls{PCA}.
+Out of the three identified components, which cumulatively accounted for \SI{73.13}{\percent} of the variance in the results, neuroticism was included in the first two.
+The effect of neuroticism was observed across all \glspl{TTF} and impairment durations in the tasks.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\textwidth]{figs/new_model/mu_fits_exgaussian_slice0}
+    \caption{%
+        \( \mu \) parameter of \gls{exGaussian} distributions fitted to execution times of the first four steps of segments of steps subject to the same \gls{TTF} in~\cite{olguinmunoz2021impact}.
+        Distributions were fitted using \gls{MLE}.
+    }\label{fig:muexgaussian}
+\end{figure}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\textwidth]{figs/new_model/dist_fits_neuro}
+    \caption{%
+        Example \gls{exGaussian} fits on execution times from steps \numrange{4}{8} in a segment of steps at the maximum experimental \gls{TTF}.
+        The effects of neuroticism are clearly visible in the tail and the mean of the distributions.
+    }\label{fig:fitsneuro}
+\end{figure*}
+
+Furthermore, we found that execution times, when grouped by experimental variables such as neuroticism, \gls{TTF}, and continuous segments of steps subject to the same \gls{TTF}, were well-fit by an \gls{exGaussian} distribution, as verified using Kolmogorov-Smirnov goodness-of-fit tests~\cite{massey_jr1951kolmogorov}.
+When grouping by level of neuroticism, \gls{TTF}, and \emph{slice}\footnote{%
+In~\cite{olguinmunoz2021impact} the \emph{slice} to which a step belongs to refers to whether the step occurred in the first, second, or third four-step segment of a sequence of steps subject to the same \gls{TTF}.
+}, the best fit statistic was \ensuremath{0.028} (\ensuremath{p = 0.999}).
+This distribution has an ample body of research supporting its suitability for the modeling of the timing of human actions and reaction times~\cite{rohrer1994analysis,palmer2011what,marmolejo_ramos2022generalised}.
+We found that the effects of neuroticism on execution times were clearly identifiable in the fitted distributions, in particular in their means and tails.
+\cref{fig:muexgaussian} shows an example of this modulating effect, illustrating the behavior of the mean (\( \mu \) parameter) of \gls{exGaussian} distributions fitted to the execution times of the first four steps of segments of steps subject to the same \gls{TTF}.
+Finally, \cref{fig:fitsneuro} shows an example of the effects of neuroticism on the fitted \gls{exGaussian} distributions for a specific group of execution times.
+Higher neuroticism directly translates into a higher mean and longer tail.

@@ -1,0 +1,135 @@
+\section{Aperiodic Sampling}
+
+In this section we will explain the method that we used to find the optimum set of sampling instants (or equivalently sampling intervals) for the given distribution of TTE, denoted by $\mathcal{T}$.
+\todo[inline]{aka execution times. Need to recheck the terminologies used in this section and make it consistent with the paper.}
+We take the modeling and partial solution approach from the recent works on energy efficient sampling of edge-based feedback systems.
+In \textcite{ICCperiodic1,TMCperiodic}, the authors model the energy in terms of the expected number of samples $\mathbb{E}[\mathcal{S}]$ and the expected wait time $\mathbb{E}[\mathcal{W}]$ experienced by the user, where the wait time $\mathcal{W}$ --- in the terminology of the authors --- is the time between the event completion and the immediate next sample taken.
+The authors then find the optimum periodic sampling interval that minimizes this energy, or equivalently the non-constant parts of this energy termed as \textit{Energy Penalty} $\mathcal{E}$.
+In this optimization, the constant parts are excluded as they do not affect the optimization.
+With a value much smaller than the execution time of the event or TTE, the RTT of the final sample is included in this constant part, which is the reason why $\mathcal{W}$ is computed without including this RTT.
+Next, in \textcite{secAperiodic}, the authors use this exact model and find the optimum aperiodic sampling instants $\{t_n,\,n=1,2,\dots\}$ that minimizes the same energy penalty.
+In this work, we use the modeling from \textcite{secAperiodic} to find the optimum aperiodic sampling interval.
+However, instead of using their two-step approach to find the solution which include a recursive solution followed by an algorithm, we develop a novel approximate but easier solution to finding the set of optimum aperiodic sampling intervals.
+In what follows, we first recap the system modeling used by the authors in \textcite{secAperiodic} and then give our independent approximate solution. 
+
+The energy penalty can be expressed as~\cite{secAperiodic}
+\begin{alignat}{1}
+\Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}],\;\label{eq:epsilon_terminal}
+\end{alignat}
+where $\alpha\!=\!\tau_{\text{c}} (P_{\text{c}}\!-\!P_0)$ and $\beta\!=\!P_0$ are constants.
+\todo[inline]{Define and explain the parameters if this is not done earlier in other sections.}
+Here, note that $\alpha\mathbb{E}[\mathcal{S}]$ and $\beta\,\mathbb{E}[\mathcal{W}]$ corresponds to the energy wasted per discarded sample and the additional energy expended for waiting, respectively.
+As noted down by the authors, it is important to note that this optimization approach can also be applied to optimize metrics other than energy, simply by formulating this new metrics in the same format as follows, that is by expressing the metric as a linear combination of the expected number of samples $\mathbb{E}[\mathcal{S}]$ and expected wait time $\mathbb{E}[\mathcal{W}]$.
+Using this model, we find the approximate, near-optimal set of sampling instants $\{t_n^*\}$ that minimizes the energy penalty given in \cref{eq:epsilon_terminal}.
+
+
+\subsection{Optimum sampling instants}\label{sec:aprxSol}
+
+First, we borrow the idea of checkpointing density from \textcite{CP_C} and call it instantaneous sampling rate function $r(t)$ which is
+related to $\{t_n\}$ such that,
+\begin{alignat}{1}
+{\int_{t_{n-1}}^{t_n}}r(t)\dif t=1,\;\forall n\geq1.\label{rt}
+\end{alignat}
+We find $r^*(t)$, the $r(t)$ that minimizes $\mathcal{E}$.
+Note that, by construction, the number of samples taken up to any time instant can be computed directly by finding the area under $r(t)$.
+Thus, we get the expected number of samples $\mathbb{E}[\mathcal{S}]$ as
+\begin{alignat}{1}
+\mathbb{E}[\mathcal{S}]&=\int_{t=0}^{\infty}\bigg(\!\int_{x=0}^{t}\!\!\!\!r(x)\,\mathrm{d}x\bigg)f_{\mathcal{T}}(t)\,\mathrm{d}t.\label{Es}
+\end{alignat}
+To find 
+% the expected wait 
+$\mathbb{E}[\mathcal{W}]$, we use the TTE conditional CDF.
+We get,
+\begin{multline*}
+\mathbb{P}(\mathcal{W}=t_n-\mathcal{T}\leq t\,\big\vert\,t_{n-1}<\mathcal{T}\leq t_n)\\=\dfrac{\mathbb{P}(\mathcal{T}\geq t_n-t\,,\,t_{n-1}<\mathcal{T}\leq t_n)}{\mathbb{P}(t_{n-1}<\mathcal{T}\leq t_n)}.
+\end{multline*}
+The numerator is degenerate when $t\!<\!0$ or $t\!>\!(t_n\!-\!t_{n-1})$.
+Thus, we are only interested in $0\!\leq\!t\!\leq\! (t_n-t_{n-1})$.
+Let $F_{\mathcal{T}}$, $\bar{F}_{\mathcal{T}}$ and $f_{\mathcal{T}}$ corresponds to the CDF, CCDF and pdf of the TTE distribution.
+\begin{alignat*}{1}
+\!\!\!\Rightarrow\mathbb{P}(\mathcal{W}\leq t\,\big\vert\,t_{n-1}<\mathcal{T}\leq t_n)&=\dfrac{\mathbb{P}(t_n-t\leq\mathcal{T}\leq t_n)}{F_\mathcal{T}(t_n)-F_\mathcal{T}(t_{n-1})}\\
+&\approx\dfrac{F_\mathcal{T}(t_n)-F_\mathcal{T}(t_{n}-t)}{F_\mathcal{T}(t_n)-F_\mathcal{T}(t_{n-1})}\tag{$A_1$}\label{Apx1}
+\end{alignat*}
+Here, \ref{Apx1} is an approximation merely for mathematical maturity due to the slackness of the first inequality in the numerator.
+Expanding the CDF using Taylor series, 
+\begin{multline*}
+    =\Big(F_\mathcal{T}(t_n)-\big(F_\mathcal{T}(t_n)+f_\mathcal{T}(t_n)(-t)+f'_\mathcal{T}(t_n)(-t)^2/2!+\dots\big)\Big)\\
+    \div \Big(F_\mathcal{T}(t_n)-\big(F_\mathcal{T}(t_n)+f_\mathcal{T}(t_n)(t_{n-1}-t_n)\\+f'_\mathcal{T}(t_n)(t_{n-1}-t_n)^2/2!+\dots\big)\Big).
+\end{multline*}
+Simplifying and using the first order approximation, we get
+\begin{alignat*}{1}
+% &=\dfrac{F_\mathcal{T}(t_n)-\big(F_\mathcal{T}(t_n)+f_\mathcal{T}(t_n)(-t)+f'_\mathcal{T}(t_n)(-t)^2/2!+\dots\big)}{F_\mathcal{T}(t_n)-\big(F_\mathcal{T}(t_n)+f_\mathcal{T}(t_n)(t_{n-1}-t_n)+f'_\mathcal{T}(t_n)(t_{n-1}-t_n)^2/2!+\dots\big)}\\&
+\mathbb{P}(\mathcal{W}\leq t\,\big\vert\,t_{n-1}<\mathcal{T}\leq t_n)&\approx\dfrac{tf_\mathcal{T}(t_n)}{(t_{n}-t_{n-1})f_\mathcal{T}(t_n)}\tag{$A_2$}\label{Apx2}\\
+\Rightarrow\mathbb{P}(\mathcal{W}> t\,|\,t_{n-1}<\mathcal{T}\leq t_n)&= 1-\dfrac{t}{(t_{n}-t_{n-1})}.
+\end{alignat*}
+Using this CCDF, we find the conditional expectation of $\mathcal{W}$.
+\begin{alignat*}{1}
+% \mathbb{P}(\mathcal{W}> t\,|\,t_{n-1}<\mathcal{T}\leq t_n)&\approx 1-\dfrac{t}{(t_{n}-t_{n-1})}\\
+\Rightarrow \mathbb{E}[\mathcal{W}\,|\,t_{n-1}<\mathcal{T}\leq t_n]&=\smashoperator[r]{\int_{0}^{t_n-t_{n-1}}}\Big(1-\dfrac{t}{(t_{n}-t_{n-1})}\Big)\,\mathrm{d}t\\
+&=\dfrac{(t_n-t_{n-1})}{2}.
+\end{alignat*}
+% However, we can also approximate $(t_n-t_{n-1})$, the sampling interval to the inverse of the instantaneous sampling frequency $r(t)$. This approximation (\ref{Apx3}) is valid as long as $r(t)$ is varying slowly between two consecutive sampling instants. That is,
+If $r(t)$ is varying slowly between two consecutive sampling instants, we can approximate the sampling interval $t_n\!-\!t_{n-1}$ as,
+\begin{alignat}{1}
+ (t_n-t_{n-1})&\approx\dfrac{1}{r(t)},\;\forall t,n:t_{n-1}\!<\!t\!\leq\!t_n.\tag{$A_3$}\label{Apx3}\\
+% \end{alignat}
+% As a result, we can compute the expected wait as,
+% \begin{alignat}{1}
+\Rightarrow \mathbb{E}[\mathcal{W}]&=\int_{0}^{\infty}\mathbb{E}[\mathcal{W}\,|\,t_{n-1}<\mathcal{T}\leq t_n]f_\mathcal{T}(t)\,\mathrm{d}t\nonumber\\
+&=\int_{0}^{\infty}\dfrac{1}{2r(t)}f_\mathcal{T}(t)\,\mathrm{d}t.\label{Ew}
+\end{alignat}
+We can thus find the energy penalty using \eqref{Es} and \eqref{Ew} as
+\begin{alignat*}{1}
+\mathcal{E}&=\int_{0}^{\infty}\Big(\alpha\int_{x=0}^{t}r(x)\,\mathrm{d}x+\beta\dfrac{1}{2r(t)}\Big)f_{\mathcal{T}}(t)\,\mathrm{d}t.\label{epsilon_eulerForm}\\
+\intertext{Let $g(t)=\int_{0}^{t}r(x)\dif x$. Then  $g'(t)=\tfrac{\mathrm{d}}{\mathrm{d}t}g(t)=r(t)$. That is,}
+\vspace{-4cm}\mathcal{E}&=\int_{0}^{\infty}\Big(\alpha g(t)+\dfrac{\beta}{2g'(t)}\Big)f_{\mathcal{T}}(t)\,\mathrm{d}t.
+\end{alignat*}
+As per the Euler-Lagrange equation from the calculus of variations\cite{calcVariation2,calcVariation1}, the extreme value of $\mathcal{E}$ is obtained at 
+\begin{alignat}{1}
+r^*(t)&=\sqrt{\dfrac{\beta f_\mathcal{T}(t)}{2\alpha\bar{F}_\mathcal{T}(t)}}.\\
+\intertext{Thus, for a Rayleigh distributed $\mathcal{T}$ with parameter $\sigma$,}
+r^*(t)&=\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\\
+\Rightarrow &\int_{t_n}^{t_{n+1}}\!\!\!\sqrt{\dfrac{\beta t}{2\alpha\sigma^2}}\,\mathrm{d}t=1,\;\forall n\geq1\nonumber\tag{from \eqref{rt}}\\
+\Rightarrow &\;t_{n+1}^{\frac{3}{2}}-t_{n}^{\frac{3}{2}}=3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\nonumber\\
+\Rightarrow &\;t_n=\Big(3\sigma\!\sqrt{\tfrac{\alpha}{2\beta}}\Big)^{\frac{2}{3}}n^{\frac{2}{3}}.\label{tnFinal}
+\end{alignat}
+
+Now, if we have a constrained optimization with an upper bound $w_0$ for the expected wait time, we can find the optimum set of sampling instants by equating \cref{Ew} to $w_0$ and find the ratio of $\frac{\alpha}{\beta}$ that provides the optimum set of sampling instants when plugged into \cref{tnFinal}.
+For this, we make use of the facts that
+\begin{inlineenum}
+    \item the bound will be tight at the optimum due to the continuous nature of possible sampling instants and sampling intervals
+    \item one can achieve any arbitrary point $(\mathbb{E}[\mathcal{S}],\mathbb{E}[\mathcal{W}])$ via the unconstrained optimization discussed above simply by varying the ratio $\frac{\alpha}{\beta}$.
+\end{inlineenum}
+\begin{alignat*}{1}
+\mathbb{E}[\mathcal{W}]&=\int_{0}^{\infty}\dfrac{1}{2r(t)}f_\mathcal{T}(t)\,\mathrm{d}t.\nonumber\\
+&=\int_{0}^{\infty}\frac{1}{2}\sqrt{\frac{2\alpha\sigma^2}{\beta t}}\cdot \frac{t}{\sigma^2}e^{-{t^2}/{2\sigma^2}}\mathrm{d}t\\
+&=\sqrt{\frac{\alpha\sigma^2}{2\beta}}\int_{0}^{\infty}\frac{\sqrt{t}}{\sigma^2}e^{-{t^2}/{2\sigma^2}}\mathrm{d}t\\
+&=\sqrt{\frac{\alpha\sigma^2}{2\beta}}\left({\frac{1}{{2}\sigma^2}}\right)^{1/4}\cdot\int_{0}^{\infty}y^{-1/4}e^{-y}\mathrm{d}y\\
+&=\sqrt{\frac{\alpha\sigma^2}{2\beta}}\left({\frac{1}{{2}\sigma^2}}\right)^{1/4}\cdot\mathlarger{\Gamma}(\tfrac{3}{4})\\
+% &\approx 0.728637\sqrt{\frac{\alpha\sigma}{\beta}}\\
+\intertext{Thus, when the upper bound $w_0$ is tight,}
+w_0&=0.728637\sqrt{\frac{\alpha\sigma}{\beta}}\\
+w_0&=\sqrt{\frac{\alpha\sigma}{2\sqrt{2}\beta}}\mathlarger{\Gamma}(\tfrac{3}{4})\\
+\Rightarrow\frac{\alpha}{\beta}&=\frac{w_0^2}{\sigma}\frac{2\sqrt{2}}{(\mathlarger{\Gamma}(\tfrac{3}{4}))^2}\\&=1.88355\frac{w_0^2}{\sigma}
+\end{alignat*}
+
+By making use of this general solution, we can also prove the results given in section \ref{sec:aprxSol_Energy_samples}, where we modify the problem and find the optimum sampling instants that minimises the expected number of samples for a given upper bound $w_0$ for the expected wait time. 
+First note that, the general solution has constants $\alpha$ and $\beta$ that corresponds to the weights given to the cost of sampling and cost of waiting, respectively. The optimisation criteria changes from minimising wait time to minimising the number of samples, when the ratio $\frac{\alpha}{\beta}$ goes from zero to infinity. Since any positive real value is valid for this ratio, and since the sampling instants are aperiodic and can take any positive real values, we have
+\begin{inlineenum}
+    \item the bound will be tight at the optimum due to the continuous nature of possible sampling instants and sampling intervals
+    \item one can achieve any arbitrary point $(\mathbb{E}[\mathcal{S}],\mathbb{E}[\mathcal{W}])$ via the unconstrained optimization discussed above simply by varying the ratio $\frac{\alpha}{\beta}$.
+\end{inlineenum}
+Thus, can argue that any optimisation problem -- constrained or unconstrained -- can be boiled down to modifying the problem to the general format and finding the appropriate $\frac{\alpha}{\beta}$ ratio. Hence, to solve for the modified optimisation problem explained in section \ref{sec:aprxSol_Energy_samples} that minimises $(\mathbb{E}[\mathcal{S}]$ with an upper bound $w_0$ on $(\mathbb{E}[\mathcal{W}]$, we equate \cref{Ew} to $w_0$, find the corresponding $\frac{\alpha}{\beta}$ and find the optimum set of sampling instants by plugging this ratio into \cref{tnFinal}. 
+
+\begin{alignat*}{1}
+\mathbb{E}[\mathcal{W}]&=\int_{0}^{\infty}\dfrac{1}{2r(t)}f_\mathcal{T}(t)\,\mathrm{d}t.\nonumber\\
+&=\int_{0}^{\infty}\frac{1}{2}\sqrt{\frac{2\alpha\sigma^2}{\beta t}}\cdot \frac{t}{\sigma^2}e^{-{t^2}/{2\sigma^2}}\mathrm{d}t\\
+&=\sqrt{\frac{\alpha\sigma^2}{2\beta}}\int_{0}^{\infty}\frac{\sqrt{t}}{\sigma^2}e^{-{t^2}/{2\sigma^2}}\mathrm{d}t\\
+&=\sqrt{\frac{\alpha\sigma^2}{2\beta}}\left({\frac{1}{{2}\sigma^2}}\right)^{1/4}\cdot\int_{0}^{\infty}y^{-1/4}e^{-y}\mathrm{d}y\\
+&=\sqrt{\frac{\alpha\sigma^2}{2\beta}}\left({\frac{1}{{2}\sigma^2}}\right)^{1/4}\cdot\mathlarger{\Gamma}(\tfrac{3}{4})\\
+% &\approx 0.728637\sqrt{\frac{\alpha\sigma}{\beta}}\\
+\intertext{Thus, when the upper bound $w_0$ is tight,}
+w_0&=0.728637\sqrt{\frac{\alpha\sigma}{\beta}}\\
+w_0&=\sqrt{\frac{\alpha\sigma}{2\sqrt{2}\beta}}\mathlarger{\Gamma}(\tfrac{3}{4})\\
+\Rightarrow\frac{\alpha}{\beta}&=\frac{w_0^2}{\sigma}\frac{2\sqrt{2}}{(\mathlarger{\Gamma}(\tfrac{3}{4}))^2}\\&=1.88355\frac{w_0^2}{\sigma}
+\end{alignat*}
