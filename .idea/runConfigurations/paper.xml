@@ -1,0 +1,23 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="paper" type="LATEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
+    <texify>
+      <compiler>PDFLATEX</compiler>
+      <compiler-path />
+      <sumatra-path />
+      <pdf-viewer>BUILT-IN-PDF-VIEWER</pdf-viewer>
+      <viewer-command />
+      <compiler-arguments />
+      <envs />
+      <main-file>$PROJECT_DIR$/publications/2023EdgeDroid2/paper.tex</main-file>
+      <output-path>$PROJECT_DIR$/publications/2023EdgeDroid2</output-path>
+      <auxil-path>{projectDir}/auxil</auxil-path>
+      <compile-twice>true</compile-twice>
+      <output-format>PDF</output-format>
+      <latex-distribution>TEXLIVE</latex-distribution>
+      <has-been-run>true</has-been-run>
+      <bib-run-config>[BibTeX.paper bibliography]</bib-run-config>
+      <makeindex-run-config>[Makeindex.paper makeglossaries]</makeindex-run-config>
+    </texify>
+    <method v="2" />
+  </configuration>
+</component>

@@ -25,7 +25,7 @@
 \usepackage[table,xcdraw]{xcolor}
 \usepackage[detect-weight=true,detect-family=true,binary-units=true,list-units=single,range-units=single]{siunitx}
 \sisetup{list-final-separator = {, and }}
-\usepackage[nogroupskip,nonumberlist,automake,shortcuts,acronym]{glossaries-extra}
+\usepackage[nogroupskip,nonumberlist,shortcuts,acronym]{glossaries-extra}
 \usepackage{glossaries-prefix}
 \newcommand*\dif{\,\mathrm{d}}
 \newcommand*\df{\mathrm{d}}
@@ -43,6 +43,7 @@
     backend=biber
 ]{biblatex}
 \usepackage[inline]{enumitem}
+\usepackage{todonotes}
 
 % enumitem
 \newlist{inlineenum}{enumerate*}{1}
@@ -58,8 +59,8 @@
 %\setglossarystyle{mcolindexgroup}
 \glsdisablehyper  % no glossary section in paper, so no links
 \setabbreviationstyle[acronym]{long-short-user}
-\glstoctrue%
-\makeglossaries%
+%\glstoctrue%
+%\makeglossaries%
 \loadglsentries{./glossary.tex}
 
 

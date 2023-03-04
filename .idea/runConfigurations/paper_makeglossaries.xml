@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="paper makeglossaries" type="MAKEINDEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
+    <texify-makeindex>
+      <program>MAKEGLOSSARIES</program>
+      <main-file>$PROJECT_DIR$/publications/2023EdgeDroid2/paper.tex</main-file>
+      <command-line-args />
+      <work-dir />
+    </texify-makeindex>
+    <method v="2" />
+  </configuration>
+</component>

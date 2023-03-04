@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="paper bibliography" type="BIBTEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
+    <texify-bibtex>
+      <compiler>BIBER</compiler>
+      <compiler-path />
+      <compiler-arguments />
+      <envs>
+        <env name="BIBINPUTS" value="$PROJECT_DIR$/publications/2023EdgeDroid2" />
+        <env name="BSTINPUTS" value="$PROJECT_DIR$/publications/2023EdgeDroid2:" />
+      </envs>
+      <main-file>$PROJECT_DIR$/publications/2023EdgeDroid2/paper.tex</main-file>
+      <aux-dir />
+    </texify-bibtex>
+    <method v="2" />
+  </configuration>
+</component>

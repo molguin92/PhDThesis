@@ -710,3 +710,6 @@ paper.pdf
 _minted*
 
 *.loc
+
+# makeindex
+*.ist
