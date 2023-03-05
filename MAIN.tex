@@ -40,17 +40,22 @@
 \tableofcontents%
 
 \part{Summary}\label{part:summary}
-\chapter{Introduction \& Overview}\label{chap:introduction}
-\input{body/part1/introduction}
+\chapter{Introduction}\label{chap:introduction}
+\import{body/part1/chapter1-introduction}{introduction}
+\import{body/part1/chapter1-introduction}{background}
 
-\chapter{Background \& Related Work}\label{chap:relatedwork}
-\input{body/part1/background}
+\chapter{Related Work}
+\import{body/part1/chapter2-relatedwork}{scope}
+\import{body/part1/chapter2-relatedwork}{relatedwork}
+\import{body/part1/chapter2-relatedwork}{contributions}
 
-\chapter{Key Contributions \& Results}\label{chap:contributions}
-\input{body/part1/overview}
+\chapter{Key Contributions \& Results}
+\import{body/part1/chapter3-contributions}{methodology}
+\import{body/part1/chapter3-contributions}{wca-implications}
 
-\chapter{Conclusions \& future work}\label{chap:conclusions}
-\input{body/part1/futurework}
+\chapter{Conclusions \& Future Work}
+\import{body/part1/chapter4-conclusions}{conclusions}
+\import{body/part1/chapter4-conclusions}{futurework}
 
 \renewcommand\chaptername{\newchaptername}
 \addtocontents{toc}{\protect\renewcommand\protect\cftchaptername{\newchaptername~}}

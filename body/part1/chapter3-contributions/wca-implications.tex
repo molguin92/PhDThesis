@@ -13,6 +13,114 @@ Once we have established more accurate model of human behavior, we can then begi
 This includes evaluating the impact of various optimization strategies on human performance and identifying opportunities for improvement.
 By incorporating a realistic model of human behavior, we will be able to build a more comprehensive understanding of the challenges involved in optimizing \gls{WCA} and how our methodology can be applied to address these challenges.
 
+\subsection{Characterization of \glsfmtshort{WCA}}
+\todo[inline]{Rework}
+
+An important portion of the present thesis deals with the modeling of human behavior for the benchmarking of \gls{WCA}.
+We focus in particular on \emph{step-based} \gls{WCA}, i.e.\ assistance applications which have as their goal the guidance of a user through a task, using a series of instructions.
+In this section, we will provide some definitions relating to the operation of these applications.
+
+As discussed above, \glspl{WCA} track the state of the real world through sampling of inputs, most commonly of video feeds.
+In step-based \glspl{WCA}, the state in question refers to the progress of some arbitrary, sequential task, such as the assembly of a LEGO model or of a piece of IKEA furniture~\cite{chen2018application}.
+We will formally define \emph{task} as a well-defined sequence of instructions to be performed in order to achieve a final goal state, and further define a \emph{step} within a task as a specific action to be performed by the user, described by a single instruction.
+A step begins when the corresponding instruction is provided to the user, and ends when the instruction for the next step is provided;
+the time interval between these two events will be referred to as the \emph{step duration}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\textwidth]{publications/2023EdgeDroid2/figs/step_time}
+    \caption[]{%
+        Breakdown of a step in a \gls{WCA} into its timing components.
+        \ensuremath{t_k | k \in \{1, \ldots, n \}} correspond to sampling instants.
+        \ensuremath{t_0} indicates the instant at which the instruction for step \ensuremath{M} is provided to the user and the first sample for said step is captured.
+        The instruction for step \ensuremath{M + 1} is provided at \ensuremath{t_{n+1}}.
+        Finally, \ensuremath{t_c} marks the instant at which the user finishes the instruction, and \ensuremath{t_n} the instant of capture of the first sample after the instruction has been completed;
+        this sample therefore also corresponds to the final sample of step \ensuremath{M}.
+        Figure originally included in \cref{paper:olguinmunoz2023realistic}.
+    }\label{fig:wcastep}
+\end{figure}
+
+In the following, please refer to \cref{fig:wcastep}.
+\ensuremath{\{ t_0, t_1, \ldots, t_{n + 1} \}} corresponds to a series of discrete and sequential sampling instants, such that \ensuremath{t_0} corresponds to the instant at which the instruction for step \ensuremath{M} is provided and the first sample of the step is taken.
+\ensuremath{t_n} corresponds to the instant at which the final sample of step \ensuremath{M} is taken;
+this sample is the first sample to capture the finished state of the step.
+At this point, the application transitions to the next step \ensuremath{M + 1}, and thus \ensuremath{t_{n + 1}} is the instant at which the next instruction is provided and step \ensuremath{M + 1} begins.
+We will also refer to the interval \ensuremath{t_{n + 1} - t_n} as the \emph{last sample \gls{RTT}}.
+
+\glsreset{TTF}%
+From this characterization, we can define key variables relating to human behavior with respect to the sampling behavior of these applications.
+However, we first note that the combination of the characteristic of seamless interaction with the context of the user described in the previous section and in \cref{fig:wca}, combined with the sampling behavior described above, lead to an interesting consequence for the perception of responsiveness in \gls{WCA}.
+The only points in time at which a user can consciously notice and interact with the application is whenever they are \emph{expecting} feedback.
+A corollary of this is that these are therefore also the \emph{only} points in time at which users can notice changes in system responsiveness.
+If we understand \ensuremath{t_c} as the point in time at which the user finishes executing the instruction for step \ensuremath{M}, then
+\begin{inlineenum}
+    \item \ensuremath{t_c - t_0} corresponds to the \emph{step execution time}, that is, the time it has taken the user to complete the instruction
+    \item \ensuremath{t_n - t_c} is the \emph{wait time}, an interval of time during which the task has been finished, but no sample capturing the new state has been taken yet
+    \item finally, the interval \ensuremath{t_{n + 1} - t_c} we call \emph{\gls{TTF}}, and refers to the time the user spends waiting for a new instruction.
+\end{inlineenum}
+These values are key to understanding human perception of responsiveness in these systems, and therefore also to the optimization of resource consumption in \gls{WCA}.
+We will refer to them extensively in \cref{chap:contributions}.
+
+%\subsection{Mechanisms relating human behavior to system responsiveness}
+%
+%The question of how people respond to delay in a computer system is grounded in how people perceive time.
+%Time perception has been described as regulated by an attentional gate that, when opened, starts a cognitive pulse counter~\cite{zakay1995attentional,zakay1996role}.
+%More recent research indicates, however, that duration perception is highly malleable and the result of multiple timing mechanisms found in overlapping, flexible neural systems~\cite{bruno2016multiple,wiener2011multiple}.
+%The estimation of an event's duration varies with context of various types
+%\begin{inlineenum}[label={(\roman*)}, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
+%\item events subsequent to a long or short interval are contracted or extended, respectively~\cite{heron2012duration}
+%\item repeated events tend to be perceived as shorter than novel ones~\cite{matthews2011stimulus}
+%\item arousal can expand durations~\cite{droit_volet2011emotion}.
+%\end{inlineenum}
+%
+%Expectations play a critical role in time perception as well~\cite{zakay1995attentional,zakay1996role}.
+%It has been shown that people have a general tendency to be hypersensitive to delays in worse-than-expected states, and under-sensitive to meeting or exceeding expectations~\cite{loewenstein1992anomalies}.
+%Accordingly, failures to meet expected fast response times tend to be experienced as highly negative, whereas fast latencies are not noticed.
+%Violations of expectancy have a strong impact on the acceptability of computer systems.
+%Users of a computer system anticipate the latency for events, for which the standards only become more stringent as systems improve in response time.
+%In immersive systems like \gls{WCA}, which aim to provide seamless interaction, delays are particularly noticeable.
+%
+%It has long been recognized that slow system response times can undermine cognitive processing, slow the pace of users, and lead to stereotyped behavior and errors, as well as cause negative emotional consequences~\cite{dabrowski201140}.
+%However, standards for what constitute tolerable delays have changed dramatically compared to three decades ago, when delays on the order of \SI{10}{\second} were deemed acceptable~\cite{nielsen1994usability, shneiderman2016designing, seow2008designing}.
+%Today's user context, and \gls{WCA} in particular, often demand response times orders of magnitude shorter.
+%
+%For \gls{WCA} the acceptable range for latencies was explored by Chen et al.~\cite{chen2017empirical}, by constructing assistants for tasks with a range of time constraints, including step-by-step tasks and more interactive contexts like playing Ping-Pong against a human opponent.
+%They then proposed a latency tolerance zone according to the task demands.
+%For an essentially self-paced task like LEGO assembly, they found two key ranges of latency; unnoticeable, \SIrange{0}{0.6}{\second}; and impaired, \SIrange{0.6}{2.7}{\second}.
+%Beyond that, users could begin to show the negative outcomes previously catalogued~\cite{dabrowski201140}.
+%
+%While behavioral changes and negative interaction outcomes have been well documented in prior research on system delay, the specific mechanisms that mediate these outcomes are less well understood.
+%These mechanisms could be cognitive or emotional in origin.
+%
+%A first possible explanation comes from research on cognitive and motor planning.
+%Delay may move users from relatively automatic to more attention-demanding processing.
+%Cognitive and motor tasks are commonly described as a hierarchical system, progressing from high-level goals to the sequence of commands that accomplishes them.
+%As competency in a task increases, execution of the hierarchy becomes increasingly automated.
+%Automatization has been described from a computational perspective in {Anderson's ACT-R}~model as the compiling of multiple productions into one~\cite{neves1981knowledge}.
+%Neural measurements indicate that with automaticity, control moves from frontal brain areas to more posterior ones~\cite{jeon2015degree,puttemans2005changes}, and similar distinctions have been related to temporal processing~\cite{lewis2003distinct,koch2009neural,lee2019limiting}.
+%
+%Although activities guided by a \gls{WCA} are not simple motor actions, immediate feedback after each of a series of repeated actions should promote development and automatic execution of a hierarchical plan.
+%Delays, in contrast, would disrupt such a plan through the loss of automated control~\cite{lee2019limiting}.
+%
+%A second, alternative explanation of delay effects appeals to emotional systems rather than cognitive processes.
+%As users of a system become emotionally aroused by delay, they may be subject to generalized arousal, causing decrements in performance~\cite{lee2019limiting}.
+%
+%Finally, a third potential explanation of delay effects is what has been called ``ego depletion'', the notion that expending effort on self-control eliminates resources needed for further effort~\cite{baumeister74tice,lin2020strong}.
+%
+%The various processing accounts of delay effects predict different outcomes, which we will consider in the context of the current data.
+%If delay increases attentional demands on cognitive processes, responses should be slowed and errors expected, particularly on time-critical tasks.
+%Generalized arousal triggered by emotional stress from delay should emerge in physiological measures, such as increased heart rate or skin conductivity.
+%Arousal can also reduce movement smoothness or add erratic gestures~\cite{pijpers2003anxiety}.
+%Ego depletion has been found to produce premature responses culminating in error~\cite{lin2020strong}, or to lead to abandoning a task entirely~\cite{baumeister74tice}.
+%
+%Over-arching prescriptions for tolerable system response time have not tended to take into account individual differences in users with respect to salient variables like cognitive ability or personality.
+%Relevant research can be found in studies of delay discounting, the tendency to devalue rewards for which one must wait.
+%High discounting rates, indicative of waiting intolerance, have been associated with negative social and academic outcomes.
+%Hirsh et al.~\cite{hirsh2008delay} found that higher discounting was associated with extraversion among those with low cognitive function, whereas lower discounting was associated with emotional stability (low neuroticism) for people with high cognitive function.
+%Among computer system users who tend to have relatively high cognitive ability (which presumably describes the present experimental population), this points to neuroticism as a personality factor that might modulate tolerance for waiting. Extraversion could also  be  a moderating factor among the broader target audience of \gls{WCA}, which are intended for relatively inexperienced users of an application.
+%These and other measures of individual variation were considered here.
+
+
 \subsection{Characterizing human behavior}
 
 \Cref{paper:olguinmunoz2021impact} aims to investigate the effects of system responsiveness on human behavior in step-based \gls{WCA}.
