@@ -4,7 +4,7 @@
       <compiler>PDFLATEX</compiler>
       <compiler-path>/opt/homebrew/bin/pdflatex</compiler-path>
       <sumatra-path />
-      <pdf-viewer>BUILT-IN-PDF-VIEWER</pdf-viewer>
+      <pdf-viewer>SKIM</pdf-viewer>
       <viewer-command />
       <compiler-arguments>-synctex=1 -interaction=nonstopmode -file-line-error -shell-escape</compiler-arguments>
       <envs />
