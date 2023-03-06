@@ -59,124 +59,38 @@ Two examples of such applications, of relevance for the present work, are \acl{W
 These applications had been hitherto inviable to implement due to the limitations of cloud offloading in mobile and wearable contexts, but have now become a practical reality thanks to \gls{MEC}.
 We will discuss these in depth in their respective sections, \cref{background:wca} and \cref{background:ncs}.
 
-\subsubsection{Experimental research in Edge Computing}
-\todo[inline]{Should be moved to related work or removed.}
-
-The last few years have seen the emergence of a number of small- to mid-scale platforms and testbeds for edge computing research.
-Several of these are additionally driven by research interests in novel mobile networking technologies and \gls{MEC}, as well as in the virtualization of network functions.
-Of particular interest to us are the
-\begin{inlineenum}
-    \item \acs{GENI}
-    \item Chameleon
-    \item \acs{COSMOS}
-    \item \acs{POWDER}
-    \item \acs{ARA}
-    \item EdgeNet
-%    \item Drexel Grid \gls{SDR}
-\end{inlineenum} testbeds.
-
-\gls{GENI} is a testbed deployed across more than fifty sites across the \gls{USA}.
-Originally designed for ``the development, deployment, and validation of transformative, at-scale concepts in network science, services, and security''~\cite{berman2014geni}, \gls{GENI} today combines local edge compute resources with mobile network last-hop connectivity for \gls{MEC} experimentation~\cite{gosain2017geni}.
-The wireless-capable sites incorporate single-hop access to compute, storage, and network resource, making \gls{GENI} a compelling edge computing platform.
-
-The Chameleon testbed is a research platform originally designed for the study and evaluation of cloud computing systems~\cite{keahey2020lessons}, but which has recently been expanded to target edge computing research through the \acs{CHI}@Edge project.
-Chameleon is a collaborative project operated by a consortium of research institutions and industry partners, and is designed to provide a flexible and reconfigurable infrastructure for researchers to experiment with and test various cloud computing technologies, algorithms, and configurations.
-The testbed provides a highly reconfigurable array of hardware and software resources, including servers, storage systems, and networking equipment, able to simulate various cloud and edge computing scenarios.
-
-\gls{COSMOS} is a testbed deployed in New York City (State of New York, \gls{USA}), containing over \num{200} rooftop, intermediate, and mobile nodes.
-The testbeds main \emph{raison d'etre} is \gls{MEC} research, with a strong emphasis on wireless networks.
-The system includes \glspl{SDR}, \si{\milli\meter}-wave equipment, optical fibers, cloud integration, and edge compute for core network functionality and application data processing~\cite{yu2019cosmos,raychaudhuri2020challenge}.
-
-\gls{POWDER} is described by the authors of~\cite{breen2020powder} as a ``city-scale, remotely accessible, end-to-end software defined platform supporting a broad range of wireless and mobile related research''.
-It features roughly \num{15} fixed programmable radio nodes, based on off-the-shelves \glspl{SDR}, distributed across a \SI{15}{\kilo\meter\squared} area in Salt Lake City (State of Utah, \gls{USA}).
-These radio nodes are combined with edge-based compute nodes as well as cloud resources for full \gls{MEC} experimentation.
-
-The \gls{ARA} platform~\cite{zhang2022ara} is a highly flexible testbed based on the \gls{CHI} software suite originally developed for the aforementioned Chameleon testbed~\cite{keahey2020lessons}.
-\gls{ARA} is developed by researchers at Iowa State University in Ames, Iowa (\gls{USA}), and spans a rural area with a diameter of over \SI{60}{\kilo\meter}~\cite{zhang2022ara}.
-Its core goal is the study and deployment of advanced edge computing and wireless platforms and technologies in real-world agricultural and rural settings, and includes a broad range of wireless technologies deployed through both \glspl{SDR} and programmable \gls{COTS} radios, as well as automated ground vehicles, cameras and sensors.
-
-EdgeNet deviates from the approaches described above and represents a fully software-based, massively distributed public platform for edge computing research~\cite{cappos2018edgenet,senel2021edgenet1,senel2021edgenet2}.
-It consists of a public, modified and customized Kubernetes~\cite{kubernetes} cluster.
-The EdgeNet software is available for anyone to download;
-individuals and organizations can quickly deploy self-hosted edge nodes which are then made available to anyone using the platform.
-The end result is a flexible and scalable global edge cloud simplifying research and prototype development in edge and cloud computing.
-A similar, closely-related project is KubeEdge~\cite{xiong2018extend}, a software framework for extending Kubernetes clusters from the cloud to the edge.
-
-Finally, a number of other, small-scale approaches also exist.
-In~\cite{gedawy2016cumulus}, the authors propose Cumulus, a prototype testbed for edge compute offloading in \gls{IOT} with the explicit goal of providing a generic and heterogeneous platform for edge computing research.
-The authors of~\cite{rimal2018experimental} propose an experimental testbed for two-tiered edge architectures in the context of \gls{FIWI} edge computing.
-This testbed is then employed to validate wireless access and compute resource scheduling strategies in these systems.
-In~\cite{yamanaka2021design}, the authors present an experimental edge computing testbed capable of determining the offload location of a workload based on desired latency parameters.
-\cite{diao2019scalable} propose yet another Kubernetes-based testbed based for edge task offloading based on heterogeneous hardware including low-power single-board computers such as Raspberry Pis and Jetson Nanos.
-Finally,\ \cite{moorthy2022cloudraft} proposes \gls{CLOUDRAFT}, a cloud-based framework for mobile network experimentation, with a focus on simplifying the management of testbed resources.
-The goal of this project is to integrate, coordinate, share, and improve upon existing testbeds through a common interface.
-
-
 \subsection{\glsfmtlong{XR}}\label{background:xr}
-\todo[inline]{Rework into background XR}
+\glsreset{XR}
+\glsreset{AR}
+\glsreset{VR}
+\glsreset{MR}
+\todo[inline]{Add some references}
 
-\glsreset{WCA}
-\gls{WCA} refers to a novel category of wearable and mobile immersive applications which aim to amplify human cognition in both day-to-day tasks and professional settings.
-\glspl{WCA} work in a mode analogous to how \gls{GPS} navigation systems guide drivers, by seamlessly providing relevant instructions and feedback relating to the current task at hand and staying out of the way of the user when guidance is not required.
-These applications operate much like a human assistant would, by observing the performance of the user and offering guidance proactively.
-Through the use of sensors (most commonly video inputs), the application follows the progress of the task in realtime by continuously sampling the state of the physical system.
-The input is parsed to an internal symbolic representation of the state of the task;
-whenever a change of state is detected the application provides appropriate feedback or instructions to the user.
-This feedback can be in the form of text, images, video, and/or audio, and guides the user towards the next desired system state.
-If no change in state is detected, the application remains silent and out-of-the-way.
-In other words, the application silently discards samples which capture an intermediate or unfinished state, or simply are too noisy to be processed.
-\Cref{fig:wca} illustrates this mode of operation in a \gls{WCA} guiding a user to manipulate a structure composed of LEGO bricks.
+\gls{XR} is an umbrella term used to refer to all immersive technologies that combine real and virtual environments, including technologies such as \gls{AR}, \gls{VR}, and \gls{MR}.
+\gls{AR} merges digital content with the physical world, enhancing human perception and cognition through the overlay of virtual objects and information on top of the real environment.
+This technology can superimpose tooltips, virtual \gls{2D} and \gls{3D} objects, or even full-fledged videos on top of what the user sees.
+These overlays are most often presented to the user through wearable or mobile devices, such as smartphones or smart glasses (e.g. Google Glass), fitted with a camera to capture a real-time video feed of the physical environment and a display on which the augmented feed is presented.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=.9\textwidth]{Figs/wca_state}
-    \caption{%
-        Mode of operation of \acs{WCA} applications.
-        The assistant continuously samples the state of the monitored task, and provides appropriate feedback once a state change has been detected.
-        Samples that do not result in feedback are silently discarded.
-    }\label{fig:wca}
-\end{figure}
+\gls{VR}, on the other hand, takes it a step further and involves fully forgoing the real world, immersing the user in a fully digital, \emph{simulated} environment.
+Due to its deeply immersive nature, \gls{VR} requires hardware components specifically designed for this task, the most crucial of which is the \gls{VR} headset.
+The simplest type of such headset uses a pair of lenses to present an illusion of depth when looking through them at a small display.
+More advanced types combine microdisplays, accelerometers, and headphones to provide a comprehensively immersive experience, where the user truly feels as if they are inside the virtual world.
+Additionally, \gls{VR} systems often allow users to interact with the simulated environment through the use of instrumented gloves or special controllers, further increasing the illusion of immersion.
 
-As the name implies, \glspl{WCA} are available whenever the user requires them, without being tethered to a particular physical location;
-they are pervasive and mobile~\cite{ha2014towards}.
-This leads to interesting consequences for \gls{WCA} system design when combined with their requirement of seamless integration with the context of the user.
-The wearable nature of \gls{WCA} directly implies use of lightweight and battery-powered devices, greatly constrained in terms of energy and computing resources.
-The requirements of immersive and seamless interaction, on the other hand, suggest a level of context sensitivity and proactivity that can only be provided by real-time analysis of sensor inputs such as video and audio feeds.
-This kind of compute- and energy-intensive processing, often involving \gls{ML} algorithms and \glspl{DNN}, is unfeasible to be performed on wearable devices, and thus these applications \emph{must} necessarily make use of compute offloading~\cite{ha2014towards,wang2020scaling}.
-
-However, it is understood today the cloud represents an unsuitable candidate for offloading computation in these applications, given the high latencies involved.
-Given their immersive nature, feedback in \gls{WCA} systems should be provided ``quickly'' (relative to the task at hand), as users will have expectations of constant and immediate feedback as they interact with the system.
-As is the case for most \gls{XR} applications, delayed feedback in \gls{WCA} can have severe negative consequences for the quality of the user experience.
-Depending on the task, these consequences can range from simply distracting or annoying the user (in the case of less interactive tasks such as step-by-step assembly), to actively handicapping user performance (in the case of highly interactive tasks).
-There is therefore a broad understanding today that edge computing is a key enabling technology for \gls{WCA} applications~\cite{ha2014towards,wang2020scaling,chen2018application,olguinmunoz2021impact}.
+Finally, \gls{MR} combines elements from both aforementioned technologies.
+As in \gls{AR}, \gls{MR} overlays virtual objects on the physical, real-world environment, while also involving the tools and techniques from \gls{VR} which allow the user to manipulate these.
+In this way, \gls{MR} creates a hybrid environment where users can interact with both virtual and real-world elements simultaneously, resulting in an illusion of natural interaction between users and digital elements.
 
 \medskip
-In literature, research on \gls{WCA} has focused mostly on the implementation of prototype applications and platforms.
-\citeauthor{ha2014towards}~\cite{ha2014towards} coined the term \acl{WCA} in\ \citeyear{ha2014towards}.
-Their work described a first prototype system employing a Google Glass wearable device, and identified the challenges of offloading the computation for such an application to the cloud.
-The authors were originally inspired by assistive use cases for people suffering from some form of cognitive decline due to aging, illness, or traumatic brain injury~\cite{ha2014towards,satyanarayanan2019augmenting}.
-More recently, the scope of \glspl{WCA} has been expanded to include a broader range of use cases, including complex assembly tasks~\cite{chen2017empirical,chen2018application,wang2020scaling,wang2019towards}.
-\cite{chen2015early} and~\cite{chen2018application} further developed the platform described in~\cite{ha2014towards}, and produced a number of different assistive applications such as the aforementioned LEGO assistant, and others such as a Ping-Pong assistant capable of providing real-time hints to players of table tennis, and more advanced assembly assistant for IKEA furniture.
-Yet another platform for \gls{WCA} was introduced in~\cite{chatzopoulos2017hyperion}, with the goal of providing real-time contextual information in text-form to users.
-Furthermore, important work has been done in the implementation of such systems for industrial and factory applications~\cite{belletier2021wearable}.
-Non-wearable cognitive assistance systems for assembly tasks have already been proven to be valuable tools in the industrial workplace~\cite{funk2015cognitive,gorecky2011cognito}.
-It is understood that the detethering of these system for their use in wearable scenarios opens up a multitude of possibilities.
 
-In later years, a body of work studying the optimization of these applications has emerged.
-A seminal work in this field is~\cite{chen2017empirical}, in which the authors establish hard and soft latency bounds for acceptable performance in \gls{WCA}.
-\citeauthor{wang2019towards}~\cite{wang2019towards} explore strategies for scalable \gls{WCA} on the edge through different adaptive sampling and resource allocation schemes;
-this is further developed in the authors' PhD thesis later on~\cite{wang2020scaling}.
-\cite{moothedath2021energy},\ \cite{moothedath2022energy1}, and~\cite{moothedath2022energy2} studied the potential for energy optimization in \gls{WCA} through convex optimization of the sampling strategies employed.
-In~\cite{george2020openrtist}, the authors introduce \emph{OpenRTiST}, a benchmarking tool for immersive, latency-sensitive, and bandwidth-hungry applications on edge computing leveraging \glspl{DNN} to perform real-time style transfer on a live video feed.
+Due to their ability to create immersive experiences for users and closely mimic and simulate real-life scenarios, \gls{XR} systems have found applications across a wide spectrum of industries and fields.
+One of the most common uses of these technologies can be found in the domain of entertainment.
+\gls{VR} allows users to become fully immersed in virtual experiences, including games, concerts, movies, making them feel almost physically present without having to leave the comfort of their homes.
+Further, \gls{AR} and \gls{MR} allow for the merging of the virtual and real worlds, bringing entertainment to life in users day-to-day surroundings.
+The popularity of this approach can be clearly seen in the explosive success of modern mobile \gls{AR} games such \citetitle{pokemongo}~\cite{pokemongo}.
 
-The present thesis aims to contribute to this body of work by presenting and discussing a viable methodology for the design and evaluation of these systems.
-There's more to end-to-end latency, \gls{WCA} performance, and scalability than merely the question of where the compute backend is placed, however.
-The design of any complex application such as \gls{WCA} involves a multitude of decisions with the potential to influence the system responsiveness as experienced by the user.
-These decisions include those on the implementation side (compression standards, algorithms, protocols, etc.), as well as on the infrastructure side (physical network layer, traffic prioritization, etc.).
-As expressed above, existing studies of this class of applications have only recently started to delve more deeply upon these issues.
-On the other hand, recently published models for end-to-end latency of edge computing architectures, are quite complex, while not accounting for the specifics of \gls{WCA} and in many cases limited to very constrained scenarios and analyses~\cite{al_zubaidy2015performance,schiessl2017finite}.
-Our work in~\cite{olguinmunoz2018demoscaling,olguinmunoz2019edgedroid} introduces the first ever model for realistic emulation of these applications on real hardware.
-Our characterization of human timings in these systems in~\cite{olguinmunoz2021impact}, and our subsequent design of a realistic model for human behavior in \gls{WCA} constitute novel insights and tools for the optimization of these systems.
+\gls{XR} has also been leveraged for education and training.
+\gls{VR}
 
 \subsection{\glsfmtlongpl{NCS}}\label{background:ncs}
 \glsreset{NCS}
@@ -247,41 +161,6 @@ Finally, hybrid approaches, mixing testbed or prototype implementations and simu
 These approaches tend to focus on a particular element of the system which is implemented using a prototype or testbed, and virtualize the rest of the system.
 For instance, in~\cite{wang2020inverter} the authors are concerned with realistic effects from the network, and thus they have an emulated \gls{NCS} interact with a real network.
 On the other hand, works such as~\cite{natale2004inverted} focus on the system being controlled and opt to instead emulate the network.
-
-%\glspl{NCS}~\cite{Gupta2010NCSOverview}, a type of \gls{CPS} wherein multiple networked actuators and sensors form a part of the same automatic control system will benefit from the adoption of these technologies.
-%Depending on the physical system being controlled, \glspl{NCS} can have stringent timing and reliability requirements for communication that conventional cloud paradigms and cellular networks cannot meet~\cite{Wan2020Efficient}.
-%This necessitates sophisticated tools for the performance evaluation of future system architectures, as well as novel NCS design paradigm.
-
-%Due to their potential advantages for industrial and commercial settings, there exist works~\cite{Zhang2016Survey} dedicated to the modelling and performance characterization of \glspl{NCS}, improving NCSs by distributing control functions across networks, facilitating centralized coordination, control, and monitoring.
-
-%One the one hand, related literature in \glspl{NCS} leverages to a large extent theoretical models, at the price of being able to capture networked systems effects only on a coarse level.
-%%follows a theoretical approach, and only a small fraction of it deals with experimental studies.
-%On the other, there exist several approaches when considering experimental methodologies.
-%%A number of works concerning \glspl{NCS} deal with experimental studies.
-%%\glspl{NCS} have an inherently inter-domain nature intertwining knowledge from the fields of communications, computing, and control theory in ways that cannot be studied in isolation, leading to various different approaches to such studies.
-%One such approach uses setups in which the complete system is built on top of real hardware.
-%This approach is employed in the works of Baumann \emph{et al.}~\cite{Baumann2018LowPower} and Cuenca \emph{et al.}~\cite{Cuenca2019UAV}; in both of these, the authors implement their approach on physical testbeds.
-%Conversely, other studies choose to instead use completely \emph{simulated} \gls{NCS} setups.
-%The authors in\ \cite{Ma2019DynamicSched} have opted for such an approach.
-%These studies often employ combinations of physical and network simulation tools trying to capture the complex dynamics of \glspl{NCS}.
-%Finally, some experimental studies instead employ \emph{virtualized} approaches, in which either
-%\begin{inlineenum}[itemjoin={{; }}, itemjoin*={{; or }}]
-%    \item a real network interacts with a simulated or emulated control system~\cite{Wang2020VoltageControl}
-%    \item a simulated network interacts with a real control system~\cite{Natale2004InvPendEthernet}.
-%\end{inlineenum}
-%
-%As evidenced above, experimental research in \glspl{NCS} includes varied heterogeneous hardware and software platforms, methodologies and key performance indicators.
-%This, in turn, leads to hardware, software, and methodology fragmentation, as different studies tend to prefer approaches more favored in their respective communities.
-%Furthermore, existing studies tend to focus on individual aspects and components of a system, thus producing results which do not provide a complete image of the \gls{NCS}.
-%This has caused a gap in knowledge pertaining to the reproducibility and comparison of experimental studies on these systems.
-%
-%Zoppi \emph{et al.}~\cite{Zoppi2020NCSBench} made the first (and to the best of our knowledge, the only) attempt at tackling this challenge in their work.
-%In their work, they proposed a platform called NCSBench, to be used for reproducible benchmarking in NCS.\
-%Their methodology utilizes joint knowledge of control, computation, and communication.
-%In their work various architectural elements and the corresponding delays associated with the NCS are modelled.
-%Multiple experimental parameters and certain observable key performance indicators are defined and utilized in the implementation.
-%This work however utilizes a physical LEGO\textregistered{}\ Mindstorms EV3 Core Set\texttrademark{}\  based plant for the implementation, preventing instantaneous changes in plant characteristics and component parametrizations.
-%Furthermore, relying on physical objects like an inverted pendulum limits scalability of the experimentation in practice.
 
 \subsection{Emulation as a research methodology}
 \todo[inline]{Rename?}
