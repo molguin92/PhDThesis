@@ -5,40 +5,20 @@ This methodology is based on the emulation of the desired application workload o
 We do not in any way claim that this methodology is the best approach to studying these systems, but rather that it is a valid approach able to produce accurate, representative results.
 
 The scope of \gls{CPS} systems is vast and diverse, making it unfeasible to investigate all possible variations of these systems in this work. 
-Instead, we opt to study a representative subset of future applications that could potentially leverage Edge Computing resources to provide innovative solutions, step-based task-assistance \gls{WCA} and \glspl{NCS}.
+Instead, we opt to study a representative subset of future applications that could potentially leverage Edge Computing resources to provide innovative solutions: \gls{WCA} and \glspl{NCS}.
 By considering these two application domains, we demonstrate the applicability of our methodology and showcase its efficacy.
 
-Specifically, \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid,paper:olguinmunoz2022cleave,paper:olguinmunoz2022ainur} introduce and discuss this methodology and the necessary tools for its implementation.
-\cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} present a high level overview of this methodological approach as applied to step-based task-assistance \gls{WCA}.
-The \gls{WCA} system employed for these works corresponds to the LEGO assistant devised by \citeauthor{chen2015early}\cite{chen2015early}, using a task with \num{7} distinct steps.
+Specifically, a subset of the research works included in this dissertation presents and studies the application of our methodology for \gls{WCA}.
+To limit the scope of our research in this area, we constrain our work to \emph{step-based task-assistance} \gls{WCA}, and no other categories of \gls{WCA} are considered.
+We focus on this category for a couple of reasons.
+Step-based task-assistance \gls{WCA} were among the first categories of \gls{WCA} to be developed~\cite{chen2015early}, and thus represent a more mature application class compared to other \glspl{WCA}.
+These applications also feature a linear mode of execution, simplifying emulation, and their step-based nature makes the tasks easier to shorten or extend for experimental purposes.
+The specific application used for these studies corresponds to the LEGO assistant devised by \citeauthor{chen2015early}\cite{chen2015early}.
 
+A separate subset of the research presented in this work discusses a preliminary foray into the applications of our methodology for \glspl{NCS}.
+Given the vastness and complexity of this field, we limit our exploration to simple, small-scale, single-plant systems.
+In particular, the system used as a representative example for the effectiveness of our approach for \glspl{NCS} corresponds to the \gls{2D} inverted pendulum, using simple \gls{PD} and \gls{PID} controllers.
 
-\cref{} extends the discussion from \cref{paper:olguinmunoz2018demoscaling}, providing more details on the implementation of the necessary measurement framework and the tooling employed.
-This work presents the first empirical results obtained with our methodological approach, providing thus an initial validation of its utility for research.
-\cref{paper:olguinmunoz2019edgedroid} also discusses in detail the assumptions that were made about human behavior and reactions.
-We assume in these works a human which is impervious to poor system performance, and suffers no annoyance, fatigue, frustration, nausea or other shortcomings of real human users.
-The result is a model of a user who responds in a precisely reproducible and deterministic manner to the same system stimulus every time.
-
-In \cref{paper:olguinmunoz2022cleave}, we extend our methodology to the study of control systems for \glspl{NCS} on Edge Computing.
-These applications are similarly difficult to benchmark as \gls{WCA}, particularly at scale on multi-tenant systems, due to their client-side complexity and extreme sensitivity to latency.
-To address these challenges, we introduce a tool, \acs{CLEAVE}, for the emulation and subsequent deployment of these systems on edge computing infrastructure.
-This tool allows us both emulate the physical components of a relatively simple control system plant and deploy real algorithms for its control.
-The middleware software abstracts away the network from the development of these workloads, enabling quick prototyping and deployment.
-We then present use-case scenarios demonstrating the scalability and flexibility of their approach by deploying scenarios with a large number of loops without the need for domain-specific hardware.
-This work showcases the applicability of the methodology beyond wearable cognitive assistance and highlights the potential of our approach for other edge computing applications.
-
-\cref{paper:olguinmunoz2022ainur} presents a tangential contribution.
-It introduces the software framework used in \cref{paper:olguinmunoz2023realistic,paper:olguinmunoz2022cleave} for the orchestration of the edge computing testbeds on which the developed tools were deployed.
-This framework represents an ancillary contribution, crucial for the research presented in these works.
-Without it, the experimental approach described in these works would not have been feasible.
-
-Next, in \cref{paper:olguinmunoz2021impact,paper:olguinmunoz2023realistic} we delve deep into the implementation of our methodology for \gls{WCA}, as well as study its implications for optimization of these systems.
-Although the above approach to human behavior in \gls{WCA} discussed represents a useful initial approximation, it is nonetheless not a realistic model of it.
-In \cref{paper:olguinmunoz2021impact} we therefore take the first major step towards such a model, presenting a deep characterization of human behavior in these applications.
-We develop this characterization through a human subject study with a cohort of \num{40} participants who were asked to interact with an instrumented \gls{WCA} application.
-System responsiveness is altered in real-time during each execution of the task, and we record participants' reactions by measuring task- and system-related metrics, as well as biometrics from sensors placed on their bodies.
-Participants were also asked to fill out two personality indicator questionnaires, allowing us to later correlate individual personality traits and measured reaction to changes in system responsiveness.
-
-\cref{paper:olguinmunoz2023realistic} then concludes this line of work, building upon the insights and data obtained in \cref{paper:olguinmunoz2021impact} to develop the first ever data-driven model of human timings for \gls{WCA}.
-The model is validated against previously obtained results, both through simulated, controlled executions and deployments on a real edge computing testbed.
-This work also explores potential implications of this model for \gls{WCA} system optimization potential, particularly in the domains of energy consumption and sampling strategies.
+Finally, this dissertation also briefly discusses Edge Computing testbed research and automation as an ancillary contribution to the methodology.
+Our work in this domain is limited to small-scale testbeds with up to a few dozen nodes, leveraging \gls{SDR} paired with general-purpose \gls{COTS} compute hardware.
+We do not target large-scale testbeds due to their complexity, both in terms of hardware and software.
