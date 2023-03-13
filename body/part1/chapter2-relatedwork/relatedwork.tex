@@ -2,6 +2,8 @@
 
 \subsection{Emulation of \glsfmtshort{XR} systems}
 
+\todo[inline]{Maybe expand to evaluating performance of XR? Prototyping of XR?}
+
 \textcite{munro2016aaremu}: Software framework for the emulation of AR on Android devices.
 A trace of pre-recorded inputs (video, gyro, GPS) are replayed to the real processing code by mocking Android SDK APIS.
 Recordings can be ``interactive'', in which case the trace corresponds to images indexed by directional bearings, i.e.\ a 3D sphere), or non-interactive, in which case the trace corresponds to a video replayed at a customizable framerate.
@@ -20,12 +22,48 @@ Similar to \cite{munro2016aaremu}, traces of inputs are pre-recorded and then re
 Allows for abstraction of inputs in general classes for device-agnostic inputs.
 Paper highlights the challenges of deterministic trace (leaves solution to future work).
 
+\textcite{chetoui2022arbench}: ARBench, a benchmarking suite for AR.
+Corresponds to a software package including a multitude of AR workloads, emulating the load placed on the the hardware.
+Only considers locally-running AR, not network.
+Does not emulate human behavior, uses traces of AR applications.
+
+\textcite{george2020openrtist}: OpenRTiST, benchmarking workload for Edge Computing, AR
+Based on stable diffusion. 
 
 
+\subsection{Experimental research in \glsfmtshortpl{NCS}}
 
+A significant amount of work has been dedicated to the modeling and performance characterization of \glspl{NCS} due to their potential benefits for industrial and commercial settings~\cite{lu2016real,hespanha2007survey,zhang2013network,zhang2016survey}.
+Most of the large literature concerning \glspl{NCS}, however, follows a theoretical approach, with only small fraction of it dealing with experimental studies.
+\gls{NCS} studies are complex due to the inter-domain nature of these systems, requiring expertise in the fields of communication networks, computing, and control theory.
 
+Within the body of works relating to experimental research on \glspl{NCS}, we identify three distinct approaches: fully practical, fully simulated, and emulated approaches that combine components of the first two.
 
-\subsection{Emulation of \glsfmtshortpl{NCS}}
+In a fully practical approach, the experimental setup uses real systems and hardware to test and validate the performance of the \gls{NCS}.
+This approach is straightforward to implement, and can be very useful for evaluating the real-world applicability of the system, but can be costly and time-consuming.
+Examples of the application of this approach can be found in studies such as~\cite{drew2005networked,baumann2018evaluating,li2014wireless,cuenca2019periodic}.
+These studies implemented wireless and microcontroller-based systems for control and validated them on a physical prototype.
+
+In~\cite{drew2005networked}, the authors present a \gls{NCS} model which considers both random packet delay and loss on both the sensor and actuator sides of the feedback loop.
+They validate their design on a physical testbed consisting of inverted pendula controlled from a central computation point over Wi-Fi.
+A similar testbed is employed for validation in~\cite{baumann2018evaluating}, in which the authors develop an evaluation methodology for wireless \gls{NCS}.\@
+\cite{li2014wireless} implements a wireless microcontroller-based system for vibration control and validates it on a physical prototype comprising a cantilever beam controlled using an \acs{IEEE} 802.15.4 \gls{WPAN} system.\@ \cite{cuenca2019periodic} discusses the design and implementation of a periodic event-triggered sampling and dual-rate control techniques for wireless control, and validate their contributions on a four-rotor autonomous drone platform controlled over WiFi.
+\emph{NCSbench}~\cite{zoppi2020ncsbench}, an open-source \gls{NCS} benchmarking platform designed with reproducibility in mind built using the \citetitle{LEGOMindstormsEV3}~\cite{LEGOMindstormsEV3} platform, is another such example.
+
+Completely simulated setups, on the other hand, rely on computer simulations to evaluate the \gls{NCS}'s performance.
+This approach is less expensive and faster than the practical approach but may not fully capture the real-world complexities of the system.
+Examples of tools and frameworks for the implementation of this approach can be found in works such as~\cite{andersson2005simulation,eyisi2012ncswt}.
+
+A simulated approach is employed in~\cite{du2009novel}, in which the authors develop a novel \emph{Smith} predictor to compensate for varying latencies in wireless \glspl{NCS} and validate it using the \emph{TrueTime}~\cite{henriksson2002truetime} simulator.
+In~\cite{chen2015synchronous} the authors validate and evaluate a number of synchronous control strategies for three-motor setups using completely simulated \glspl{NCS} environments.\@
+\cite{wu2012application} introduces the concept of \emph{network predictive control} in and uses it to balance a simulated inverted pendulum over a simulated wireless network.\@
+\cite{ma2019optimal} proposes an optimal dynamic scheduling strategy that optimizes performance of multi-loop control systems and validate it by simulating a four-loop control system over an \acs{IEEE} 802.15.4 \gls{WPAN}.
+
+Finally, network and hardware-in-the-loop approaches, which aim to strike a balance between realism and efficiency, have also been employed in literature.
+Network-in-the-loop refers to experimental setups in which the \emph{network} is instead simulated or emulated.
+Such approaches have, for instance, been used to study the effects of the \gls{CSMA/CD} medium access control mechanism on plant stability, as in~\cite{natale2004inverted}.
+Hardware-in-the-loop approaches, referring to \gls{NCS} setups in which a real network interacts with a simulated or emulated control system, are particularly prevalent in the field of \emph{smart grid} control.
+An example of the application of such an approach can be found in~\cite{wang2020inverter}, in which the authors introduce and validate a novel three-level coordinated control method for photovoltaic inverters.
 
 \subsection{Testbed research in Edge Computing}
 
