@@ -1,8 +1,10 @@
 \section{Related work}
 
-\subsection{Emulation of \glsfmtshort{XR} systems}
+\subsection{Wearable Cognitive Assistance}
 
-\todo[inline]{Maybe expand to evaluating performance of XR? Prototyping of XR?}
+
+
+\subsection{Benchmarking and emulation of \glsfmtshort{XR} systems}
 
 \textcite{munro2016aaremu}: Software framework for the emulation of AR on Android devices.
 A trace of pre-recorded inputs (video, gyro, GPS) are replayed to the real processing code by mocking Android SDK APIS.
@@ -34,10 +36,14 @@ Based on stable diffusion.
 \subsection{Experimental research in \glsfmtshortpl{NCS}}
 
 A significant amount of work has been dedicated to the modeling and performance characterization of \glspl{NCS} due to their potential benefits for industrial and commercial settings~\cite{lu2016real,hespanha2007survey,zhang2013network,zhang2016survey}.
-Most of the large literature concerning \glspl{NCS}, however, follows a theoretical approach, with only small fraction of it dealing with experimental studies.
-\gls{NCS} studies are complex due to the inter-domain nature of these systems, requiring expertise in the fields of communication networks, computing, and control theory.
+Research in \glspl{NCS} has mostly focused on addressing the challenges imposed by the introduction of best-effort communication networks into traditional control systems.
+Network delays (latency), losses, and \emph{jitter} --- referring to the variation in random network delays --- are at the forefront of these challenges.
+They have partially been addressed through the clever placement of the controller (e.g.\ by employing edge computing)~\cite{sasaki2017layered,sasaki2016vehicle}, as well as through the development of control algorithms capable of accounting for the effects of the network~\cite{zhang2013network}.
 
-Within the body of works relating to experimental research on \glspl{NCS}, we identify three distinct approaches: fully practical, fully simulated, and emulated approaches that combine components of the first two.
+Most of the large literature concerning \glspl{NCS}, however, follows a theoretical approach, with only small fraction of it dealing with experimental studies~\cite{zhang2019networked}.
+\gls{NCS} studies are complex due to the inter-domain nature of these systems, requiring expertise in the fields of communication networks, computing, and control theory.
+However, theoretical approaches can only capture network behaviors at a coarse level, and thus a body of works has emerge in later years involving experimental approaches to \gls{NCS} benchmarking.
+Within this body of work, we identify three distinct approaches: fully practical, fully simulated, and emulated approaches that combine components of the first two.
 
 In a fully practical approach, the experimental setup uses real systems and hardware to test and validate the performance of the \gls{NCS}.
 This approach is straightforward to implement, and can be very useful for evaluating the real-world applicability of the system, but can be costly and time-consuming.

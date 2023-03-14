@@ -97,6 +97,29 @@ On the other hand, \gls{AR} and \gls{MR} are employed in manufacturing, to train
 Workers can receive real-time guidance through \gls{AR}-enabled headsets, improving accuracy and safety while controlling machine operations on the factory floor.
 \gls{AR} can also provide augmented, step-by-step guidance for maintenance and repair of equipment, augmenting thus the capabilities of workers and the productivity of the workplace as a whole.
 
+\subsubsection{\glsfmtlong{WCA}}
+
+Of particular interest for this dissertation is a particular subset of \gls{AR} denoted \acf{WCA}, a technology designed to provide real-time support and guidance to individuals performing complex tasks in a plethora of domains.
+Designed to be deployed on wearable devices, \gls{WCA} overlays digital information onto the real world and provides context-aware feedback to users, in order to assist and guide them in to efficiently complete a task~\cite{ha2014towards,chen2015early,chen2018application,wang2020scaling}.
+
+These applications operate in a manner analogous to how \gls{GPS} navigation assistants guide users. 
+The progress of the user is seamlessly and continuously monitored by the application, which provides relevant instructions and feedback only when these are needed.
+The application follows the progress of the task in ``realtime'' by repeatedly sampling the state of the physical system, most commonly through video feeds.
+Whenever the assistant detects a change in the context of the user, it provides a new instruction.
+The application otherwise remains silent and out-of-the-way.
+
+Originally motivated by assistive use-cases for individuals with reduced cognition due to illness, injury, or age, \gls{WCA} technology has been evolved to include the enhancement of the cognitive abilities of users in areas such as manufacturing, healthcare, and aviation.
+Among the primary benefits of this technology is that it can help reduce the cognitive load on individuals performing complex tasks.
+By providing real-time guidance and support, it can improve accuracy and speed of task completion, reduce errors and minimize the risk of accidents.
+For example, a \gls{WCA} could help a technician performing maintenance on an aircraft by displaying relevant technical information about the aircraft parts and step-by-step instructions on how to perform complex specific repairs.
+
+\gls{WCA} technology employs sensors, cameras, and other hardware in wearable devices to collect data from the environment and the user.
+This data is then processed to interpret the data and provide relevant feedback.
+As with many other categories of \gls{AR} applications, the computational complexity of the processing of the real-time input data makes it unfeasible to do on wearable devices.
+The context-rich and latency-sensitive nature of \gls{WCA} inputs further makes this category of applications a prime candidate for offloading to the Edge.
+
+Overall, \gls{WCA} is a promising technology that has the potential to revolutionize the way we perform complex tasks.
+As the technology continues to evolve and become more sophisticated, it is expected to have a significant impact on many industries and improve the safety and efficiency of numerous processes.
 
 \subsection{\glsfmtlongpl{NCS}}\label{background:ncs}
 \glsreset{NCS}
@@ -152,21 +175,6 @@ However, depending on the physical system being controlled, \glspl{NCS} can have
 This has led their adoption to be limited mostly to industrial environments.
 This is about to change, however, as with the advent of edge computing, paired with novel wireless communication technologies such as cellular 5G, consumer-grade \glspl{NCS} will be made possible.
 These technologies will likely become the backbone of consumer-grade, widely-deployed \glspl{NCS}, enabling real-time capabilities through extremely low end-to-end latencies together with context- and locality-awareness.
-
-\medskip
-Research in \glspl{NCS} has mostly focused on addressing the challenges imposed by the introduction of best-effort communication networks into traditional control systems.
-Network delays (latency), losses, and \emph{jitter} --- referring to the variation in random network delays --- are at the forefront of these challenges.
-They have partially been addressed through the clever placement of the controller (e.g.\ by employing edge computing)~\cite{sasaki2017layered,sasaki2016vehicle}, as well as through the development of control algorithms capable of accounting for the effects of the network~\cite{zhang2013network}.
-
-In terms of research relating to the benchmarking and optimization of these systems, works in literature have for the most part leveraged either theoretical models~\cite{zhang2019networked} or simulations (for example ~\cite{ma2019optimal}).
-However, these approaches can only capture network behaviors at a coarse level, and thus a body of works has emerge in later years involving experimental approaches to \gls{NCS} benchmarking.
-\cite{baumann2018evaluating} and~\cite{cuenca2019periodic} employ purpose-built physical testbeds for the study of these systems.
-\cite{zoppi2020ncsbench} introduces \emph{NCSBench}, a platform for reproducible benchmarking of \gls{NCS} using a LEGO Mindstorms platform.
-
-Finally, hybrid approaches, mixing testbed or prototype implementations and simulations or emulations of \gls{NCS} components also exist in literature.
-These approaches tend to focus on a particular element of the system which is implemented using a prototype or testbed, and virtualize the rest of the system.
-For instance, in~\cite{wang2020inverter} the authors are concerned with realistic effects from the network, and thus they have an emulated \gls{NCS} interact with a real network.
-On the other hand, works such as~\cite{natale2004inverted} focus on the system being controlled and opt to instead emulate the network.
 
 \subsection{Emulation as a research methodology}
 \todo[inline]{Rename?}
