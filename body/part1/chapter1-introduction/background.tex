@@ -59,6 +59,27 @@ Two examples of such applications, of relevance for the present work, are \acl{W
 These applications had been hitherto inviable to implement due to the limitations of cloud offloading in mobile and wearable contexts, but have now become a practical reality thanks to \gls{MEC}.
 We will discuss these in depth in their respective sections, \cref{background:wca} and \cref{background:ncs}.
 
+\subsection{Emulation and simulation}
+
+The terms \emph{emulation} and \emph{simulation} are often used interchangeably.
+However, although both terms refer to methods of imitating and modeling systems, they are distinct in their goals, methods, and applications.
+
+Emulation refers to the process of reproducing or mimicking the observed behavior of a system through another system, 
+with the ultimate goal being the recreation of behavior that matches the original system as close as possible.
+Emulations run in \emph{real time}, and can thus interact with real environments;
+in turn, this means that emulations can be used to replace subcomponents of larger systems for research or benchmarking.
+This method does not aim to model the original system, nor aim to understand its underlying behavior.
+
+Simulation, on the other hand, is the process of modeling a system to study its behavior through the creation of a mathematical or logical model of the system.
+The model can then be adjusted to simulate and better represent the original system in different scenarios and conditions.
+Simulations run in entirely virtualized environments, and are not beholden to any real-time constraint.
+
+Finally, these approaches differ as well in the level of accuracy each of them affords.
+While simulation only attempts to approximate the behavior of the system in a given context, emulation aims to represent as close to a perfect copy of the observed behavior of the system.
+The former is therefore employed when a general understanding of the system is sufficient, while the latter is used when precision is required.
+However, thanks to its real time constraint and high degree of realism, emulation is typically more resource-intensive than simulation.
+This means that emulation requires more processing power, memory, and storage space than simulation.
+
 \subsection{\glsfmtlong{XR}}\label{background:xr}
 \glsreset{XR}
 \glsreset{AR}
@@ -123,11 +144,10 @@ As the technology continues to evolve and become more sophisticated, it is expec
 
 \subsection{\glsfmtlongpl{NCS}}\label{background:ncs}
 \glsreset{NCS}
-\todo[inline]{Needs citations. Remove?}
 
-\glspl{NCS} are a type of control system that involves the integration of communication networks into traditional control systems.
+\glspl{NCS} are a class of control systems that involve the integration of communication networks into traditional control systems.
 A control system is a collection of devices or subsystems that work together to achieve a desired behavior or outcome of a physical system.
-Control systems are composed of
+These systems are composed of
 \begin{inlineenum}
     \item a \emph{plant}
     \item \emph{sensors}
