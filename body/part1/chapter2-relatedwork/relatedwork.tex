@@ -1,32 +1,26 @@
 \section{Related work}
 
-\subsection{Benchmarking and emulation of \glsfmtshort{XR} systems}
+\subsection{Emulation in \glsfmtshort{XR} research}
 
-\textcite{munro2016aaremu}: Software framework for the emulation of AR on Android devices.
-A trace of pre-recorded inputs (video, gyro, GPS) are replayed to the real processing code by mocking Android SDK APIS.
-Recordings can be ``interactive'', in which case the trace corresponds to images indexed by directional bearings, i.e.\ a 3D sphere), or non-interactive, in which case the trace corresponds to a video replayed at a customizable framerate.
+Only a limited number of works addressing the partial or complete emulation of XR applications for benchmarking and research purposes exist in literature.
+One such work is~\cite{williams2013transform}.
+In this, the authors introduced a trace-based toolkit for the evaluation of tracking algorithms in \gls{AR} research and development.
+The trace consists of geographical coordinates and accelerometer data as well as video frames which can be replayed on a desktop visualization tool or a smartphone application for the evaluation of tracking algorithms in \gls{AR} research and development.
 
-\textcite{williams2013transform}: Toolkit for visualization of AR and evaluation of tracking algorithms.
-Recorded trace is replayed in a virtualized environment.
+\cite{munro2016aaremu} presents a trace-based framework that allows a previously recorded trace of inputs to be replayed to the processing components of a real \gls{AR} application by mocking Android \gls{SDK} \glspl{API}.
+This approach allows for benchmarking and evaluation of algorithms and architectures on real data.
+A similar approach was taken by~\cite{choi2022emulating}, but the authors instead provided developers of \gls{AR} with a framework that abstracts input into general classes, allowing for device-agnostic processing.
 
+Finally,\ \cite{chetoui2022arbench} employed \gls{AR} emulation to evaluate hardware rather than the software implementation itself.
+Their tool, \emph{ARBench}, features emulated \gls{AR} workloads that mimic the load placed on the system by real applications.
+This approach is similar to the one presented in this dissertation, but it exclusively considers on-device \gls{AR} processing.
+Furthermore, the benchmarks are deterministic, and no emulation of realistic human behavior is attempted.
 
-\textcite{berning2013parnorama}: Inverted emulation.
-AR application is emulated, user is real.
-AR application emulation corresponds to 360 degree FOV video.
-Used for prototyping user interactions in AR.
+\subsection{Edge and Cloud Benchmarking}
 
-\textcite{choi2022emulating}: XREmul, input emulation tool for XR.
-Similar to \cite{munro2016aaremu}, traces of inputs are pre-recorded and then replayed.
-Allows for abstraction of inputs in general classes for device-agnostic inputs.
-Paper highlights the challenges of deterministic trace (leaves solution to future work).
-
-\textcite{chetoui2022arbench}: ARBench, a benchmarking suite for AR.
-Corresponds to a software package including a multitude of AR workloads, emulating the load placed on the the hardware.
-Only considers locally-running AR, not network.
-Does not emulate human behavior, uses traces of AR applications.
-
-\textcite{george2020openrtist}: OpenRTiST, benchmarking workload for Edge Computing, AR
-Based on stable diffusion. 
+\emph{OpenRTiST}~\cite{george2020openrtist} is a tool for the benchmarking and performance evaluation of Edge Computing deployments using real-time processing of a live video feed.
+Video is streamed from a source Android device to a compute node where neural style-transfer~\cite{gatys2016image} is applied to it.
+The transformed video is then fed back to the source to be presented, resulting in a compute-intensive, bandwidth-hungry, and latency-sensitive benchmark.
 
 
 \subsection{Experimental research in \glsfmtshortpl{NCS}}
