@@ -11,17 +11,38 @@ The trace consists of geographical coordinates and accelerometer data as well as
 This approach allows for benchmarking and evaluation of algorithms and architectures on real data.
 A similar approach was taken by~\cite{choi2022emulating}, but the authors instead provided developers of \gls{AR} with a framework that abstracts input into general classes, allowing for device-agnostic processing.
 
-Finally,\ \cite{chetoui2022arbench} employed \gls{AR} emulation to evaluate hardware rather than the software implementation itself.
+Finally, the authors of~\cite{chetoui2022arbench} employ \gls{AR} emulation to evaluate hardware rather than the software implementation itself.
 Their tool, \emph{ARBench}, features emulated \gls{AR} workloads that mimic the load placed on the system by real applications.
 This approach is similar to the one presented in this dissertation, but it exclusively considers on-device \gls{AR} processing.
 Furthermore, the benchmarks are deterministic, and no emulation of realistic human behavior is attempted.
 
 \subsection{Edge and Cloud Benchmarking}
 
-\emph{OpenRTiST}~\cite{george2020openrtist} is a tool for the benchmarking and performance evaluation of Edge Computing deployments using real-time processing of a live video feed.
+This dissertation complements existing work on benchmarking distributed system architectures.
+A rich body of literature exists with examples of such approaches for Cloud computing.
+For example, the \gls{YCSB}~\cite{cooper2010benchmarking} is a data-intensive benchmark for the profiling of data centers and cloud services.
+Workload characterization in datacenters leads to a similar benchmark in~\cite{jia2013characterizing}.
+Both these approaches heavily focus on data processing and downlink transmission in cloud computing scenarios.
+In~\cite{turner2012cmart}, the authors introduce \emph{C-MART}, a benchmark for modern web applications running on the cloud.
+The benchmark utilizes modern web technologies, can be deployed automatically at a large scale, and include generators which mimic remote clients accessing the system over the internet.\@
+\cite{malawski2018benchmarking,back2018using} focus instead on serverless computing, using compute-intensive workloads to benchmark major cloud function providers such as \gls{AWS}, Microsoft Azure, and \gls{GCP}.
+
+A number of works have tackled this challenge in the context of Fog and Edge Computing as well.
+\emph{EdgeBench}, introduced in~\cite{das2018edgebench}, corresponds to a benchmarking suite for the Edge.
+It emulates three different workloads, speech-to-text, image recognition, and sensor network application traffic, and targets exclusively server and specifically targets serverless deployments.\@
+\cite{baurle2022comb} presents \emph{ComB}, a flexible and extensible, application-oriented benchmarking suite for Edge computing.
+Its stated purpose is to assist system designers and application developers to evaluate the suitability of Edge deployments.
+The framework is designed to decouple orchestration and workload, allowing for easy extension or replacement of the built-in distributed video-analytics benchmark.
+
+\emph{IoTBench}~\cite{lee2019iotbench} is a benchmarking tool for edge-deployed \gls{IOT} applications.
+It includes seven representative workloads, and allows researchers to evaluate the performance of these applications on Edge infrastructure through the analysis of computational demands and resource consumption.\@
+\cite{mcchesney2019defog} presents a benchmarking suite for the comparison of deployments on the Edge, Fog, or Cloud named \emph{DeFog}.
+\emph{DeFog} includes six Fog- and Edge-relevant workloads, including real-time video detection and a text-to-speech application, which are latency-critical and bandwidth-intensive.
+In~\cite{lockhart2020scission}, the authors introduce a tool, \emph{Scission}, for the benchmarking of \glspl{DNN} partitioned across the user device, edge, and cloud continuum.
+The tool can also be used to automatically determine the optimal partition of a \gls{DNN}.
+Finally, \emph{OpenRTiST}~\cite{george2020openrtist} is a tool for the benchmarking and performance evaluation of Edge Computing deployments using real-time processing of a live video feed.
 Video is streamed from a source Android device to a compute node where neural style-transfer~\cite{gatys2016image} is applied to it.
 The transformed video is then fed back to the source to be presented, resulting in a compute-intensive, bandwidth-hungry, and latency-sensitive benchmark.
-
 
 \subsection{Experimental research in \glsfmtshortpl{NCS}}
 
