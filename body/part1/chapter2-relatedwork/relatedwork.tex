@@ -22,14 +22,15 @@ This dissertation complements existing work on benchmarking distributed system a
 A rich body of literature exists with examples of such approaches for Cloud computing.
 For example, the \gls{YCSB}~\cite{cooper2010benchmarking} is a data-intensive benchmark for the profiling of data centers and cloud services.
 Workload characterization in datacenters leads to a similar benchmark in~\cite{jia2013characterizing}.
-Both these approaches heavily focus on data processing and downlink transmission in cloud computing scenarios.
+Both these approaches focus heavily on data processing and downlink transmission in cloud computing scenarios.
+
 In~\cite{turner2012cmart}, the authors introduce \emph{C-MART}, a benchmark for modern web applications running on the cloud.
-The benchmark utilizes modern web technologies, can be deployed automatically at a large scale, and include generators which mimic remote clients accessing the system over the internet.\@
+The benchmark utilizes modern web technologies, can be deployed automatically at a large scale, and includes generators that mimic remote clients accessing the system over the internet.\@
 \cite{malawski2018benchmarking,back2018using} focus instead on serverless computing, using compute-intensive workloads to benchmark major cloud function providers such as \gls{AWS}, Microsoft Azure, and \gls{GCP}.
 
 A number of works have tackled this challenge in the context of Fog and Edge Computing as well.
 \emph{EdgeBench}, introduced in~\cite{das2018edgebench}, corresponds to a benchmarking suite for the Edge.
-It emulates three different workloads, speech-to-text, image recognition, and sensor network application traffic, and targets exclusively server and specifically targets serverless deployments.\@
+It emulates three different workloads, speech-to-text, image recognition, and sensor network application traffic, and specifically targets serverless deployments.\@
 \cite{baurle2022comb} presents \emph{ComB}, a flexible and extensible, application-oriented benchmarking suite for Edge computing.
 Its stated purpose is to assist system designers and application developers to evaluate the suitability of Edge deployments.
 The framework is designed to decouple orchestration and workload, allowing for easy extension or replacement of the built-in distributed video-analytics benchmark.
@@ -37,7 +38,7 @@ The framework is designed to decouple orchestration and workload, allowing for e
 \emph{IoTBench}~\cite{lee2019iotbench} is a benchmarking tool for edge-deployed \gls{IOT} applications.
 It includes seven representative workloads, and allows researchers to evaluate the performance of these applications on Edge infrastructure through the analysis of computational demands and resource consumption.\@
 \cite{mcchesney2019defog} presents a benchmarking suite for the comparison of deployments on the Edge, Fog, or Cloud named \emph{DeFog}.
-\emph{DeFog} includes six Fog- and Edge-relevant workloads, including real-time video detection and a text-to-speech application, which are latency-critical and bandwidth-intensive.
+\emph{DeFog} includes six latency-critical and bandwidth-intensive, Fog- and Edge-relevant workloads, including real-time video detection and a text-to-speech application.
 In~\cite{lockhart2020scission}, the authors introduce a tool, \emph{Scission}, for the benchmarking of \glspl{DNN} partitioned across the user device, edge, and cloud continuum.
 The tool can also be used to automatically determine the optimal partition of a \gls{DNN}.
 Finally, \emph{OpenRTiST}~\cite{george2020openrtist} is a tool for the benchmarking and performance evaluation of Edge Computing deployments using real-time processing of a live video feed.
@@ -49,11 +50,11 @@ The transformed video is then fed back to the source to be presented, resulting 
 A significant amount of work has been dedicated to the modeling and performance characterization of \glspl{NCS} due to their potential benefits for industrial and commercial settings~\cite{lu2016real,hespanha2007survey,zhang2013network,zhang2016survey}.
 Research in \glspl{NCS} has mostly focused on addressing the challenges imposed by the introduction of best-effort communication networks into traditional control systems.
 Network delays (latency), losses, and \emph{jitter} --- referring to the variation in random network delays --- are at the forefront of these challenges.
-They have partially been addressed through the clever placement of the controller (e.g.\ by employing edge computing)~\cite{sasaki2017layered,sasaki2016vehicle}, as well as through the development of control algorithms capable of accounting for the effects of the network~\cite{zhang2013network}.
+They have partially been addressed through the clever placement of the controller (e.g.\ by employing Edge Computing)~\cite{sasaki2017layered,sasaki2016vehicle}, as well as through the development of control algorithms capable of accounting for the effects of the network~\cite{zhang2013network}.
 
 Most of the large literature concerning \glspl{NCS}, however, follows a theoretical approach, with only small fraction of it dealing with experimental studies~\cite{zhang2019networked}.
 \gls{NCS} studies are complex due to the inter-domain nature of these systems, requiring expertise in the fields of communication networks, computing, and control theory.
-However, theoretical approaches can only capture network behaviors at a coarse level, and thus a body of works has emerge in later years involving experimental approaches to \gls{NCS} benchmarking.
+However, theoretical approaches can only capture network behaviors at a coarse level, and thus a body of works has emerged in later years involving experimental approaches to \gls{NCS} benchmarking.
 Within this body of work, we identify three distinct approaches: fully practical, fully simulated, and emulated approaches that combine components of the first two.
 
 In a fully practical approach, the experimental setup uses real systems and hardware to test and validate the performance of the \gls{NCS}.
@@ -84,7 +85,7 @@ An example of the application of such an approach can be found in~\cite{wang2020
 
 \subsection{Testbed research in Edge Computing}
 
-The last few years have seen the emergence of a number of small- to mid-scale platforms and testbeds for edge computing research.
+The last few years have seen the emergence of a number of small- to mid-scale platforms and testbeds for Edge Computing research.
 Several of these are additionally driven by research interests in novel mobile networking technologies and \gls{MEC}, as well as in the virtualization of network functions.
 Of particular interest to us are the
 \begin{inlineenum}
@@ -99,11 +100,11 @@ Of particular interest to us are the
 
 \gls{GENI} is a testbed deployed across more than fifty sites across the \gls{USA}.
 Originally designed for ``the development, deployment, and validation of transformative, at-scale concepts in network science, services, and security''~\cite{berman2014geni}, \gls{GENI} today combines local edge compute resources with mobile network last-hop connectivity for \gls{MEC} experimentation~\cite{gosain2017geni}.
-The wireless-capable sites incorporate single-hop access to compute, storage, and network resource, making \gls{GENI} a compelling edge computing platform.
+The wireless-capable sites incorporate single-hop access to compute, storage, and network resource, making \gls{GENI} a compelling Edge Computing platform.
 
-The Chameleon testbed is a research platform originally designed for the study and evaluation of cloud computing systems~\cite{keahey2020lessons}, but which has recently been expanded to target edge computing research through the \acs{CHI}@Edge project.
+The Chameleon testbed is a research platform originally designed for the study and evaluation of cloud computing systems~\cite{keahey2020lessons}, but which has recently been expanded to target Edge Computing research through the \acs{CHI}@Edge~\cite{chiatedge} project.
 Chameleon is a collaborative project operated by a consortium of research institutions and industry partners, and is designed to provide a flexible and reconfigurable infrastructure for researchers to experiment with and test various cloud computing technologies, algorithms, and configurations.
-The testbed provides a highly reconfigurable array of hardware and software resources, including servers, storage systems, and networking equipment, able to simulate various cloud and edge computing scenarios.
+The testbed provides a highly reconfigurable array of hardware and software resources, including servers, storage systems, and networking equipment, able to simulate various cloud and Edge Computing scenarios.
 
 \gls{COSMOS} is a testbed deployed in New York City (State of New York, \gls{USA}), containing over \num{200} rooftop, intermediate, and mobile nodes.
 The testbeds main \emph{raison d'être} is \gls{MEC} research, with a strong emphasis on wireless networks.
@@ -115,9 +116,9 @@ These radio nodes are combined with edge-based compute nodes as well as cloud re
 
 The \gls{ARA} platform~\cite{zhang2022ara} is a highly flexible testbed based on the \gls{CHI} software suite originally developed for the aforementioned Chameleon testbed~\cite{keahey2020lessons}.
 \gls{ARA} is developed by researchers at Iowa State University in Ames, Iowa (\gls{USA}), and spans a rural area with a diameter of over \SI{60}{\kilo\meter}~\cite{zhang2022ara}.
-Its core goal is the study and deployment of advanced edge computing and wireless platforms and technologies in real-world agricultural and rural settings, and includes a broad range of wireless technologies deployed through both \glspl{SDR} and programmable \gls{COTS} radios, as well as automated ground vehicles, cameras and sensors.
+Its core goal is the study and deployment of advanced Edge Computing and wireless platforms and technologies in real-world agricultural and rural settings, and includes a broad range of wireless technologies deployed through both \glspl{SDR} and programmable \gls{COTS} radios, as well as automated ground vehicles, cameras and sensors.
 
-EdgeNet deviates from the approaches described above and represents a fully software-based, massively distributed public platform for edge computing research~\cite{cappos2018edgenet,senel2021edgenet1,senel2021edgenet2}.
+EdgeNet deviates from the approaches described above and represents a fully software-based, massively distributed public platform for Edge Computing research~\cite{cappos2018edgenet,senel2021edgenet1,senel2021edgenet2}.
 It consists of a public, modified and customized Kubernetes~\cite{kubernetes} cluster.
 The EdgeNet software is available for anyone to download;
 individuals and organizations can quickly deploy self-hosted edge nodes which are then made available to anyone using the platform.
@@ -125,10 +126,10 @@ The end result is a flexible and scalable global edge cloud simplifying research
 A similar, closely-related project is KubeEdge~\cite{xiong2018extend}, a software framework for extending Kubernetes clusters from the cloud to the edge.
 
 Finally, a number of other, small-scale approaches also exist.
-In~\cite{gedawy2016cumulus}, the authors propose Cumulus, a prototype testbed for edge compute offloading in \gls{IOT} with the explicit goal of providing a generic and heterogeneous platform for edge computing research.
-The authors of~\cite{rimal2018experimental} propose an experimental testbed for two-tiered edge architectures in the context of \gls{FIWI} edge computing.
+In~\cite{gedawy2016cumulus}, the authors propose Cumulus, a prototype testbed for edge compute offloading in \gls{IOT} with the explicit goal of providing a generic and heterogeneous platform for Edge Computing research.
+The authors of~\cite{rimal2018experimental} propose an experimental testbed for two-tiered edge architectures in the context of \gls{FIWI} Edge Computing.
 This testbed is then employed to validate wireless access and compute resource scheduling strategies in these systems.
-In~\cite{yamanaka2021design}, the authors present an experimental edge computing testbed capable of determining the offload location of a workload based on desired latency parameters.
+In~\cite{yamanaka2021design}, the authors present an experimental Edge Computing testbed capable of determining the offload location of a workload based on desired latency parameters.
 \cite{diao2019scalable} propose yet another Kubernetes-based testbed based for edge task offloading based on heterogeneous hardware including low-power single-board computers such as Raspberry Pis and Jetson Nanos.
 Finally,\ \cite{moorthy2022cloudraft} proposes \gls{CLOUDRAFT}, a cloud-based framework for mobile network experimentation, with a focus on simplifying the management of testbed resources.
 The goal of this project is to integrate, coordinate, share, and improve upon existing testbeds through a common interface.

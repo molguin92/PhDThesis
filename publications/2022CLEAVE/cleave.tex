@@ -1,4 +1,4 @@
-\section{The \gls{CLEAVE} framework}\label{paper:olguinmunoz2022cleave:approach}
+\section{The \acs{CLEAVE} framework}\label{paper:olguinmunoz2022cleave:approach}
 
 In this section, we detail our \gls{CLEAVE} framework for the performance evaluation of \glspl{NCS}, with an emphasis on edge deployments.
 Our design follows a virtualized emulation approach; providing a framework for the real-time \emph{emulation} of physical control systems and the easy implementation of softwarized controllers interacting with \emph{real} networks.
@@ -77,7 +77,7 @@ It is initialized with a property name corresponding to the name of the actuated
 %\end{description}
 
 
-\subsection{Configuring and Executing \pgls{NCS}}
+\subsection{Configuring and Executing \acsp{NCS}}
 
 Once the core components for the emulation have been defined and implemented, they need to be registered with the framework.
 This is done through Python scripts which define a number of required (and some optional) top-level variables, corresponding to emulation parameters such as the \emph{State}, \emph{Controller}, \emph{Sensor}, and \emph{Actuator} subclasses to use; the emulation update rate; the controller-side host and address; data output directories; \emph{et cetera}.
