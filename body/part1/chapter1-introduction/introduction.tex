@@ -40,7 +40,7 @@ Other critical aspects with the potential to impact the latency of latency-sensi
 These issues can lead to delays in data transmission between devices on the network, leading to higher end-to-end latency.
 
 At the time of the writing of this dissertation, no widely adopted methodology exists for the study of these trade-offs.
-We aim to contribute to the field by investigating the applications of such a methodology for the study of latency-sensitive applications deployed on Edge infrastructure and network technologies such as 5G.
+We aim to contribute to the field by introducing and subsequently investigating the applications of such a methodology for the study of latency-sensitive applications deployed on Edge infrastructure and network technologies such as 5G.
 The proposed methodology aims to enhance the accuracy and realism of results related to Edge infrastructure and 5G networks, particularly in regard to network performance.
 Our results will contribute to the development of new techniques and approaches for improving the performance and reliability of \gls{MEC}.
 
@@ -60,15 +60,20 @@ Finally, the combination of the characteristics enumerated above makes the study
 \gls{CPS} and \gls{MAR} applications are highly dynamic and adaptive, and their behavior cannot be easily predicted.
 Moreover, there is often a significant amount of variability in the behavior of different components of the application, such as sensors, actuators, and network connections, which makes it difficult to automate the testing process.
 
-Our methodology is based on the emulation of target workloads on actual Edge infrastructure.
-We replace the client side of the system with a realistic emulation of the desired behaviors, implemented in software deployed on \gls{COTS} general-purpose computing devices.
-In our initial implementation, these correspond to low-cost, easily replaceable, and scalable Raspberry Pi 4 Model B \glspl{SBC}.
+Our methodology is designed to tackle these challenges by employing an emulation approach to the benchmarking of latency-sensitive \gls{CPS} and \gls{MAR} applications. 
+We emulate target workloads on actual Edge infrastructure by replacing the client side of the system with \gls{COTS} general-purpose computing devices\footnote{%
+    In our initial implementation, these correspond to low-cost and easily replaceable, scalable Raspberry Pi 4 Model B \acsp{SBC}.
+} running a realistic software imitation of the desired behaviors.
+At the same time, our methodology retains the real network as well as the real compute hardware and software at the backend.
+This design results in real-time benchmarking of applications, while still providing realism, scalability, and reduced complexity, as well as allowing for easier automation of these studies.
 
-Emulating the workload component reduces complexity by moving it into the software domain, allowing for easier scaling through the use of cheap, COTS general-purpose hardware such as \glspl{SBC}.
-It also preserves the realism of effects stemming from the hardware and network.
+Emulating the workload component reduces complexity by moving it into the software domain, allowing for easier horizontal scaling through the use of \gls{COTS} general-purpose hardware such as \glspl{SBC}.
+This also reduces the barrier of entry to this research, as \glspl{SBC} are for the most part cheap and easily accessible.
+Additionally, it preserves the realism of effects stemming from the hardware and network.
 In particular, the methodology allows us to capture effects due to network factors such as contention, congestion control, and medium access, which are often of stochastic or chaotic natures and complex to capture in simulations.
 
-The methodology also provides improved repeatability and replicability.
+The methodology also provides automation as well as improved repeatability and replicability.
+The softwarized nature of the client-side emulation allows for straightforward automation through general-purpose programming and scripting languages.
 Repeating a study becomes a matter of re-running the workload on the same testbed, and studies can be replicated simply by obtaining the same or equivalent software workload and deploying it on a comparable testbed.
 These are complex tasks to accomplish in real-world approaches, particularly when dealing with humans.
 
@@ -77,7 +82,7 @@ The approach provides valuable insights for researchers, system designers, and a
 
 % \subsection{Structure of this dissertation}
 
-\medskip
+\bigskip
 
 This dissertation is structured into two parts.
 \cref{part:summary} presents a summary of the research, introducing the topic, discussing related work, and highlighting key contributions.
