@@ -1,9 +1,10 @@
 \section{Background}
 
-\subsection{Edge computing}
+\subsection{Edge Computing}
+\todo[inline]{Maybe add a table where you compare cloud and edge computing regrading different characteristics?}
 \glsresetall%
 
-Edge computing is a novel distributed computing paradigm, emerging from a need to overcome the drawbacks of offloading computation and data to the cloud.
+Edge Computing is a novel distributed computing paradigm, emerging from a need to overcome the drawbacks of offloading computation and data to the cloud.
 Cloud computing, the reigning distributed computing model, allows users to access shared pools of resources such as servers, databases, and applications, over the internet~\cite{gai2012towards}.
 These pools of resources are managed in a centralized manner by specialized providers, and users and businesses can access them on-demand, without having to invest in and manage infrastructure of their own.
 Providers in turn employ economies of scale, providing these services by deploying massive amounts of computing power and storage capacity in specialized locations known as datacenters.
@@ -29,36 +30,48 @@ On the other hand, as smart devices, appliances, and sensors become more and mor
     \centering
     \includegraphics[height=30em]{figures/edgecomputing}
     \caption{%
-        Conceptual design of edge computing.
+        Conceptual design of Edge Computing.
         Micro-clouds (known as ``cloudlets''~\cite{satyanarayanan2009case}) are placed a at the edge of the network, a few hops away from end users.
         In other words, these cloudlets are located between users and the internet and the cloud.
     }\label{fig:edgecomputing}
 \end{figure}
 
 \medskip
-Edge computing emerges as a potential answer to these challenges~\cite{satyanarayanan2009case,shi2016promise,shi2016edge,varghese2016challenges,satyanarayanan2017emergence,bittmann2017edge,wang2019towards}.
+Edge Computing emerges as a potential answer to these challenges~\cite{satyanarayanan2009case,shi2016promise,shi2016edge,varghese2016challenges,satyanarayanan2017emergence,bittmann2017edge,wang2019towards}.
 The foundation for this concept was laid by \citeauthor{satyanarayanan2009case}~\cite{satyanarayanan2009case} in\ \citeyear{satyanarayanan2009case}.
 To tackle the prohibitively high latencies of cloud computing, the authors proposed an extension of the existing cloud computing paradigm with compute nodes at the edge of the Internet.
-Instead of offloading computation to a datacenter potentially thousands of kilometers away, in edge computing it is offloaded to a micro-datacenter at the \emph{edge} of the network close to the user.
-\citeauthor{satyanarayanan2009case} named these compute nodes \emph{cloudlets}, and envisioned them as featuring most of the key characteristics of cloud datacenters, such as multi-tenancy, virtualization of computing resources, virtually unrestricted access to energy, as well as limited scalability, all while being one or two hops away from the user (see \cref{fig:edgecomputing})
-This built on previous work on \emph{cyber foraging}~\cite{noble1997agile,flinn1999energy,satyanarayanan2001pervasive}.
+Instead of offloading computation to a datacenter potentially thousands of kilometers away, in Edge Computing it is offloaded to a compute node at the \emph{edge} of the network close to the user, see \cref{fig:edgecomputing}.
+
+The architecture of Edge Computing offers several advantages, the primary being the significant reduction of latency.
+Edge Computing can serve highly latency-sensitive and resource-intensive applications with extremely low latencies while still providing orders of magnitude more computing and energy resources than those present on mobile and wearable devices.
+Another important advantage of this design is bandwidth reduction.
+Edge application traffic either does not need to traverse the public internet, or it can be aggregated and compressed at the Edge before uplink transmission.
+
+The original Edge Computing concept as introduced in~\citeauthor{satyanarayanan2009case} has come to be known as \emph{Cloudlet-based} Edge Computing.
+It is based on the idea that Edge compute capabilities will be realized through geographically distributed micro-datacenters known as \emph{cloudlets}.
+Cloudlets have been envisioned as featuring most of the key characteristics of cloud datacenters, such as multi-tenancy, virtualization of computing resources, virtually unrestricted access to energy, as well as limited scalability, all while being one or two hops away from the user.
+This design builds on previous work on \emph{cyber foraging}~\cite{noble1997agile,flinn1999energy,satyanarayanan2001pervasive}.
 Cyber foraging refers to the extension and amplification of the capabilities of mobile and wearable devices by offloading computation and data manipulation to nearby infrastructure (as opposed to distant infrastructure such as the cloud).
-This reduces energy consumption and allows for the deployment of otherwise unfeasible workloads on mobile hardware.
 
-The architecture of edge computing offers several advantages, the primary being the significant reduction of latency.
-Cloudlets can serve highly latency-sensitive and resource-intensive applications with extremely low latencies while still providing orders of magnitude more computing and energy resources than those present on mobile and wearable devices.
-Another advantage is bandwidth reduction.
-%By processing and aggregating data closer to where its needed, edge computing can significantly reduce the amount of traffic going to cloud datacenters.
-A variant of edge computing called \emph{fog} computing, introduced by \citeauthor{bonomi2012fog}~\cite{bonomi2012fog} in\ \citeyear{bonomi2012fog}, concerns itself specifically with the distribution of computing power between the cloud and the edge for this purpose.
-By aggregating, transforming, and filtering data at multiple levels in the network, fog computing aims to reduce the load placed on cloud datacenters by massive \gls{IOT} sensor networks~\cite{yi2015survey}.
-Edge computing also presents opportunities for increased data security, privacy, and integrity, by keeping it geographically close to its origin and by allowing for anonymization through denaturing and local aggregation before offloading to cloud services~\cite{satyanarayanan2017emergence}.
-
-Finally, in later years, edge computing has been paired with novel mobile networking standards such as 5G~\cite{hassan2019edge,pham2020survey,wan2020efficient}.
-This combination is often referred to as \gls{MEC}, and has the potential to enable unprecedented use-cases requiring stringent latency bounds and high bandwidths.
+In later years, an extension to Edge Computing denoted \gls{MEC} has emerged, which pairs Edge Computing with novel mobile networking standards such as 5G~\cite{hassan2019edge,pham2020survey,wan2020efficient}.
+A modern mobile network is composed of two main components: the \gls{RAN} and the core network.
+The former includes the base stations and other wireless communication equipment to which user's equipment (i.e.\ mobile phones, mobile internet dongles, etc.) connect. 
+The \gls{RAN} provides access to the core network, which in turn routes data between \glspl{RAN}, handles billing and authentication, and provides access to external services such as the internet and the Cloud.
+\gls{MEC} is defined as an Edge Computing deployment in which Cloud-like compute is deployed within the \gls{RAN} of a mobile network.
+Compute power is never more than a single wireless hop away from users application traffic thus never enters the core or the public internet.
+This architectural design has the potential to enable unprecedented use-cases requiring stringent, sub-\SI{10}{\milli\second} latency bounds and high bandwidths.
 Two examples of such applications, of relevance for the present work, are \acl{WCA}~\cite{ha2014towards,chen2018application,wang2020scaling,chen2017empirical,chen2018application} and \aclp{NCS}~\cite{sasaki2016vehicle,wang2018bandwidth,wan2020efficient}.
 These applications had been hitherto inviable to implement due to the limitations of cloud offloading in mobile and wearable contexts, but have now become a practical reality thanks to \gls{MEC}.
 
+Finally, another variant of Edge Computing called \emph{fog} computing, introduced by \citeauthor{bonomi2012fog}~\cite{bonomi2012fog} in\ \citeyear{bonomi2012fog}, concerns itself specifically with the distribution of computing power between the cloud and the edge for the reduction of bandwidth requirements.
+By aggregating, transforming, and filtering data at multiple levels in the network, fog computing aims to reduce the load placed on cloud datacenters by massive \gls{IOT} sensor networks~\cite{yi2015survey}.
+Edge Computing also presents opportunities for increased data security, privacy, and integrity, by keeping it geographically close to its origin and by allowing for anonymization through denaturing and local aggregation before offloading to cloud services~\cite{satyanarayanan2017emergence}.
+
 \subsection{Emulation and simulation}
+\todo[inline]{
+    Section 1.1.2: This subsection is not very informative so far. Maybe first discuss extended reality, and then present a subsection on performance evaluation of systems, where simulation is a subsection, and experimentation is another subsection (and mathematical analysis is a third one). Focus on the usage of these concepts in the context of networked systems. Why do we need tools/approaches for performance evaluation, what are the advantages and disadvantages of different approaches, and also what is the historical context. You also need to have references. Finally, tables and figures are always welcome...
+}
+
 
 The terms \emph{emulation} and \emph{simulation} are often used interchangeably.
 However, although both terms refer to methods of imitating and modeling systems, they are distinct in their goals, methods, and applications.
@@ -195,5 +208,5 @@ Furthermore, \glspl{NCS} provide greater access to information, as they enable t
 They have found use in varied applications, such as industrial automation, transportation systems, and smart buildings, and some have attempted to leverage the cloud for centralized, distributed control in what has been called \emph{cloud control systems}~\cite{xia2015cloud}
 However, depending on the physical system being controlled, \glspl{NCS} can have stringent timing and reliability requirements for communication that conventional cloud paradigms simply cannot meet~\cite{wan2020efficient}.
 This has led their adoption to be limited mostly to industrial environments.
-This is about to change, however, as with the advent of edge computing, paired with novel wireless communication technologies such as cellular 5G, consumer-grade \glspl{NCS} will be made possible.
+This is about to change, however, as with the advent of Edge Computing, paired with novel wireless communication technologies such as cellular 5G, consumer-grade \glspl{NCS} will be made possible.
 These technologies will likely become the backbone of consumer-grade, widely-deployed \glspl{NCS}, enabling real-time capabilities through extremely low end-to-end latencies together with context- and locality-awareness.
