@@ -1,0 +1,52 @@
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+% \usepackage{graphicx}
+\begin{table}[]
+    \centering
+    \caption{Comparison between Cloud Computing and three implementations of Edge Computing.}\label{tab:cloud-vs-edge}
+    \tiny
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{@{}lYYYY@{}}
+        \toprule
+        &
+        \textbf{Cloud} &
+        \textbf{Cloudlet} &
+        \textbf{\acs{MEC}} &
+        \textbf{Fog} \\ \midrule
+        \textbf{Location} &
+        Data centers that are geographically distant from end-users. &
+        Micro-datacenters close to end-users. &
+        Integrated within the \acs{RAN}. &
+        Distributed across the Edge-Cloud network continuum. \\
+        \textbf{Latency} &
+        \ensuremath{> \SI{50}{\milli\second}} &
+        \ensuremath{\leq \SI{50}{\milli\second}} &
+        \ensuremath{\leq \SI{10}{\milli\second}} &
+        \ensuremath{\leq \SI{50}{\milli\second}} \\
+        \textbf{Resources} &
+        Limited only by network bandwidth and latency. &
+        \multicolumn{3}{%
+            >{\hsize=\dimexpr3\hsize+4\tabcolsep+2\arrayrulewidth\relax}Y%
+        }{Limited, but orders of magnitude more than end-user devices.} \\
+        \textbf{Security} &
+        Relies on strong network and perimeter defenses. &
+        \multicolumn{3}{%
+            >{\hsize=\dimexpr3\hsize+4\tabcolsep+2\arrayrulewidth\relax}Y%
+        }{Data can be kept close to the source and encrypted.} \\
+        \textbf{Privacy} &
+        Data is aggregated and stored centrally. &
+        \multicolumn{3}{%
+            >{\hsize=\dimexpr3\hsize+4\tabcolsep+2\arrayrulewidth\relax}Y%
+        }{Data can be kept locally, reducing the risk of exposure.} \\
+        \textbf{Scalability} &
+        Easily scalable by adding more resources to datacenters. &
+        \multicolumn{3}{%
+            >{\hsize=\dimexpr3\hsize+4\tabcolsep+2\arrayrulewidth\relax}Y%
+        }{Limited by virtue of Edge nodes being distributed and energy-constrained in comparison to datacenters.} \\
+        \textbf{Use~Cases} &
+        Large-scale systems that are not latency-sensitive or do not require real-time processing. &
+        Latency-sensitive applications such as \acs{CPS} and \acs{AR}. &
+        Latency-sensitive applications in mobile and wearable contexts. &
+        \acs{IOT} \\ \bottomrule
+    \end{tabularx}%
+\end{table}
