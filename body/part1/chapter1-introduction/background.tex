@@ -134,31 +134,42 @@ Workers can receive real-time guidance through \gls{AR}-enabled headsets, improv
 \gls{AR} can also provide augmented, step-by-step guidance for maintenance and repair of equipment, augmenting thus the capabilities of workers and the productivity of the workplace as a whole.
 
 \subsubsection{\glsfmtlong{WCA}}
-\todo[inline]{
-Then, when it comes to WCA, please also go more into the details regarding the operation, the footprints and the QoS requirements. Alternatively, you can also defer the discussion of WCA entirely to section 2 (you could claim that WCA is simply a type of AR, and thus in section you 'choose' WCA as example application to conduct your studies - in the same way as the inverted pendulum is a type of NCS, that we choose to study further).
-}
+\glsreset{WCA}
 
 Of particular interest for this dissertation is a particular subset of \gls{AR} denoted \acf{WCA}, a technology designed to provide real-time support and guidance to individuals performing complex tasks in a plethora of domains.
 Designed to be deployed on wearable devices, \gls{WCA} overlays digital information onto the real world and provides context-aware feedback to users, in order to assist and guide them in to efficiently complete a task~\cite{ha2014towards,chen2015early,chen2018application,wang2020scaling}.
 
-These applications operate in a manner analogous to how \gls{GPS} navigation assistants guide users. 
-The progress of the user is seamlessly and continuously monitored by the application, which provides relevant instructions and feedback only when these are needed.
-The application follows the progress of the task in ``realtime'' by repeatedly sampling the state of the physical system, most commonly through video feeds.
-Whenever the assistant detects a change in the context of the user, it provides a new instruction.
-The application otherwise remains silent and out-of-the-way.
-
-Originally motivated by assistive use-cases for individuals with reduced cognition due to illness, injury, or age, \gls{WCA} technology has been evolved to include the enhancement of the cognitive abilities of users in areas such as manufacturing, healthcare, and aviation.
+Originally motivated by assistive use-cases for individuals with reduced cognition due to illness, injury, or age, \gls{WCA} technology has evolved to include the enhancement of the cognitive abilities of users in areas such as manufacturing, healthcare, and aviation.
 Among the primary benefits of this technology is that it can help reduce the cognitive load on individuals performing complex tasks.
 By providing real-time guidance and support, it can improve accuracy and speed of task completion, reduce errors and minimize the risk of accidents.
 For example, a \gls{WCA} could help a technician performing maintenance on an aircraft by displaying relevant technical information about the aircraft parts and step-by-step instructions on how to perform complex specific repairs.
-
-\gls{WCA} technology employs sensors, cameras, and other hardware in wearable devices to collect data from the environment and the user.
-This data is then processed to interpret the data and provide relevant feedback.
-As with many other categories of \gls{AR} applications, the computational complexity of the processing of the real-time input data makes it unfeasible to do on wearable devices.
-The context-rich and latency-sensitive nature of \gls{WCA} inputs further makes this category of applications a prime candidate for offloading to the Edge.
-
-Overall, \gls{WCA} is a promising technology that has the potential to revolutionize the way we perform complex tasks.
+\gls{WCA} is a promising technology that has the potential to revolutionize the way we perform complex tasks.
 As the technology continues to evolve and become more sophisticated, it is expected to have a significant impact on many industries and improve the safety and efficiency of numerous processes.
+
+\medskip
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\textwidth]{figures/wca_state}
+    \caption{Mode of operation of step-based \acs{WCA} applications.}\label{fig:wca:operation}
+\end{figure}
+
+In this dissertation, we focus specifically on \emph{step-based} \gls{WCA}.
+These applications operate in a manner analogous to how \gls{GPS} navigation assistants guide users, illustrated in \cref{fig:wca:operation}.
+The progress of the user is seamlessly and continuously monitored by the application, which provides relevant instructions and feedback only when these are needed.
+The application follows the progress of the task in real-time by repeatedly sampling the state of the physical system, most commonly through video feeds.
+Whenever the assistant detects a change in the context of the user, it provides a new instruction.
+The application otherwise remains silent and out-of-the-way; samples with unfinished states or noise are silently discarded.
+
+This mode of operation has novel consequences for the \gls{QoS} requirements of \gls{WCA} applications.
+As with general \gls{AR}, \gls{WCA} has relatively lax bandwidth requirements; however, latency requirements in \gls{WCA} can vary along the execution time of the application.
+Users of these applications can only notice system responsiveness when they are \emph{expecting} feedback, that is, immediately after the completion of a logical step or instruction.
+Latency bounds can thus be very lax immediately after an instruction is generated (as no feedback is expected yet), and on the other hand much more stringent right after the user has completed an instruction.
+In turn, this leads to interesting opportunities for resource consumption optimization in \gls{WCA} applications, such as the adaptive sampling scheme proposed in~\cite{wang2019towards}.
+The fact that users \emph{consciously} expect near-instantaneous feedback immediately after finishing an instruction also leads to strong and cumulative reactions to delays in the system, as evidenced by our work in \cref{paper:olguinmunoz2021impact}, implying that careful consideration to latencies must be taken when designing these systems.
+
+% As with many other categories of \gls{AR} applications, the computational complexity of the processing of the real-time input data makes it unfeasible to do on wearable devices.
+% This context-rich and latency-sensitive nature of \gls{WCA} inputs further makes this category of applications a prime candidate for offloading to the Edge.
 
 \subsubsection{Emulation and simulation for \acs{XR}}
 \todo[inline]{
