@@ -1,0 +1,51 @@
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+    \centering
+    \caption{Comparison between different \acs{XR} technologies.}
+    \label{tab:xrcomparison}
+    \tiny
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{@{}lYYY@{}}
+        \toprule
+        &
+        \textbf{\acl{VR}} &
+        \textbf{\acl{AR}} &
+        \textbf{\acl{MR}} \\ \midrule
+        % \textbf{Definition} &
+        % A technology that creates a completely digital environment that simulates a real-world experience &
+        % A technology that superimposes digital objects on the real world &
+        % A technology that combines digital objects with the real world in a seamless way \\
+        \textbf{Immersiveness} &
+        High &
+        Medium &
+        Medium to high \\
+        \textbf{User Interaction} &
+        Only with the digital world &
+        Both with the real and digital worlds &
+        Both with the real and digital worlds in a seamless way \\
+        \textbf{Equipment Required} &
+        Headset and controllers &
+        Smartphones, tablets, or \acs{AR} glasses &
+        Headset and controllers \\
+        % \textbf{Use Cases} &
+        % Gaming, education, and training &
+        % Retail, entertainment, education, and gaming &
+        % Industrial design, engineering, and military training \\
+        \textbf{Advantages} &
+        Provides realistic immersive experience in a completely digital environment that can be easily adapted and changed. &
+        Can be implemented cheaply on massively-available technology such as smartphones. &
+        Provides a combination of AR and VR benefits, allowing seamless interaction between real and virtual worlds. \\
+        \textbf{Drawbacks} &
+        Isolates users from the real world, may cause motion sickness, and requires expensive equipment. &
+        Limited field of view, reliance on external environment, and not fully immersive. &
+        Expensive, complex, and may cause visual discomfort \\
+        \textbf{\acs{QoS} Requirements} &
+        High bandwidth, low latencies.
+        Delay and jitter can lead to motion sickness. &
+        Low latencies to ensure accurate, real-time overlay of digital assets. &
+        High bandwidth, low latencies.
+        Delay and jitter can lead to motion sickness. \\
+        \bottomrule
+    \end{tabularx}
+\end{table}

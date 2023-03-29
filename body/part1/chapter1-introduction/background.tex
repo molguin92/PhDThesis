@@ -72,7 +72,95 @@ Finally, another variant of Edge Computing called \emph{Fog} computing, introduc
 By aggregating, transforming, and filtering data at multiple levels in the network, Fog computing aims to reduce the load placed on Cloud datacenters by massive \gls{IOT} sensor networks~\cite{yi2015survey}.
 Edge Computing also presents opportunities for increased data security, privacy, and integrity, by keeping it geographically close to its origin and by allowing for anonymization through denaturing and local aggregation before offloading to Cloud services~\cite{satyanarayanan2017emergence}.
 
-\subsection{Emulation and simulation}
+\subsection{\glsfmtlong{XR}}\label{background:xr}
+\todo[inline]{Needs citations.}
+\glsreset{XR}
+\glsreset{AR}
+\glsreset{VR}
+\glsreset{MR}
+
+\gls{XR} is an umbrella term used to refer to all immersive technologies that combine real and virtual environments, including technologies such as \gls{AR}, \gls{VR}, and \gls{MR}.
+\emph{Immersiveness} refers to the extent to which a technology can fully engage a user's senses to create the illusion of being in a different environment or situation.
+A highly immersive experience can make the user feel like they are physically present in a different world or reality.
+
+\gls{AR} merges digital content with the physical world, enhancing human perception and cognition through the overlay of virtual objects and information on top of the real environment.
+This technology can superimpose tooltips, virtual \gls{2D} and \gls{3D} objects, or even full-fledged videos on top of what the user sees.
+These overlays are most often presented to the user through wearable or mobile devices, such as smartphones or smart glasses (e.g. Google Glass).
+To create an \gls{AR} experience, the device's camera captures the real-world environment, and the image feed is processed in real-time in software.
+The digital objects are then superimposed onto the real-world view and displayed on the device's screen, where they can optionally be interacted with by touching the screen or using voice commands.
+Other sensors can also be used to track the user's movements and position, and adjust the digital objects accordingly.
+
+\gls{VR}, on the other hand, takes it a step further and involves forgoing the real world, completely immersing the user in a fully virtual environment.
+Due to its deeply immersive nature, \gls{VR} requires users to wear specialized equipment such as a \gls{VR} headset.
+The headset contains two high-resolution displays (one for each eye) and a set of headphones, and is connected to a computer or a gaming console, which generates the virtual environment in real-time.
+The headset tracks the user's head movements and adjusts the virtual displays accordingly to create the illusion of being in a completely immersed in a different world.
+Objects in the virtual environment can be interacted with either through the use of special hardware such as instrumented gloves or controllers, or by using sensors which track the user's hands.
+Some advanced \gls{VR} platforms even include omnidirectional treadmills which allow the users navigate the virtual world by walking, running, and even jumping. 
+
+Finally, \gls{MR} combines elements from both aforementioned technologies.
+Like \gls{VR}, \gls{MR} uses a headset with high-resolution displays and sensors to track the user's movements.
+However, \gls{MR} headsets also contain cameras that capture the real-world environment, in order to overlay digital objects onto the real world as in \gls{AR}.
+These objects are rendered in real-time and projected onto the real-world view in the user's headset in a seamless and realistic way.
+In this way, \gls{MR} creates a hybrid environment where users can interact with both virtual and real-world elements simultaneously, resulting in an illusion of natural interaction between users and digital elements.
+
+\input{tables/extendedreality.tex}
+
+A comparison of select characteristics of \gls{VR}, \gls{AR}, and \gls{MR} is presented in \cref{tab:xrcomparison}.
+A key factor in which these applications differ is in their respective \gls{QoS} requirements.
+Out of the three, \gls{AR} has the least stringent requirements.
+\gls{AR} in particular does not require a high bandwidth, as only individual digital objects are generated.
+However, low latencies are still a requirement, in order to ensure that the superimposition of the digital objects on top of the real-word view is accurate and in real-time.
+In addition, \gls{AR} requires a high level of accuracy in tracking the user's movements and the position of the device's camera, as inaccuracies can lead to misalignment between the real-world view and the digital objects, leading to degraded \gls{QoE}.
+
+\gls{VR}, on the other hand, requires a high level of \gls{QoS} in terms of both latency and bandwidth to deliver a smooth, highly immersive, and realistic experience.
+Moreover, delays or jitter in \gls{VR} experiences can lead to motion sickness in users.
+The user's movements and interactions must thus be tracked and rendered accurately in real-time, which requires low latencies between the headset and the computing device.
+A high bandwidth is also necessary to transmit high-resolution graphics and audio back to the headset.
+Given the similarities between the technologies, these same requirements also apply to \gls{MR}.
+
+\medskip
+
+Due to their ability to create immersive experiences for users and closely mimic and simulate real-life scenarios, \gls{XR} systems have found applications across a wide spectrum of industries and fields.
+One of the most common uses of these technologies can be found in the domain of entertainment.
+\gls{VR} allows users to become fully immersed in virtual experiences, including games, concerts, movies, making them feel almost physically present without having to leave the comfort of their homes.
+Further, \gls{AR} and \gls{MR} allow for the merging of the virtual and real worlds, bringing entertainment to life in users day-to-day surroundings.
+The popularity of this approach can be clearly seen in the explosive success of modern mobile \gls{AR} games such \citetitle{pokemongo}~\cite{pokemongo}.
+
+\gls{XR} also presents tremendous opportunities for education and training.
+Through the use of these technologies, students can get hands-on yet safe, simulated experience in a multitude of scenarios.
+\gls{VR} is leveraged, for instance, in the training of new medical professionals, allowing students to learn anatomy and practice surgical procedures in realistic virtual environments.
+On the other hand, \gls{AR} and \gls{MR} are employed in manufacturing, to train and assist technicians in highly specialized assembly lines.
+Workers can receive real-time guidance through \gls{AR}-enabled headsets, improving accuracy and safety while controlling machine operations on the factory floor.
+\gls{AR} can also provide augmented, step-by-step guidance for maintenance and repair of equipment, augmenting thus the capabilities of workers and the productivity of the workplace as a whole.
+
+\subsubsection{\glsfmtlong{WCA}}
+\todo[inline]{
+Then, when it comes to WCA, please also go more into the details regarding the operation, the footprints and the QoS requirements. Alternatively, you can also defer the discussion of WCA entirely to section 2 (you could claim that WCA is simply a type of AR, and thus in section you 'choose' WCA as example application to conduct your studies - in the same way as the inverted pendulum is a type of NCS, that we choose to study further).
+}
+
+Of particular interest for this dissertation is a particular subset of \gls{AR} denoted \acf{WCA}, a technology designed to provide real-time support and guidance to individuals performing complex tasks in a plethora of domains.
+Designed to be deployed on wearable devices, \gls{WCA} overlays digital information onto the real world and provides context-aware feedback to users, in order to assist and guide them in to efficiently complete a task~\cite{ha2014towards,chen2015early,chen2018application,wang2020scaling}.
+
+These applications operate in a manner analogous to how \gls{GPS} navigation assistants guide users. 
+The progress of the user is seamlessly and continuously monitored by the application, which provides relevant instructions and feedback only when these are needed.
+The application follows the progress of the task in ``realtime'' by repeatedly sampling the state of the physical system, most commonly through video feeds.
+Whenever the assistant detects a change in the context of the user, it provides a new instruction.
+The application otherwise remains silent and out-of-the-way.
+
+Originally motivated by assistive use-cases for individuals with reduced cognition due to illness, injury, or age, \gls{WCA} technology has been evolved to include the enhancement of the cognitive abilities of users in areas such as manufacturing, healthcare, and aviation.
+Among the primary benefits of this technology is that it can help reduce the cognitive load on individuals performing complex tasks.
+By providing real-time guidance and support, it can improve accuracy and speed of task completion, reduce errors and minimize the risk of accidents.
+For example, a \gls{WCA} could help a technician performing maintenance on an aircraft by displaying relevant technical information about the aircraft parts and step-by-step instructions on how to perform complex specific repairs.
+
+\gls{WCA} technology employs sensors, cameras, and other hardware in wearable devices to collect data from the environment and the user.
+This data is then processed to interpret the data and provide relevant feedback.
+As with many other categories of \gls{AR} applications, the computational complexity of the processing of the real-time input data makes it unfeasible to do on wearable devices.
+The context-rich and latency-sensitive nature of \gls{WCA} inputs further makes this category of applications a prime candidate for offloading to the Edge.
+
+Overall, \gls{WCA} is a promising technology that has the potential to revolutionize the way we perform complex tasks.
+As the technology continues to evolve and become more sophisticated, it is expected to have a significant impact on many industries and improve the safety and efficiency of numerous processes.
+
+\subsubsection{Emulation and simulation for \acs{XR}}
 \todo[inline]{
     Section 1.1.2: This subsection is not very informative so far. Maybe first discuss extended reality, and then present a subsection on performance evaluation of systems, where simulation is a subsection, and experimentation is another subsection (and mathematical analysis is a third one). Focus on the usage of these concepts in the context of networked systems. Why do we need tools/approaches for performance evaluation, what are the advantages and disadvantages of different approaches, and also what is the historical context. You also need to have references. Finally, tables and figures are always welcome...
 }
@@ -97,73 +185,12 @@ The former is therefore employed when a general understanding of the system is s
 However, thanks to its real time constraint and high degree of realism, emulation is typically more resource-intensive than simulation.
 This means that emulation requires more processing power, memory, and storage space than simulation.
 
-\subsubsection{Emulation as a research methodology}
-\todo[inline]{Remove?}
-
-\subsection{\glsfmtlong{XR}}\label{background:xr}
-\glsreset{XR}
-\glsreset{AR}
-\glsreset{VR}
-\glsreset{MR}
-\todo[inline]{Add some references}
-\todo[inline]{Discuss tethered versus untethered}
-
-\gls{XR} is an umbrella term used to refer to all immersive technologies that combine real and virtual environments, including technologies such as \gls{AR}, \gls{VR}, and \gls{MR}.
-\gls{AR} merges digital content with the physical world, enhancing human perception and cognition through the overlay of virtual objects and information on top of the real environment.
-This technology can superimpose tooltips, virtual \gls{2D} and \gls{3D} objects, or even full-fledged videos on top of what the user sees.
-These overlays are most often presented to the user through wearable or mobile devices, such as smartphones or smart glasses (e.g. Google Glass), fitted with a camera to capture a real-time video feed of the physical environment and a display on which the augmented feed is presented.
-
-\gls{VR}, on the other hand, takes it a step further and involves fully forgoing the real world, immersing the user in a fully digital, \emph{simulated} environment.
-Due to its deeply immersive nature, \gls{VR} requires hardware components specifically designed for this task, the most crucial of which is the \gls{VR} headset.
-The simplest type of such headset uses a pair of lenses to present an illusion of depth when looking through them at a small display.
-More advanced types combine microdisplays, accelerometers, and headphones to provide a comprehensively immersive experience, where the user truly feels as if they are inside the virtual world.
-Additionally, \gls{VR} systems often allow users to interact with the simulated environment through the use of instrumented gloves or special controllers, further increasing the illusion of immersion.
-
-Finally, \gls{MR} combines elements from both aforementioned technologies.
-As in \gls{AR}, \gls{MR} overlays virtual objects on the physical, real-world environment, while also involving the tools and techniques from \gls{VR} which allow the user to manipulate these.
-In this way, \gls{MR} creates a hybrid environment where users can interact with both virtual and real-world elements simultaneously, resulting in an illusion of natural interaction between users and digital elements.
-
-\medskip
-
-Due to their ability to create immersive experiences for users and closely mimic and simulate real-life scenarios, \gls{XR} systems have found applications across a wide spectrum of industries and fields.
-One of the most common uses of these technologies can be found in the domain of entertainment.
-\gls{VR} allows users to become fully immersed in virtual experiences, including games, concerts, movies, making them feel almost physically present without having to leave the comfort of their homes.
-Further, \gls{AR} and \gls{MR} allow for the merging of the virtual and real worlds, bringing entertainment to life in users day-to-day surroundings.
-The popularity of this approach can be clearly seen in the explosive success of modern mobile \gls{AR} games such \citetitle{pokemongo}~\cite{pokemongo}.
-
-\gls{XR} also presents tremendous opportunities for education and training.
-Through the use of these technologies, students can get hands-on yet safe, simulated experience in a multitude of scenarios.
-\gls{VR} is leveraged, for instance, in the training of new medical professionals, allowing students to learn anatomy and practice surgical procedures in realistic virtual environments.
-On the other hand, \gls{AR} and \gls{MR} are employed in manufacturing, to train and assist technicians in highly specialized assembly lines.
-Workers can receive real-time guidance through \gls{AR}-enabled headsets, improving accuracy and safety while controlling machine operations on the factory floor.
-\gls{AR} can also provide augmented, step-by-step guidance for maintenance and repair of equipment, augmenting thus the capabilities of workers and the productivity of the workplace as a whole.
-
-\subsubsection{\glsfmtlong{WCA}}
-
-Of particular interest for this dissertation is a particular subset of \gls{AR} denoted \acf{WCA}, a technology designed to provide real-time support and guidance to individuals performing complex tasks in a plethora of domains.
-Designed to be deployed on wearable devices, \gls{WCA} overlays digital information onto the real world and provides context-aware feedback to users, in order to assist and guide them in to efficiently complete a task~\cite{ha2014towards,chen2015early,chen2018application,wang2020scaling}.
-
-These applications operate in a manner analogous to how \gls{GPS} navigation assistants guide users. 
-The progress of the user is seamlessly and continuously monitored by the application, which provides relevant instructions and feedback only when these are needed.
-The application follows the progress of the task in ``realtime'' by repeatedly sampling the state of the physical system, most commonly through video feeds.
-Whenever the assistant detects a change in the context of the user, it provides a new instruction.
-The application otherwise remains silent and out-of-the-way.
-
-Originally motivated by assistive use-cases for individuals with reduced cognition due to illness, injury, or age, \gls{WCA} technology has been evolved to include the enhancement of the cognitive abilities of users in areas such as manufacturing, healthcare, and aviation.
-Among the primary benefits of this technology is that it can help reduce the cognitive load on individuals performing complex tasks.
-By providing real-time guidance and support, it can improve accuracy and speed of task completion, reduce errors and minimize the risk of accidents.
-For example, a \gls{WCA} could help a technician performing maintenance on an aircraft by displaying relevant technical information about the aircraft parts and step-by-step instructions on how to perform complex specific repairs.
-
-\gls{WCA} technology employs sensors, cameras, and other hardware in wearable devices to collect data from the environment and the user.
-This data is then processed to interpret the data and provide relevant feedback.
-As with many other categories of \gls{AR} applications, the computational complexity of the processing of the real-time input data makes it unfeasible to do on wearable devices.
-The context-rich and latency-sensitive nature of \gls{WCA} inputs further makes this category of applications a prime candidate for offloading to the Edge.
-
-Overall, \gls{WCA} is a promising technology that has the potential to revolutionize the way we perform complex tasks.
-As the technology continues to evolve and become more sophisticated, it is expected to have a significant impact on many industries and improve the safety and efficiency of numerous processes.
-
 \subsection{\glsfmtlongpl{NCS}}\label{background:ncs}
 \glsreset{NCS}
+
+\todo[inline]{
+    - Section 1.1.4: Goes again in the right direction, but details are missing/off. First of all, NCS is really a research direction, not necessarily a system type (every control system is more or less networked, but networking effects have not been always captured in the theoretical analysis/design of the controller). Second, maybe you stress more the working principle in terms workloads and requirements. In a sense, you can work out a pattern how you structure the discussion in Section 1.1.3, and reuse that pattern to a large extent in 1.1.4, that would be neat (both are closed-loop applications with a lot of similar, but also some different properties and requirements). 
+}
 
 \glspl{NCS} are a class of control systems that involve the integration of communication networks into traditional control systems.
 A control system is a collection of devices or subsystems that work together to achieve a desired behavior or outcome of a physical system.
