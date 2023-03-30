@@ -303,3 +303,8 @@
 % tabularx
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
 \renewcommand\tabularxcolumn[1]{m{#1}}% for vertical centering text in X column
+
+\addto\captionsenglish{% Replace "english" with the language you use
+  \renewcommand{\contentsname}%
+    {Table of Contents}%
+}
