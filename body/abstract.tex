@@ -1,9 +1,24 @@
 \begin{abstract}
 \addcontentsline{toc}{chapter}{Abstract}
-\noindent \lipsum[1]
+The rise of Edge Computing has enabled a wide range of latency-sensitive applications.
+In particular, the combination of Edge Computing and 5G offers potential for massive deployments of latency-sensitive applications such as \glspl{CPS} and \gls{MAR}.
+However, multiple challenges remain in scaling and understanding these systems, including the optimization of latency through multiple processing steps and trade-offs in wireless system choice, protocols, hardware, and algorithms.
+In the case of \gls{MAR}, sensory inputs need to be pre-processed and compressed, and the backend algorithms designed for efficient processing and minimal latency.
+For \glspl{CPS}, reliable data transmission is critical to prevent system failure, and issues such as congestion and fluctuations in the wireless channel can lead to higher end-to-end latency.
+There is a growing need for methodological approaches that can accurately evaluate the performance of these applications and provide insights into their design and optimization for Edge Computing.
+
+This dissertation attempts to address this challenge by proposing three primary contributions to Edge Computing research.
+Our first and main contribution corresponds to a methodological approach to studying the trade-offs between system responsiveness and resource consumption in edge-bound latency-sensitive applications.
+The approach involves the emulation of the client-side workload while maintaining the real server-side process and network stack, in order to maintain the realism of network effects on the system.
+This methodology is validated through case studies in the context of \gls{WCA} and \gls{NCS}, and we introduce a software framework for the orchestration of Edge Computing testbeds for the automated deployment of our methodology. 
+
+Our second and third key contributions correspond to a deeper exploration of this methodology for \gls{WCA} and the exploration of its implications on the optimization potential of these applications.
+We present the first ever model for end-to-end emulation of human timing behavior in \gls{WCA} and explore optimization approaches which leverage this model.
+From our exploration, we conclude that significant improvements can be achieved by considering realistic human behavior.
+
 \end{abstract}
 
-\bigskip \bigskip \bigskip \bigskip \bigskip
+\vspace{3em}
 
 \setlength{\leftskip}{0.3 cm} \textbf {Keywords:} Lorem, Ipsum, Dolor, Sit, Amet
 
