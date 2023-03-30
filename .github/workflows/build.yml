@@ -8,9 +8,9 @@ jobs:
           submodules: recursive
       - uses: xu-cheng/texlive-action/full@v1
         with:
+          # tlmgr update --all
           run: |
             apk add make perl
-            tlmgr update --all
             make
       - uses: actions/upload-artifact@v2
         with:
