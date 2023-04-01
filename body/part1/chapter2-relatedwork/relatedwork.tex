@@ -1,49 +1,60 @@
 \todo[inline]{Still needs some work, don't review yet.}
 
-\section{Related work}
+% \section{Related work}
+\phantomsection%
 
 \subsection{Emulation in \glsfmtshort{XR} research}
 
 Only a limited number of works addressing the partial or complete emulation of XR applications for benchmarking and research purposes exist in literature.
 One such work is~\cite{williams2013transform}.
 In this, the authors introduced a trace-based toolkit for the evaluation of tracking algorithms in \gls{AR} research and development.
-The trace consists of geographical coordinates and accelerometer data as well as video frames which can be replayed on a desktop visualization tool or a smartphone application for the evaluation of tracking algorithms in \gls{AR} research and development.
-
+The trace consists of geographical coordinates and accelerometer data as well as video frames which can be replayed on a desktop visualization tool or a smartphone application for the evaluation of tracking algorithms in \gls{AR} research and development.\@
 \cite{munro2016aaremu} presents a trace-based framework that allows a previously recorded trace of inputs to be replayed to the processing components of a real \gls{AR} application by mocking Android \gls{SDK} \glspl{API}.
 This approach allows for benchmarking and evaluation of algorithms and architectures on real data.
 A similar approach was taken by~\cite{choi2022emulating}, but the authors instead provided developers of \gls{AR} with a framework that abstracts input into general classes, allowing for device-agnostic processing.
-
 Finally, the authors of~\cite{chetoui2022arbench} employ \gls{AR} emulation to evaluate hardware rather than the software implementation itself.
 Their tool, \emph{ARBench}, features emulated \gls{AR} workloads that mimic the load placed on the system by real applications.
-This approach is similar to the one presented in this dissertation, but it exclusively considers on-device \gls{AR} processing.
-Furthermore, the benchmarks are deterministic, and no emulation of realistic human behavior is attempted.
+
+While the above approaches to benchmarking and research in \gls{XR} are steps in the right direction, they fail to consider the dynamic nature of \gls{XR}.
+The use of rigid traces in trace-based approaches can lead to timing mismatches when replaying at runtime, as the system may respond differently to the same input depending on factors such as system load and network congestion.
+Additionally, these approaches do not take into consideration the effects of system responsiveness on human behavior, which can be critical for evaluating both \gls{QoS} and \gls{QoE}.
+To address these issues, future approaches will need to adapt trace replay at runtime to match expected behaviors and consider the impact of system responsiveness on user behavior.
+By doing so, we can develop more accurate and reliable benchmarks for \gls{XR} applications and improve our understanding of how users interact with these technologies.
 
 \subsection{Edge and Cloud Benchmarking}
 
 This dissertation complements existing work on benchmarking distributed system architectures.
 A rich body of literature exists with examples of such approaches for Cloud computing.
-However, existing approaches tend to focus heavily on large-scale data processing and downlink transmission in Cloud scenarios, and are not applicable to the latency-sensitive, uplink-heavy characteristics of Edge Computing.
 For example, the \gls{YCSB}~\cite{cooper2010benchmarking} is a data-intensive benchmark for the profiling of data centers and Cloud services; workload characterization in datacenters leads to a similar benchmark in~\cite{jia2013characterizing}.
 In~\cite{turner2012cmart}, the authors introduce \emph{C-MART}, a benchmark for modern web applications running on the Cloud.
 The benchmark utilizes modern web technologies, can be deployed automatically at a large scale, and includes generators that mimic remote clients accessing the system over the internet.\@
 \cite{malawski2018benchmarking,back2018using} focus instead on serverless computing, using compute-intensive workloads to benchmark major Cloud function providers such as \gls{AWS}, Microsoft Azure, and \gls{GCP}.
 
-The limitations of previous approaches has in later years led to a number of works that have attempted to tackle this challenge in the context of Fog and Edge Computing as well.
+As evidenced by the given examples, existing approaches to Cloud benchmarking tend to focus heavily on large-scale data processing and downlink transmission in Cloud scenarios.
+This makes them unsuitable for Edge Computing, as they fail to account for important characteristics of this paradigm, such as latency-sensitivity of workloads and uplink-heavy network traffic.
+
+The limitations of previous approaches has in later years led to a number of works that have attempted to tackle the challenge of specifically benchmarking Fog and Edge deployments as well.
 Even so, these works have generally leveraged static workloads that fail to account for the intensely dynamic nature of \gls{CPS} deployments.
-Furthermore, none of these approaches have attempted to understand the relationship between latency and human performance in \gls{XR} applications deployed on the Edge.
-\emph{EdgeBench}, introduced in~\cite{das2018edgebench}, corresponds to a benchmarking suite for the Edge.
-It emulates three different workloads, speech-to-text, image recognition, and sensor network application traffic, and specifically targets serverless deployments.\@
-\cite{baurle2022comb} presents \emph{ComB}, a flexible and extensible, application-oriented benchmarking suite for Edge computing.
-It includes a built-in distributed video-analytics benchmark, but is designed to decouple orchestration and workload, allowing for easy extension of the latter.\@
+Examples of approaches which fall into this category include
+\begin{inlineenum}
+    \item \emph{EdgeBench}~\cite{das2018edgebench}
+    \item \emph{IoTBench}~\cite{lee2019iotbench}
+    \item \emph{DeFog}~\cite{mcchesney2019defog}
+    \item \emph{ComB}~\cite{baurle2022comb}
+    \item \emph{OpenRTiST}~\cite{george2020openrtist}
+\end{inlineenum}.
+\emph{EdgeBench}~\cite{das2018edgebench} corresponds to a benchmarking suite for the Edge which emulates three different workloads (speech-to-text, image recognition, and sensor network application traffic), specifically targeting serverless deployments.\@
 \emph{IoTBench}~\cite{lee2019iotbench} is a benchmarking tool for Edge-deployed \gls{IOT} applications.
 It includes seven representative workloads, and allows researchers to evaluate the performance of these applications on Edge infrastructure through the analysis of computational demands and resource consumption.\@
-\cite{mcchesney2019defog} presents a benchmarking suite for the comparison of deployments on the Edge, Fog, or Cloud named \emph{DeFog}.
-\emph{DeFog} includes six latency-critical and bandwidth-intensive, Fog- and Edge-relevant workloads, including real-time video detection and a text-to-speech application.
-In~\cite{lockhart2020scission}, the authors introduce a tool, \emph{Scission}, for the benchmarking of \glspl{DNN} partitioned across the user device, Edge, and Cloud continuum.
-The tool can also be used to automatically determine the optimal partition of a \gls{DNN}.
+\emph{DeFog}~\cite{mcchesney2019defog} corresponds to a benchmarking suite for the comparison of deployments on the Edge, Fog, or Cloud which includes six latency-critical and bandwidth-intensive workloads, including real-time video detection and a text-to-speech application.
+\emph{ComB}~\cite{baurle2022comb} is a flexible and extensible application-oriented benchmarking suite for Edge computing, featuring a built-in distributed video-analytics benchmark.
 Finally, \emph{OpenRTiST}~\cite{george2020openrtist} is a tool for the benchmarking and performance evaluation of Edge Computing deployments using real-time processing of a live video feed.
 Video is streamed from a source Android device to a compute node where neural style-transfer~\cite{gatys2016image} is applied to it.
 The transformed video is then fed back to the source to be presented, resulting in a compute-intensive, bandwidth-hungry, and latency-sensitive benchmark.
+
+Furthermore, although some of these approaches address some of the challenges to benchmarking \gls{XR} on the Edge, none of them have tackled the topic in a comprehensive way.\@
+\cite{das2018edgebench,mcchesney2019defog,baurle2022comb,george2020openrtist} all target image or video recognition or manipulation in some manner.
+However, none of these approaches have considered the interactive component of \gls{MAR}, particularly when it comes to human behavior and its relationship to system responsiveness and performance.
 
 \subsection{Experimental research in \glsfmtshortpl{NCS}}
 
@@ -55,7 +66,9 @@ They have partially been addressed through the clever placement of the controlle
 Most of the large literature concerning \glspl{NCS}, however, follows a theoretical approach, with only small fraction of it dealing with experimental studies~\cite{zhang2019networked}.
 \gls{NCS} studies are complex due to the inter-domain nature of these systems, requiring expertise in the fields of communication networks, computing, and control theory.
 However, theoretical approaches can only capture network behaviors at a coarse level, and thus a body of works has emerged in later years involving experimental approaches to \gls{NCS} benchmarking.
-Within this body of work, we identify three distinct approaches: fully practical, fully simulated, and emulated approaches that combine components of the first two.
+
+Experimental research in \glspl{NCS} involves a diverse range of hardware and software platforms, methodologies, and key performance indicators.
+Specifically, we identify three distinct categories of approaches: fully practical, fully simulated, and emulated approaches that combine components of the first two.
 
 In a fully practical approach, the experimental setup uses real systems and hardware to test and validate the performance of the \gls{NCS}.
 This approach is straightforward to implement, and can be very useful for evaluating the real-world applicability of the system, but can be costly and time-consuming.
@@ -82,6 +95,19 @@ Network-in-the-loop refers to experimental setups in which the \emph{network} is
 Such approaches have, for instance, been used to study the effects of the \gls{CSMA/CD} medium access control mechanism on plant stability, as in~\cite{natale2004inverted}.
 Hardware-in-the-loop approaches, referring to \gls{NCS} setups in which a real network interacts with a simulated or emulated control system, are particularly prevalent in the field of \emph{smart grid} control.
 An example of the application of such an approach can be found in~\cite{wang2020inverter}, in which the authors introduce and validate a novel three-level coordinated control method for photovoltaic inverters.
+
+\medskip
+
+The diversity of experimental \glspl{NCS} research discussed above has led to fragmentation of hardware, software, and methodology, as studies tend to favor approaches popular in their respective communities.
+Additionally, studies tend to focus on individual aspects and components of the system, resulting in incomplete knowledge of the overall \glspl{NCS}.
+There is a gap in knowledge concerning the reproducibility and comparison of experimental studies on these systems.
+
+To our knowledge, the only published attempt at addressing methodological fragmentation and poor reproducibility of experimental \gls{NCS} research is the LEGO-based approach introduced in~\cite{zoppi2020ncsbench}.
+However, this approach has limitations.
+It is dependent on specific hardware --- the LEGO Mindstorms set --- which makes its adoption limited due to availability issues, reduces its flexibility, scalability, and limits the scope of experiments able to be conducted via \emph{NCSbench} only to what is possible to implement in LEGO.\@
+Scaling up experiments becomes cumbersome and costly, further limiting the practicality of the tool.
+Thus, a more general approach that tackles the scalability and reproducibility issues of NCS research is urgently needed.
+The development of such an approach would enable researchers to conduct experiments that generate reproducible results consistently and can be compared across different studies while still retaining the computational sophistication required when scaling up experiments.
 
 \subsection{Testbed research in Edge Computing}
 
@@ -130,6 +156,23 @@ In~\cite{gedawy2016cumulus}, the authors propose Cumulus, a prototype testbed fo
 The authors of~\cite{rimal2018experimental} propose an experimental testbed for two-tiered Edge architectures in the context of \gls{FIWI} Edge Computing.
 This testbed is then employed to validate wireless access and compute resource scheduling strategies in these systems.
 In~\cite{yamanaka2021design}, the authors present an experimental Edge Computing testbed capable of determining the offload location of a workload based on desired latency parameters.
-\cite{diao2019scalable} propose yet another Kubernetes-based testbed based for Edge task offloading based on heterogeneous hardware including low-power single-board computers such as Raspberry Pis and Jetson Nanos.
-Finally,\ \cite{moorthy2022cloudraft} proposes \gls{CLOUDRAFT}, a Cloud-based framework for mobile network experimentation, with a focus on simplifying the management of testbed resources.
+\cite{diao2019scalable} propose yet another Kubernetes-based testbed based for Edge task offloading based on heterogeneous hardware including low-power single-board computers such as Raspberry Pis and Jetson Nanos.\@
+\cite{moorthy2022cloudraft} proposes \gls{CLOUDRAFT}, a Cloud-based framework for mobile network experimentation, with a focus on simplifying the management of testbed resources.
 The goal of this project is to integrate, coordinate, share, and improve upon existing testbeds through a common interface.
+
+\medskip
+
+The implementation of next-generation wireless systems, Cloud, and Edge computing paradigms requires experimentation to fully understand their implications.
+As evidenced above, testbeds have emerged for this purpose.
+However, there has been little focus on general-purpose, hardware-agnostic software frameworks for the management and automation of these testbeds.
+Most existing works use their own platform-specific solutions, which are not compatible with other testbeds and often do not comply with Cloud and/or Edge-native standards.
+\gls{COSMOS} and \gls{POWDER}, which use domain-specific languages and virtualization technology based on \glspl{VM} instead of modern Edge-compatible solutions such as containers or serverless computing frameworks.
+
+From the examples above, \gls{CLOUDRAFT} is the only work known to tackle the challenge of general-purpose, hardware-agnostic software frameworks for the management and automation of testbeds, albeit only to a certain extent.
+\gls{CLOUDRAFT} integrates, coordinates, shares, and improves upon existing testbeds, using pre-built VMs with necessary software for experiments.
+Although it provides some automation for testbed resource provisioning and experiment execution, its focus is largely on the sharing and partitioning of testbed systems.
+Testbeds that are currently working with CloudRAFT include an SDR-based testbed and a ground vehicular robot for mobility-related experimentation.
+
+The lack of a unified approach to testbed management and automation hinders the development and implementation of next-generation wireless systems, Cloud, and Edge computing paradigms.
+General-purpose, hardware-agnostic software frameworks such as \gls{CLOUDRAFT} can simplify the management and automation of testbeds, promote compatibility with Cloud- and Edge-native standards, and facilitate collaboration among research groups.
+There is still remains much work to be done in this area, particularly with respect to the adoption of Edge-compatible solutions that can enable faster and more reliable experimentation.
