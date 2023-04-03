@@ -133,7 +133,7 @@ On the other hand, \gls{AR} and \gls{MR} are employed in manufacturing, to train
 Workers can receive real-time guidance through \gls{AR}-enabled headsets, improving accuracy and safety while controlling machine operations on the factory floor.
 \gls{AR} can also provide augmented, step-by-step guidance for maintenance and repair of equipment, augmenting thus the capabilities of workers and the productivity of the workplace as a whole.
 
-\subsubsection{\glsfmtlong{WCA}}
+\subsubsection{\glsfmtlong{WCA}}\label{sec:background:wca}
 \glsreset{WCA}
 
 Of particular interest for this dissertation is a particular subset of \gls{AR} denoted \acf{WCA}, a technology designed to provide real-time support and guidance to individuals performing complex tasks in a plethora of domains.
@@ -199,11 +199,10 @@ This means that emulation requires more processing power, memory, and storage sp
 \subsection{\glsfmtlongpl{NCS}}\label{background:ncs}
 \glsreset{NCS}
 
-\todo[inline]{
-    - Section 1.1.4: Goes again in the right direction, but details are missing/off. First of all, NCS is really a research direction, not necessarily a system type (every control system is more or less networked, but networking effects have not been always captured in the theoretical analysis/design of the controller). Second, maybe you stress more the working principle in terms workloads and requirements. In a sense, you can work out a pattern how you structure the discussion in Section 1.1.3, and reuse that pattern to a large extent in 1.1.4, that would be neat (both are closed-loop applications with a lot of similar, but also some different properties and requirements). 
-}
+% \todo[inline]{
+%     - Section 1.1.4: Goes again in the right direction, but details are missing/off. First of all, NCS is really a research direction, not necessarily a system type (every control system is more or less networked, but networking effects have not been always captured in the theoretical analysis/design of the controller). Second, maybe you stress more the working principle in terms workloads and requirements. In a sense, you can work out a pattern how you structure the discussion in Section 1.1.3, and reuse that pattern to a large extent in 1.1.4, that would be neat (both are closed-loop applications with a lot of similar, but also some different properties and requirements). 
+% }
 
-\glspl{NCS} are a class of control systems that involve the integration of communication networks into traditional control systems.
 A control system is a collection of devices or subsystems that work together to achieve a desired behavior or outcome of a physical system.
 These systems are composed of
 \begin{inlineenum}
@@ -217,9 +216,12 @@ Sensors sample and encode the state of the plant and transmit it to the controll
 The controller processes these inputs, and generates control signals to be sent to the actuators, which modify the plant's behavior.
 The overall goal of a control system is to regulate a process or a physical system to meet desired specifications or objectives, such as maintaining a constant temperature, tracking a set trajectory, or regulating the speed of a machine.
 
-\glspl{NCS}~\cite{gupta2010networked} aim to enhance and extend the capabilities of traditional control systems by decoupling the controller from the plant, sensors, and actuators and interconnecting them with general-purpose \acs{TCP}/\acs{IP} networks;
-see \cref{fig:csvsncs}.
-This allows for remote monitoring and control, which enhances the reliability and safety of the control system, which is particularly useful in applications where real-time monitoring and control are critical, such as in industrial automation and transportation systems.
+\gls{NCS} research is a research direction in the field of automatic control that focuses on the study and development of control systems that formally account for the effects of incorporating communication networks for data exchange between different components of the system.
+Every modern control system is, to some extent, networked in the sense that a communication medium is used to transmit information between components.
+The field of \gls{NCS} research formalizes and extends this characteristic by integrating traditional control systems with general-purpose \acs{TCP}/\acs{IP} networks.
+\glspl{NCS}~\cite{gupta2010networked} aim to enhance and extend the capabilities of traditional control systems by decoupling the controller from the plant, sensors, and actuators (see \cref{fig:csvsncs}).
+This allows for remote monitoring and control, which enhances the reliability and safety of the control system
+This is particularly useful in applications where real-time monitoring and control are critical, such as in industrial automation and in transportation systems.
 \glspl{NCS} also enable the integration of multiple control systems, as well as centralized control of multiple plants by a single controller.
 This leads to enhanced scalability and flexibility, and allows improved coordination and collaboration among systems.
 Furthermore, \glspl{NCS} provide greater access to information, as they enable the exchange of data and information between control components and systems, leading to more informed decision-making and improved performance.
@@ -247,9 +249,14 @@ Furthermore, \glspl{NCS} provide greater access to information, as they enable t
     }\label{fig:csvsncs}
 \end{figure}
 
+\input{tables/ncs-examples}
+
 \glspl{NCS} have become increasingly popular in recent years due to advances in communication and control technologies, as well as the increasing demand for real-time, remote, and distributed control.
 They have found use in varied applications, such as industrial automation, transportation systems, and smart buildings, and some have attempted to leverage the Cloud for centralized, distributed control in what has been called \emph{Cloud control systems}~\cite{xia2015cloud}
-However, depending on the physical system being controlled, \glspl{NCS} can have stringent timing and reliability requirements for communication that conventional Cloud paradigms simply cannot meet~\cite{wan2020efficient}.
-This has led their adoption to be limited mostly to industrial environments.
-This is about to change, however, as with the advent of Edge Computing, paired with novel wireless communication technologies such as cellular 5G, consumer-grade \glspl{NCS} will be made possible.
-These technologies will likely become the backbone of consumer-grade, widely-deployed \glspl{NCS}, enabling real-time capabilities through extremely low end-to-end latencies together with context- and locality-awareness.
+However, \glspl{NCS} can have timing requirements for communication that conventional Cloud paradigms simply cannot meet~\cite{wan2020efficient}.
+Depending on the system being controlled, control systems can have sampling rates ranging from sub-\SI{1}{\hertz} to several \unit{\kilo\hertz}.
+Reliability is another concern, as many of the core use cases for \gls{NCS} involve application domains in which failure has the potential to cause bodily harm to humans or significant financial losses.
+\cref{tab:controlsystemqos} lists some example use cases for \gls{NCS} and their \gls{QoS} requirements.
+These stringent requirements have led their adoption to be limited mostly to industrial environments.
+This is about to change, however, as with the advent of \gls{MEC}, consumer-grade \glspl{NCS} will be made possible.
+This technology will likely become the backbone of consumer-grade, widely-deployed \glspl{NCS}, enabling real-time capabilities through extremely low end-to-end latencies together with context- and locality-awareness.

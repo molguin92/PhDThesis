@@ -16,9 +16,8 @@ By incorporating a realistic model of human behavior, we will be able to build a
 \subsection{Characterization of \glsfmtshort{WCA}}
 \todo[inline]{Rework}
 
-An important portion of the present thesis deals with the modeling of human behavior for the benchmarking of \gls{WCA}.
+In order to more easily and accurately discuss the implications of our methodology for \gls{WCA}, we first characterize these applications and provide some definitions relating to their operation.
 We focus in particular on \emph{step-based} \gls{WCA}, i.e.\ assistance applications which have as their goal the guidance of a user through a task, using a series of instructions.
-In this section, we will provide some definitions relating to the operation of these applications.
 
 As discussed above, \glspl{WCA} track the state of the real world through sampling of inputs, most commonly of video feeds.
 In step-based \glspl{WCA}, the state in question refers to the progress of some arbitrary, sequential task, such as the assembly of a LEGO model or of a piece of IKEA furniture~\cite{chen2018application}.
@@ -49,7 +48,7 @@ We will also refer to the interval \ensuremath{t_{n + 1} - t_n} as the \emph{las
 
 \glsreset{TTF}%
 From this characterization, we can define key variables relating to human behavior with respect to the sampling behavior of these applications.
-However, we first note that the combination of the characteristic of seamless interaction with the context of the user described in the previous section and in \cref{fig:wca}, combined with the sampling behavior described above, lead to an interesting consequence for the perception of responsiveness in \gls{WCA}.
+However, we first note that the combination of the characteristic of seamless interaction with the context of the user described in \cref{sec:background:wca} and in \cref{fig:wca:operation}, combined with the sampling behavior described above, lead to an interesting consequence for the perception of responsiveness in \gls{WCA}.
 The only points in time at which a user can consciously notice and interact with the application is whenever they are \emph{expecting} feedback.
 A corollary of this is that these are therefore also the \emph{only} points in time at which users can notice changes in system responsiveness.
 If we understand \ensuremath{t_c} as the point in time at which the user finishes executing the instruction for step \ensuremath{M}, then
@@ -424,8 +423,6 @@ The use of a repository of frames collected from real executions of the task by 
 More details and a longer discussion on this approach can be found in \cref{paper:olguinmunoz2023realistic}, \cref{ssec:model:frames}.
 
 \subsection{Implications with respect to task completion times}
-
-\todo[inline]{Do we need more experiments?}
 
 In this section, we will discuss the implications of the methodology for the optimization of \gls{WCA} applications, in particular when employing the experimental results and the improved model of human timings discussed in \cref{sec:extendingmethodology}.
 The discussion presented here is a summarized version of what \cref{paper:olguinmunoz2023realistic} exposes.

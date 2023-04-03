@@ -1,0 +1,16 @@
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[t]
+    \centering
+    \caption{Examples of use cases for NCS and their respective latency and reliability requirements.}\label{tab:controlsystemqos}
+    \tiny
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{@{}lYcX@{}}
+        \toprule
+        \textbf{} & \bfseries\makecell{Sampling~Rate} & \bfseries\makecell{Latency\\Bounds} & \bfseries\makecell{Reliability\\Requirements} \\ \midrule
+        \bfseries\makecell[l]{Power\\Electronics} & Up to several \unit{\kilo\hertz} & \textless~\SI{1}{\milli\second} & High; failures can lead to damage to expensive equipment, large-scale blackouts. \\
+        \bfseries\makecell[l]{Autonomous\\Vehicles} & Up to hundreds of \unit{\hertz} & \textless~\SI{10}{\milli\second} & High; failures can lead to injury or death. \\
+        \bfseries\makecell[l]{Industrial\\Automation} & From sub-\SI{1}{\hertz} to several \unit{\kilo\hertz}. & \SI{1}{\second} to sub-\SI{1}{\milli\second} & High; failures can lead to injuries and/or significant impairment of production and loss of revenue. \\
+        \bfseries\makecell[l]{Robotics} & Up to several \unit{\kilo\hertz} & \textless~\SI{1}{\milli\second} & Low to high, depending on the application. \\ \bottomrule
+    \end{tabularx}
+\end{table}
