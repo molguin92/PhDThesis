@@ -1,25 +1,97 @@
-\section{Scope of this dissertation}
-\todo[inline]{Rework based on related work.}
+\section{Scope \& overview of the included publications}
 
 This dissertation presents a methodology for the study of feedback-loop \gls{CPS} systems deployed on Edge Computing and studies its potential applications and implications.
 This methodology is based on the emulation of the desired application workload on top of the actual Edge infrastructure, including backend computing hardware and network technology used for client-server communication.
-We do not in any way claim that this methodology is the best approach to studying these systems, but rather that it is a valid approach able to produce accurate, representative results.
+We do not in any way claim that this methodology is the best approach to studying these systems, but rather that it is a \emph{valid} approach able to produce accurate and representative results.
+
+\input{tables/scope}
 
 The scope of \gls{CPS} systems is vast and diverse, making it unfeasible to investigate all possible variations of these systems in this work. 
 Instead, we opt to study a representative subset of future applications that could potentially leverage Edge Computing resources to provide innovative solutions: \gls{WCA} and \glspl{NCS}.
 By considering these two application domains, we demonstrate the applicability of our methodology and showcase its efficacy.
+\Cref{tab:scope} presents an overview of the scope of this dissertation, and in the following we will summarize the contributions and limitations of each included publication. 
 
-Specifically, a subset of the research works included in this dissertation presents and studies the application of our methodology for \gls{WCA}.
-To limit the scope of our research in this area, we constrain our work to \emph{step-based task-assistance} \gls{WCA}, and no other categories of \gls{WCA} are considered.
+\medskip
+
+\Cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid,paper:olguinmunoz2021impact,paper:olguinmunoz2023realistic} in this dissertation present and study the application of our methodology for \gls{WCA}.
+\cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} discuss initial explorative studies into the application of our methodology for \gls{WCA}.
+These works present the first empirical results obtained with our methodological approach, providing thus an initial validation of its utility for research, and further discuss the necessary tooling and software frameworks required for the implementation of our methodology.
+In particular, we introduce in these works a trace-based emulation tool which we call EdgeDroid.
+It uses a trace of inputs recorded in optimal conditions, the replay of which is controlled at run-time by a simple model of human behavior based on a \gls{FSM}.
+In terms of hardware, the setup is composed of Android client devices connected to a \gls{COTS} {x86--64} server over a Wi-Fi network.
+
+In \cref{paper:olguinmunoz2021impact,paper:olguinmunoz2023realistic} we delve deeper into the implementation of our methodology for \gls{WCA}, as well as study its implications for optimization of these systems.
+\cref{paper:olguinmunoz2021impact} presents a characterization of human behavior in \gls{WCA}.
+Although the above approach to human behavior in \gls{WCA} discussed represents a useful initial approximation, it is nonetheless not a realistic model of it.
+We develop a characterization through a human subject study in which participants interact with an instrumented \gls{WCA}.
+System responsiveness is altered in real-time during each execution of the task, and we record participants' reactions by measuring task- and system-related metrics, as well as biometrics from sensors placed on their bodies.
+Participants were also asked to fill out two personality indicator questionnaires, allowing us to later correlate individual personality traits and measured reaction to changes in system responsiveness.
+
+\cref{paper:olguinmunoz2023realistic} finally presents two contributions.
+Firstly, it introduces the first ever data-driven model of human timings for \gls{WCA}, built upon the data and insights collected for \cref{paper:olguinmunoz2021impact}.
+The model is validated against previously obtained results, both through simulated, controlled executions and deployments on a real edge computing testbed.
+Secondly, it explores potential implications of this model for \gls{WCA} system optimization potential, particularly in the domains of energy consumption and sampling strategies.
+
+\medskip
+
+This line of work has some limitations.
+First of all, we constrain our work to \emph{step-based task-assistance} \gls{WCA}, and no other categories of \gls{WCA} are considered.
 We focus on this category for a couple of reasons.
 Step-based task-assistance \gls{WCA} was among the first categories of \gls{WCA} to be developed~\cite{chen2015early}, and thus represents a more mature application class compared to other \glspl{WCA}.
 These applications also feature a linear mode of execution, simplifying emulation, and their step-based nature makes the tasks easier to shorten or extend for experimental purposes.
-The specific application used for these studies corresponds to the LEGO assistant devised by \citeauthor{chen2015early}\cite{chen2015early}.
 
-A separate subset of the research presented in this work discusses a preliminary foray into the applications of our methodology for \glspl{NCS}.
-Given the vastness and complexity of this field, we limit our exploration to simple, small-scale, single-plant systems.
-In particular, the system used as a representative example for the effectiveness of our approach for \glspl{NCS} corresponds to the \gls{2D} inverted pendulum, using simple \gls{PD} and \gls{PID} controllers.
+However, restricting our research to step-based \gls{WCA} means that our results may not be directly applicable to other types of \gls{WCA} and \gls{AR} applications.
+In particular, our characterization of human behavior in \cref{paper:olguinmunoz2021impact} and both our models of human behavior --- the \gls{FSM}-based model introduced in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} and the data-driven model from \cref{paper:olguinmunoz2023realistic} --- assume linear modes of operation.
+Additionally, the timing characteristics of step-based \gls{WCA} are such that an instruction remains valid for as long as it takes the user to perform it.
+The conclusions from these works therefore may not apply to applications with different execution flows, or in which instructions have a deadline after which they may become stale or invalid.
+Examples of such applications include, for instance, the \emph{Ping-Pong} assistant introduced in~\cite{chen2015early}.
 
-Finally, this dissertation also briefly discusses Edge Computing testbed research and automation as an ancillary contribution to the methodology.
+The user models are further limited in their realism.
+In \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} we assume a human which is impervious to poor system performance, and suffers no annoyance, fatigue, frustration, nausea or other shortcomings of real human users.
+The result is a model of a user who responds in a precisely reproducible and deterministic manner to the same system stimulus every time.
+These limitations emerge from a lack of data of human behavior in these applications, as at the moment of the writing of these works no comprehensive model of human behavior existed in the relevant literature.
+As a consequence, these works do not consider the effects of human error on \gls{WCA} application runtimes and footprints, and neither do they consider the feedback effects of system responsiveness on human task performance.
+We attempt to address some of these limitations in \cref{paper:olguinmunoz2021impact,paper:olguinmunoz2023realistic};
+the resulting model is able to adapt its timing behavior in response to delay in the system.
+However, we were unable to capture any instances of subjects making a mistake during data collection in \cref{paper:olguinmunoz2021impact}, and thus neither the characterization or subsequent model consider human error during task execution.
+Furthermore, participants for the study were recruited from a pool of undergraduate students at \gls{CMU} in the \gls{USA}, ranging in age from \numrange{18}{25} years old.
+This means that findings may not be generalizable to other demographic groups.
+
+Finally, to emphasize the possible effects of network congestion and latency on \gls{WCA}, in these works we exclusively employ \acs{IEEE} 802.11n \SI{2.4}{\giga\hertz} Wi-Fi networks in an Cloudlet Computing-like setup.
+Although \gls{MEC} is one of the main enablers for \gls{WCA} applications, we consider such network deployments to be \gls{OOS} due to the complexity and financial investment required to deploy a mobile network.
+Likewise, we do not target Fog Computing deployments due to this paradigm being a poor fit for latency-sensitive applications.
+Thus, although the methodology and tools introduced are architecture-agnostic and should be directly applicable to other kinds of Edge Computing setups than the one used in this dissertation, further work may be needed to validate our results and conclusions in the context of \gls{MEC} and Fog Computing.
+
+\bigskip
+
+A separate subset of the research presented in this dissertation discusses a preliminary foray into the applications of our methodology for \glspl{NCS}.
+\Cref{paper:olguinmunoz2022cleave} extends our methodology to the study of control systems for \glspl{NCS} on Edge Computing.
+These applications are similarly difficult to benchmark as \gls{WCA}, particularly at scale on multi-tenant systems, due to their client-side complexity and extreme sensitivity to latency.
+To address these challenges, we introduce a tool, \gls{CLEAVE}, for the emulation and subsequent deployment of these systems on edge computing infrastructure.
+This tool allows us both emulate the physical components of a relatively simple control system plant and deploy real algorithms for its control.
+The middleware software abstracts away the network from the development of these workloads, enabling quick prototyping and deployment.
+We then present use-case scenarios demonstrating the scalability and flexibility of their approach by deploying scenarios with a large number of loops without the need for domain-specific hardware.
+
+Given the vastness and complexity of the field of \glspl{NCS}, we limit our exploration in this dissertation to simple, small-scale, single-plant systems.
+The system used corresponds to the \gls{2D} inverted pendulum, using simple \gls{PD} and \gls{PID} controllers.
+Although a representative example for the effectiveness of our approach for \glspl{NCS}, this means that our conclusions may not directly translate to larger scale or more realistic systems.
+Additionally, our tool, \gls{CLEAVE}, assumes a simple request-response design in the sensor-controller-actuator loop.
+This does not match well with more complex controllers such as \gls{MPC} controllers, in which each sample produces multiple outputs from the controller.
+\gls{CLEAVE} will thus have to be modified and extended to work with such setups.
+Our study into the application of our methodology for \glspl{NCS} also relies, once again, exclusively on Wi-Fi-enabled Cloudlet Computing.
+As such, the same limitations with respect to \gls{MEC} and Fog Computing apply as with our line of work in \gls{WCA}.
+
+\bigskip
+
+This dissertation also briefly discusses Edge Computing testbed research and automation as an ancillary contribution to the methodology.
+\Cref{paper:olguinmunoz2022ainur} formally introduces the Ainur framework for Edge Computing testbed automation and workload orchestration.
+This framework is employed in \cref{paper:olguinmunoz2023realistic,paper:olguinmunoz2022cleave} for the orchestration of the Edge Computing testbeds on which the developed tools were deployed.
+Ainur represents an ancillary contribution, crucial for the research presented in these works.
+Without it, the experimental approach described in these works would not have been feasible.
+
 Our work in this domain is limited to small-scale testbeds with up to a few dozen nodes, leveraging \glspl{SDR} paired with general-purpose \gls{COTS} compute hardware.
-We do not target large-scale testbeds due to their complexity, both in terms of hardware and software.
+Medium and large testbeds such as \gls{COSMOS} and \gls{POWDER} are considered \gls{OOS} due to their cost and complexity, both in terms of hardware and software.
+In terms of networking technologies, Ainur is designed to be as agnostic as possible with respect to the network stack employed.
+This dissertation includes examples using Ethernet, Wi-Fi and 4G \gls{LTE}.
+Finally, Ainur does not currently fully integrate with modern Cloud and Edge infrastructure management and deployment technologies such as OpenStack~\cite{openstack}, although it does integrate with some core Cloud-native technologies such as Docker and Ansible.
+Work is currently ongoing to extend the framework to modern mobile network technologies such as 5G and beyond-5G, as well as to general-purpose, Cloud- and Edge-native infrastructure stacks.

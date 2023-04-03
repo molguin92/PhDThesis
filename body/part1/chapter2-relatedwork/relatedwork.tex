@@ -1,7 +1,4 @@
-\todo[inline]{Still needs some work, don't review yet.}
-
-% \section{Related work}
-\phantomsection%
+\section{Related work}
 
 \subsection{Emulation in \glsfmtshort{XR} research}
 
@@ -166,12 +163,12 @@ The implementation of next-generation wireless systems, Cloud, and Edge computin
 As evidenced above, testbeds have emerged for this purpose.
 However, there has been little focus on general-purpose, hardware-agnostic software frameworks for the management and automation of these testbeds.
 Most existing works use their own platform-specific solutions, which are not compatible with other testbeds and often do not comply with Cloud and/or Edge-native standards.
-\gls{COSMOS} and \gls{POWDER}, which use domain-specific languages and virtualization technology based on \glspl{VM} instead of modern Edge-compatible solutions such as containers or serverless computing frameworks.
+Examples of this are \gls{COSMOS} and \gls{POWDER}, which use domain-specific languages and virtualization technology based on \glspl{VM} instead of modern Edge-compatible solutions such as containers or serverless computing frameworks.
 
 From the examples above, \gls{CLOUDRAFT} is the only work known to tackle the challenge of general-purpose, hardware-agnostic software frameworks for the management and automation of testbeds, albeit only to a certain extent.
 \gls{CLOUDRAFT} integrates, coordinates, shares, and improves upon existing testbeds, using pre-built VMs with necessary software for experiments.
 Although it provides some automation for testbed resource provisioning and experiment execution, its focus is largely on the sharing and partitioning of testbed systems.
-Testbeds that are currently working with CloudRAFT include an SDR-based testbed and a ground vehicular robot for mobility-related experimentation.
+Testbeds that are currently working with \gls{CLOUDRAFT} include an \gls{SDR}-based testbed and a ground vehicular robot for mobility-related experimentation.
 
 The lack of a unified approach to testbed management and automation hinders the development and implementation of next-generation wireless systems, Cloud, and Edge computing paradigms.
 General-purpose, hardware-agnostic software frameworks such as \gls{CLOUDRAFT} can simplify the management and automation of testbeds, promote compatibility with Cloud- and Edge-native standards, and facilitate collaboration among research groups.

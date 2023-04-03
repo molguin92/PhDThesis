@@ -29,23 +29,22 @@
 % Create title page using info above
 \maketitle
 
-\frontmatter % Pages i, ii, iii, iv, v etc.
-
+\frontmatter% Pages i, ii, iii, iv, v etc.
 \input{body/abstract}
 \input{body/papers}
 \input{body/acks}
 
-\mainmatter % Pages 1, 2, 3...
-
+\clearpage%
 \tableofcontents%
+
+\mainmatter% Pages 1, 2, 3...
 \glsresetall{} % just to make sure
 \part{Summary}\label{part:summary}
 \chapter{Introduction}\label{chap:introduction}
 \import{body/part1/chapter1-introduction}{introduction}
 \import{body/part1/chapter1-introduction}{background}
-\import{body/part1/chapter1-introduction}{structure}
 
-\chapter{Related Work}\label{chap:relwork}
+\chapter{Related Work \& Scope}\label{chap:relwork}
 \import{body/part1/chapter2-relatedwork}{relatedwork}
 \import{body/part1/chapter2-relatedwork}{scope}
 
