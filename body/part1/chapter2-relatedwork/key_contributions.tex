@@ -1,4 +1,4 @@
-\section{Overview of the contributions of this dissertation}
+\section{Overview of the included publications}
 
 \todo[inline]{
     first main contribution: introduce the idea of emulating the physical part of a CPS when it comes to experimental evaluation running over an integrated communication and computation infrastructure.
@@ -16,21 +16,6 @@
 
     Mention software, then we are on the safe.
 }
-
-\todo[inline]{Rework and rewrite.}
-
-This dissertation presents a methodology for the study of feedback-loop \gls{CPS} systems deployed on Edge Computing and studies its potential applications and implications.
-This methodology is based on the emulation of the desired application workload on top of the actual Edge infrastructure, including backend computing hardware and network technology used for client-server communication.
-We do not in any way claim that this methodology is the best approach to studying these systems, but rather that it is a \emph{valid} approach able to produce accurate and representative results.
-
-\input{tables/scope}
-
-The scope of \gls{CPS} systems is vast and diverse, making it unfeasible to investigate all possible variations of these systems in this work. 
-Instead, we opt to study a representative subset of future applications that could potentially leverage Edge Computing resources to provide innovative solutions: \gls{WCA} and \glspl{NCS}.
-By considering these two application domains, we demonstrate the applicability of our methodology and showcase its efficacy.
-\Cref{tab:scope} presents an overview of the scope of this dissertation, and in the following we will summarize the contributions and limitations of each included publication. 
-
-\medskip
 
 \Cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid,paper:olguinmunoz2021impact,paper:olguinmunoz2023realistic} in this dissertation present and study the application of our methodology for \gls{WCA}.
 \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} discuss initial explorative studies into the application of our methodology for \gls{WCA}.
@@ -114,37 +99,3 @@ In terms of networking technologies, Ainur is designed to be as agnostic as poss
 This dissertation includes examples using Ethernet, Wi-Fi and 4G \gls{LTE}.
 Finally, Ainur does not currently fully integrate with modern Cloud and Edge infrastructure management and deployment technologies such as OpenStack~\cite{openstack}, although it does integrate with some core Cloud-native technologies such as Docker and Ansible.
 Work is currently ongoing to extend the framework to modern mobile network technologies such as 5G and beyond-5G, as well as to general-purpose, Cloud- and Edge-native infrastructure stacks.
-
-
-
-% \section{Key contributions}
-
-% \begin{enumerate}
-%     \item A methodology for the benchmarking of latency-sensitive, feedback-loop applications enabled by Edge Computing.
-%     This methodology is validated by example through representative use-cases, \gls{WCA} and \glspl{NCS}.
-%     \begin{description}
-%         \item[Novelty:] This is the first formalized method for this challenge in literature.
-%     \end{description}
-
-%     \item An exploration and characterization of the optimization potential of \gls{WCA} applications using the methodology, in particular with respect to sampling strategies and resulting resource and energy consumption profiles.
-%     \begin{description}
-%         \item[Novelty:] the study of \gls{WCA} in literature has, so far, focused primarily on prototyping applications and platforms.
-%         To the best of our knowledge, only a limited subset of works~\cite{chen2017empirical,wang2019towards,wang2020scaling} deal with the performance characterization of these applications.
-%         Additionally, only~\cite{wang2019towards,wang2020scaling} present heuristics for resource consumption optimization in \gls{WCA}, but no formal mathematical derivation of optimums is performed.
-%     \end{description}
-
-%     \item Tools for the implementation of the methodology, including end-to-end emulation frameworks for \gls{WCA} and \glspl{NCS} as well as a tool for Edge Computing testbed automation.
-%     \begin{description}
-%         \item[Novelty:] to the best of our knowledge, EdgeDroid is the first work in literature dealing with the dynamic emulation of \gls{XR} applications in networked contexts.
-%         Existing works are either completely forgo the networking aspect our use rigid, deterministic workloads which fail to capture the feedback-loop interactions between system responsiveness and human behavior.
-        
-%         Likewise, \gls{CLEAVE} is the first tool for fully softwarized end-to-end emulation of generic \glspl{NCS} employing Edge and Cloud-native technologies.
-%         Most other experimental approaches to \gls{NCS} research either fully simulate the system or employ real physical control systems.
-%         Although a number of works exist employing a similar network-in-the-loop approach, they limit their functionality to specific control system use cases such as smart grid control, and do not represent general approaches.
-%         They also do not employ Cloud or Edge-native technologies.
-
-%         Finally, Ainur represents the first framework for Edge Computing testbed research with end-to-end automation and orchestration.
-%         Existing approaches have focused primarily on achieving feature-parity with public clouds and targeting large-scale deployments, and have forgone the end-to-end automation aspect of Edge Computing experimentation.
-%         Ainur is the first toolkit able to configure a testbed from scratch, run experiments, collect the data, and clean up afterwards in an automated fashion.
-%     \end{description}
-% \end{enumerate}

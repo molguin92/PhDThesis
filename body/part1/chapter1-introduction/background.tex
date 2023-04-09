@@ -72,22 +72,25 @@ Finally, another variant of Edge Computing called \emph{Fog} computing, introduc
 By aggregating, transforming, and filtering data at multiple levels in the network, Fog computing aims to reduce the load placed on Cloud datacenters by massive \gls{IOT} sensor networks~\cite{yi2015survey}.
 Edge Computing also presents opportunities for increased data security, privacy, and integrity, by keeping it geographically close to its origin and by allowing for anonymization through denaturing and local aggregation before offloading to Cloud services~\cite{satyanarayanan2017emergence}.
 
-\subsection{Performance evaluation}
+\subsection{Performance evaluation of networked systems}
 \todo[inline]{
     Too vague.
-    Performance evaluation of what?
-    Performance evaluation of Edge Computing?
-    Of networked systems?
+    Performance of networked systems.
+
+    Look into book and use it as background.
+    Something we can cite.
+    2-3 pages.
 }
 \todo[inline]{
     Write.
 }
 
-\subsection{\glsfmtshort{CPS} and \glsfmtshort{MAR}}
+\subsection{Closed-loop feedback systems enabled by Edge Computing}
 
 \todo[inline]{
     Needs a better title.
     NCS and WCA?\@ Put everything under CPS?\@
+    Closed-loop feedback systems.
 }
 
 \todo[inline]{
@@ -155,7 +158,7 @@ On the other hand, \gls{AR} and \gls{MR} are employed in manufacturing, to train
 Workers can receive real-time guidance through \gls{AR}-enabled headsets, improving accuracy and safety while controlling machine operations on the factory floor.
 \gls{AR} can also provide augmented, step-by-step guidance for maintenance and repair of equipment, augmenting thus the capabilities of workers and the productivity of the workplace as a whole.
 
-\subsubsection{\glsfmtlong{WCA}}\label{sec:background:wca}
+\paragraph{\glsfmtlong{WCA}}\label{sec:background:wca}
 \glsreset{WCA}
 
 Of particular interest for this dissertation is a particular subset of \gls{AR} denoted \acf{WCA}, a technology designed to provide real-time support and guidance to individuals performing complex tasks in a plethora of domains.
@@ -190,40 +193,34 @@ Latency bounds can thus be very lax immediately after an instruction is generate
 In turn, this leads to interesting opportunities for resource consumption optimization in \gls{WCA} applications, such as the adaptive sampling scheme proposed in~\cite{wang2019towards}.
 The fact that users \emph{consciously} expect near-instantaneous feedback immediately after finishing an instruction also leads to strong and cumulative reactions to delays in the system, as evidenced by our work in \cref{paper:olguinmunoz2021impact}, implying that careful consideration to latencies must be taken when designing these systems.
 
-% As with many other categories of \gls{AR} applications, the computational complexity of the processing of the real-time input data makes it unfeasible to do on wearable devices.
-% This context-rich and latency-sensitive nature of \gls{WCA} inputs further makes this category of applications a prime candidate for offloading to the Edge.
+\subsubsection{\glsfmtlong{CPS}}
+\glsreset{CPS}
 
-\subsubsection{Emulation and simulation for \acs{XR}}
-\todo[inline]{
-    Section 1.1.2: This subsection is not very informative so far. Maybe first discuss extended reality, and then present a subsection on performance evaluation of systems, where simulation is a subsection, and experimentation is another subsection (and mathematical analysis is a third one). Focus on the usage of these concepts in the context of networked systems. Why do we need tools/approaches for performance evaluation, what are the advantages and disadvantages of different approaches, and also what is the historical context. You also need to have references. Finally, tables and figures are always welcome...
-}
+The term \gls{CPS} applies to a range of systems in which the computational world is tightly integrated with the physical world.
+\glspl{CPS} are designed to monitor, control, and optimize physical processes.
+By continuously monitoring and analyzing data from the physical components, \gls{CPS} can make decisions and take actions to optimize the system's performance.
+For example, a \gls{CPS} controlling a building's heating, ventilation, and air conditioning system may adjust the temperature based on occupancy patterns, external weather conditions, and energy consumption goals.
 
+\glspl{CPS} have acquired increasing importance in a wide range of industries due to their potential to enable greater efficiency, safety, and reliability in complex processes.
+Examples of such applications of \glspl{CPS} include smart grids, \acs{ITS} and autonomous vehicles, and smart health monitoring.
+A \emph{smart grid} is a \gls{CPS} that enables two-way communication between power generation, distribution, and consumption systems.
+Smart grids can thus dynamically and in real-time adjust the distribution of power based on demand and supply conditions.
+\glsreset{ITS} An \gls{ITS} is a system that integrates compute, monitoring, and communication in the context of a transportation system.
+\glspl{ITS} enable real-time traffic monitoring and management, route optimization, and integration of autonomous vehicles.
+These systems aim to optimize the management of transportation infrastructure and improve the safety, efficiency, and reliability of transportation systems.
+Finally, \emph{smart health monitoring} is an application of \glspl{CPS} in which wearable devices equipped with sensors and communication capabilities collect real-time data on patients' vital signs, activity levels, and medication adherence.
+This data can then be analyzed to provide alerts to healthcare providers, improve diagnoses, and facilitate early intervention.
 
-The terms \emph{emulation} and \emph{simulation} are often used interchangeably.
-However, although both terms refer to methods of imitating and modeling systems, they are distinct in their goals, methods, and applications.
+Although these systems can enable greater efficiency, safety, and reliability in complex processes, the adoption of \glspl{CPS} faces several technical, social, and regulatory issues.
+One of the key technical challenges relates to the reliability and safety of \glspl{CPS}.
+As these systems tightly integrate physical and computational components, a failure in one component can have significant consequences.
+As exemplified above, key use-cases for \glspl{CPS} include critical infrastructure such as power grids, transportation systems, and healthcare monitoring systems.
+Any failure in these systems can have serious consequences for public safety and well-being.
+Furthermore, \glspl{CPS} require strict security and confidentiality, given the sensitive data in these systems.
+Developing CPS that are resilient to attacks and failures, as well as developing methods for testing and verifying their safety, is therefore a major research challenge.
 
-Emulation refers to the process of reproducing or mimicking the observed behavior of a system through another system, 
-with the ultimate goal being the recreation of behavior that matches the original system as close as possible.
-Emulations run in \emph{real time}, and can thus interact with real environments;
-in turn, this means that emulations can be used to replace subcomponents of larger systems for research or benchmarking.
-This method does not aim to model the original system, nor aim to understand its underlying behavior.
-
-Simulation, on the other hand, is the process of modeling a system to study its behavior through the creation of a mathematical or logical model of the system.
-The model can then be adjusted to simulate and better represent the original system in different scenarios and conditions.
-Simulations run in entirely virtualized environments, and are not beholden to any real-time constraint.
-
-Finally, these approaches differ as well in the level of accuracy each of them affords.
-While simulation only attempts to approximate the behavior of the system in a given context, emulation aims to represent as close to a perfect copy of the observed behavior of the system.
-The former is therefore employed when a general understanding of the system is sufficient, while the latter is used when precision is required.
-However, thanks to its real time constraint and high degree of realism, emulation is typically more resource-intensive than simulation.
-This means that emulation requires more processing power, memory, and storage space than simulation.
-
-\subsubsection{\glsfmtlongpl{NCS}}\label{background:ncs}
+\paragraph{\glsfmtlongpl{NCS}}\label{background:ncs}
 \glsreset{NCS}
-
-% \todo[inline]{
-%     - Section 1.1.4: Goes again in the right direction, but details are missing/off. First of all, NCS is really a research direction, not necessarily a system type (every control system is more or less networked, but networking effects have not been always captured in the theoretical analysis/design of the controller). Second, maybe you stress more the working principle in terms workloads and requirements. In a sense, you can work out a pattern how you structure the discussion in Section 1.1.3, and reuse that pattern to a large extent in 1.1.4, that would be neat (both are closed-loop applications with a lot of similar, but also some different properties and requirements). 
-% }
 
 A control system is a collection of devices or subsystems that work together to achieve a desired behavior or outcome of a physical system.
 These systems are composed of
