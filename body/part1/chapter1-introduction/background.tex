@@ -6,7 +6,7 @@
 Performance evaluation is an essential step in designing and optimizing networked systems, in order to ensure efficient and effective operation.
 Such evaluation involves measuring and analyzing system performance under a multitude of scenarios to identify potential bottlenecks.
 In practice, three main approaches exist to the performance evaluation of any complex system; analytical modeling, simulations, and experimental evaluation~\cite{fernandes2017performance}.
-These approaches each have their advantages and disadvantages.
+These approaches each have their advantages and disadvantages, summarized in \cref{tab:performance-evaluation} and discussed in detail below.
 
 \input{tables/perf-eval}
 
@@ -148,8 +148,17 @@ By aggregating, transforming, and filtering data at multiple levels in the netwo
 Edge Computing also presents opportunities for increased data security, privacy, and integrity, by keeping it geographically close to its origin and by allowing for anonymization through denaturing and local aggregation before offloading to Cloud services~\cite{satyanarayanan2017emergence}.
 
 \subsection{Closed-loop feedback systems enabled by Edge Computing}
+\glsreset{CPS}
+\glsreset{XR}
 
-\todo[inline]{Write an intro?}
+Closed-loop feedback systems, i.e.\ which involve some sort of feedback loop controlling system behavior, are found in a wide range of applications.
+These systems typically involve real-time monitoring and control of complex physical or human processes, with feedback loops enabling rapid response times and adjustments to changing conditions.
+Edge Computing has emerged as a key enabler of these systems, providing the low-latency, context-aware computing capabilities required for real-time decision-making and control.
+
+In this section, we will discuss two key examples of such systems, \glspl{CPS} and \gls{XR} applications.
+\glspl{CPS} are systems that integrate physical and computational components, while \gls{XR} applications involve the creation of immersive virtual environment that combine the physical and virtual worlds.
+Both types of systems require real-time monitoring and control of complex processes through feedback loops of either sensor inputs and control outputs in the case of \glspl{CPS}, and video and image streams in the case of \gls{XR}.
+This section will introduce the key characteristics of these systems, providing a thorough background to understand the opportunities and challenges they present.
 
 \subsubsection{\glsfmtlong{XR}}\label{background:xr}
 \todo[inline]{Needs citations.}
