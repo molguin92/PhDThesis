@@ -1,0 +1,36 @@
+\begin{table}[]
+    \centering
+    \caption{Comparison between the three main approaches to performance evaluation of networked systems.}\label{tab:performance-evaluation}
+    \tiny
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{@{}lXXX@{}}
+        \toprule
+        & \textbf{Analytical modeling} & \textbf{Simulations} & \textbf{Experimental research} \\
+        \midrule
+
+        \textbf{Characteristics} &
+        Based on mathematical models. &
+        Based on mathematical models implemented as software to simulate the behavior of the system over time. &
+        Involves direct measurement of system performance under real-world conditions. \\
+
+        \textbf{Advantages} &
+        Efficient. Provides theoretical insights and understanding of the system. &
+        More realistic representation of the system's behavior and performance.
+        Easy to extend and combine with other models for additional realism.
+        Allows for controlled and repeatable experimentation. &
+        Provides the most accurate assessment of system performance.
+        Able to capture factors that cannot be modeled or simulated, such as non-linearities and stochastic or chaotic factors. \\
+            
+        \textbf{Disadvantages} &
+        Limited in complexity, accuracy, and realism.
+        May be unable to account for all relevant real-world factors. &
+        Limited by the accuracy of the models used and the assumptions made.
+        May not capture all relevant factors.
+        Often computationally intensive and time-consuming. &
+        Can be expensive, time-consuming, and difficult to replicate.
+        When involving humans, ethical concerns must be addressed.
+        May not be feasible for all research questions. \\
+        
+        \bottomrule
+    \end{tabularx}
+\end{table}

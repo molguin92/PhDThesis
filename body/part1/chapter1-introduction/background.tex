@@ -1,7 +1,82 @@
 \section{Background}
+\glsresetall%
+
+\subsection{Performance evaluation of networked systems}
+
+Performance evaluation is an essential step in designing and optimizing networked systems, in order to ensure efficient and effective operation.
+Such evaluation involves measuring and analyzing system performance under a multitude of scenarios to identify potential bottlenecks.
+In practice, three main approaches exist to the performance evaluation of any complex system; analytical modeling, simulations, and experimental evaluation~\cite{fernandes2017performance}.
+These approaches each have their advantages and disadvantages.
+
+\input{tables/perf-eval}
+
+Analytical or mathematical modeling involves creating a mathematical model that represents the system's behavior and performance.
+This involves defining the system's components, their interactions, and the performance metrics used to measure the system's performance.
+The mathematical model can be solved analytically, providing insights into the behavior of the system under different conditions.
+
+Analytical modeling is often used as a first step when attempting to identify possible solutions to a problem and provide an initial reduction of the problem space.
+One of the key advantages of mathematical modeling is that their realism and resulting complexity can be arbitrarily constrained as required.
+This allows researchers to quickly evaluate a large number of scenarios by employing coarse, approximate models to identify and highlight latent issues.
+These models can then be refined to further narrow the solution space.
+This approach is particularly useful for systems with complex interactions between multiple components, where testing every possible scenario in the real world or even in simulations would be impractical or impossible due to time and cost constraints.
+
+However, analytical modeling also has its limitations, in particular with respect to highly complex systems.
+In systems involving a large number of interacting components and processes, the mathematical equations required to model the system become more complex and difficult to solve.
+Assumptions about system behavior also become more inaccurate and incomplete as this behavior grows in complexity.
+As mathematical models are based on assumptions about the system's behavior and performance, incorrect, incomplete, or inaccurate assumptions can in turn lead to erroneous predictions.
+Additionally, complex systems may involve non-linear interactions between components, further increasing the difficulty of accurately modeling these systems.
+
+\medskip
+
+The second possible approach to performance evaluation of networked systems is simulation.
+This involves creating a computational model of the system, and then using it to simulate a series of scenarios to measure the model's performance.
+Simulations are often used to validate mathematical models and further narrow down the problem and solution spaces.
+
+Simulations offer numerous advantages.
+They represent an inexpensive and reliable way to study systems, by providing safe, controlled, and repeatable environments in which to test the system's behavior~\cite{fernandes2017performance}.
+Simulations also allow researchers to evaluate the system's performance with a high degree of accuracy and granularity, as they can approximate the system's behavior at a very fine-grained level without necessarily having to resort to complex mathematical modeling.
+Additionally, simulations can be used to test the impact of changes to the system's design or configuration, allowing researchers and system designers to identify the most effective solutions to improve performance.
+
+Simulation is a widely used and well-established method in networked system research, and there exists a rich literature surrounding tools for its implementation as a methodology~\cite{wehrle2010modeling}.
+The availability of simulation frameworks has made it easier for researchers to evaluate the performance of networked systems controlled environments.
+These frameworks provide a set of tools and libraries that enable researchers to create models of networked systems with very little overhead to simulate their behavior.
+
+Examples of frameworks for network simulation include the widely adopted \acs{OMNET}~\cite{omnet}, \acs{ns2}, and \acs{ns3}~\cite{nsnam} discrete-event simulators.
+\acs{OMNET} is an open-source, modular, and extensible discrete-event simulator that provides an object-oriented framework for modeling and simulating networks, and includes a variety of modules for different network protocols and technologies.
+\acs{ns2}, and \acs{ns3} refer to two generations of the same project.
+These widely popular simulation frameworks provide comprehensive sets of tools for modeling and simulating networks, and include support for a range of network technologies.
+
+Nevertheless, simulations also have their limitations.
+The realism of simulations is inherently limited by the accuracy and completeness of the underlying models used.
+Simulations rely on mathematical models that are an abstraction of the real-world system, and these models are only as accurate as the assumptions made and the data used to construct them.
+Simulations also cannot account for the impact of external factors on the system's performance.
+Real-world systems are often subject to factors that cannot be modeled accurately, such as unpredictable weather conditions, human behavior, or hardware failures.
+Moreover, for complex systems with many interacting components, simulations can become prohibitively computationally expensive and time consuming.
+It is not unusual for simulations of highly complex systems to execute much slower than real-time due to the computational power required to calculate the interactions between elements in the system.
+
+\medskip
+
+The third and final approach to performance evaluation of networked systems is practical experimentation on the real system.
+Such an approach involves measuring the performance of the \emph{real} system using practical, real-world experiments in different scenarios.
+Experimental research is often the final stage in systematic performance benchmarking, employed once the problem space has been reduced to a handful of potential solutions through mathematical modeling and subsequent simulations.
+
+Experimental research provides the most accurate assessment of system performance.
+It allows for an extremely high level of realism and can capture factors that cannot be accurately modeled through mathematical modeling or simulations, such as non-linear behaviors, human behavior, and unexpected events.
+Experimental methods provide direct measures of the system's performance under real-world conditions, enabling researchers to validate the accuracy of their mathematical models and simulations.
+
+However, experimental approaches also come with challenges, such as cost, practicality, repeatability, and replicability.
+Experimental research is often time-consuming and expensive to perform, as its implementation requires access to the real system under study.
+Additionally, experimental research is also limited in terms of replicability and repeatability, particularly for systems subject to external factors or stochastic and chaotic effects.
+This can make it challenging to draw definitive conclusions from experimental research.
+
+When it comes to experimental approaches in research involving humans, there are additional challenges that must be considered beyond those mentioned above.
+Ethical concerns related to participant safety, informed consent, and privacy must be addressed, and studies involving human participants must be reviewed and approved by appropriate ethical review panels\footnote{%
+    In Sweden, ethical review is handled at the state level by the Ethical Review Authority (\emph{Etikprövningsmyndigheten}); in the \acs{USA}, it is handled by each institution's \gls{IRB}.
+}.
+Recruitment and retention of human participants can be challenging, as participants may drop out or not show up for study sessions, leading to data collection difficulties.
+Despite these challenges, research involving human participants provides invaluable insights into the behavior and performance of networked systems and is critical for fully understanding and optimizing the performance of these systems in real-world settings.
 
 \subsection{Edge Computing}
-\glsresetall%
 
 \begin{figure}
     \centering
@@ -71,79 +146,6 @@ These applications had been hitherto inviable to implement due to the limitation
 Finally, another variant of Edge Computing called \emph{Fog} computing, introduced by \citeauthor{bonomi2012fog}~\cite{bonomi2012fog} in\ \citeyear{bonomi2012fog}, concerns itself specifically with the distribution of computing power between the Cloud and the edge for the reduction of bandwidth requirements.
 By aggregating, transforming, and filtering data at multiple levels in the network, Fog computing aims to reduce the load placed on Cloud datacenters by massive \gls{IOT} sensor networks~\cite{yi2015survey}.
 Edge Computing also presents opportunities for increased data security, privacy, and integrity, by keeping it geographically close to its origin and by allowing for anonymization through denaturing and local aggregation before offloading to Cloud services~\cite{satyanarayanan2017emergence}.
-
-\subsection{Performance evaluation of networked systems}
-
-Performance evaluation is an essential step in designing and optimizing networked systems, in order to ensure efficient and effective operation.
-Such evaluation involves measuring and analyzing system performance under a multitude of scenarios to identify potential bottlenecks.
-In practice, three main approaches exist to the performance evaluation of any complex system; analytical modeling, simulations, and experimental evaluation~\cite{fernandes2017performance}.
-These approaches each have their advantages and disadvantages.
-
-Analytical or mathematical modeling involves creating a mathematical model that represents the system's behavior and performance.
-This involves defining the system's components, their interactions, and the performance metrics used to measure the system's performance.
-The mathematical model can be solved analytically, providing insights into the behavior of the system under different conditions.
-
-Analytical modeling is often used as a first step when attempting to identify possible solutions to a problem and provide an initial reduction of the problem space.
-One of the key advantages of mathematical modeling is that their realism and resulting complexity can be arbitrarily constrained as required.
-This allows researchers to quickly evaluate a large number of scenarios by employing coarse, approximate models to identify and highlight latent issues.
-These models can then be refined to further narrow the solution space.
-This approach is particularly useful for systems with complex interactions between multiple components, where testing every possible scenario in the real world or even in simulations would be impractical or impossible due to time and cost constraints.
-
-However, analytical modeling also has its limitations, in particular with respect to highly complex systems.
-In systems involving a large number of interacting components and processes, the mathematical equations required to model the system become more complex and difficult to solve.
-Assumptions about system behavior also become more inaccurate and incomplete as this behavior grows in complexity.
-As mathematical models are based on assumptions about the system's behavior and performance, incorrect, incomplete, or inaccurate assumptions can in turn lead to erroneous predictions.
-Additionally, complex systems may involve non-linear interactions between components, further increasing the difficulty of accurately modeling these systems.
-
-\medskip
-
-The second possible approach to performance evaluation of networked systems is simulation.
-This involves creating a computational model of the system, and then using it to simulate a series of scenarios to measure the model's performance.
-Simulations are often used to validate mathematical models and further narrow down the problem and solution spaces.
-
-Simulations offer numerous advantages.
-They represent an inexpensive and reliable way to study systems, by providing safe, controlled, and repeatable environments in which to test the system's behavior~\cite{fernandes2017performance}.
-Simulations also allow researchers to evaluate the system's performance with a high degree of accuracy and granularity, as they can approximate the system's behavior at a very fine-grained level without necessarily having to resort to complex mathematical modeling.
-Additionally, simulations can be used to test the impact of changes to the system's design or configuration, allowing researchers and system designers to identify the most effective solutions to improve performance.
-
-Simulation is a widely used and well-established method in networked system research, and there exists a rich literature surrounding tools for its implementation as a methodology~\cite{wehrle2010modeling}.
-The availability of simulation frameworks has made it easier for researchers to evaluate the performance of networked systems controlled environments.
-These frameworks provide a set of tools and libraries that enable researchers to create models of networked systems with very little overhead to simulate their behavior.
-
-Examples of frameworks for network simulation include the widely adopted \acs{OMNET}~\cite{omnet}, \acs{ns2}, and \acs{ns3}~\cite{nsnam} discrete-event simulators.
-\acs{OMNET} is an open-source, modular, and extensible discrete-event simulator that provides an object-oriented framework for modeling and simulating networks, and includes a variety of modules for different network protocols and technologies.
-\acs{ns2}, and \acs{ns3} refer to two generations of the same project.
-These widely popular simulation frameworks provide comprehensive sets of tools for modeling and simulating networks, and include support for a range of network technologies.
-
-Nevertheless, simulations also have their limitations.
-The realism of simulations is inherently limited by the accuracy and completeness of the underlying models used.
-Simulations rely on mathematical models that are an abstraction of the real-world system, and these models are only as accurate as the assumptions made and the data used to construct them.
-Simulations also cannot account for the impact of external factors on the system's performance.
-Real-world systems are often subject to factors that cannot be modeled accurately, such as unpredictable weather conditions, human behavior, or hardware failures.
-Moreover, for complex systems with many interacting components, simulations can become prohibitively computationally expensive and time consuming.
-It is not unusual for simulations of highly complex systems to execute much slower than real-time due to the computational power required to calculate the interactions between elements in the system.
-
-\medskip
-
-The third and final approach to performance evaluation of networked systems is practical experimentation on the real system.
-Such an approach involves measuring the performance of the \emph{real} system using practical, real-world experiments in different scenarios.
-Experimental research is often the final stage in systematic performance benchmarking, employed once the problem space has been reduced to a handful of potential solutions through mathematical modeling and subsequent simulations.
-
-Experimental research provides the most accurate assessment of system performance.
-It allows for an extremely high level of realism and can capture factors that cannot be accurately modeled through mathematical modeling or simulations, such as non-linear behaviors, human behavior, and unexpected events.
-Experimental methods provide direct measures of the system's performance under real-world conditions, enabling researchers to validate the accuracy of their mathematical models and simulations.
-
-However, experimental approaches also come with challenges, such as cost, practicality, repeatability, and replicability.
-Experimental research is often time-consuming and expensive to perform, as its implementation requires access to the real system under study.
-Additionally, experimental research is also limited in terms of replicability and repeatability, particularly for systems subject to external factors or stochastic and chaotic effects.
-This can make it challenging to draw definitive conclusions from experimental research.
-
-When it comes to experimental approaches in research involving humans, there are additional challenges that must be considered beyond those mentioned above.
-Ethical concerns related to participant safety, informed consent, and privacy must be addressed, and studies involving human participants must be reviewed and approved by appropriate ethical review panels\footnote{%
-    In Sweden, ethical review is handled at the state level by the Ethical Review Authority (\emph{Etikprövningsmyndigheten}); in the \acs{USA}, it is handled by each institution's \gls{IRB}.
-}.
-Recruitment and retention of human participants can be challenging, as participants may drop out or not show up for study sessions, leading to data collection difficulties.
-Despite these challenges, research involving human participants provides invaluable insights into the behavior and performance of networked systems and is critical for fully understanding and optimizing the performance of these systems in real-world settings.
 
 \subsection{Closed-loop feedback systems enabled by Edge Computing}
 
