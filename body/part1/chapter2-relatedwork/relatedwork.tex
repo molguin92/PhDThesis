@@ -10,19 +10,39 @@
     Need to add mathematical models (ask James for citations) and simulations.
 }
 
-This dissertation complements existing work on benchmarking distributed system architectures.
-A rich body of literature exists with examples of such approaches for Cloud computing.
-For example, the \gls{YCSB}~\cite{cooper2010benchmarking} is a data-intensive benchmark for the profiling of data centers and Cloud services; workload characterization in datacenters leads to a similar benchmark in~\cite{jia2013characterizing}.
-In~\cite{turner2012cmart}, the authors introduce \emph{C-MART}, a benchmark for modern web applications running on the Cloud.
-The benchmark utilizes modern web technologies, can be deployed automatically at a large scale, and includes generators that mimic remote clients accessing the system over the internet.\@
-\cite{malawski2018benchmarking,back2018using} focus instead on serverless computing, using compute-intensive workloads to benchmark major Cloud function providers such as \gls{AWS}, Microsoft Azure, and \gls{GCP}.
+\subsubsection{Analytical modeling and simulation approaches}
 
-As evidenced by the given examples, existing approaches to Cloud benchmarking tend to focus heavily on large-scale data processing and downlink transmission in Cloud scenarios.
-This makes them unsuitable for Edge Computing, as they fail to account for important characteristics of this paradigm, such as latency-sensitivity of workloads and uplink-heavy network traffic.
+The performance evaluation of Edge Computing deployments is a challenging task, with only a limited number of works attempting to tackle it through analytical models or simulations.
+One reason for this is the inherent complexity of modeling such intricate systems, which often involve multiple layers of proxies, load balancers, virtualized computing instances, and networking functions.
+The dynamic nature of Edge Computing deployments, with their distributed architectures and diverse set of devices, makes it difficult to develop accurate models that capture the complexities of real-world deployments.
 
-The limitations of previous approaches has in later years led to a number of works that have attempted to tackle the challenge of specifically benchmarking Fog and Edge deployments as well.
-Even so, these works have generally leveraged static workloads that fail to account for the intensely dynamic nature of \gls{CPS} deployments.
-Examples of approaches which fall into this category include
+Most of the existing approaches for performance evaluation in Edge Computing have originated from the field of network performance evaluation.
+These approaches often focus on specific use-cases and simplify the processing and compute steps by modeling them as black boxes with fixed or simple distributions of latency.
+
+
+\todo[inline]{WIP}
+
+
+% This simplistic approach may not accurately reflect the true performance characteristics of Edge Computing deployments, which involve dynamic interactions between software processes and hardware and network infrastructure.
+
+
+
+
+% Despite these challenges, recent research has made progress in developing more sophisticated models and simulations for performance evaluation in Edge Computing. These approaches aim to capture the complex dynamics of Edge Computing deployments, including the variability in processing and compute times, network delays, and resource availability. By considering the intricacies of Edge Computing deployments, these advanced models can provide more accurate and comprehensive evaluations of performance, enabling researchers and practitioners to gain deeper insights into the behavior of latency-sensitive applications in Edge Computing environments.
+
+\subsubsection{Experimental research}
+
+% This dissertation complements existing work on benchmarking distributed system architectures.
+% A rich body of literature exists with examples of such approaches for Cloud computing.
+% For example, the \gls{YCSB}~\cite{cooper2010benchmarking} is a data-intensive benchmark for the profiling of data centers and Cloud services; workload characterization in datacenters leads to a similar benchmark in~\cite{jia2013characterizing}.
+% In~\cite{turner2012cmart}, the authors introduce \emph{C-MART}, a benchmark for modern web applications running on the Cloud.
+% The benchmark utilizes modern web technologies, can be deployed automatically at a large scale, and includes generators that mimic remote clients accessing the system over the internet.\@
+% \cite{malawski2018benchmarking,back2018using} focus instead on serverless computing, using compute-intensive workloads to benchmark major Cloud function providers such as \gls{AWS}, Microsoft Azure, and \gls{GCP}.
+
+% As evidenced by the given examples, existing approaches to Cloud benchmarking tend to focus heavily on large-scale data processing and downlink transmission in Cloud scenarios.
+% This makes them unsuitable for Edge Computing, as they fail to account for important characteristics of this paradigm, such as latency-sensitivity of workloads and uplink-heavy network traffic.
+
+A number of works have attempted to tackle the challenge of experimentally evaluation performance of Fog and Edge deployments, such as 
 \begin{inlineenum}
     \item \emph{EdgeBench}~\cite{das2018edgebench}
     \item \emph{IoTBench}~\cite{lee2019iotbench}
@@ -39,13 +59,12 @@ Finally, \emph{OpenRTiST}~\cite{george2020openrtist} is a tool for the benchmark
 Video is streamed from a source Android device to a compute node where neural style-transfer~\cite{gatys2016image} is applied to it.
 The transformed video is then fed back to the source to be presented, resulting in a compute-intensive, bandwidth-hungry, and latency-sensitive benchmark.
 
-Furthermore, although some of these approaches address some of the challenges to benchmarking \gls{XR} on the Edge, none of them have tackled the topic in a comprehensive way.\@
+Although valuable contributions, these works have generally leveraged static workloads that fail to account for the intensely dynamic nature of \gls{CPS} and \gls{XR} deployments.
+Furthermore, although some of these approaches address some of the additional challenges to benchmarking \gls{XR} on the Edge, none of them have tackled the topic in a comprehensive way.\@
 \cite{das2018edgebench,mcchesney2019defog,baurle2022comb,george2020openrtist} all target image or video recognition or manipulation in some manner.
 However, none of these approaches have considered the interactive component of \gls{MAR}, particularly when it comes to human behavior and its relationship to system responsiveness and performance.
 
-\subsubsection{Testbed research in Edge Computing}
-
-The last few years have seen the emergence of a number of small- to mid-scale platforms and testbeds for Edge Computing research.
+\paragraph{Testbed research in Edge Computing} The last few years have also seen the emergence of a number of small- to mid-scale platforms and testbeds for Edge Computing research.
 Several of these are additionally driven by research interests in novel mobile networking technologies and \gls{MEC}, as well as in the virtualization of network functions.
 Of particular interest to us are the
 \begin{inlineenum}
@@ -58,31 +77,17 @@ Of particular interest to us are the
 %    \item Drexel Grid \gls{SDR}
 \end{inlineenum} testbeds.
 
-\gls{GENI} is a testbed deployed across more than fifty sites across the \gls{USA}.
-Originally designed for ``the development, deployment, and validation of transformative, at-scale concepts in network science, services, and security''~\cite{berman2014geni}, \gls{GENI} today combines local Edge compute resources with mobile network last-hop connectivity for \gls{MEC} experimentation~\cite{gosain2017geni}.
-The wireless-capable sites incorporate single-hop access to compute, storage, and network resource, making \gls{GENI} a compelling Edge Computing platform.
-
+\gls{GENI}~\cite{berman2014geni,gosain2017geni} is a testbed deployed across more than fifty sites across the \gls{USA}.
+It combines local Edge compute resources with mobile network last-hop connectivity for \gls{MEC} experimentation, with wireless-capable sites incorporate single-hop access to compute, storage, and network resources.
 The Chameleon testbed is a research platform originally designed for the study and evaluation of Cloud computing systems~\cite{keahey2020lessons}, but which has recently been expanded to target Edge Computing research through the \acs{CHI}@Edge~\cite{chiatedge} project.
-Chameleon is a collaborative project operated by a consortium of research institutions and industry partners, and is designed to provide a flexible and reconfigurable infrastructure for researchers to experiment with and test various Cloud computing technologies, algorithms, and configurations.
-The testbed provides a highly reconfigurable array of hardware and software resources, including servers, storage systems, and networking equipment, able to simulate various Cloud and Edge Computing scenarios.
-
-\gls{COSMOS} is a testbed deployed in New York City (State of New York, \gls{USA}), containing over \num{200} rooftop, intermediate, and mobile nodes.
-The testbeds main \emph{raison d'être} is \gls{MEC} research, with a strong emphasis on wireless networks.
+The testbed provides a flexible and reconfigurable infrastructure for researchers to experiment with hardware and software resources, including servers, storage systems, and networking equipment.
+\gls{COSMOS} is a \gls{MEC} testbed deployed in New York City (State of New York, \gls{USA}), containing over \num{200} rooftop, intermediate, and mobile nodes.
 The system includes \glspl{SDR}, \si{\milli\meter}-wave equipment, optical fibers, Cloud integration, and Edge compute for core network functionality and application data processing~\cite{yu2019cosmos,raychaudhuri2020challenge}.
-
-\gls{POWDER} is described by the authors of~\cite{breen2020powder} as a ``city-scale, remotely accessible, end-to-end software defined platform supporting a broad range of wireless and mobile related research''.
-It features roughly \num{15} fixed programmable radio nodes, based on off-the-shelves \glspl{SDR}, distributed across a \SI{15}{\kilo\meter\squared} area in Salt Lake City (State of Utah, \gls{USA}).
+\gls{POWDER}~\cite{breen2020powder} features roughly \num{15} fixed programmable radio nodes distributed across a \SI{15}{\kilo\meter\squared} area in Salt Lake City (State of Utah, \gls{USA}).
 These radio nodes are combined with Edge-based compute nodes as well as Cloud resources for full \gls{MEC} experimentation.
-
-The \gls{ARA} platform~\cite{zhang2022ara} is a highly flexible testbed based on the \gls{CHI} software suite originally developed for the aforementioned Chameleon testbed~\cite{keahey2020lessons}.
-\gls{ARA} is developed by researchers at Iowa State University in Ames, Iowa (\gls{USA}), and spans a rural area with a diameter of over \SI{60}{\kilo\meter}~\cite{zhang2022ara}.
-Its core goal is the study and deployment of advanced Edge Computing and wireless platforms and technologies in real-world agricultural and rural settings, and includes a broad range of wireless technologies deployed through both \glspl{SDR} and programmable \gls{COTS} radios, as well as automated ground vehicles, cameras and sensors.
-
-EdgeNet deviates from the approaches described above and represents a fully software-based, massively distributed public platform for Edge Computing research~\cite{cappos2018edgenet,senel2021edgenet1,senel2021edgenet2}.
-It consists of a public, modified and customized Kubernetes~\cite{kubernetes} cluster.
-The EdgeNet software is available for anyone to download;
-individuals and organizations can quickly deploy self-hosted Edge nodes which are then made available to anyone using the platform.
-The end result is a flexible and scalable global Edge Cloud simplifying research and prototype development in Edge and Cloud computing.
+\gls{ARA} includes a broad range of wireless technologies deployed through both \glspl{SDR} and programmable \gls{COTS} radios, as well as automated ground vehicles, cameras and sensors and and spans a rural area with a diameter of over \SI{60}{\kilo\meter}~\cite{zhang2022ara} in Iowa, \gls{USA}. 
+Its core goal is the study and deployment of advanced Edge Computing and wireless platforms and technologies in real-world agricultural and rural settings.
+EdgeNet deviates from the approaches described above and represents a fully software-based, massively distributed public platform for Edge Computing research~\cite{cappos2018edgenet,senel2021edgenet1,senel2021edgenet2} based on the widely adopted Kubernetes~\cite{kubernetes} framework.
 A similar, closely-related project is KubeEdge~\cite{xiong2018extend}, a software framework for extending Kubernetes clusters from the Cloud to the Edge.
 
 Finally, a number of other, small-scale approaches also exist.
@@ -93,6 +98,41 @@ In~\cite{yamanaka2021design}, the authors present an experimental Edge Computing
 \cite{diao2019scalable} propose yet another Kubernetes-based testbed based for Edge task offloading based on heterogeneous hardware including low-power single-board computers such as Raspberry Pis and Jetson Nanos.\@
 \cite{moorthy2022cloudraft} proposes \gls{CLOUDRAFT}, a Cloud-based framework for mobile network experimentation, with a focus on simplifying the management of testbed resources.
 The goal of this project is to integrate, coordinate, share, and improve upon existing testbeds through a common interface.
+
+% Originally designed for ``the development, deployment, and validation of transformative, at-scale concepts in network science, services, and security''~\cite{berman2014geni}, \gls{GENI} today combines local Edge compute resources with mobile network last-hop connectivity for \gls{MEC} experimentation~\cite{gosain2017geni}.
+% The wireless-capable sites incorporate single-hop access to compute, storage, and network resource, making \gls{GENI} a compelling Edge Computing platform.
+
+% The Chameleon testbed is a research platform originally designed for the study and evaluation of Cloud computing systems~\cite{keahey2020lessons}, but which has recently been expanded to target Edge Computing research through the \acs{CHI}@Edge~\cite{chiatedge} project.
+% Chameleon is a collaborative project operated by a consortium of research institutions and industry partners, and is designed to provide a flexible and reconfigurable infrastructure for researchers to experiment with and test various Cloud computing technologies, algorithms, and configurations.
+% The testbed provides a highly reconfigurable array of hardware and software resources, including servers, storage systems, and networking equipment, able to simulate various Cloud and Edge Computing scenarios.
+
+% \gls{COSMOS} is a testbed deployed in New York City (State of New York, \gls{USA}), containing over \num{200} rooftop, intermediate, and mobile nodes.
+% The testbeds main \emph{raison d'être} is \gls{MEC} research, with a strong emphasis on wireless networks.
+% The system includes \glspl{SDR}, \si{\milli\meter}-wave equipment, optical fibers, Cloud integration, and Edge compute for core network functionality and application data processing~\cite{yu2019cosmos,raychaudhuri2020challenge}.
+
+% \gls{POWDER} is described by the authors of~\cite{breen2020powder} as a ``city-scale, remotely accessible, end-to-end software defined platform supporting a broad range of wireless and mobile related research''.
+% It features roughly \num{15} fixed programmable radio nodes, based on off-the-shelves \glspl{SDR}, distributed across a \SI{15}{\kilo\meter\squared} area in Salt Lake City (State of Utah, \gls{USA}).
+% These radio nodes are combined with Edge-based compute nodes as well as Cloud resources for full \gls{MEC} experimentation.
+
+% The \gls{ARA} platform~\cite{zhang2022ara} is a highly flexible testbed based on the \gls{CHI} software suite originally developed for the aforementioned Chameleon testbed~\cite{keahey2020lessons}.
+% \gls{ARA} is developed by researchers at Iowa State University in Ames, Iowa (\gls{USA}), and spans a rural area with a diameter of over \SI{60}{\kilo\meter}~\cite{zhang2022ara}.
+% Its core goal is the study and deployment of advanced Edge Computing and wireless platforms and technologies in real-world agricultural and rural settings, and includes a broad range of wireless technologies deployed through both \glspl{SDR} and programmable \gls{COTS} radios, as well as automated ground vehicles, cameras and sensors.
+
+% EdgeNet deviates from the approaches described above and represents a fully software-based, massively distributed public platform for Edge Computing research~\cite{cappos2018edgenet,senel2021edgenet1,senel2021edgenet2}.
+% It consists of a public, modified and customized Kubernetes~\cite{kubernetes} cluster.
+% The EdgeNet software is available for anyone to download;
+% individuals and organizations can quickly deploy self-hosted Edge nodes which are then made available to anyone using the platform.
+% The end result is a flexible and scalable global Edge Cloud simplifying research and prototype development in Edge and Cloud computing.
+% A similar, closely-related project is KubeEdge~\cite{xiong2018extend}, a software framework for extending Kubernetes clusters from the Cloud to the Edge.
+
+% Finally, a number of other, small-scale approaches also exist.
+% In~\cite{gedawy2016cumulus}, the authors propose Cumulus, a prototype testbed for Edge compute offloading in \gls{IOT} with the explicit goal of providing a generic and heterogeneous platform for Edge Computing research.
+% The authors of~\cite{rimal2018experimental} propose an experimental testbed for two-tiered Edge architectures in the context of \gls{FIWI} Edge Computing.
+% This testbed is then employed to validate wireless access and compute resource scheduling strategies in these systems.
+% In~\cite{yamanaka2021design}, the authors present an experimental Edge Computing testbed capable of determining the offload location of a workload based on desired latency parameters.
+% \cite{diao2019scalable} propose yet another Kubernetes-based testbed based for Edge task offloading based on heterogeneous hardware including low-power single-board computers such as Raspberry Pis and Jetson Nanos.\@
+% \cite{moorthy2022cloudraft} proposes \gls{CLOUDRAFT}, a Cloud-based framework for mobile network experimentation, with a focus on simplifying the management of testbed resources.
+% The goal of this project is to integrate, coordinate, share, and improve upon existing testbeds through a common interface.
 
 \medskip
 
@@ -113,40 +153,32 @@ There is still remains much work to be done in this area, particularly with resp
 
 \subsection{Experimental research in \glsfmtshort{MAR} and \glsfmtshort{CPS}}
 
-\todo[inline]{
-    At this point we have settled for experimental approach.
-    No need to delve deep in math models and simulations, right?
-}
+\subsubsection{Experimental research in \glsfmtlong{MAR}}\label{sec:relwork:xremulation}
 
-\todo[inline]{
-    Also, title again needs reworking.
-}
+\gls{MAR} is difficult to model or simulate due to its dynamic and interactive nature involving ``humans-in-the-loop''.
+\gls{MAR} experiences are highly dependent on real-time interactions between the user, the virtual objects, the communication network, the computation node, and the real-world.
+These interactions are exceedingly challenging to accurately model and reproduce in controlled, simulated, environments.
+As a result, the vast majority of research in this field employs experimental approaches to performance evaluation.
+Although simulation and model-based approaches such as~\cite{liubogoshchev2021adaptive,sundararajan2021performance} exist, they are far and few in between, and generally target specific use-cases.
+Performance evaluation in this field relies instead broadly on real-world experiments and benchmarks are conducted to evaluate the actual performance and user experience of \gls{MAR} applications in real-world conditions, providing more accurate and reliable results.
 
-\subsubsection{Experimental approaches to \gls{MAR} research}\label{sec:relwork:xremulation}
-\todo[inline]{Rework to talk more generally about experimental research in MAR?}
-
-Only a limited number of works addressing the partial or complete emulation of XR applications for benchmarking and research purposes exist in literature.
-One such work is~\cite{williams2013transform}.
-In this, the authors introduced a trace-based toolkit for the evaluation of tracking algorithms in \gls{AR} research and development.
+Examples of such experimental research include~\cite{williams2013transform,munro2016aaremu,george2020openrtist,choi2022emulating,chetoui2022arbench}.
+In~\cite{williams2013transform}, the authors introduced a trace-based toolkit for the evaluation of tracking algorithms in \gls{AR} research and development.
 The trace consists of geographical coordinates and accelerometer data as well as video frames which can be replayed on a desktop visualization tool or a smartphone application for the evaluation of tracking algorithms in \gls{AR} research and development.\@
-\cite{munro2016aaremu} presents a trace-based framework that allows a previously recorded trace of inputs to be replayed to the processing components of a real \gls{AR} application by mocking Android \gls{SDK} \glspl{API}.
+\cite{munro2016aaremu} presents a trace-based framework that allows a previously recorded trace of inputs to be replayed to the processing components of a real \gls{MAR} application by mocking Android \gls{SDK} \glspl{API}.
 This approach allows for benchmarking and evaluation of algorithms and architectures on real data.
-A similar approach was taken by~\cite{choi2022emulating}, but the authors instead provided developers of \gls{AR} with a framework that abstracts input into general classes, allowing for device-agnostic processing.
+The previously mentioned~\cite{george2020openrtist} approximates the workload generated by a \gls{MAR} on an Edge Computing deployment by performing real-time style-transfer on a live video feed. 
+A similar approach to~\cite{munro2016aaremu} was taken by~\cite{choi2022emulating}, but the authors instead provided developers of \gls{AR} with a framework that abstracts input into general classes, allowing for device-agnostic processing.
 Finally, the authors of~\cite{chetoui2022arbench} employ \gls{AR} emulation to evaluate hardware rather than the software implementation itself.
 Their tool, \emph{ARBench}, features emulated \gls{AR} workloads that mimic the load placed on the system by real applications.
 
-While the above approaches to benchmarking and research in \gls{XR} are steps in the right direction, they fail to consider the dynamic nature of \gls{XR}.
+While the above approaches to performance evaluation and research in \gls{MAR} are steps in the right direction, they fail to consider the dynamic nature of \gls{MAR}.
 The use of rigid traces in trace-based approaches can lead to timing mismatches when replaying at runtime, as the system may respond differently to the same input depending on factors such as system load and network congestion.
 Additionally, these approaches do not take into consideration the effects of system responsiveness on human behavior, which can be critical for evaluating both \gls{QoS} and \gls{QoE}.
 To address these issues, future approaches will need to adapt trace replay at runtime to match expected behaviors and consider the impact of system responsiveness on user behavior.
-By doing so, we can develop more accurate and reliable benchmarks for \gls{XR} applications and improve our understanding of how users interact with these technologies.
+By doing so, we can develop more accurate and reliable benchmarks for \gls{MAR} applications and improve our understanding of how users interact with these technologies.
 
-\subsubsection{Experimental approaches to research in \glsfmtshortpl{NCS}}
-\todo[inline]{
-    Rework.
-    Don't focus on repeatability argument.
-    Argue that a generic front-end-emulated approach is needed for flexibility.
-}
+\subsubsection{Experimental approaches to research in \glsfmtlongpl{NCS}}
 
 A significant amount of work has been dedicated to the modeling and performance characterization of \glspl{NCS} due to their potential benefits for industrial and commercial settings~\cite{lu2016real,hespanha2007survey,zhang2013network,zhang2016survey}.
 Research in \glspl{NCS} has mostly focused on addressing the challenges imposed by the introduction of best-effort communication networks into traditional control systems.
@@ -157,44 +189,25 @@ Most of the large literature concerning \glspl{NCS}, however, follows a theoreti
 \gls{NCS} studies are complex due to the inter-domain nature of these systems, requiring expertise in the fields of communication networks, computing, and control theory.
 However, theoretical approaches can only capture network behaviors at a coarse level, and thus a body of works has emerged in later years involving experimental approaches to \gls{NCS} benchmarking.
 
-Experimental research in \glspl{NCS} involves a diverse range of hardware and software platforms, methodologies, and key performance indicators.
-Specifically, we identify three distinct categories of approaches: fully practical, fully simulated, and emulated approaches that combine components of the first two.
-
+We identify two main approaches: fully practical and partially-emulated approaches.
 In a fully practical approach, the experimental setup uses real systems and hardware to test and validate the performance of the \gls{NCS}.
-This approach is straightforward to implement, and can be very useful for evaluating the real-world applicability of the system, but can be costly and time-consuming.
 Examples of the application of this approach can be found in studies such as~\cite{drew2005networked,baumann2018evaluating,li2014wireless,cuenca2019periodic}.
 These studies implemented wireless and microcontroller-based systems for control and validated them on a physical prototype.
-
 In~\cite{drew2005networked}, the authors present a \gls{NCS} model which considers both random packet delay and loss on both the sensor and actuator sides of the feedback loop.
 They validate their design on a physical testbed consisting of inverted pendula controlled from a central computation point over Wi-Fi.
 A similar testbed is employed for validation in~\cite{baumann2018evaluating}, in which the authors develop an evaluation methodology for wireless \gls{NCS}.\@
 \cite{li2014wireless} implements a wireless microcontroller-based system for vibration control and validates it on a physical prototype comprising a cantilever beam controlled using an \acs{IEEE} 802.15.4 \gls{WPAN} system.\@ \cite{cuenca2019periodic} discusses the design and implementation of a periodic event-triggered sampling and dual-rate control techniques for wireless control, and validate their contributions on a four-rotor autonomous drone platform controlled over WiFi.
 \emph{NCSbench}~\cite{zoppi2020ncsbench}, an open-source \gls{NCS} benchmarking platform designed with reproducibility in mind built using the \citetitle{LEGOMindstormsEV3}~\cite{LEGOMindstormsEV3} platform, is another such example.
 
-Completely simulated setups, on the other hand, rely on computer simulations to evaluate the \gls{NCS}'s performance.
-This approach is less expensive and faster than the practical approach but may not fully capture the real-world complexities of the system.
-Examples of tools and frameworks for the implementation of this approach can be found in works such as~\cite{andersson2005simulation,eyisi2012ncswt}.
-
-A simulated approach is employed in~\cite{du2009novel}, in which the authors develop a novel \emph{Smith} predictor to compensate for varying latencies in wireless \glspl{NCS} and validate it using the \emph{TrueTime}~\cite{henriksson2002truetime} simulator.
-In~\cite{chen2015synchronous} the authors validate and evaluate a number of synchronous control strategies for three-motor setups using completely simulated \glspl{NCS} environments.\@
-\cite{wu2012application} introduces the concept of \emph{network predictive control} in and uses it to balance a simulated inverted pendulum over a simulated wireless network.\@
-\cite{ma2019optimal} proposes an optimal dynamic scheduling strategy that optimizes performance of multi-loop control systems and validate it by simulating a four-loop control system over an \acs{IEEE} 802.15.4 \gls{WPAN}.
-
-Finally, network and hardware-in-the-loop approaches, which aim to strike a balance between realism and efficiency, have also been employed in literature.
+Partially-emulated approaches, including network and hardware-in-the-loop approaches and which aim to strike a balance between realism and efficiency, have on the other hand also been employed in literature.
 Network-in-the-loop refers to experimental setups in which the \emph{network} is instead simulated or emulated.
 Such approaches have, for instance, been used to study the effects of the \gls{CSMA/CD} medium access control mechanism on plant stability, as in~\cite{natale2004inverted}.
 Hardware-in-the-loop approaches, referring to \gls{NCS} setups in which a real network interacts with a simulated or emulated control system, are particularly prevalent in the field of \emph{smart grid} control.
 An example of the application of such an approach can be found in~\cite{wang2020inverter}, in which the authors introduce and validate a novel three-level coordinated control method for photovoltaic inverters.
 
-\medskip
-
-The diversity of experimental \glspl{NCS} research discussed above has led to fragmentation of hardware, software, and methodology, as studies tend to favor approaches popular in their respective communities.
-Additionally, studies tend to focus on individual aspects and components of the system, resulting in incomplete knowledge of the overall \glspl{NCS}.
-There is a gap in knowledge concerning the reproducibility and comparison of experimental studies on these systems.
-
-To our knowledge, the only published attempt at addressing methodological fragmentation and poor reproducibility of experimental \gls{NCS} research is the LEGO-based approach introduced in~\cite{zoppi2020ncsbench}.
-However, this approach has limitations.
-It is dependent on specific hardware --- the LEGO Mindstorms set --- which makes its adoption limited due to availability issues, reduces its flexibility, scalability, and limits the scope of experiments able to be conducted via \emph{NCSbench} only to what is possible to implement in LEGO.\@
-Scaling up experiments becomes cumbersome and costly, further limiting the practicality of the tool.
-Thus, a more general approach that tackles the scalability and reproducibility issues of NCS research is urgently needed.
-The development of such an approach would enable researchers to conduct experiments that generate reproducible results consistently and can be compared across different studies while still retaining the computational sophistication required when scaling up experiments.
+To the best of our knowledge, there exist currently no generic, hardware-independent framework available for repeatable experimental research in Edge-bound \glspl{NCS}.
+While there has been some notable work in this area, such as the work by~\cite{zoppi2020ncsbench}, existing contributions still mostly rely on proprietary and hardware that is difficult to acquire.
+This limitation restricts the accessibility of the framework to researchers and practitioners, hindering the reproducibility and comparability of experimental results.
+Moreover, the existing research's reliance on hardware also poses scalability limitations.
+As the field of Edge Computing-enabled \glspl{NCS} continues to evolve, there is a growing demand for scalable solutions that can be easily adapted to different hardware configurations and setups.
+A software-based framework that provides a flexible and scalable solution for performance evaluation of \glspl{NCS} in Edge-native contexts is currently lacking in the field.
