@@ -12,12 +12,34 @@
 
 \subsubsection{Analytical modeling and simulation approaches}
 
-The performance evaluation of Edge Computing deployments is a challenging task, with only a limited number of works attempting to tackle it through analytical models or simulations.
+The performance evaluation of Edge Computing deployments is a daunting task, and only a limited number of works have attempted to tackle it through analytical models or simulations.
 One reason for this is the inherent complexity of modeling such intricate systems, which often involve multiple layers of proxies, load balancers, virtualized computing instances, and networking functions.
 The dynamic nature of Edge Computing deployments, with their distributed architectures and diverse set of devices, makes it difficult to develop accurate models that capture the complexities of real-world deployments.
 
-Most of the existing approaches for performance evaluation in Edge Computing have originated from the field of network performance evaluation.
-These approaches often focus on specific use-cases and simplify the processing and compute steps by modeling them as black boxes with fixed or simple distributions of latency.
+\todo[inline]{Analytical approaches}
+
+A number of approaches to performance evaluation of distributed systems exist in literature, particularly geared towards the Cloud.
+Examples of such approaches include the \emph{CloudSim}, \emph{iCanCloud}, and \emph{GreenCloud} simulators.
+CloudSim~\cite{calheiros2011cloudsim} is a widely used event-based simulation toolkit designed for generic \gls{IaaS} Cloud Computing environments.
+iCanCloud~\cite{nunez2012icancloud} similarly focuses on simulating \gls{AWS} \gls{EC2} compute infrastructure, the project's primary objectives being performance and scalability of simulations.
+GreenCloud, on the other hand, is built upon the \acs{ns2}~\cite{nsnam} network simulator and specifically captures energy consumption details of datacenter components and communication patterns between these.
+However, these simulators are not suitable for Edge Computing research as they do not fully capture the unique characteristics of Edge environments.
+They do not account for the tight integration of compute and network in Edge Computing and only coarsely approximate network effects on workloads.
+In these Cloud Computing simulators, end-to-end transmission delays are often treated as static values;
+however, the dependency on wireless interfaces in Edge Computing requires a much more detailed modeling of the network.
+This includes considerations for mobility, a key characteristic of users in an Edge context which is not accounted for in any of the above tools.
+Moreover, existing models for Cloud workloads are unsuitable for Edge Computing research, as Edge workloads present compute characteristic which are wholly distinct from traditional Cloud workloads.
+Cloud workloads tend to be stateless and long-lived, whereas Edge workloads are context-sensitive and ephemeral.
+
+
+
+% \cite{sonmez2018edgecloudsim}: fully integrated simulation. Modular. Based on CloudSim. FOSS. 
+
+
+
+
+% Most of the existing approaches for performance evaluation in Edge Computing have originated from the field of network performance evaluation.
+% These approaches often focus on specific use-cases and simplify the processing and compute steps by modeling them as black boxes with fixed or simple distributions of latency.
 
 
 \todo[inline]{WIP}
