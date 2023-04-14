@@ -27,43 +27,47 @@
     Scope: define the challenges.
 }
 
-This dissertation focuses on the performance evaluation of networked systems in the context of \glspl{CPS} and \gls{MAR} applications enabled by low-latency distributed computing paradigms.
-Particular emphasis will be put on the role of Edge Computing as an enabling technology for these categories of systems and applications.
+\todo[inline]{
+    Write about in terms of relevance and challenges.
+    Motivate a bit. And then tell what we're not interested in.
 
-As discussed in \cref{sec:intro}, \glspl{CPS} and \gls{MAR} applications have both garnered the fascination of the research community due to their transformative potential and unique technical requirements.
-\glspl{CPS} have the potential to transform entire industries through real-time monitoring and control and hitherto inviable optimization of physical processes.
-\gls{MAR} applications are poised to transform the way we interact with the world around us, enabling novel forms of entertainment, education, training, and communication.
-Nevertheless, both these classes of systems have stringent latency and context-awareness requirements which until recently had not been met by existing distributing computing paradigm.
-
-Edge Computing plays therefore a crucial role in enabling these systems and applications.
-Edge Computing enables low to ultra-low latencies while providing the necessary compute capabilities and context-sensitivity necessitated by \glspl{CPS} and \gls{MAR}.
-However, Edge Computing represents a challenging area to benchmark, as the tight integration between compute and communication in these systems results in highly complex behaviors.
-Unlike traditional 
-
-\todo[inline]{WIP}
-
-
-% Unlike traditional computing systems, edge computing involves a distributed network of devices that work together to perform complex tasks. This creates significant challenges for benchmarking, as it is difficult to isolate individual components and measure their performance in isolation. 
-
-
-% Additionally, the performance of edge computing systems is highly dependent on the communication between devices, which can be impacted by a wide range of factors, including network topology, traffic patterns, and interference. As a result, benchmarking edge computing systems requires careful consideration of these factors, as well as the design and implementation of benchmarking tools that can accurately capture the complex interactions between compute and communication. Ultimately, benchmarking edge computing systems will be critical for ensuring that they meet the performance requirements of real-world applications and can deliver the benefits of low-latency, context-aware computing at scale.
-
-
-
-% By processing data locally on edge devices, rather than sending it to centralized cloud servers, edge computing can significantly reduce the latency of CPS and MAR applications. This low-latency is particularly important in real-time applications that require rapid decision-making and response times, such as autonomous vehicles and remote surgery. In addition, edge computing provides context-awareness by enabling data to be processed in close proximity to the source, allowing for more efficient and effective use of data and reducing the need for bandwidth-intensive data transfers. Overall, the combination of low-latency and context-awareness provided by edge computing is essential for the successful deployment and operation of CPS and MAR applications in a wide range of industries and use cases.
-
-
-% CPS have the ability to transform entire industries by optimizing physical processes, providing real-time monitoring and control, and making decisions based on data collected from various sources. In addition, the low-latency requirements of CPS enable rapid decision-making and response times, making them ideal for safety-critical applications. On the other hand, AR applications have the potential to transform how we interact with the world around us, enabling new forms of entertainment, education, and communication. The low-latency requirements of AR applications are also critical, as even a small delay in response time can lead to a subpar user experience. Overall, the study of CPS and AR applications presents exciting opportunities to explore cutting-edge technologies and their potential to transform various industries and aspects of our daily lives.
-
-
-% The dissertation aims to investigate the challenges associated with the performance evaluation of networked systems and to propose novel methodologies and tools to assess the performance of such systems in real-world scenarios. The research will focus on the evaluation of cyber-physical systems and augmented reality applications that rely on low-latency distributed computing paradigms, such as fog computing and edge computing.
-
-% The research will also explore the role of edge computing as an enabling technology for such applications, and will investigate the benefits and limitations of edge computing in terms of performance, scalability, and reliability. The dissertation will propose new approaches for optimizing the performance of edge computing-based systems, and will evaluate their effectiveness in real-world scenarios.
-
-% Overall, the scope of this dissertation is to contribute to the body of knowledge on the performance evaluation of networked systems, with a focus on cyber-physical systems and augmented reality applications enabled by low-latency distributed computing paradigms, and the role of edge computing as an enabling technology.
+    First 3 paragraphs in a conventional papers are usually scope. 
+}
 
 \begin{enumerate}
     \item Performance evaluation.
     \item \gls{CPS} and \gls{MAR}
     \item Edge Computing 
 \end{enumerate}
+
+\glsresetall%
+\glspl{CPS} and \gls{XR} applications are emerging technologies with the potential to transform a plethora of industries.
+However, both these categories of applications have stringent latency requirements which make their deployment on traditional Cloud infrastructure unfeasible.
+Delays in communication and processing can significantly impact their performance and user experience, and potentially even cause physical harm.
+Cloud Computing, with its centralized, physically distant datacenters, may not be able to meet these strict latency requirements.
+This is where Edge Computing, a novel paradigm for distributed and mobile computing, offers a promising solution.
+Edge Computing enables deployment of computing resources at the edge of the network, closer to end-users.
+This shift in paradigm with respect to Cloud Computing provides drastically reduced latency, bandwidth reduction, as well as context-sensitivity and data locality.
+These are key factors for real-time, context-sensitive, low-latency applications such as \gls{CPS} and \gls{XR}.
+
+Before these systems can become widely deployed, however, their real-world performance must be thoroughly understood.
+\glspl{CPS} often operate in safety-critical environments, and poor \gls{QoS} in \gls{XR} can easily lead to users experiencing discomfort while using the application.
+Accurate evaluation, characterization, and optimization of the performance of these systems is therefore critical to ensure reliability, safety, and user satisfaction.
+Additionally, accurate performance evaluation enables efficient resource utilization, and enhances system scalability, in turn leading to lower operation costs and a reduced barrier of entry.
+
+Nevertheless, evaluating the performance of Edge environments involving such applications is challenging, due to complex behaviors emerging from the interaction between computation and network in these systems.
+Existing literature has attempted to tackle the performance evaluation of Edge systems through both analytical and simulation approaches.
+However, the nature of Edge Computing environments, which involves tight integration between network and compute, vast and often unfeasible interdisciplinary competence.
+Existing works have been constrained to narrow their scope by prioritizing the comprehensive modeling of either compute or network, resulting in a potential trade-off that may neglect the other aspect.
+This has resulted in an incomplete understanding of the overall performance of Edge systems and applications in literature.
+
+In this dissertation we introduce and study the applicability of an alternative methodology for Edge performance evaluation based on a practical, experimental approach.
+We aim to complement literature by providing a method which bridges the gap in knowledge left by existing approaches.
+Or work centers of Edge Computing environments involving latency-sensitive applications such as \gls{XR} and \glspl{CPS}, as these are broadly understood to represent ``killer'' use-cases for the Edge.
+
+However, the performance evaluation of Edge-enabled \gls{XR} encompasses a wide range of factors, making the scope of research in this area extensive and complex.
+The scope of performance evaluation research for \glspl{CPS} is at least equally extensive.
+Attempting to cover both these scopes comprehensively in a single dissertation would be prohibitively challenging.
+Therefore, in this work, we approach these challenges by focusing on representative use-cases for these application classes.
+These correspond to \gls{WCA} applications for \gls{XR}, and \glspl{NCS} for \glspl{CPS}.
+Through these examples, we aim to gain insights into the performance evaluation challenges and opportunities offered by Edge Computing these applications and systems, and contribute to the understanding of the broader fields of \gls{XR} and \gls{CPS} performance evaluation in distributed computing environments.
