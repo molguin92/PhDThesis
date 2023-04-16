@@ -12,13 +12,28 @@
 
 \subsubsection{Analytical modeling and simulation approaches}
 
-The performance evaluation of Edge Computing deployments is a daunting task, and only a limited number of works have attempted to tackle it through analytical models or simulations.
+The performance evaluation of Edge Computing deployments is a daunting task.
 One reason for this is the inherent complexity of modeling such intricate systems, which often involve multiple layers of proxies, load balancers, virtualized computing instances, and networking functions.
 The dynamic nature of Edge Computing deployments, with their distributed architectures and diverse set of devices, makes it difficult to develop accurate models that capture the complexities of real-world deployments.
 
-\todo[inline]{Analytical approaches}
+Nevertheless, a small body of works has attempted to tackle this challenge through analytical approaches.
+Examples include~\cite{chen2015efficient,champati2015one,champati2016semi,al2017reliable}.
+In~\cite{chen2015efficient}, the authors formulate the problem of computation offloading in \gls{MEC} as a multi-user computation offloading game, and design a distributed computation offloading algorithm that achieves a Nash equilibrium to solve it.
+They demonstrate through numerical results that the proposed algorithm achieves good computation offloading performance and has good scaling capabilities.
+Another work that tackles computation offloading is~\cite{champati2015one}, in which the authors propose a novel optimization algorithm for the cost optimization of hybrid clouds.
+The algorithm selects tasks for remote computation on the public cloud based on their estimated processing times and the known cost of offloading them; tasks with large processing times that offset their offloading cost are offloaded.\@
+\cite{champati2016semi} proposes semi-online algorithms to to minimize the time required to complete all computational tasks in a sequence, with communication delay, in Cloud Computing environments.
+This is achieved by optimizing the scheduling of independent tasks with unknown processing times.
+Finally, the authors of~\cite{al2017reliable} propose a model-based rate adaptation algorithm for scalable video streaming in multihop wireless networks.
+The algorithm is built on a novel performance model based on stochastic network calculus and allows fast near-optimal rate adaptation for fixed transmission paths and cross-layer optimized routing.
 
-A number of approaches to performance evaluation of distributed systems exist in literature, particularly geared towards the Cloud.
+Although these works represent valuable contributions to literature, they present significant limitations to their realism and applicability to \glspl{CPS} and \gls{XR} enabled by Edge Computing.
+In~\cite{chen2015efficient,champati2016semi}, the authors assume that task computation times are unknown, and estimate them based on the size of their associated data.
+However, applications such as \glspl{NCS} and \gls{MAR} tend to have mostly constant data sizes, with computation times depending strictly upon the semantic content of the inputs.\@
+\cite{champati2016semi,al2017reliable} assume independent tasks, but in interactive, feedback-loop-based applications, tasks are intrinsically ordered and dependent on previous tasks.
+In~\cite{champati2015one}, the authors propose canceling and re-scheduling a task as a viable scheduling strategy; however, in \glspl{CPS} the canceling of a control task could lead to catastrophic harm to equipment and/or human beings.
+
+Approaches to performance evaluation of distributed systems using simulations also exist in literature, particularly geared towards the Cloud.
 Examples of such approaches include the \emph{CloudSim}, \emph{iCanCloud}, and \emph{GreenCloud} simulators.
 CloudSim~\cite{calheiros2011cloudsim} is a widely used event-based simulation toolkit designed for generic \gls{IaaS} Cloud Computing environments.
 iCanCloud~\cite{nunez2012icancloud} similarly focuses on simulating \gls{AWS} \gls{EC2} compute infrastructure, the project's primary objectives being performance and scalability of simulations.
@@ -31,26 +46,16 @@ This includes considerations for mobility, a key characteristic of users in an E
 Moreover, existing models for Cloud workloads are unsuitable for Edge Computing research, as Edge workloads present compute characteristic which are wholly distinct from traditional Cloud workloads.
 Cloud workloads tend to be stateless and long-lived, whereas Edge workloads are context-sensitive and ephemeral.
 
+A number of simulation approaches which aim to overcome these limitations have therefore emerged in later years.
+iFogSim~\cite{gupta2017ifogsim} is an extension of CloudSim~\cite{calheiros2011cloudsim} geared towards the simulation of \gls{IOT} fog environments by modeling such components as sensors, actuators, Fog nodes, as well as the Cloud.
+Although iFogSim allows for location-aware servicing of user-devices by Fog nodes, this information is static during a simulation, and no mobility of users is considered.
+Network links in iFogSim also do not account for the effects on network load on network times, further limiting the simulator's realism.\@
+EdgeCloudSim~\cite{sonmez2018edgecloudsim} also extends CloudSim~\cite{calheiros2011cloudsim} and provides a much more comprehensive simulation environment for Edge deployments, which includes mobility, network, and edge compute models.
+However, the models chosen limit the realism of the tool, as they may not be applicable to all applications classes.
+The compute model, for instance, assumes offloading to \glspl{VM}, which does not match the current broad understanding that Edge Computing applications will rely on more flexible and lightweight forms of offloading, such as serverless functions and containers.
+Moreover, the tool is highly complex and requires extensive domain knowledge in both communication networks and compute modeling to use effectively.
 
-
-% \cite{sonmez2018edgecloudsim}: fully integrated simulation. Modular. Based on CloudSim. FOSS. 
-
-
-
-
-% Most of the existing approaches for performance evaluation in Edge Computing have originated from the field of network performance evaluation.
-% These approaches often focus on specific use-cases and simplify the processing and compute steps by modeling them as black boxes with fixed or simple distributions of latency.
-
-
-\todo[inline]{WIP}
-
-
-% This simplistic approach may not accurately reflect the true performance characteristics of Edge Computing deployments, which involve dynamic interactions between software processes and hardware and network infrastructure.
-
-
-
-
-% Despite these challenges, recent research has made progress in developing more sophisticated models and simulations for performance evaluation in Edge Computing. These approaches aim to capture the complex dynamics of Edge Computing deployments, including the variability in processing and compute times, network delays, and resource availability. By considering the intricacies of Edge Computing deployments, these advanced models can provide more accurate and comprehensive evaluations of performance, enabling researchers and practitioners to gain deeper insights into the behavior of latency-sensitive applications in Edge Computing environments.
+\todo[inline]{Wrap up.}
 
 \subsubsection{Experimental research}
 
