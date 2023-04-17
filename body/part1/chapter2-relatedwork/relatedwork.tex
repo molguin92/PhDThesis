@@ -1,15 +1,6 @@
 \section{State of the art}\label{sec:state-of-the-art}
 
 \subsection{Performance evaluation of Edge Computing systems}
-
-\todo[inline]{
-    Needs some massaging.
-}
-\todo[inline]{
-    Right now includes only experimental approaches.
-    Need to add mathematical models (ask James for citations) and simulations.
-}
-
 \subsubsection{Analytical modeling and simulation approaches}
 
 The performance evaluation of Edge Computing deployments is a daunting task.
@@ -33,11 +24,12 @@ However, applications such as \glspl{NCS} and \gls{MAR} tend to have mostly cons
 \cite{champati2016semi,al2017reliable} assume independent tasks, but in interactive, feedback-loop-based applications, tasks are intrinsically ordered and dependent on previous tasks.
 In~\cite{champati2015one}, the authors propose canceling and re-scheduling a task as a viable scheduling strategy; however, in \glspl{CPS} the canceling of a control task could lead to catastrophic harm to equipment and/or human beings.
 
-Approaches to performance evaluation of distributed systems using simulations also exist in literature, particularly geared towards the Cloud.
+Approaches to performance evaluation of distributed systems using simulations also exist in literature, particularly geared towards the Cloud~\cite{mansouri2020cloud}.
 Examples of such approaches include the \emph{CloudSim}, \emph{iCanCloud}, and \emph{GreenCloud} simulators.
 CloudSim~\cite{calheiros2011cloudsim} is a widely used event-based simulation toolkit designed for generic \gls{IaaS} Cloud Computing environments.
 iCanCloud~\cite{nunez2012icancloud} similarly focuses on simulating \gls{AWS} \gls{EC2} compute infrastructure, the project's primary objectives being performance and scalability of simulations.
 GreenCloud, on the other hand, is built upon the \acs{ns2}~\cite{nsnam} network simulator and specifically captures energy consumption details of datacenter components and communication patterns between these.
+
 However, these simulators are not suitable for Edge Computing research as they do not fully capture the unique characteristics of Edge environments.
 They do not account for the tight integration of compute and network in Edge Computing and only coarsely approximate network effects on workloads.
 In these Cloud Computing simulators, end-to-end transmission delays are often treated as static values;
@@ -46,16 +38,25 @@ This includes considerations for mobility, a key characteristic of users in an E
 Moreover, existing models for Cloud workloads are unsuitable for Edge Computing research, as Edge workloads present compute characteristic which are wholly distinct from traditional Cloud workloads.
 Cloud workloads tend to be stateless and long-lived, whereas Edge workloads are context-sensitive and ephemeral.
 
-A number of simulation approaches which aim to overcome these limitations have therefore emerged in later years.
-iFogSim~\cite{gupta2017ifogsim} is an extension of CloudSim~\cite{calheiros2011cloudsim} geared towards the simulation of \gls{IOT} fog environments by modeling such components as sensors, actuators, Fog nodes, as well as the Cloud.
+A number of simulation approaches specifically targeted toward Edge Computing and which aim to overcome these limitations have therefore emerged in later years~\cite{svorobej2019simulating}.
+\emph{iFogSim}~\cite{gupta2017ifogsim}, for instance, is an extension of CloudSim~\cite{calheiros2011cloudsim} geared towards the simulation of \gls{IOT} Fog environments by modeling components such as sensors, actuators, Fog nodes, as well as the Cloud.
 Although iFogSim allows for location-aware servicing of user-devices by Fog nodes, this information is static during a simulation, and no mobility of users is considered.
 Network links in iFogSim also do not account for the effects on network load on network times, further limiting the simulator's realism.\@
-EdgeCloudSim~\cite{sonmez2018edgecloudsim} also extends CloudSim~\cite{calheiros2011cloudsim} and provides a much more comprehensive simulation environment for Edge deployments, which includes mobility, network, and edge compute models.
+
+\emph{EdgeCloudSim}~\cite{sonmez2018edgecloudsim} also extends CloudSim~\cite{calheiros2011cloudsim} and provides a much more comprehensive simulation environment for Edge deployments, which includes mobility, network, and edge compute models.
 However, the models chosen limit the realism of the tool, as they may not be applicable to all applications classes.
 The compute model, for instance, assumes offloading to \glspl{VM}, which does not match the current broad understanding that Edge Computing applications will rely on more flexible and lightweight forms of offloading, such as serverless functions and containers.
 Moreover, the tool is highly complex and requires extensive domain knowledge in both communication networks and compute modeling to use effectively.
 
-\todo[inline]{Wrap up.}
+Finally, another example is \emph{FogNetSim++}~\cite{qayyum2018fognetsimpp}, tool which builds upon the \acs{OMNET} network simulator.
+FogNetSim++ allows users to simulate large Fog networks while incorporating mobility and scheduling models.
+However, the tool does not include support for compute (either \gls{VM}- or container-based) migration within the network, a limitation which impacts the ability to accurately and simulate more complex scenarios in Fog and Edge Computing.
+
+It is clear then that, while there have been efforts to develop simulation approaches for evaluating the performance of Edge environments, existing approaches still fall short in capturing sufficient realism for accurate performance evaluation.
+Works such as iFogSim, EdgeCloudSim, and FogNetSim++ have attempted to address the limitations of traditional simulation approaches by incorporating components such as mobility, network, and compute models.
+However, these approaches have their own limitations, such as unrealistic network load effects or assumptions about offloading technologies.
+These limitations impact the ability to accurately simulate the dynamic and complex nature of Edge environments, including the unique challenges posed by complex applications such as \gls{XR} and \glspl{CPS}.
+These applications are interactive, real-time, present non-linear behaviors, and, in the case of \gls{XR}, involve human interaction, all factors which are adequately captured by existing simulation approaches.
 
 \subsubsection{Experimental research}
 
@@ -73,25 +74,36 @@ A number of works have attempted to tackle the challenge of experimentally evalu
 \begin{inlineenum}
     \item \emph{EdgeBench}~\cite{das2018edgebench}
     \item \emph{IoTBench}~\cite{lee2019iotbench}
+    \item \emph{OpenRTiST}~\cite{george2020openrtist}
     \item \emph{DeFog}~\cite{mcchesney2019defog}
     \item \emph{ComB}~\cite{baurle2022comb}
-    \item \emph{OpenRTiST}~\cite{george2020openrtist}
 \end{inlineenum}.
-\emph{EdgeBench}~\cite{das2018edgebench} corresponds to a benchmarking suite for the Edge which emulates three different workloads (speech-to-text, image recognition, and sensor network application traffic), specifically targeting serverless deployments.\@
-\emph{IoTBench}~\cite{lee2019iotbench} is a benchmarking tool for Edge-deployed \gls{IOT} applications.
-It includes seven representative workloads, and allows researchers to evaluate the performance of these applications on Edge infrastructure through the analysis of computational demands and resource consumption.\@
-\emph{DeFog}~\cite{mcchesney2019defog} corresponds to a benchmarking suite for the comparison of deployments on the Edge, Fog, or Cloud which includes six latency-critical and bandwidth-intensive workloads, including real-time video detection and a text-to-speech application.
-\emph{ComB}~\cite{baurle2022comb} is a flexible and extensible application-oriented benchmarking suite for Edge computing, featuring a built-in distributed video-analytics benchmark.
-Finally, \emph{OpenRTiST}~\cite{george2020openrtist} is a tool for the benchmarking and performance evaluation of Edge Computing deployments using real-time processing of a live video feed.
+\emph{EdgeBench}~\cite{das2018edgebench} corresponds to a benchmarking suite for the Edge which emulates three different workloads (speech-to-text, image recognition, and sensor network application traffic), specifically targeting serverless deployments.
+For each workload, a corresponding batch of data is processed on an Edge node, and results are pushed to the cloud;
+cloud-only variants of the workloads also exist.
+\emph{IoTBench}~\cite{lee2019iotbench} is a similar benchmarking tool for Edge-deployed \gls{IOT} applications.
+It includes seven representative workloads, and allows researchers to evaluate the performance of these applications on Edge infrastructure through the analysis of computational demands and resource consumption.
+Both EdgeBench and IoTBench focus exclusively on benchmarking of compute in Edge and Fog deployments, and thus do not represent comprehensive evaluations of performance including network effects in Edge Computing.
+
+\emph{OpenRTiST}~\cite{george2020openrtist} is a tool for the benchmarking and performance evaluation of Edge Computing deployments using real-time processing of a live video feed.
 Video is streamed from a source Android device to a compute node where neural style-transfer~\cite{gatys2016image} is applied to it.
 The transformed video is then fed back to the source to be presented, resulting in a compute-intensive, bandwidth-hungry, and latency-sensitive benchmark.
+However, OpenRTiST is limited by its non-replaceable workload which only targets machine learning-enhanced video processing and analytics.
 
-Although valuable contributions, these works have generally leveraged static workloads that fail to account for the intensely dynamic nature of \gls{CPS} and \gls{XR} deployments.
-Furthermore, although some of these approaches address some of the additional challenges to benchmarking \gls{XR} on the Edge, none of them have tackled the topic in a comprehensive way.\@
-\cite{das2018edgebench,mcchesney2019defog,baurle2022comb,george2020openrtist} all target image or video recognition or manipulation in some manner.
-However, none of these approaches have considered the interactive component of \gls{MAR}, particularly when it comes to human behavior and its relationship to system responsiveness and performance.
+\emph{DeFog} and \emph{ComB} represent more flexible and comprehensive tools for Edge performance evaluation.
+DeFog~\cite{mcchesney2019defog} corresponds to a benchmarking suite for the comparison of deployments on the Edge, Fog, or Cloud.
+It includes six latency-critical and bandwidth-intensive workloads built on containers, including real-time video detection and a text-to-speech application.
+ComB~\cite{baurle2022comb} is a flexible and extensible application-oriented benchmarking suite for Edge computing.
+In opposition to existing approaches, ComB relies on real representative applications instead of synthetic workloads.
+It features a built-in distributed video-analytics application that can easily be replaced.
+However, although valuable contributions, these works leverage static workloads that fail to account for the intensely dynamic nature of \gls{CPS} and \gls{XR} deployments.
 
-\paragraph{Testbed research in Edge Computing} The last few years have also seen the emergence of a number of small- to mid-scale platforms and testbeds for Edge Computing research.
+Finally, although some of the above approaches address some of the additional challenges to benchmarking \gls{XR} on the Edge, none of them have tackled the topic in a comprehensive way.\@
+\cite{das2018edgebench,mcchesney2019defog,baurle2022comb,george2020openrtist} all target image or video recognition or manipulation in some manner, but none of these approaches have considered the interactive component of \gls{MAR} particularly when it comes to human behavior and its relationship to system responsiveness and performance.
+
+\medskip
+
+The last few years have also seen the emergence of a number of small- to mid-scale platforms and testbeds for Edge Computing research.
 Several of these are additionally driven by research interests in novel mobile networking technologies and \gls{MEC}, as well as in the virtualization of network functions.
 Of particular interest to us are the
 \begin{inlineenum}
@@ -122,60 +134,13 @@ In~\cite{gedawy2016cumulus}, the authors propose Cumulus, a prototype testbed fo
 The authors of~\cite{rimal2018experimental} propose an experimental testbed for two-tiered Edge architectures in the context of \gls{FIWI} Edge Computing.
 This testbed is then employed to validate wireless access and compute resource scheduling strategies in these systems.
 In~\cite{yamanaka2021design}, the authors present an experimental Edge Computing testbed capable of determining the offload location of a workload based on desired latency parameters.
-\cite{diao2019scalable} propose yet another Kubernetes-based testbed based for Edge task offloading based on heterogeneous hardware including low-power single-board computers such as Raspberry Pis and Jetson Nanos.\@
-\cite{moorthy2022cloudraft} proposes \gls{CLOUDRAFT}, a Cloud-based framework for mobile network experimentation, with a focus on simplifying the management of testbed resources.
-The goal of this project is to integrate, coordinate, share, and improve upon existing testbeds through a common interface.
-
-% Originally designed for ``the development, deployment, and validation of transformative, at-scale concepts in network science, services, and security''~\cite{berman2014geni}, \gls{GENI} today combines local Edge compute resources with mobile network last-hop connectivity for \gls{MEC} experimentation~\cite{gosain2017geni}.
-% The wireless-capable sites incorporate single-hop access to compute, storage, and network resource, making \gls{GENI} a compelling Edge Computing platform.
-
-% The Chameleon testbed is a research platform originally designed for the study and evaluation of Cloud computing systems~\cite{keahey2020lessons}, but which has recently been expanded to target Edge Computing research through the \acs{CHI}@Edge~\cite{chiatedge} project.
-% Chameleon is a collaborative project operated by a consortium of research institutions and industry partners, and is designed to provide a flexible and reconfigurable infrastructure for researchers to experiment with and test various Cloud computing technologies, algorithms, and configurations.
-% The testbed provides a highly reconfigurable array of hardware and software resources, including servers, storage systems, and networking equipment, able to simulate various Cloud and Edge Computing scenarios.
-
-% \gls{COSMOS} is a testbed deployed in New York City (State of New York, \gls{USA}), containing over \num{200} rooftop, intermediate, and mobile nodes.
-% The testbeds main \emph{raison d'être} is \gls{MEC} research, with a strong emphasis on wireless networks.
-% The system includes \glspl{SDR}, \si{\milli\meter}-wave equipment, optical fibers, Cloud integration, and Edge compute for core network functionality and application data processing~\cite{yu2019cosmos,raychaudhuri2020challenge}.
-
-% \gls{POWDER} is described by the authors of~\cite{breen2020powder} as a ``city-scale, remotely accessible, end-to-end software defined platform supporting a broad range of wireless and mobile related research''.
-% It features roughly \num{15} fixed programmable radio nodes, based on off-the-shelves \glspl{SDR}, distributed across a \SI{15}{\kilo\meter\squared} area in Salt Lake City (State of Utah, \gls{USA}).
-% These radio nodes are combined with Edge-based compute nodes as well as Cloud resources for full \gls{MEC} experimentation.
-
-% The \gls{ARA} platform~\cite{zhang2022ara} is a highly flexible testbed based on the \gls{CHI} software suite originally developed for the aforementioned Chameleon testbed~\cite{keahey2020lessons}.
-% \gls{ARA} is developed by researchers at Iowa State University in Ames, Iowa (\gls{USA}), and spans a rural area with a diameter of over \SI{60}{\kilo\meter}~\cite{zhang2022ara}.
-% Its core goal is the study and deployment of advanced Edge Computing and wireless platforms and technologies in real-world agricultural and rural settings, and includes a broad range of wireless technologies deployed through both \glspl{SDR} and programmable \gls{COTS} radios, as well as automated ground vehicles, cameras and sensors.
-
-% EdgeNet deviates from the approaches described above and represents a fully software-based, massively distributed public platform for Edge Computing research~\cite{cappos2018edgenet,senel2021edgenet1,senel2021edgenet2}.
-% It consists of a public, modified and customized Kubernetes~\cite{kubernetes} cluster.
-% The EdgeNet software is available for anyone to download;
-% individuals and organizations can quickly deploy self-hosted Edge nodes which are then made available to anyone using the platform.
-% The end result is a flexible and scalable global Edge Cloud simplifying research and prototype development in Edge and Cloud computing.
-% A similar, closely-related project is KubeEdge~\cite{xiong2018extend}, a software framework for extending Kubernetes clusters from the Cloud to the Edge.
-
-% Finally, a number of other, small-scale approaches also exist.
-% In~\cite{gedawy2016cumulus}, the authors propose Cumulus, a prototype testbed for Edge compute offloading in \gls{IOT} with the explicit goal of providing a generic and heterogeneous platform for Edge Computing research.
-% The authors of~\cite{rimal2018experimental} propose an experimental testbed for two-tiered Edge architectures in the context of \gls{FIWI} Edge Computing.
-% This testbed is then employed to validate wireless access and compute resource scheduling strategies in these systems.
-% In~\cite{yamanaka2021design}, the authors present an experimental Edge Computing testbed capable of determining the offload location of a workload based on desired latency parameters.
-% \cite{diao2019scalable} propose yet another Kubernetes-based testbed based for Edge task offloading based on heterogeneous hardware including low-power single-board computers such as Raspberry Pis and Jetson Nanos.\@
+\cite{diao2019scalable} propose yet another Kubernetes-based testbed based for Edge task offloading based on heterogeneous hardware including low-power single-board computers such as Raspberry Pis and Jetson Nanos.
 % \cite{moorthy2022cloudraft} proposes \gls{CLOUDRAFT}, a Cloud-based framework for mobile network experimentation, with a focus on simplifying the management of testbed resources.
 % The goal of this project is to integrate, coordinate, share, and improve upon existing testbeds through a common interface.
 
-\medskip
-
-The implementation of next-generation wireless systems, Cloud, and Edge computing paradigms requires experimentation to fully understand their implications.
-As evidenced above, testbeds have emerged for this purpose.
-However, there has been little focus on general-purpose, hardware-agnostic software frameworks for the management and automation of these testbeds.
-Most existing works use their own platform-specific solutions, which are not compatible with other testbeds and often do not comply with Cloud and/or Edge-native standards.
-Examples of this are \gls{COSMOS} and \gls{POWDER}, which use domain-specific languages and virtualization technology based on \glspl{VM} instead of modern Edge-compatible solutions such as containers or serverless computing frameworks.
-
-From the examples above, \gls{CLOUDRAFT} is the only work known to tackle the challenge of general-purpose, hardware-agnostic software frameworks for the management and automation of testbeds, albeit only to a certain extent.
-\gls{CLOUDRAFT} integrates, coordinates, shares, and improves upon existing testbeds, using pre-built VMs with necessary software for experiments.
-Although it provides some automation for testbed resource provisioning and experiment execution, its focus is largely on the sharing and partitioning of testbed systems.
-Testbeds that are currently working with \gls{CLOUDRAFT} include an \gls{SDR}-based testbed and a ground vehicular robot for mobility-related experimentation.
-
-The lack of a unified approach to testbed management and automation hinders the development and implementation of next-generation wireless systems, Cloud, and Edge computing paradigms.
-General-purpose, hardware-agnostic software frameworks such as \gls{CLOUDRAFT} can simplify the management and automation of testbeds, promote compatibility with Cloud- and Edge-native standards, and facilitate collaboration among research groups.
+Although the aforementioned testbeds represent valuable and powerful tools, the lack of a unified approach to testbed management and automation hinders the development and implementation of next-generation wireless systems, Cloud, and Edge computing paradigms.
+General-purpose, hardware-agnostic software frameworks such as \gls{CLOUDRAFT}~\cite{moorthy2022cloudraft}  can simplify the management and automation of testbeds, promote compatibility with Cloud- and Edge-native standards, and facilitate collaboration among research groups.
+\gls{CLOUDRAFT} is a Cloud-based framework for mobile network experimentation with the goal integrate, coordinate, share, and improve upon existing testbeds through a common interface.
 There is still remains much work to be done in this area, particularly with respect to the adoption of Edge-compatible solutions that can enable faster and more reliable experimentation.
 
 \subsection{Experimental research in \glsfmtshort{MAR} and \glsfmtshort{CPS}}
