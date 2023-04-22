@@ -1,18 +1,20 @@
-As summarized in \cref{chap:introduction}, this thesis presents a comprehensive study on latency-sensitive applications in Edge Computing.
-The primary contribution of this research is a methodology for analyzing and evaluating the performance of these applications.
-The methodology is validated through the examination of two initial case studies, \gls{WCA} and \glspl{NCS}.
-In addition to the methodology, this thesis includes several other key contributions.
-A prototype testbed and accompanying software framework have been developed to provide a platform for conducting experiments in Edge Computing.
-Furthermore, a further deeper exploration into the \gls{WCA} case studied yielded the first-ever model of human behavior in \gls{WCA}, which is a significant advancement in the field.
-The methodology, the case studies, and the prototype testbed provide valuable insights into the performance of latency-sensitive applications in Edge Computing and can be used as a basis for future research in this area.
+As previously discussed, this dissertation makes two key contributions to the literature surrounding performance evaluation of Edge Computing environments.
+These contributions, together with ancillary contributions and results, will be summarized in the two sections presented in this chapter.
+
+In \cref{summary:methodology}, we discuss our methodology for evaluating the performance of latency-sensitive, feedback-loop-based applications enabled by Edge Computing.
+This methodology involves emulating only the end-user component of such applications while using the real network and compute components of the system. 
+We further discuss the validation of this approach through two representative use-cases for \gls{XR} and \glspl{CPS}.
+
+Next, in \cref{summary:realism}, we explore the extent to which our client-side emulation of a latency-sensitive, feedback-loop application on Edge Computing needs to capture certain details of the physical world.
+We broach this question through the elaboration of a detailed model of human behavior in \gls{WCA}, which we then employ in our methodology, in conjunction with a mathematical framework, to study the the potential for optimization of \gls{WCA} applications.
 
 \section{A methodology for the study of latency-sensitive applications in Edge Computing}\label{summary:methodology}
 
-This thesis makes a contribution to the field of Edge Computing by investigating the applications of a methodology for the study of latency-sensitive applications deployed on Edge infrastructure.
+This thesis makes a contribution to the field of performance evaluation of Edge Computing systems by investigating the applications of a methodology for the study of latency-sensitive applications deployed on Edge environments.
 These applications, such as \gls{WCA} and \glspl{NCS}, are challenging to study and scale due to their cyber-physical nature, complexity, and requirements for low latency and high reliability.
 
-The main focus of this work is to enhance the accuracy and realism of results related to Edge infrastructure, particularly in regard to the network.
-The proposed methodology aims to provide a more comprehensive and realistic assessment of the performance of these latency-sensitive applications, allowing for a better understanding of the strengths and limitations of Edge Computing in this context.
+The main focus of this work is to enhance the accuracy and realism of results related to Edge infrastructure.
+In particular, the proposed methodology aims to provide a more comprehensive and realistic assessment of the performance of these latency-sensitive applications with respect to previous approaches, allowing for a better understanding of the strengths and limitations of Edge Computing.
 Our results will contribute to the development of new techniques and approaches for improving the performance and reliability of Edge Computing systems.
 
 \begin{figure}
@@ -32,7 +34,6 @@ this emulation is implemented in software deployed on \gls{COTS} general-purpose
 In our initial implementation, these correspond to low-cost, easily replaceable and scalable Raspberry Pi 4 Model B~\cite{raspberrypi} \glspl{SBC}.
 We aim to maintain the backend software and hardware, as well as the network, unchanged with respect to the real-world deployment, in order to preserve as much realism as possible in the effects arising from the hardware and network.
 
-% As discussed in \cref{chap:relatedwork}, most research in this field falls into either simulated or fully-practical real-world approaches.
 Our emulated methodology presents several advantages over alternatives, simulated or fully-practical approaches.
 To begin with, and perhaps most importantly, it makes our approach portable and applicable to real Edge computing deployments.
 By limiting the emulation to the workload, our approach can be directly employed on pre-existing Edge computing infrastructure in order to benchmark applications before they are deployed.
@@ -65,12 +66,12 @@ Replicating the methodology for other workloads simply requires developing a new
 This can further be simplified by employing software platforms for the emulation of categories of workloads, as well will discuss later on in this thesis.
 
 \medskip
-In the following subsections we will discuss two illustrative case studies for our methodology; \acl{WCA} and \acl{NCS} research and benchmarking.
+In the following subsections we will discuss two illustrative use-cases for our methodology; \acl{WCA} and \acl{NCS} research and benchmarking.
 \Cref{summary:methodology:usecase_wca} discusses the application of our methodology to \gls{WCA}.
 This work was originally published in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}.
 Next, in \cref{summary:methodology:usecase_ncs} we expand this discussion to \glspl{NCS}, a discussion originally approached in \cref{paper:olguinmunoz2022cleave}.
 
-\subsection{Case study: \acl{WCA}}\label{summary:methodology:usecase_wca}
+\subsection{Use-case: \acl{WCA}}\label{summary:methodology:usecase_wca}
 
 We first introduce our methodology and its applicability to \gls{WCA} in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}.
 The former corresponds to an extended abstract paper which discusses a high level overview of our approach;
@@ -161,9 +162,9 @@ The system scales linearly with respect to the number of clients, but the impair
 Overall, the study demonstrates the usefulness of the trace-based methodology in evaluating system performance.
 The results also underscore the need for optimization of system components and the importance of network quality in delivering a satisfactory user experience.
 
-\subsection{Case study: \acsp{NCS}}\label{summary:methodology:usecase_ncs}
+\subsection{Use-case: \acsp{NCS}}\label{summary:methodology:usecase_ncs}
 
-We discuss an initial case study of our methodology in the context of \glspl{NCS} and similar \glspl{CPS} in \cref{paper:olguinmunoz2022cleave}.
+We discuss an initial use-case study of our methodology in the context of \glspl{NCS} and similar \glspl{CPS} in \cref{paper:olguinmunoz2022cleave}.
 In this work, we present \gls{CLEAVE}, a software-based framework for scalable and repeatable benchmarking of Edge-native \aclp{NCS}.
 The growing adoption of Edge computing has made it important to understand the strengths and weaknesses of different Edge concepts for the deployment of such \glspl{CPS}.
 
@@ -229,7 +230,7 @@ Furthermore, the success of our experimentation shows that our methodology, impl
 
 \subsection{ExPECA Testbed \& the Ainur software stack}\label{sec:testbed}
 
-After our initial implementation and experimentation with our methodology for \gls{WCA} applications, we realized that creating a testbed for experimental Edge Computing research for would significantly enhance our work.
+After our initial implementation and experimentation with our methodology for \gls{WCA} applications, we arrived at the realization that the creation of a dedicated testbed for experimental Edge Computing research would greatly augment the scope and impact of our work.
 Establishing such testbed would provide a dedicated and controlled environment that can accelerate future research by eliminating the need for ad-hoc implementations for each new study.
 Moreover, having a standardized baseline would make it easier to compare results across different studies.
 The testbed could serve as a platform for researchers to test new ideas and compare them to the results of previous experiments.

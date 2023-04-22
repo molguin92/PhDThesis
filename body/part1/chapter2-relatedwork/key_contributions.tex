@@ -1,8 +1,44 @@
 \section{Overview of our contributions}\label{sec:contributions}
 
-This thesis presents two key contributions to literature.
-First, we introduce and study a methodology for the performance evaluation of latency-sensitive, feedback-loop-based applications enabled by Edge Computing such as \gls{MAR} and \glspl{CPS}.
-Our approach is based on the novel idea of emulating \emph{only} the end-user component of such applications while using the \emph{real} network and compute components of the system.
+\begin{figure}
+    \centering
+    \begin{forest}
+        for tree={% style of tree
+            align=center,
+            grow=0,reversed, % tree direction
+            parent anchor=east,
+            child anchor=west, % edge anchors
+            edge={line cap=round},
+            outer sep=+1pt, % edge/node connection
+            rounded corners,minimum width=15mm,minimum height=8mm, % node shape
+            l sep=7mm % level distance
+        }
+        [{\scshape Contributions}
+            [Methodology
+                [{Use-case\\studies} [\acs{WCA}] [\acsp{NCS}]]
+                [{Tooling} [{EdgeDroid\\(\acs{WCA})}] [{\acs{CLEAVE}\\(\acsp{NCS})}] [Ainur\\(testbed)]]
+            ]
+            [{Implications\\of Realism}
+                [{Characterization of\\human behavior in \acs{WCA}}]
+                [{Realistic human\\model for \acs{WCA}}]
+                [Exploration of avenues\\for optimization of \acs{WCA}]
+            ]
+        ]
+        \end{forest}
+    \caption{Hierarchical overview of the main and secondary contributions of this dissertation.}\label{fig:contribs}
+\end{figure}
+
+This thesis presents two key contributions and a number of sub-contributions to literature, as illustrated in \cref{fig:contribs}.
+Firstly, we introduce a methodology for the performance evaluation of latency-sensitive, feedback-loop-based applications enabled by Edge Computing such as \gls{MAR} and \glspl{CPS}.
+This methodology is validated by example through two representative use-cases, and we provide tooling for its implementation.
+Secondly, we study the implications improved client-side emulation realism has on the results produced with our methodology.
+These implications are again explored by example.
+We design and implement of a detailed model of human user behavior in \gls{WCA}, and then use it to study the potential for optimization of these systems.
+
+\medskip
+
+Our first contribution corresponds to a methodological approach to the study and performance evaluation of Edge-enabled latency-sensitive applications. 
+This approach is based on the novel idea of emulating \emph{only} the end-user component of such applications while using the \emph{real} network and compute components of the system.
 In other words, our methodology involves replacing the client side of the system with commercial off-the-shelf (COTS) general-purpose computing devices running realistic software imitations of the desired behaviors, while retaining the real network and compute hardware at the backend.
 This entails modeling and emulating human inputs in \gls{MAR} applications and the physical components of \glspl{CPS}.
 

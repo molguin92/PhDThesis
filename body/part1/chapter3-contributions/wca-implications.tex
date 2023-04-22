@@ -1,20 +1,19 @@
-\section{Implications of the methodology in the context of \acs{WCA}}\label{sec:extendingmethodology}
+\section{Exploring the need for realism in client-side emulation}\label{summary:realism}
 
 In this section, we aim to delve deeper into the implications of our methodology for the optimization of \gls{WCA}.
-To this end, we must first address a limitation of our current model of human behavior in the context of these applications.
+In particular, we wish to explore the impact improving the realism of the client-side emulation has on the potential for optimization of the applications under evaluation.
+We approach this question by developing an improved, more detailed version of our model of human behavior in \gls{WCA} used in the EdgeDroid tool, which we then incorporate into our methodology along with a mathematical framework to study the potential for optimizing \gls{WCA} applications. 
+
 Our work in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} has used a model that emulates a rigid and unyielding human who makes no mistakes and is not affected by low responsiveness in the system.
 However, this is not an accurate representation of real human behavior, and a more realistic human model must take into consideration the perceived feedback latency and its effects on human reactions.
+In order to develop a more accurate human model in the context of \gls{WCA}, we first conduct an experimental study that measures human performance in different scenarios, taking into account the impact of system latency on the behavior of humans.
+The results of this study serve as the foundation for building a more representative model of human behavior.
 
-To build a more accurate model, we must first characterize human behavior in the context of \gls{WCA}.
-We achieve this through an experimental study measuring human performance in various scenarios, taking into account the impact of latency in the system to human behavior.
-The results of this study are then used to build a more representative model of human behavior, which we further use to provide a foundation for the optimization of these applications.
+Once we have established a more accurate model of human behavior, we can explore its implications for the optimization of \gls{WCA} through our methodology.
+By improving the realism of our model of human behavior, we aim to gain novel understanding of the challenges involved in optimizing \gls{WCA} and how our methodology can be effectively applied to address these.
+This research highlights the importance of the realism of emulations as  crucial factor in the application of our methodology.
 
-Once we have established more accurate model of human behavior, we can then begin to explore the implications of our methodology for the optimization of \gls{WCA}.
-This includes evaluating the impact of various optimization strategies on human performance and identifying opportunities for improvement.
-By incorporating a realistic model of human behavior, we will be able to build a more comprehensive understanding of the challenges involved in optimizing \gls{WCA} and how our methodology can be applied to address these challenges.
-
-\subsection{Characterization of \glsfmtshort{WCA}}
-\todo[inline]{Rework}
+\subsection{Definitions relating to the operation of \glsfmtshort{WCA} applications}
 
 In order to more easily and accurately discuss the implications of our methodology for \gls{WCA}, we first characterize these applications and provide some definitions relating to their operation.
 We focus in particular on \emph{step-based} \gls{WCA}, i.e.\ assistance applications which have as their goal the guidance of a user through a task, using a series of instructions.
@@ -317,7 +316,7 @@ The effects of neuroticism were most easily observed in the \ensuremath{\mu} par
 an example of this can be observed in \cref{fig:ttfvsexgaussianmu}.
 There is a clear and direct correlation between higher neuroticism and higher \ensuremath{\mu} values and longer tails.
 
-\subsubsection{Implications}
+\subsubsection{Implications for \glsfmtshort{WCA}}
 
 The findings presented above reveal interesting implications for the design and optimization of \gls{WCA} applications.
 The noticeable slow-down in user behavior as a response to a decrease in system responsiveness leads to extended application lifetimes even for brief periods of impairment.
@@ -335,7 +334,7 @@ The complexity of \gls{WCA} application systems makes it challenging to predict 
 
 \cref{paper:olguinmunoz2023realistic} discusses the elaboration of a model of human behavior for \gls{WCA}.
 Built upon the data and results from \cref{paper:olguinmunoz2021impact}, our model is capable of dynamically generating realistic predictions of execution times for steps in a \gls{WCA} based on historical system state data and a parameterized level of neuroticism.
-Furthermore, we implement a new version of the EdgeDroid tool capable of using this new model, together with a novel procedure for the generation of realistic synthetic traces of frames for \gls{WCA}, to fully emulate a human in the context of these systems.
+Furthermore, we implement a new version of the EdgeDroid tool capable of using this new model, together with a novel procedure for the generation of realistic synthetic traces of frames for \gls{WCA}, to provide a fully end-to-end emulation of a human in the context of these systems.
 
 \subsubsection{Design of a realistic model for human timings in \gls{WCA}}
 
