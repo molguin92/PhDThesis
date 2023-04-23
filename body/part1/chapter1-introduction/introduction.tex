@@ -6,45 +6,77 @@
 }
 
 The advancement of technology has brought about new computing paradigms and network technologies that have the potential to revolutionize the way we think about and approach computing and communication.
-One of the most promising of these is Edge Computing, a distributed computing paradigm which seeks to bring computing closer to the end user, reducing latency (i.e.\ the time between input and response) and increasing reliability.
+One of the most promising of these is Edge Computing, a distributed computing paradigm which seeks to bring compute nodes closer to the end user, reducing latency (i.e.\ the time between input and response) and increasing reliability.
 
 The current model for distributed computing, known as Cloud Computing, allows users to access shared pools of resources, services, and applications over the internet~\cite{gai2012towards}.
-Cloud computing offers many advantages, such as virtually unlimited storage and processing power, by virtue of employing economies of scale in large, geographically distributed datacenters.
+Cloud computing offers many advantages, including as virtually unlimited storage and processing power
+This achieved by virtue of employing economies of scale in massive installations containing up to thousands of compute servers and networking equipment.
+These installations are known as \emph{datacenters}, and often serve massive amounts of users.
+
 However, this design leads to trade-offs in bandwidth and, particularly, latency.
-The responsiveness of the Cloud is limited by the speed of light, and thus it can suffer from high latency due to the distance data must travel between the end user and the cloud.
-This can cause delays in applications that require quick response times, such as real-time video processing or online gaming.
+Cloud datacenter are commonly located in geographically centralized locations to better serve thousands or even millions of users.
+Conversely, this results in these datacenters having a large average \emph{topological} and \emph{physical} distance to individual users.
+Topologically, end-user connections to the Cloud tend to transit a significant number of hops, i.e.\ intermediate connections through networking equipment belonging to service providers at multiple tiers of the internet.
+Data needs to be received, routed, and re-transmitted at each hop, adding delay.
+Physically, Cloud datacenters are often located hundreds or even thousands of kilometers from end-users.
+Connections are limited in their responsiveness by the speed of light, and these long physical distances directly translate into higher latencies.
+
+These limitations of the Cloud make it unsuitable for a number of novel applications that require quick response times, such as real-time video processing, \gls{MAR}, or smart cities.
 Additionally, the centralized nature of Cloud datacenters means that it can be vulnerable to outages or other disruptions, which can impact large numbers of users simultaneously.
 
+\begin{figure}
+    \centering
+    \includegraphics[height=30em]{figures/edgecomputing}
+    \caption{%
+        Conceptual design of Edge Computing.
+        Compute nodes are placed a at the edge of the network, a few hops away from end users.
+        In other words, compute is located between users and the internet and the Cloud.
+    }\label{fig:edgecomputing}
+\end{figure}
+
 Edge Computing aims to improve upon the shortcomings of Cloud Computing by moving the processing closer to the end user, at the \emph{edge} of the network.
-In this context, the ``edge of the network'' refers to locations which are both geographically and topologically (in the networking sense) close to the user, such as cellular service provider towers/base stations or micro-datacenters located within the same urban area as the user.
-By placing computing resources in proximity to where data is generated and/or consumed, and thus reducing the distance that data must travel, Edge Computing can greatly decrease latency and improve the responsiveness of applications.
-It also allows for more efficient use of network resources, as data does not need to travel back and forth to a remote, central datacenter.
+In this context, the ``edge of the network'' refers to locations which are both geographically and topologically close to the user, such as micro-datacenters located within the same urban area as the user (see \cref{fig:edgecomputing}).
+\gls{MEC}, a variant of the paradigm, even proposes the integration of compute power within 5G~\cite{5Gstandard} cellular networks, co-locating computed nodes with cellular service provider base stations.
 
-The advent of 5G~\cite{5Gstandard}, the latest generation of mobile communication networks, offers even greater potential for Edge Computing.
-5G offers higher data rates, lower latency, and improved reliability compared to previous generations of mobile networks.
-This enables even more powerful and sophisticated applications to be run on the Edge, such as \acsp{CPS} and \acsp{NCS}, as well as \acs{MAR} applications.
+By placing computing resources in proximity to where data is generated and/or consumed, and thus reducing the topological and physical distances that data must travel, Edge Computing can greatly decrease latency, improve the responsiveness of applications, and allow for greatly improved efficiency in the use of network resources.
+This enables powerful and sophisticated applications to be run on the Edge, such as \glspl{CPS} as well as \gls{XR} applications.
+These applications have the potential to have a profound impact in our day-to-day lives, but have stringent latency requirements which make their deployment on traditional paradigms such as Cloud Computing inviable.
 
-\acfp{CPS} and \acfp{NCS} refer to systems where physical processes, such as manufacturing or transportation, are controlled  and monitored by computers, usually over communication networks.
-Edge Computing, combined with 5G networking, allows these systems to operate in real-time, enabling near instantaneous response times, more efficient operation, and more precise control.
+\glspl{CPS} refers to systems where physical processes, such as manufacturing or transportation, are controlled  and monitored by computers, usually over communication networks.
+Edge Computing allows these systems to operate in real-time, enabling near instantaneous response times, more efficient operation, and more precise control.
 These characteristics are critical for applications such as \glspl{ITS}, autonomous driving, or remote surgery.
 
-\gls{MAR}, on the other hand, is an application of \gls{AR} that involves overlaying digital information onto the physical world using a mobile device.
+\gls{XR}, on the other hand, is a broad term that encompasses various forms of immersive application systems.
+\gls{XR} applications, such as \gls{AR}, \gls{VR}, or \gls{MR}, involve the real-time interaction between user and virtual elements in a partially to fully immersive environment.
+For instance, \gls{MAR} is an application of \gls{AR} that involves overlaying digital information onto the physical world using a mobile device.
 This definition has in later years been extended to encompass \gls{AR} deployed on wearable devices (such as Google Glass~\cite{googleglass}) as well.
 \gls{MAR} allows users to, for example, view real-time information and details about products while in-store, receive instructions and guidance to perform a complex task, or contextual information while visiting a new city.
-By using Edge Computing and 5G, \gls{MAR} can operate with much greater responsiveness and reliability, enabling highly immersive and interactive experiences.
+By using Edge Computing and 5G, \gls{MAR} --- and other \gls{XR} systems --- can operate with much greater responsiveness and reliability, enabling highly immersive and interactive experiences.
 
 Overall, the combination of Edge Computing and 5G holds great promise for the massive deployment of latency-sensitive applications such as the ones discussed above.
 Nonetheless, significant challenges remain in the understanding and scaling of these systems, particularly in regard to their complexity and requirements in the context of low-latency, high-reliability computing.
+Before widespread deployment of these systems, it is crucial to thoroughly understand their real-world performance.
 
-Latency-sensitive applications, such as \glspl{CPS} and \gls{MAR}, involve multiple processing steps that can influence the latency of the system.
+\glspl{CPS} often correspond to safety-critical components of industrial systems, and subpar \gls{QoS} can therefore lead to significant danger to equipment and operators.
+On the other hand, the immersive nature of \gls{XR} applications implies that poor \gls{QoS} can easily translate into significant user discomfort.
+To ensure reliability, safety, and user satisfaction in these systems, careful and accurate characterization and optimization of these systems must be realized.
+
+However, evaluating the performance of such applications on Edge environments represents a significant challenge.
+Latency-sensitive applications such as \glspl{CPS} and \gls{XR}, involve multiple processing steps that can influence the latency of the system.
 There are many trade-offs involved in optimizing the latency of these applications beyond the question of where the compute process is located. 
 These include the choice of wireless system for transmitting application data (e.g.\ 4G \gls{LTE} versus 5G), the protocols used to communicate over the network, and the hardware and operating system used in the backend.
-In the case of \gls{MAR}, the sensory inputs need to be pre-processed and compressed on-device, before being transmitted to the compute backend for processing.
+In the case of \gls{XR}, the sensory inputs need to be pre-processed and compressed on-device, before being transmitted to the compute backend for processing.
 The backend algorithms need to be carefully designed and implemented to ensure efficient processing and minimal latency. 
 Similarly, in \glspl{CPS}, the communication network must be designed to minimize latency and ensure reliable data transmission between the components of the control system.
-Delayed or lost data can result in catastrophic failure of these systems.
 Other critical aspects with the potential to impact the latency of latency-sensitive applications on the Edge include congestion on the communication loop and fluctuations of the wireless channel.
 These issues can lead to delays in data transmission between devices on the network, leading to higher end-to-end latency.
+
+The evaluation of performance in Edge computing systems has been addressed in existing literature through various approaches such as analytical, simulation, and experimental methods.
+However, the unique nature of Edge computing environments demands a wide range of interdisciplinary expertise spanning (but not limited to) computer science, communication networks, information theory, queuing analysis, etc.
+Such expertise may not always be feasible to obtain within a single research group.
+This has led to prior research to often be constrained in its scope, focusing on comprehensive characterization of either compute or network aspects, resulting in potential trade-offs that may neglect one half of the larger picture.
+We argue that this limitation has led to an incomplete understanding of the overall performance of Edge systems and applications in the existing literature.
+There is a need for holistic approaches that consider both network and compute characteristics of Edge workloads for accurate performance evaluation and optimization.
 
 At the time of the writing of this dissertation, no widely adopted methodology exists for the study of these trade-offs.
 We aim to contribute to the field by introducing and subsequently investigating the applications of such a methodology for the study of latency-sensitive applications deployed on Edge infrastructure and network technologies such as 5G.

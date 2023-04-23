@@ -92,6 +92,13 @@
 \setabbreviationstyle[acronym]{long-short-user}
 \glstoctrue%
 \makeglossaries%
+\newcommand*\nestedgls[1]{%
+  \protect\ifglsused{#1}{%
+    \glsentryshort{#1}%
+  }{%
+    \glsentrylong{#1}%
+  }%
+}
 \loadglsentries{resources/glossary.tex}
 
 % bibliography settings
