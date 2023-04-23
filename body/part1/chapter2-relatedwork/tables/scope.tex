@@ -1,27 +1,19 @@
 % Please add the following required packages to your document preamble:
 % \usepackage{booktabs}
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
 \begin{table}[]
     \centering
-    \caption{Overview of the scope and main contribution of each included publication.}\label{tab:scope}
-    \tiny
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabularx}{\textwidth}{@{}ccXYX@{}}
+    \caption{Visualization of the scope of this dissertation with respect to performance evaluation.
+    We focus exclusively on Edge Computing based on Cloudlets~\cite{satyanarayanan2009case} and on experimental performance evaluation of \gls{XR} and \glspl{CPS}.}
+    \label{tab:scope}
+    \begin{tabularx}{\textwidth}{@{}YYYY@{}}
         \toprule
-        \textbf{Paper} & \textbf{Application} & \textbf{Emulation Approach} & \textbf{Network} & \textbf{Main Contribution}                                \\ \midrule
-        \ref{paper:olguinmunoz2018demoscaling} & \acs{WCA} & Trace, \acs{FSM} user model & Wi-Fi & Initial demo of methodology. \\
-        %
-        \ref{paper:olguinmunoz2019edgedroid} & \acs{WCA} & Trace, \acs{FSM} user model & Wi-Fi & EdgeDroid tool for application of the methodology to \acs{WCA}. \\
-        %
-        \ref{paper:olguinmunoz2021impact} & \acs{WCA} & \acs{N/A} & No network & Characterization of human behavior in \acs{WCA}. \\
-        %
-        \ref{paper:olguinmunoz2022cleave} & \acs{NCS} & Software implementation of Control System & Wi-Fi & \acs{CLEAVE} tool for application of the methodology to \acs{NCS}. \\
-        %
-        \ref{paper:olguinmunoz2022ainur} & \acs{WCA}, \acs{NCS} & \acs{N/A} & Ethernet, Wi-Fi, 4G~\acs{LTE} & Ainur framework for Edge Computing testbed automation. \\
-        \ref{paper:olguinmunoz2023realistic} &
-        \acs{WCA} &
-        Data-driven stochastic synthetic trace and user model &
-        Wi-Fi &
-        Model for end-to-end emulation of humans in \acs{WCA}, exploration of implications of methodology and model for \acs{WCA} optimization. \\
-        \bottomrule
+        & {Analytical Modeling} & {Simulations} & {Experimental}                   \\ \midrule
+        Cloudlets & \cellcolor[HTML]{9AFF99}Yes & \cellcolor[HTML]{9AFF99}Yes & \cellcolor[HTML]{9AFF99}{\color[HTML]{333333} Yes} \\
+        \gls{MEC} & \cellcolor[HTML]{FFCCC9}No              & \cellcolor[HTML]{FFCCC9}No      & \cellcolor[HTML]{FFCCC9}No                         \\
+        Fog & \cellcolor[HTML]{FFCCC9}No              & \cellcolor[HTML]{FFCCC9}No      & \cellcolor[HTML]{FFCCC9}No                         \\
+        \gls{XR}  & \cellcolor[HTML]{FFCCC9}No              & \cellcolor[HTML]{FFCCC9}No      & \cellcolor[HTML]{9AFF99}{\color[HTML]{333333} Yes} \\
+        \glspl{CPS} & \cellcolor[HTML]{FFCCC9}No              & \cellcolor[HTML]{FFCCC9}No      & \cellcolor[HTML]{9AFF99}{\color[HTML]{333333} Yes} \\ \bottomrule
     \end{tabularx}
 \end{table}

@@ -10,6 +10,8 @@ Edge Computing enables deployment of computing resources at the edge of the netw
 This shift in paradigm with respect to Cloud Computing provides drastically reduced latency, bandwidth reduction, as well as context-sensitivity and data locality.
 These are key factors for real-time, context-sensitive, low-latency applications such as \gls{CPS} and \gls{XR}.
 
+\input{tables/scope}
+
 Before these systems can become widely deployed, however, their real-world performance must be thoroughly understood.
 \glspl{CPS} often operate in safety-critical environments, and poor \gls{QoS} in \gls{XR} can easily lead to users experiencing discomfort while using the application.
 Accurate evaluation, characterization, and optimization of the performance of these systems is therefore critical to ensure reliability, safety, and user satisfaction.
@@ -23,8 +25,8 @@ As we will see in \cref{sec:state-of-the-art}, this has led to an incomplete und
 
 In this dissertation we introduce and study the applicability of an alternative methodology for Edge performance evaluation based on a practical, experimental approach.
 We aim to complement literature by providing a method which bridges the gap in knowledge left by existing approaches.
-Or work centers of Edge Computing environments involving latency-sensitive applications such as \gls{XR} and \glspl{CPS}, as these are broadly understood to represent ``killer'' use-cases for the Edge.
-We also focus exclusively on Cloudlet Computing-like setups.
+Our work centers of Edge Computing environments involving latency-sensitive applications such as \gls{XR} and \glspl{CPS}, as these are broadly understood to represent ``killer'' use-cases for the Edge.
+We also focus exclusively on Cloudlet Computing-like setups (see \cref{tab:scope}).
 Although \gls{MEC} is one of the main enablers for \gls{WCA} applications, we consider such network deployments to be \gls{OOS} due to the complexity and financial investment required to deploy a mobile network.
 Likewise, we do not target Fog Computing deployments due to this paradigm being a poor fit for latency-sensitive applications.
 Thus, although the methodology and tools introduced are architecture-agnostic and should be directly applicable to other kinds of Edge Computing setups than the one used in this dissertation, further work may be needed to validate our results and conclusions in the context of \gls{MEC} and Fog Computing.
