@@ -1,70 +1,70 @@
-\section{Open questions \& future work}
+% \section{Open questions \& future work}
 
-Notwithstanding the important contributions of this dissertation, a number of key questions remain open for future research in this field.
+% Notwithstanding the important contributions of this dissertation, a number of key questions remain open for future research in this field.
 
-The first concern is the applicability of the methodology to other systems and applications in the context of Edge Computing.
-This thesis explores the methodology's use for step-based \gls{WCA} in depth, and also performs a less thorough case study on its benefits for \gls{NCS} research.
-The question remains if the methodology is suitable for
-\begin{inlineenum}
-    \item other, non-\gls{WCA} \gls{XR} applications, such as more general mobile \gls{AR} and \gls{VR}
-    \item other more general categories of \glspl{CPS}
-\end{inlineenum}.
-The results obtained thus far indicate that the methodology is applicable to a wide range of interactive and \gls{CPS} applications in Edge Computing, but these results should be confirmed by domain-specific studies.
+% The first concern is the applicability of the methodology to other systems and applications in the context of Edge Computing.
+% This thesis explores the methodology's use for step-based \gls{WCA} in depth, and also performs a less thorough case study on its benefits for \gls{NCS} research.
+% The question remains if the methodology is suitable for
+% \begin{inlineenum}
+%     \item other, non-\gls{WCA} \gls{XR} applications, such as more general mobile \gls{AR} and \gls{VR}
+%     \item other more general categories of \glspl{CPS}
+% \end{inlineenum}.
+% The results obtained thus far indicate that the methodology is applicable to a wide range of interactive and \gls{CPS} applications in Edge Computing, but these results should be confirmed by domain-specific studies.
 
-In accordance with the broader questions mentioned above, this thesis also raises specific questions related to its individual contributions to the literature.
-The EdgeDroid tool, introduced in papers \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid,paper:olguinmunoz2023realistic}, has the potential for further development to support other forms of \gls{WCA} applications.
-Currently, the tool is only designed for a specific class of step-based \gls{WCA} with a linear task model.
-However, the tool, and by extension the methodology, could be easily adapted to similar applications.
+% In accordance with the broader questions mentioned above, this thesis also raises specific questions related to its individual contributions to the literature.
+% The EdgeDroid tool, introduced in papers \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid,paper:olguinmunoz2023realistic}, has the potential for further development to support other forms of \gls{WCA} applications.
+% Currently, the tool is only designed for a specific class of step-based \gls{WCA} with a linear task model.
+% However, the tool, and by extension the methodology, could be easily adapted to similar applications.
 
-We identify the potential for expanding the dataset presented in \cref{paper:olguinmunoz2021impact} to include a more diverse range of participants.
-The current dataset is limited to young undergraduate students from a highly selective university in the \gls{USA}.
-Adding participants from different demographic groups would enhance the representativeness of the data and increase the generalizability of the findings.
-This would also provide an opportunity to extend the human timing model presented in \cref{paper:olguinmunoz2023realistic} to better reflect the behavior of a broader range of users.
+% We identify the potential for expanding the dataset presented in \cref{paper:olguinmunoz2021impact} to include a more diverse range of participants.
+% The current dataset is limited to young undergraduate students from a highly selective university in the \gls{USA}.
+% Adding participants from different demographic groups would enhance the representativeness of the data and increase the generalizability of the findings.
+% This would also provide an opportunity to extend the human timing model presented in \cref{paper:olguinmunoz2023realistic} to better reflect the behavior of a broader range of users.
 
-The optimization framework described in \cref{paper:olguinmunoz2023realistic} can be enhanced in two ways.
-Firstly, the framework assumes that human execution times follow a Rayleigh distribution, but in reality, they are often modeled with an \gls{exGaussian} distribution.
-Secondly, the framework can be made more practical by incorporating the optimization of scenarios with multiple clients and a distributed solution.
+% The optimization framework described in \cref{paper:olguinmunoz2023realistic} can be enhanced in two ways.
+% Firstly, the framework assumes that human execution times follow a Rayleigh distribution, but in reality, they are often modeled with an \gls{exGaussian} distribution.
+% Secondly, the framework can be made more practical by incorporating the optimization of scenarios with multiple clients and a distributed solution.
 
-There are numerous avenues for further investigation in the optimization and development of \gls{WCA}.
-While this thesis has explored the optimization of sampling and energy consumption, there are several other dimensions of these systems that can be examined.
-These include resource allocation, task scheduling, user identification and classification, as well as guaranteeing both \gls{QoE} and \gls{QoS}.
-Each of these areas presents opportunities for future work and could lead to significant advancements in the field of \gls{WCA}.
+% There are numerous avenues for further investigation in the optimization and development of \gls{WCA}.
+% While this thesis has explored the optimization of sampling and energy consumption, there are several other dimensions of these systems that can be examined.
+% These include resource allocation, task scheduling, user identification and classification, as well as guaranteeing both \gls{QoE} and \gls{QoS}.
+% Each of these areas presents opportunities for future work and could lead to significant advancements in the field of \gls{WCA}.
 
-\medskip
-Our research on applying the methodology to \glspl{NCS} presents promising potential for future work.
-While \cref{paper:olguinmunoz2022cleave} provides an initial exploration, further investigation through more realistic and thorough experimentation is necessary to validate the results obtained by the framework.
-To this end, we aim to conduct larger-scale experiments that utilize cutting-edge networking technologies, including 5G and future advancements such as 6G.
-By exploring the full range of networking technologies and scenarios, we can ensure that our methodology is robust and applicable to a wide range of \gls{NCS}.
+% \medskip
+% Our research on applying the methodology to \glspl{NCS} presents promising potential for future work.
+% While \cref{paper:olguinmunoz2022cleave} provides an initial exploration, further investigation through more realistic and thorough experimentation is necessary to validate the results obtained by the framework.
+% To this end, we aim to conduct larger-scale experiments that utilize cutting-edge networking technologies, including 5G and future advancements such as 6G.
+% By exploring the full range of networking technologies and scenarios, we can ensure that our methodology is robust and applicable to a wide range of \gls{NCS}.
 
-We also intend to extend the functionality of the \gls{CLEAVE} tool significantly, primarily to target a wider variety of \glspl{NCS} deployments.
-Currently, \gls{CLEAVE} includes a small repertoire of emulations and controllers.
-We are planning to extend this with the goal of creating an open library of \glspl{NCS} to share with the community.
+% We also intend to extend the functionality of the \gls{CLEAVE} tool significantly, primarily to target a wider variety of \glspl{NCS} deployments.
+% Currently, \gls{CLEAVE} includes a small repertoire of emulations and controllers.
+% We are planning to extend this with the goal of creating an open library of \glspl{NCS} to share with the community.
 
-\medskip
-Finally, we see tremendous opportunities for testbed-driven research in Edge Computing.
-Our current efforts in this context aim towards the extension of our Ainur framework and its integration with \gls{CHI}~\cite{keahey2020lessons}.
-We believe Ainur's unique focus on fully-automated end-to-end wireless edge computing experimentation makes it valuable addition to the \gls{CHI} stack.
-At the same time, integrating with \gls{CHI} will provide a number of features and functionalities which will greatly expand Ainurs potential, such as resource reservation, multi-tenant testbed access, and automated bare-metal and \gls{VM}-host instantiation.
+% \medskip
+% Finally, we see tremendous opportunities for testbed-driven research in Edge Computing.
+% Our current efforts in this context aim towards the extension of our Ainur framework and its integration with \gls{CHI}~\cite{keahey2020lessons}.
+% We believe Ainur's unique focus on fully-automated end-to-end wireless edge computing experimentation makes it valuable addition to the \gls{CHI} stack.
+% At the same time, integrating with \gls{CHI} will provide a number of features and functionalities which will greatly expand Ainurs potential, such as resource reservation, multi-tenant testbed access, and automated bare-metal and \gls{VM}-host instantiation.
 
-The \gls{EXPECA} testbed is undergoing a major expansion and improvement.
-%The aim is to enhance its capabilities and hardware to meet the ever-increasing demands of the industry.
-The expansion consists of three main components;
-\begin{inlineenum}
-    \item a hardware upgrade
-    \item a small scale, private 5G deployment
-    \item a campus-wide 5G deployment
-\end{inlineenum}.
-Firstly, the \gls{EXPECA}s hardware is receiving a complete overhaul.
-We are replacing our initial Raspberry Pi-based prototype with a number of industry grade servers.
-Secondly, a small-scale private 5G deployment using industrial-grade equipment is currently being deployed.
-This will provide a controlled environment for testing and evaluating 5G technologies and applications.
-The use of industrial-grade equipment ensures that the results obtained from the tests are reliable and can be directly applied to real-world scenarios.
-Thirdly, the testbed will be extended to a campus-wide deployment at \gls{KTH} in Stockholm.
-This will provide an opportunity for a larger-scale deployment of 5G and \gls{MEC} technologies and applications, allowing for testing in real-world settings.
-The campus-wide deployment will also serve as a platform for researchers and industry professionals to collaborate and exchange ideas.
-The combined efforts of the small-scale private deployment and the campus-wide deployment at \gls{KTH} will significantly enhance the capabilities and knowledge of the \gls{EXPECA} testbed, positioning it as a leading platform for 5G and \gls{MEC} research and innovation.
+% The \gls{EXPECA} testbed is undergoing a major expansion and improvement.
+% %The aim is to enhance its capabilities and hardware to meet the ever-increasing demands of the industry.
+% The expansion consists of three main components;
+% \begin{inlineenum}
+%     \item a hardware upgrade
+%     \item a small scale, private 5G deployment
+%     \item a campus-wide 5G deployment
+% \end{inlineenum}.
+% Firstly, the \gls{EXPECA}s hardware is receiving a complete overhaul.
+% We are replacing our initial Raspberry Pi-based prototype with a number of industry grade servers.
+% Secondly, a small-scale private 5G deployment using industrial-grade equipment is currently being deployed.
+% This will provide a controlled environment for testing and evaluating 5G technologies and applications.
+% The use of industrial-grade equipment ensures that the results obtained from the tests are reliable and can be directly applied to real-world scenarios.
+% Thirdly, the testbed will be extended to a campus-wide deployment at \gls{KTH} in Stockholm.
+% This will provide an opportunity for a larger-scale deployment of 5G and \gls{MEC} technologies and applications, allowing for testing in real-world settings.
+% The campus-wide deployment will also serve as a platform for researchers and industry professionals to collaborate and exchange ideas.
+% The combined efforts of the small-scale private deployment and the campus-wide deployment at \gls{KTH} will significantly enhance the capabilities and knowledge of the \gls{EXPECA} testbed, positioning it as a leading platform for 5G and \gls{MEC} research and innovation.
 
-In conclusion, the present dissertation provides a comprehensive examination of the methodology for \glspl{NCS} and \gls{WCA}, but there are still many open questions that need to be addressed in future research.
-The EdgeDroid tool and the dataset have the potential to be extended, and the optimization framework employed in the thesis could be improved.
-We also plan to extend the functionality of the \gls{CLEAVE} tool and perform large-scale experimentation on novel networking technologies.
-There are also significant opportunities for testbed-driven research in Edge Computing through the \gls{EXPECA} testbed.
+% In conclusion, the present dissertation provides a comprehensive examination of the methodology for \glspl{NCS} and \gls{WCA}, but there are still many open questions that need to be addressed in future research.
+% The EdgeDroid tool and the dataset have the potential to be extended, and the optimization framework employed in the thesis could be improved.
+% We also plan to extend the functionality of the \gls{CLEAVE} tool and perform large-scale experimentation on novel networking technologies.
+% There are also significant opportunities for testbed-driven research in Edge Computing through the \gls{EXPECA} testbed.

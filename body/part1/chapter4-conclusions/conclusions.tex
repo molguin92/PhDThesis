@@ -1,18 +1,108 @@
-In this thesis, we have made three significant contributions to the field of edge computing, addressing the challenge of studying latency-sensitive applications in a scalable, repeatable manner.
+In this dissertation, we have presented two key contributions to the literature surrounding performance evaluation of Edge Computing systems.
+Firstly, we have introduced a novel methodology for the performance evaluation of latency-sensitive, feedback-loop-based applications enabled by Edge Computing, such as \gls{MAR} and \glspl{CPS}.
+Our methodology is based on the key idea of emulating the end-user component of these applications while using real network and compute components at the backend, thus providing a comprehensive and realistic evaluation of system performance.
+We have validated this methodology through two representative use-cases,\gls{WCA} and \glspl{NCS}.
+Further, we have provided tools for its implementation, including two emulation toolkits for \gls{WCA} and \glspl{NCS}, as well as a software framework for the orchestration and automation of Edge Computing testbeds.
+We have demonstrated the scalability and flexibility of our approach by deploying and studying scenarios with significant number of clients without the need for domain-specific hardware.
 
-The overarching contribution of this dissertation is a new methodological approach for studying the trade-offs between system responsiveness and resource consumption in latency-sensitive applications at the edge.
-Our approach is based on the emulation of the client-side workload while maintaining the actual server-side process and network stack.
-This allows us to maintain a high degree of realism in studies, while at the same time affording significant potential for scalability and repeatability.
-We validate this approach and present case studies of its application in the context of \gls{WCA} and \glspl{NCS}, and introduce a software framework for the orchestration of edge computing testbeds necessary for its implementation.
+Our approach presents several advantages over existing methods for the study of trade-offs in latency-sensitive applications in Edge environments.
+It minimizes the complications associated with experimental evaluation, improving key aspects such as efficiency and repeatability.
+The softwarized nature of the client-side emulation allows for straightforward automation and enhances repeatability and replicability of studies.
+Our methodology reduces complexity by moving workload components fully into the software domain, while at the same time capturing effects due to the interaction of network factors, such as congestion control and medium access, and compute factors, such as process scheduling.
+These effects are are often exceedingly complex to capture in simulations.
+Our approach thus represents a a notable contribution to the literature in its holistic approach to performance evaluation of Edge environments, encompassing both the application and the infrastructure.
 
-A follow-up contribution concerns a deeper exploration of this methodology for \gls{WCA} and introducing the first-ever model for the end-to-end emulation of human timing behavior in \gls{WCA}.
-We gather data from a comprehensive human-subject study and use it to build a model that provides a more accurate representation of human behavior in \gls{WCA}.
-This allows us to more accurately evaluate the advantages of our methodology when applied to these systems.
+Secondly, we have explored the implications of improved client-side emulation realism on the results produced with our methodology.
+To this end, we have provided a novel characterization of human behavior in \gls{WCA}, which we used to design and implement an unprecedented model of human behavior for these applications.
+We have then used this model to study the potential for optimization of these systems.
+Our findings indicate that incorporating improved realism in client-side emulation can enable the implementation of otherwise unfeasible optimization approaches.
+Moreover, within the scope of \gls{WCA} --- and more broadly, \gls{MAR} --- our work emphasizes the importance of considering human behavior and reactions alongside system-related metrics or performance optimizations.
+These behaviors play a critical role in the overall performance of such applications.
 
-Finally, as an extension and application of our first two contributions, we investigate the implications of our methodology and human user model on the optimization potential of \gls{WCA} deployments.
-In particular, we compare the sampling and energy consumption behaviors of these systems with and without considering realistic human behavior.
-Through our methodology, we obtain reliable results indicating that the use of our human user model leads to significant improvements in system performance and energy consumption.
+\medskip
 
-Our work demonstrates the flexibility and advantages of an emulated approach for the study of latency-sensitve applications on edge computing.
-Further, it highlights the interplay between system responsiveness and resource consumption in the design and optimization of these applications.
-We believe that the methodology and human user model presented in this thesis provide a valuable tool for researchers and practitioners in this field, and we hope that our contributions will inspire further research in this area.
+Notwithstanding the important contributions of this dissertation, a number of key questions remain open for future research in this field.
+
+The first concern is the applicability of the methodology to other systems and applications in the context of Edge Computing.
+This thesis explores the methodology's use for step-based \gls{WCA} in depth, and also performs an initial use-case study on its benefits for \gls{NCS} research.
+The question remains if the methodology is as suitable for
+\begin{inlineenum}
+    \item other, non-\gls{WCA} \gls{XR} applications, such as more general mobile \gls{AR} and \gls{VR}
+    \item other more general categories of \glspl{CPS}
+\end{inlineenum}.
+The results obtained thus far indicate that the methodology is applicable to a wide range of interactive and \gls{CPS} applications in Edge Computing, but these results should be confirmed by domain-specific studies.
+
+In accordance with the broader questions mentioned above, this thesis also raises specific questions related to its individual contributions to the literature.
+Our characterization of human behavior in \cref{paper:olguinmunoz2021impact} and both our models of human behavior --- the \gls{FSM}-based model introduced in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} and the data-driven model from \cref{paper:olguinmunoz2023realistic} --- assume linear modes of operation.
+Additionally, the timing characteristics of step-based \gls{WCA} are such that an instruction remains valid for as long as it takes the user to perform it.
+The conclusions from these works therefore may not apply to applications with different execution flows, or in which instructions have a deadline after which they may become stale or invalid.
+Examples of such applications include, for instance, the \emph{Ping-Pong} assistant introduced in~\cite{chen2015early}.
+We believe there is potential for further development of the EdgeDroid tool to support these other forms of \gls{WCA} applications.
+
+The user models are further limited in their realism.
+In \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} we assume a human which is impervious to poor system performance, and suffers no annoyance, fatigue, frustration, nausea or other shortcomings of real human users.
+The result is a model of a user who responds in a precisely reproducible and deterministic manner to the same system stimulus every time.
+These limitations emerge from a lack of data of human behavior in these applications, as at the moment of the writing of these works no comprehensive model of human behavior existed in the relevant literature.
+As a consequence, these works do not consider the effects of human error on \gls{WCA} application runtimes and footprints, and neither do they consider the feedback effects of system responsiveness on human task performance.
+We attempt to address some of these limitations in \cref{paper:olguinmunoz2021impact,paper:olguinmunoz2023realistic};
+the resulting model is able to adapt its timing behavior in response to delay in the system.
+However, we were unable to capture any instances of subjects making a mistake during data collection in \cref{paper:olguinmunoz2021impact}, and thus neither the characterization or subsequent model consider human error during task execution.
+
+Furthermore, we identify the potential for expanding the dataset presented in \cref{paper:olguinmunoz2021impact} to include a more diverse range of participants.
+The current dataset is limited to young undergraduate students from a highly selective university in the \gls{USA}.
+Adding participants from different demographic groups would enhance the representativeness of the data and increase the generalizability of the findings.
+This would also provide an opportunity to extend the human timing model presented in \cref{paper:olguinmunoz2023realistic} to better reflect the behavior of a broader range of users.
+
+The optimization framework described in \cref{paper:olguinmunoz2023realistic} can be enhanced in two ways.
+Firstly, the framework assumes that human execution times follow a Rayleigh distribution, but in reality, they are often modeled with an \gls{exGaussian} distribution.
+Secondly, the framework can be made more practical by incorporating the optimization of scenarios with multiple clients and a distributed solution.
+
+There are numerous avenues for further investigation in the optimization and development of \gls{WCA}.
+While this thesis has explored the optimization of sampling and energy consumption, there are several other dimensions of these systems that can be examined.
+These include resource allocation, task scheduling, user identification and classification, as well as guaranteeing both \gls{QoE} and \gls{QoS}.
+Each of these areas presents opportunities for future work and could lead to significant advancements in the field of \gls{WCA}, and \gls{MAR} and \gls{XR} in general.
+
+Our research on applying the methodology to \glspl{NCS} also presents promising potential for future work.
+While \cref{paper:olguinmunoz2022cleave} provides an initial exploration, further investigation through more realistic and thorough experimentation is necessary to validate the results obtained by the framework.
+To this end, we aim to conduct larger-scale experiments that utilize cutting-edge networking technologies, including 5G and future advancements such as 6G.
+By exploring the full range of networking technologies and scenarios, we can ensure that our methodology is robust and applicable to a wide range of \gls{NCS}.
+
+We also intend to extend the functionality of the \gls{CLEAVE} tool significantly, primarily to target a wider variety of \glspl{NCS} deployments.
+Given the vastness and complexity of the field of \glspl{NCS}, we have limited our exploration in this dissertation to simple, small-scale, single-plant systems.
+The system used corresponds to the \gls{2D} inverted pendulum, using simple \gls{PD} and \gls{PID} controllers.
+Although a representative example for the effectiveness of our approach for \glspl{NCS}, this means that our conclusions may not directly translate to larger scale or more realistic systems.
+Additionally, our tool, \gls{CLEAVE}, assumes a simple request-response design in the sensor-controller-actuator loop.
+This does not match well with more complex controllers such as \gls{MPC} controllers, in which each sample produces multiple outputs from the controller.
+\gls{CLEAVE} will thus have to be modified and extended to work with such setups.
+
+Finally, we see tremendous opportunities for testbed-driven research in Edge Computing.
+Our current efforts in this context aim towards the extension of our Ainur framework and its integration with \gls{CHI}~\cite{keahey2020lessons}.
+We believe Ainur's unique focus on fully-automated end-to-end wireless edge computing experimentation makes it valuable addition to the \gls{CHI} stack.
+At the same time, integrating with \gls{CHI} will provide a number of features and functionalities which will greatly expand Ainurs potential, such as resource reservation, multi-tenant testbed access, and automated bare-metal and \gls{VM}-host instantiation.
+
+The \gls{EXPECA} testbed is undergoing a major expansion and improvement.
+%The aim is to enhance its capabilities and hardware to meet the ever-increasing demands of the industry.
+The expansion consists of three main components;
+\begin{inlineenum}
+    \item a hardware upgrade
+    \item a small scale, private 5G deployment
+    \item a campus-wide 5G deployment
+\end{inlineenum}.
+Firstly, the \gls{EXPECA}s hardware is receiving a complete overhaul.
+We are replacing our initial Raspberry Pi-based prototype with a number of industry grade servers.
+Secondly, a small-scale private 5G deployment using industrial-grade equipment is currently being deployed.
+This will provide a controlled environment for testing and evaluating 5G technologies and applications.
+The use of industrial-grade equipment ensures that the results obtained from the tests are reliable and can be directly applied to real-world scenarios.
+Thirdly, the testbed will be extended to a campus-wide deployment at \gls{KTH} in Stockholm.
+This will provide an opportunity for a larger-scale deployment of 5G and \gls{MEC} technologies and applications, allowing for testing in real-world settings.
+The campus-wide deployment will also serve as a platform for researchers and industry professionals to collaborate and exchange ideas.
+The combined efforts of the small-scale private deployment and the campus-wide deployment at \gls{KTH} will significantly enhance the capabilities and knowledge of the \gls{EXPECA} testbed, positioning it as a leading platform for 5G and \gls{MEC} research and innovation.
+
+\medskip
+
+In conclusion, the present dissertation has provided a comprehensive examination of our methodology for \glspl{NCS} and \gls{WCA}.
+However, there are still many open questions that require further investigation in future research.
+The EdgeDroid tool and the dataset utilized in this study have the potential for further extension, and the optimization framework employed in the thesis could be refined.
+Plans are in place to enhance the functionality of the CLEAVE tool and conduct large-scale experimentation on novel networking technologies.
+Overall, this dissertation serves as a foundation for future research endeavors in the field of \gls{XR} applications and \glspl{CPS} on the Edge.
+The findings, tools, and methodologies presented in this study provide valuable insights and opportunities for further improvements and the exploration of novel technologies enabled by Edge Computing.
