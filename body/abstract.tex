@@ -1,30 +1,31 @@
 \phantomsection\addcontentsline{toc}{chapter}{Abstract}
 \begin{abstract}
-    Since its widespread adoption in the early 2000s, Cloud Computing has revolutionized our daily lives.
+    Cloud Computing has revolutionized our daily lives since its widespread adoption in the early 2000s.
     The globally-accessible nature and virtually unlimited scalability of Cloud Computing have enabled a plethora of applications which were not possible 15 years ago.
     The Cloud allows us to access our documents anywhere, keep in contact with our friends, back up our photos, and even remote-control some of our appliances.
-    However, due to its centralized nature which favors scalability and availability, Cloud Computing has limitations when it comes to novel, latency-sensitive applications requiring real-time processing or low-latencies in their communication links.
+    Despite this, due to its centralized nature which favors scalability and availability, Cloud Computing has limitations when it comes to novel applications requiring real-time processing or low-latencies.
     Applications such as \glspl{CPS} or mobile \gls{XR}, which in turn also have great transformative potential, are simply unable to run on the Cloud.
 
-    Edge Computing is emerging as a potential solution to these limitations by bringing computation and data processing closer to the edge of the network, reducing latency, enabling real-time decision making.
-    In particular, the combination of Edge Computing and 5G offers potential for massive deployments of latency-sensitive applications such as \glspl{CPS} and \gls{XR}.
-    Nevertheless, multiple challenges remain in scaling and understanding these systems, including the optimization of latency through multiple processing steps and trade-offs in wireless system choice, protocols, hardware, and algorithms.
+    Edge Computing is emerging as a potential solution to these limitations by bringing computation and data processing closer to the edge of the network, thereby reducing latency and enabling real-time decision making.
+    The combination of Edge Computing and modern mobile network technologies such as 5G offers potential for massive deployments of latency-sensitive applications.
+    However, scaling and understanding these systems pose multiple challenges, including the optimization of latency through multiple processing steps and trade-offs in wireless system choice, protocols, hardware, and algorithms.
     Existing approaches have so far been unsuccessful in capturing the complex effects arising from the tight interplay between network and compute in these systems, and so there is a growing need for methodological approaches that can accurately evaluate their performance and provide insights into their design and optimization.
 
-    This dissertation attempts to address the challenge of performance evaluation of Edge Computing and the applications enabled by this paradigm by presenting two key contributions to literature.
-    Our first and main contribution corresponds to a methodological approach to studying the trade-offs between system responsiveness and resource consumption in Edge-bound latency-sensitive applications.
-    The approach involves the emulation of the client-side workload while maintaining the real server-side process and network stack, in order to maintain the realism of network effects on the system.
+    This dissertation addresses the challenge of performance evaluation of Edge Computing and the applications enabled by this paradigm by presenting two key contributions to literature.
+    Our first contribution involves a methodological approach to studying the trade-offs between system responsiveness and resource consumption in Edge-bound latency-sensitive applications.
+    The approach involves emulating the client-side workload while maintaining the real server-side process and network stack to maintain the realism of network effects on the system.
 
-    Our second key contribution lies in the exploration of the question of to which degree realism in the emulation can open new avenues for optimization of these systems.
-    To this end, we provide the first ever realistic model of human timings for a particular class of \gls{MAR} applications.
-    This model is then combined with a mathematical framework to study the potential for optimization in these applications.
+    Our second key contribution explores the extent to which realism in the emulation can open new avenues for optimization of these systems.
+    To this end, the first-ever realistic model of human timings for a particular class of \gls{MAR} applications is provided. 
+    The model is combined with a mathematical framework to study the potential for optimization in these applications.
 
-    We present results indicating that our methodology for studying trade-offs in latency-sensitive applications in Edge environments offers advantages over existing methods by improving efficiency, repeatability, and replicability through client-side emulation.
-    It reduces complexity by fully integrating workload components into the software domain, capturing complex effects of network and compute factors that are challenging to analytically model or simulate.
-    Our approach represents an important contribution to literature, as it consists of a holistic, comprehensive method for the performance evaluation of Edge environments, encompassing both the application and the infrastructure.
+    Results indicate that our methodology offers advantages over existing methods by improving efficiency, repeatability, and replicability.
+    By involving client-side emulation of workloads, our methodology reduces complexity by fully integrating workload components into the software domain, capturing complex effects of network and compute factors that are challenging to analytically model or simulate.
+    Our approach represents an important contribution to literature, as it consists of a comprehensive method for the performance evaluation of Edge environments, encompassing both the application and the infrastructure.
+
     Furthermore, the results from our exploration into the implications of realism in the emulation suggest that incorporating enhanced realism in client-side emulation can enable the implementation of optimization approaches that would otherwise be infeasible.
-    In particular, our work highlights the significance of considering human behavior and reactions in addition to system-related metrics and performance optimizations, particularly in the context of \gls{MAR}.
-    These behaviors have a critical impact on the overall performance of such applications, and have yet to be comprehensively studied and considered in literature.
+    In particular, our work highlights the significance of considering human behavior and reactions in addition to system-related metrics and performance optimizations in the context of \gls{MAR}.
+    These behaviors have a critical impact on the overall performance of such applications, but have yet to be comprehensively studied and considered in literature.
 \end{abstract}
 
 \vspace{3em}
