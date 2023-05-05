@@ -4,8 +4,8 @@
 
 \begin{document}
 
-\title{A methodological approach to the performance evaluation of applications enabled by Edge Computing}
-\subtitle{{\color[HTML]{FF0000}{\textbf{Tentantive title}}}}
+\title{An Emulation-Based Performance Evaluation Methodology for Edge Computing and Latency Sensitive Applications}
+% \subtitle{{\color[HTML]{FF0000}{\textbf{Tentantive title}}}}
 \author{Manuel {Osvaldo Jesús} {Olguín Muñoz}}
 \date{\today}
 \thesistype{Doctoral Thesis}
@@ -36,12 +36,14 @@
 
 \clearpage%
 \tableofcontents%
+\printglossary[type=\acronymtype]%
 
 \mainmatter% Pages 1, 2, 3...
 \glsresetall{} % just to make sure
 \part{Summary}\label{part:summary}
 \chapter{Introduction}\label{chap:introduction}
 \import{body/part1/chapter1-introduction}{introduction}
+\import{body/part1/chapter1-introduction}{structure}
 \import{body/part1/chapter1-introduction}{background}
 
 \chapter{Scope \& Related Work}\label{chap:relwork}
@@ -70,7 +72,6 @@
 
 \backmatter%
 \bookmarksetup{startatroot}%
-\printglossary[type=\acronymtype]%
 \input{body/references}
 
 \end{document}

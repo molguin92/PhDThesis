@@ -1,4 +1,4 @@
-\section{Introduction}
+\section{Motivation}
 
 The advancement of technology has brought about new computing paradigms and network technologies that have the potential to revolutionize the way we think about and approach computing and communication.
 One of the most promising of these is Edge Computing, a distributed computing paradigm which seeks to bring compute nodes closer to the end user, reducing latency (i.e.\ the time between input and response) and increasing reliability.
@@ -81,7 +81,7 @@ Similarly, in \glspl{CPS}, the communication network must be designed to minimiz
 Other critical aspects with the potential to impact the latency of latency-sensitive applications on the Edge include congestion on the communication loop and fluctuations of the wireless channel.
 These issues can lead to delays in data transmission between devices on the network, leading to higher end-to-end latency.
 
-The evaluation of performance in Edge computing systems has been addressed in existing literature through analytical, simulation, and experimental approaches.
+The evaluation of performance in Edge computing systems has been addressed in existing literature through analytical~\cite{chen2015efficient,champati2015one,champati2016semi,al2017reliable}, simulation~\cite{svorobej2019simulating,gupta2017ifogsim,sonmez2018edgecloudsim,qayyum2018fognetsimpp}, and experimental~\cite{das2018edgebench,lee2019iotbench,george2020openrtist,mcchesney2019defog,baurle2022comb} approaches.
 However, these systems exhibit several characteristic that make their study complex.
 One of these is unique nature of Edge computing environments, which tightly integrates compute and network.
 This demands a wide range of interdisciplinary expertise to study, spanning (but not limited to) computer science, communication networks, information theory, queuing analysis, etc.
@@ -102,7 +102,7 @@ It may not be feasible for researchers to test the applications on a large scale
 \glspl{CPS} often rely on physical sensors and actuators, making it difficult to replicate real-world conditions in a controlled environment at scale, and conducting experiments involving human subjects for \gls{XR} is time-consuming and expensive.
 This also makes the study of these applications hard to automate, making it challenging to conduct large-scale experiments or to collect data over an extended period of time.
 
-This has led to existing approaches to performance evaluation of Edge Computing environments to often be constrained in their scope, focusing on comprehensive characterization of either compute or network aspects, resulting in potential trade-offs that may neglect one half of the larger picture.
+This has led to existing approaches to performance evaluation of Edge Computing environments to often be constrained in their scope, focusing on comprehensive characterization of either compute or network aspects (e.g.~\cite{chen2015efficient} and~\cite{al2017reliable}), resulting in potential trade-offs that may neglect one half of the larger picture.
 We argue that this limitation has led to an incomplete understanding of the overall performance of Edge systems and applications in the existing literature.
 There is a need for holistic approaches that consider both network and compute characteristics of Edge workloads for accurate performance evaluation and optimization.
 
@@ -133,22 +133,3 @@ We believe our contributions represent valuable tools and insights for researche
 The methodology represents a novel, holistic approach to the performance evaluation of Edge environments.
 Furthermore, our findings have significant implications for the design and optimization of applications enabled by Edge Computing, particularly in the areas of energy consumption, sampling strategies, and application lifetime.
 We hope and believe this dissertation will contribute to the development of new techniques and approaches for improving the performance and reliability of Edge Computing and 5G systems.
-
-\subsection{Structure of this dissertation}
-
-This dissertation is structured into two parts.
-\cref{part:summary} presents a summary of the research, introducing the topic, discussing related work, and highlighting key contributions.
-Next, in \cref{part:publications} we present the publications that form the core of this thesis.
-
-\cref{part:summary} is itself structured into four main chapters.
-\cref{chap:introduction} serves as an introduction to the topic and outlines the key contributions of this work.
-It sets the stage for the subsequent chapters by providing a high-level overview of the research problem and its significance, as well as provides background information on the core topics of the thesis.
-In \cref{chap:relwork}, we present the scope of the thesis, as well as relevant related work.
-The chapter provides a comprehensive review of the existing literature, highlighting the current state-of-the-art and identifying any gaps in knowledge.
-We discuss context for our research, and establish the foundation for the contributions presented in the dissertation.
-\cref{chap:contributions} is the core of \cref{part:summary} and provides a detailed summary of the contributions made in this dissertation.
-We discuss methods, tools, and findings that were developed and obtained throughout the course of our research.
-We aim to demonstrate the significance of our work and how it contributes to the field.
-Finally, \cref{chap:conclusions} concludes the dissertation and outlines avenues for future research.
-We summarize the key findings and contributions of the thesis, and briefly discuss the implications of our findings and contributions for the field.
-This chapter also identifies open questions and areas for further research, providing opportunities to build on the work presented in this thesis.

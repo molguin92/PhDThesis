@@ -12,19 +12,21 @@
     Existing approaches have so far been unsuccessful in capturing the complex effects arising from the tight interplay between network and compute in these systems, and so there is a growing need for methodological approaches that can accurately evaluate their performance and provide insights into their design and optimization.
 
     This dissertation addresses the challenge of performance evaluation of Edge Computing and the applications enabled by this paradigm by presenting two key contributions to literature.
-    Our first contribution involves a methodological approach to studying the trade-offs between system responsiveness and resource consumption in Edge-bound latency-sensitive applications.
-    The approach involves emulating the client-side workload while maintaining the real server-side process and network stack to maintain the realism of network effects on the system.
+    The first contribution involves a methodological approach to experimentally studying the trade-offs between system responsiveness and resource consumption in Edge-bound latency-sensitive applications such as \glspl{CPS} and \gls{XR}.
+    These applications and systems feature characteristics, such as tight interaction with the physical world and the involvement of humans, that make them challenging to study through simulated approaches or analytical modeling.
+    The approach presented in this thesis involves therefore the emulation of the client-side workload while maintaining the real server-side process and network stack to retain the realism of network effects on the system.
 
-    Our second key contribution explores the extent to which realism in the emulation can open new avenues for optimization of these systems.
+    The second key contribution relates to the exploration of the requirements for realism in the emulation.
+    Further, this work discusses the extent to which realism in the emulation  can open new avenues for optimization of these systems.
     To this end, the first-ever realistic model of human timings for a particular class of \gls{MAR} applications is provided. 
     The model is combined with a mathematical framework to study the potential for optimization in these applications.
 
-    Results indicate that our methodology offers advantages over existing methods by improving efficiency, repeatability, and replicability.
-    By involving client-side emulation of workloads, our methodology reduces complexity by fully integrating workload components into the software domain, capturing complex effects of network and compute factors that are challenging to analytically model or simulate.
-    Our approach represents an important contribution to literature, as it consists of a comprehensive method for the performance evaluation of Edge environments, encompassing both the application and the infrastructure.
+    Results indicate that the methodology introduced in this work offers advantages over existing methods by improving efficiency, repeatability, and replicability.
+    By involving client-side emulation of workloads and fully integrating workload components into the software domain, this methodology reduces complexity while still capturing complex effects of network and compute factors that are challenging to model.
+    This approach represents an important contribution to literature, as it consists of a comprehensive method for the performance evaluation of Edge environments, encompassing both the application and the infrastructure.
 
-    Furthermore, the results from our exploration into the implications of realism in the emulation suggest that incorporating enhanced realism in client-side emulation can enable the implementation of optimization approaches that would otherwise be infeasible.
-    In particular, our work highlights the significance of considering human behavior and reactions in addition to system-related metrics and performance optimizations in the context of \gls{MAR}.
+    Furthermore, results from the exploration into the implications of realism in the emulation suggest that incorporating enhanced realism in client-side emulation can enable the implementation of optimization approaches that would otherwise be infeasible.
+    In particular, this work highlights the significance of considering human behavior and reactions in addition to system-related metrics and performance optimizations in the context of \gls{MAR}.
     These behaviors have a critical impact on the overall performance of such applications, but have yet to be comprehensively studied and considered in literature.
 \end{abstract}
 

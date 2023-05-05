@@ -276,7 +276,7 @@ This was confirmed through an \gls{ANOVA}~\cite{fujikoshi1993two} including fact
 
 On the other hand, in \cref{fig:ttfvsexectime:slice} we observe the evolution of execution times over \emph{slices} of \num{4} steps within blocks.
 This figure illustrates how, at the lowest levels of impairment, users tended to get faster as the task progressed.
-At the lowest \gls{TTF}, the average execution time of steps \num{9} to \num{12} in a block was roughly \textasciitilde\SI{26}{\percent} lower than for steps \num{1} to \num{4}.
+At the lowest \gls{TTF}, the average execution time of steps \num{9} to \num{12} in a block was roughly \ensuremath{\sim\SI{26}{\percent}} lower than for steps \num{1} to \num{4}.
 However, this effect is strongly dampened at higher levels of impairment, with the difference between the average execution times of steps in slices \num{2} and \num{3} basically disappearing at the highest \gls{TTF}.
 This was also confirmed through an \gls{ANOVA} on factors slice and \gls{TTF}, finding significant (\ensuremath{p < 0.01}) for both factors and their interaction.
 
@@ -304,8 +304,8 @@ On average, the mean execution time of the first four steps of blocks was roughl
 
 Analyses of the correlation between individual subject differences and the above effects highlighted the \gls{BFI} trait of \emph{neuroticism} as an important modulating factor.
 This trait has been linked to low tolerance for stress, high emotional reactivity, as well as higher rates of \emph{delay discounting}~\cite{hirsh2008delay}.
-Out of the three components identified by a \gls{PCA}, which cumulatively accounted for \textasciitilde\SI{73}{\percent} of the variance in the execution time results, neuroticism was present in the first two.
-Individual neuroticism scores were found to significantly linearly correlate (\ensuremath{rho = 0.418}, two-tailed \ensuremath{p < 0.05}) with measured execution times at high \glspl{TTF}.
+Out of the three components identified by a \gls{PCA}, which cumulatively accounted for \ensuremath{\sim\SI{73}{\percent}} of the variance in the execution time results, neuroticism was present in the first two.
+Individual neuroticism scores were found to significantly linearly correlate (\ensuremath{\rho = 0.418}, two-tailed \ensuremath{p < 0.05}) with measured execution times at high \glspl{TTF}.
 
 Finally, we found that execution times were well-fit by \gls{exGaussian} distributions.
 Previous research has established strong arguments for the use of this distribution for the modeling of human reaction times and the timings of human actions~\cite{rohrer1994analysis,palmer2011what,marmolejo_ramos2022generalised}.
@@ -336,7 +336,7 @@ The complexity of \gls{WCA} application systems makes it challenging to predict 
 Built upon the data and results from \cref{paper:olguinmunoz2021impact}, our model is capable of dynamically generating realistic predictions of execution times for steps in a \gls{WCA} based on historical system state data and a parameterized level of neuroticism.
 Furthermore, we implement a new version of the EdgeDroid tool capable of using this new model, together with a novel procedure for the generation of realistic synthetic traces of frames for \gls{WCA}, to provide a fully end-to-end emulation of a human in the context of these systems.
 
-\subsubsection{Design of a realistic model for human timings in \gls{WCA}}
+\subsubsection{Design of a realistic model for human timings in \gls{WCA}}\label{sec:improved_model}
 
 Our current model of human behavior has a limitation that we need to address.
 The model we have discussed so far emulates a rigid and unyielding human who is not affected by low responsiveness in the system.
@@ -423,7 +423,7 @@ More details and a longer discussion on this approach can be found in \cref{pape
 
 \subsection{Implications with respect to task completion times}
 
-In this section, we will discuss the implications of the methodology for the optimization of \gls{WCA} applications, in particular when employing the experimental results and the improved model of human timings discussed in \cref{sec:extendingmethodology}.
+In this section, we will discuss the implications of the methodology for the optimization of \gls{WCA} applications, in particular when employing the experimental results and the improved model of human timings discussed in \cref{sec:improved_model}.
 The discussion presented here is a summarized version of what \cref{paper:olguinmunoz2023realistic} exposes.
 
 The term \emph{task completion time}, in the context of \gls{WCA}, will refer to the time it takes a user to work their way through the task presented by an assistant application.
