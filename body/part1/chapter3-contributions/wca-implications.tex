@@ -1,7 +1,7 @@
-\section{Exploring the need for realism in client-side emulation}\label{summary:realism}
+\section{Exploring the need for accuracy in client-side emulation}\label{summary:realism}
 
 In this section, we aim to delve deeper into the implications of our methodology for the optimization of \gls{WCA}.
-In particular, we wish to explore the impact improving the realism of the client-side emulation has on the potential for optimization of the applications under evaluation.
+In particular, we wish to explore the impact improving the accuracy of the client-side emulation has on the potential for optimization of the applications under evaluation.
 We approach this question by developing an improved, more detailed version of our model of human behavior in \gls{WCA} used in the EdgeDroid tool, which we then incorporate into our methodology along with a mathematical framework to study the potential for optimizing \gls{WCA} applications. 
 
 Our work in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} has used a model that emulates a rigid and unyielding human who makes no mistakes and is not affected by low responsiveness in the system.
@@ -10,8 +10,8 @@ In order to develop a more accurate human model in the context of \gls{WCA}, we 
 The results of this study serve as the foundation for building a more representative model of human behavior.
 
 Once we have established a more accurate model of human behavior, we can explore its implications for the optimization of \gls{WCA} through our methodology.
-By improving the realism of our model of human behavior, we aim to gain novel understanding of the challenges involved in optimizing \gls{WCA} and how our methodology can be effectively applied to address these.
-This research highlights the importance of the realism of emulations as  crucial factor in the application of our methodology.
+By improving the accuracy of our model of human behavior, we aim to gain novel understanding of the challenges involved in optimizing \gls{WCA} and how our methodology can be effectively applied to address these.
+This research highlights the importance of the accuracy of emulations as  crucial factor in the application of our methodology.
 
 \subsection{Definitions relating to the operation of \glsfmtshort{WCA} applications}
 
@@ -336,7 +336,7 @@ The complexity of \gls{WCA} application systems makes it challenging to predict 
 Built upon the data and results from \cref{paper:olguinmunoz2021impact}, our model is capable of dynamically generating realistic predictions of execution times for steps in a \gls{WCA} based on historical system state data and a parameterized level of neuroticism.
 Furthermore, we implement a new version of the EdgeDroid tool capable of using this new model, together with a novel procedure for the generation of realistic synthetic traces of frames for \gls{WCA}, to provide a fully end-to-end emulation of a human in the context of these systems.
 
-\subsubsection{Design of a realistic model for human timings in \gls{WCA}}\label{sec:improved_model}
+\subsubsection{Design of a more accurate model for human timings in \gls{WCA}}\label{sec:improved_model}
 
 Our current model of human behavior has a limitation that we need to address.
 The model we have discussed so far emulates a rigid and unyielding human who is not affected by low responsiveness in the system.

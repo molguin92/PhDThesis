@@ -15,8 +15,8 @@
     These applications and systems feature characteristics, such as tight interaction with the physical world and the involvement of humans, that make them challenging to study through simulated approaches or analytical modeling.
     The approach presented in this thesis involves therefore the emulation of the client-side workload while maintaining the real server-side process and network stack to retain the realism of network and compute effects.
 
-    Next, an exploration of the requirements for realism in the emulation is presented.
-    Further, this work discusses the extent to which realism in the emulation can open new avenues for optimization of these systems.
+    Next, an exploration of the requirements for accuracy in the emulation is presented.
+    Further, this work discusses the extent to which accuracy in the emulation can open new avenues for optimization of these systems.
     To this end, the first-ever realistic model of human timings for a particular class of \gls{MAR} applications is provided. 
     The model is combined with a mathematical framework to study the potential for optimization in these applications.
 
@@ -44,26 +44,26 @@
     Trots detta har Cloud Computing begränsningar när det gäller nya applikationer som kräver realtidsbehandling eller låg latens.
     Applikationer som cyberfysiska system (engelska \emph{\gls{CPS}}) eller mobilt utvidgad verklighet (engelska \emph{\gls{XR}}), som i sin tur också har stor omvandlingspotential, kan inte köras på molnet.
 
-     Edge Computing är en potentiell lösning på dessa begränsningar som, genom att föra beräkningar och databehandling närmare kanten av nätverket, minskar latensen och möjliggör beslutsfattande i realtid.
-     Kombinationen av Edge Computing och moderna mobila nätverksteknologier som 5G erbjuder potential för massiva utrullningar av latenskänsliga applikationer. 
-     Men att skala och förstå dessa utrullningar utgör viktiga utmaningar såsom optimering av latens genom flera bearbetningssteg och avvägningar i val av trådlösa system, protokoll, hårdvara och algoritmer.
-     Befintliga metoder har hittills inte lyckats fånga de komplexa effekter som uppstår från samspelet mellan nätverk och datorer i dessa system.
+    Edge Computing är en potentiell lösning på dessa begränsningar som, genom att föra beräkningar och databehandling närmare kanten av nätverket, minskar latensen och möjliggör beslutsfattande i realtid.
+    Kombinationen av Edge Computing och moderna mobila nätverksteknologier som 5G erbjuder potential för massiva utrullningar av latenskänsliga applikationer. 
+    Men att skala och förstå dessa utrullningar utgör viktiga utmaningar såsom optimering av latens genom flera bearbetningssteg och avvägningar i val av trådlösa system, protokoll, hårdvara och algoritmer.
+    Befintliga metoder har hittills inte lyckats fånga de komplexa effekter som uppstår från samspelet mellan nätverk och datorer i dessa system.
      
-     Den här avhandlingen tar upp utmaningen med prestationsutvärdering av Edge Computing och applikationerna som möjliggörs av detta paradigm med två viktiga bidrag till litteraturen.
-     Först introduceras ett metodologiskt tillvägagångssätt för att experimentellt studera kompromisserna mellan systemrespons och resursförbrukning i latenskänsliga applikationer såsom \glspl{CPS} och \gls{XR} som körs på Edge Computing.
-     Dessa applikationer och system har egenskaper, såsom tät interaktion med den fysiska världen och inblandning av människor, som gör dem utmanande att studera genom simulerade tillvägagångssätt eller analytisk modellering.
-     Den metod som presenteras i denna avhandling innebär därför emulering av klientsidans arbetsbelastning samtidigt som den verkliga serversidans process och nätverksstacken bibehålls för att bibehålla realismen i nätverks- och datoreffekter.
+    Denna avhandling tar upp utmaningen med prestationsutvärdering av Edge Computing och applikationerna som möjliggörs av detta paradigm med två viktiga bidrag till litteraturen.
+    Först introduceras ett metodologiskt tillvägagångssätt för att experimentellt studera kompromisserna mellan systemrespons och resursförbrukning i latenskänsliga applikationer såsom \glspl{CPS} och \gls{XR} som körs på Edge Computing.
+    Dessa applikationer och system har egenskaper, såsom tät interaktion med den fysiska världen och inblandning av människor, som gör dem utmanande att studera genom simulerade tillvägagångssätt eller analytisk modellering.
+    Den metod som presenteras i denna avhandling innebär därför emulering av klientsidans arbetsbelastning samtidigt som den verkliga serversidans process och nätverksstacken bibehålls för att bibehålla realismen i nätverks- och datoreffekter.
 
-     Därefter presenteras en utforskning av kraven på realism i emuleringen.
-     Vidare diskuterar detta arbete i vilken utsträckning realism i emuleringen kan öppna nya vägar för optimering av dessa system.
-     För detta ändamål tillhandahålls den första realistiska modellen av mänskliga tidsbeteenden för en särkild klass av mobilt förstärkt verklighets-applikationer (engelska \emph{\gls{MAR}}).
-     Modellen kombineras med ett matematiskt ramverk för att studera potentialen för optimering i dessa applikationer.
+    Därefter presenteras en utforskning av kraven på noggrannhet i emuleringen.
+    Vidare diskuterar detta arbete i vilken utsträckning noggrannhet i emuleringen kan öppna nya vägar för optimering av dessa system.
+    För detta ändamål tillhandahålls den första realistiska modellen av mänskliga tidsbeteenden för en särkild klass av mobilt förstärkt verklighets-applikationer (engelska \emph{\gls{MAR}}).
+    Modellen kombineras med ett matematiskt ramverk för att studera potentialen för optimering i dessa applikationer.
 
-     Resultaten indikerar att den metod som introducerats i detta arbete erbjuder fördelar jämfört med befintliga metoder genom att förbättra effektiviteten, repeterbarheten och replikerbarheten.
-     Genom att helt integrera arbetsbelastningskomponenter i den emulerade mjukvarudomänen, minskar denna metodik komplexiteten samtidigt som den fångar komplexa effekter av nätverks- och beräkningsfaktorer som är utmanande att modellera.
-     Detta tillvägagångssätt representerar således ett viktigt bidrag till litteraturen, eftersom det består av en omfattande metod för prestandautvärdering av Edge Computing-miljöer, som omfattar både applikationen och infrastrukturen.
-     Dessutom tyder resultat från utforskningen av implikationerna av realism i emuleringen att inkorporering av förbättrad realism i klientsideemulering kan möjliggöra implementering av optimeringsmetoder som annars skulle vara omöjliga.
-     Särskilt framhåller detta arbete betydelsen av att överväga mänskligt beteende och reaktioner utöver systemrelaterade mätvärden och prestandaoptimeringar i samband med \gls{MAR}.
+    Resultaten indikerar att den metod som introducerats i detta arbete erbjuder fördelar jämfört med befintliga metoder genom att förbättra effektiviteten, repeterbarheten och replikerbarheten.
+    Genom att helt integrera arbetsbelastningskomponenter i den emulerade mjukvarudomänen, minskar denna metodik komplexiteten samtidigt som den fångar komplexa effekter av nätverks- och beräkningsfaktorer som är utmanande att modellera.
+    Detta tillvägagångssätt representerar således ett viktigt bidrag till litteraturen, eftersom det består av en omfattande metod för prestandautvärdering av Edge Computing-miljöer, som omfattar både applikationen och infrastrukturen.
+    Dessutom tyder resultat från utforskningen av implikationerna av noggrannhet i emuleringen att inkorporering av förbättrad noggrannhet i klientsideemulering kan möjliggöra implementering av optimeringsmetoder som annars skulle vara omöjliga.
+    Särskilt framhåller detta arbete betydelsen av att överväga mänskligt beteende och reaktioner utöver systemrelaterade mätvärden och prestandaoptimeringar i samband med \gls{MAR}.
 
 \end{abstract}
 \selectlanguage{english}
