@@ -217,7 +217,7 @@ One of the most common uses of these technologies can be found in the domain of 
 Further, \gls{AR} and \gls{MR} allow for the merging of the virtual and real worlds, bringing entertainment to life in users day-to-day surroundings.
 The popularity of this approach can be clearly seen in the explosive success of modern mobile \gls{AR} games such \citetitle{pokemongo}~\cite{pokemongo}.
 
-\gls{XR} also presents tremendous opportunities for education and training.
+\Glsfmtlong{XR} also presents tremendous opportunities for education and training.
 Through the use of these technologies, students can get hands-on yet safe, simulated experience in a multitude of scenarios.
 \gls{VR} is leveraged, for instance, in the training of new medical professionals, allowing students to learn anatomy and practice surgical procedures in realistic virtual environments.
 On the other hand, \gls{AR} and \gls{MR} are employed in manufacturing, to train and assist technicians in highly specialized assembly lines.
@@ -255,7 +255,7 @@ The application otherwise remains silent and out-of-the-way; samples with unfini
 This mode of operation has novel consequences for the \gls{QoS} requirements of \gls{WCA} applications.
 As with general \gls{AR}, \gls{WCA} has relatively lax bandwidth requirements; however, latency requirements in \gls{WCA} can vary along the execution time of the application.
 Users of these applications can only notice system responsiveness when they are \emph{expecting} feedback, that is, immediately after the completion of a logical step or instruction.
-Latency bounds can thus be very lax immediately after an instruction is generated (as no feedback is expected yet), and on the other hand much more stringent right after the user has completed an instruction.
+Latency bounds can thus be very lax immediately after an instruction is provided, and on the other hand much more stringent right after the user has completed it.
 In turn, this leads to interesting opportunities for resource consumption optimization in \gls{WCA} applications, such as the adaptive sampling scheme proposed in~\cite{wang2019towards}.
 The fact that users \emph{consciously} expect near-instantaneous feedback immediately after finishing an instruction also leads to strong and cumulative reactions to delays in the system, as evidenced by our work in \cref{paper:olguinmunoz2021impact}, implying that careful consideration to latencies must be taken when designing these systems.
 
@@ -299,8 +299,8 @@ These systems are composed of
 \end{inlineenum}.
 Plant refers to the physical system being controlled.
 Sensors sample and encode the state of the plant and transmit it to the controller.
-The controller processes these inputs, and generates control signals to be sent to the actuators, which modify the plant's behavior.
-The overall goal of a control system is to regulate a process or a physical system to meet desired specifications or objectives, such as maintaining a constant temperature, tracking a set trajectory, or regulating the speed of a machine.
+The controller processes inputs and generates control signals to be sent to the actuators, which modify the plant's behavior.
+The overall goal of a control system is to regulate a process or a physical system to meet desired specifications or objectives, such as maintaining a constant temperature or tracking a set trajectory.
 
 \gls{NCS} research is a research direction in the field of automatic control that focuses on the study and development of control systems that formally account for the effects of incorporating communication networks for data exchange between different components of the system.
 Every modern control system is, to some extent, networked in the sense that a communication medium is used to transmit information between components.
