@@ -1,12 +1,12 @@
 As previously discussed, this dissertation makes two key contributions to the literature surrounding performance evaluation of Edge Computing environments.
 These contributions, together with ancillary contributions and results, will be summarized in the two sections presented in this chapter.
 
-In \cref{summary:methodology}, we discuss our methodology for evaluating the performance of latency-sensitive, feedback-loop-based applications enabled by Edge Computing.
+In \cref{summary:methodology}, I discuss my methodology for evaluating the performance of latency-sensitive, feedback-loop-based applications enabled by Edge Computing.
 This methodology involves emulating only the end-user, client-side component of such applications while using the real network and compute components of the system. 
-We further discuss the validation of this approach through two representative use-cases for \gls{XR} and \glspl{CPS}.
+I further discuss the validation of this approach through two representative use-cases for \gls{XR} and \glspl{CPS}.
 
-Next, in \cref{summary:realism}, we explore the extent of the need for accuracy in our client-side emulation of a latency-sensitive, feedback-loop application on Edge Computing.
-We broach this question through the elaboration of a detailed model of human behavior in \gls{WCA}, which we then employ in our methodology, in conjunction with a mathematical framework, to study the the potential for optimization of \gls{WCA} applications.
+Next, in \cref{summary:realism}, I explore the extent of the need for accuracy in my client-side emulation of a latency-sensitive, feedback-loop application on Edge Computing.
+I broach this question through the elaboration of a detailed model of human behavior in \gls{WCA}, which I then employ in the methodology, in conjunction with a mathematical framework, to study the the potential for optimization of \gls{WCA} applications.
 
 \section{A methodology for the study of latency-sensitive applications in Edge Computing}\label{summary:methodology}
 
@@ -15,7 +15,7 @@ These applications, such as \gls{WCA} and \glspl{NCS}, are challenging to study 
 
 The main focus of this work is to enhance the accuracy and realism of results related to Edge infrastructure.
 In particular, the proposed methodology aims to provide a more comprehensive and realistic assessment of the performance of these latency-sensitive applications with respect to previous approaches, allowing for a better understanding of the strengths and limitations of Edge Computing.
-Our results will contribute to the development of new techniques and approaches for improving the performance and reliability of Edge Computing systems.
+The results presented in this dissertation will contribute to the development of new techniques and approaches for improving the performance and reliability of Edge Computing systems.
 
 \begin{figure}
     \centering
@@ -27,20 +27,20 @@ Our results will contribute to the development of new techniques and approaches 
     }\label{fig:methodology}
 \end{figure}
 
-Our methodology is based on the emulation of target workloads on actual Edge infrastructure;
+This methodology is based on the emulation of target workloads on actual Edge infrastructure;
 see \cref{fig:methodology}.
-We replace the client side of the system with a realistic emulation of the desired behaviors;
+I replace the client side of the system with a realistic emulation of the desired behaviors;
 this emulation is implemented in software deployed on \gls{COTS} general-purpose computing devices.
-In our initial implementation, these correspond to low-cost, easily replaceable and scalable Raspberry Pi 4 Model B~\cite{raspberrypi} \glspl{SBC}.
-We aim to maintain the backend software and hardware, as well as the network, unchanged with respect to the real-world deployment, in order to preserve as much realism as possible in the effects arising from the hardware and network.
+In my initial implementation, these correspond to low-cost, easily replaceable and scalable Raspberry Pi 4 Model B~\cite{raspberrypi} \glspl{SBC}.
+I aim to maintain the backend software and hardware, as well as the network, unchanged with respect to the real-world deployment, in order to preserve as much realism as possible in the effects arising from the hardware and network.
 
-Our emulated methodology presents several advantages over alternatives, simulated or fully-practical approaches.
-To begin with, and perhaps most importantly, it makes our approach portable and applicable to real Edge computing deployments.
-By limiting the emulation to the workload, our approach can be directly employed on pre-existing Edge computing infrastructure in order to benchmark applications before they are deployed.
-This makes our approach valuable to not only to the research community, but also to system designers and application developers.
+My emulated methodology presents several advantages over alternatives, simulated or fully-practical approaches.
+To begin with, and perhaps most importantly, it makes my approach portable and applicable to real Edge computing deployments.
+By limiting the emulation to the workload, my approach can be directly employed on pre-existing Edge computing infrastructure in order to benchmark applications before they are deployed.
+This makes my approach valuable to not only to the research community, but also to system designers and application developers.
 
 In hand with the previous point, it allows for easier scaling compared to real-world studies.
-The systems we target exhibit a centralized nature in which a potentially large number of clients offload computation to a single central compute node.
+The systems I target exhibit a centralized nature in which a potentially large number of clients offload computation to a single central compute node.
 The client-side component of the applications of interest for this research is often complex to scale.
 Consider a system owner interested in studying the performance of some Edge computing setup for latency-sensitive applications.
 In the case of interactive and immersive applications, scaling the number of human users is a significant challenge, as recruiting participants is an expensive and time-consuming endeavor.
@@ -49,11 +49,11 @@ In many cases, these systems are made-to-order, further increasing the cost as e
 On the other hand, a simulated approach requires modeling not only the application workload, but also the Edge computing system and infrastructure.
 Due to the intricate nature of contemporary cloud and Edge computing setups, which frequently involve multiple tiers of proxies, load balancers, virtualized computing units, and network functions, the modeling of such systems can quickly become an overly complex endeavor.
 
-Our approach circumvents both of these limitations.
+My approach circumvents both of these limitations.
 Emulating the workload component reduces complexity by moving it into the software domain, allowing for easier scaling through the use of cheap, \gls{COTS} general-purpose hardware such as the aforementioned \glspl{SBC}.
 Furthermore, it preserves the realism of effects stemming from the hardware and network.
-Employing emulations allows our methodology to realize a more realistic testing environment than a simulated approach and can provide results that are closer to what would be seen in the real-world.
-Of particular interest to us are effects due to network factors such as contention, congestion control, and medium access.
+Employing emulations allows my methodology to realize a more realistic testing environment than a simulated approach and can provide results that are closer to what would be seen in the real-world.
+Of particular interest to this dissertation are effects due to network factors such as contention, congestion control, and medium access.
 These effects are often of stochastic or chaotic natures, and are thus complex to capture in simulations.
 
 Emulating the workload also provides improved repeatability and replicability.
@@ -61,25 +61,25 @@ Repeating a study becomes a matter of re-running the workload on the same testbe
 in turn, studies can be replicated simply by obtaining the same or equivalent software workload and deploying it on a comparable testbed.
 These are complex tasks to accomplish in real-world approaches, particularly when dealing with humans.
 
-Finally, our methodology improves extensibility significantly.
+Finally, my methodology improves extensibility significantly.
 Replicating the methodology for other workloads simply requires developing a new piece of software to emulate the new workload.
 This can further be simplified by employing software platforms for the emulation of categories of workloads, as well will discuss later on in this thesis.
 
 \medskip
-In the following subsections we will discuss two illustrative use-cases for our methodology; \acl{WCA} and \acl{NCS} research and benchmarking.
-\Cref{summary:methodology:usecase_wca} discusses the application of our methodology to \gls{WCA}.
+In the following subsections I will discuss two illustrative use-cases for my methodology; \acl{WCA} and \acl{NCS} research and benchmarking.
+\Cref{summary:methodology:usecase_wca} discusses the application of my methodology to \gls{WCA}.
 This work was originally published in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}.
-Next, in \cref{summary:methodology:usecase_ncs} we expand this discussion to \glspl{NCS}, a discussion originally approached in \cref{paper:olguinmunoz2022cleave}.
+Next, in \cref{summary:methodology:usecase_ncs} I expand this discussion to \glspl{NCS}, a discussion originally approached in \cref{paper:olguinmunoz2022cleave}.
 
 \subsection{Use-case: \acl{WCA}}\label{summary:methodology:usecase_wca}
 
-We first introduce our methodology and its applicability to \gls{WCA} in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}.
-The former corresponds to an extended abstract paper which discusses a high level overview of our approach;
+I first introduce my methodology and its applicability to \gls{WCA} in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}.
+The former corresponds to an extended abstract paper which discusses a high level overview of my approach;
 the latter presents a deeper, more complete discussion about the implementation together with some first experimental results.
 As discussed in \cref{chap:introduction,sec:relwork:xremulation}, the main challenge to benchmarking \gls{WCA} --- and other ``human-in-the-loop'' applications on the Edge --- concerns the involvement of human beings in their operation.
 Humans are unreliable, and, perhaps more importantly, hard to scale.
 
-The implementation of the client-side emulation necessary for our methodology follows in these works a trace-based design.
+The implementation of the client-side emulation necessary for my methodology follows in these works a trace-based design.
 The trace-based approach is chosen for three reasons:
 \begin{inlineenum}
     \item realism in terms of payloads sent over the network
@@ -97,9 +97,9 @@ The user model attempts to navigate the task model and reach the desired system 
     \centering
     \includegraphics[width=.9\textwidth]{Figs/trace_edgedroid}
     \caption{%
-        High level conceptual design of our methodology for \gls{WCA}.
-        We replace the human by a trace-driven emulation.
-        This allows us to maintain realism in inputs sent over the network to the compute process on the backend, while simplifying the design of the client software.
+        High level conceptual design of my methodology for \gls{WCA}.
+        I replace the human by a trace-driven emulation.
+        This allows for the retention of realism in inputs sent over the network to the compute process on the backend, while simplifying the design of the client software.
 %        Figure originally published in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}.
     }\label{fig:methodology:wca:conceptual}
 \end{figure}
@@ -108,16 +108,16 @@ The user model attempts to navigate the task model and reach the desired system 
 The trace is fed to a model of human behavior, which then replays it to the real \gls{WCA} backend.
 Feedback from the backend is then interpreted by the model to adapt the runtime replay of the trace.
 
-We introduce a tool, \emph{EdgeDroid \num{1.0}}, which implements the concepts outlined above.
+I introduce a tool, \emph{EdgeDroid \num{1.0}}, which implements the concepts outlined above.
 The tool is implemented in Android, allowing for its easy deployment on the same kind of \gls{COTS} mobile and/or wearable devices (e.g.\ Google Glass~\cite{googleglass}) on which real \gls{WCA} applications are intended to run in the future, and is instrumented for easy collection of a multitude of system-level metrics at runtime which can then be analyzed.
-We use a trace corresponding to a pre-recorded sequence of sensory inputs obtained from a real execution of the \gls{WCA} by a human volunteer;
+I use a trace corresponding to a pre-recorded sequence of sensory inputs obtained from a real execution of the \gls{WCA} by a human volunteer;
 the trace is recorded in a near-ideal setting, such that it does not include either human mistakes or segments with degraded system responsiveness.
-Finally, we employ in this work a preliminary model of human behavior which is totally impervious to poor system performance, and suffers no annoyance, fatigue, frustration, nausea or other shortcomings of real human users.
+Finally, I employ in this work a preliminary model of human behavior which is totally impervious to poor system performance, and suffers no annoyance, fatigue, frustration, nausea or other shortcomings of real human users.
 This leads to a model of an ``ideal'' user who responds in a precisely reproducible and deterministic manner to the same system stimulus every time.
 
 \medskip
-We proceed to demonstrate the practical utility of our methodology as applied to \gls{WCA} by setting up a series of scenarios.
-We deployed a \emph{Gabriel}-powered~\cite{chen2018application} \gls{WCA} application on a small testbed consisting of
+I proceed to demonstrate the practical utility of my methodology as applied to \gls{WCA} by setting up a series of scenarios.
+I deployed a \emph{Gabriel}-powered~\cite{chen2018application} \gls{WCA} application on a small testbed consisting of
 \begin{inlineenum}
     \item a server computer acting as a cloudlet
     \item a 802.11n Wi-Fi \gls{AP} connected to the cloudlet via ethernet
@@ -148,10 +148,10 @@ Each scenario was repeated a \num{100} times for statistical validity.
     }
 \end{figure}
 
-These setups already showcase the flexibility of our approach.
-Our trace-based implementation of the methodology allows for detailed measurements of system performance at different levels, from individual components to specific task steps.
+These setups already showcase the flexibility of my approach.
+My trace-based implementation of the methodology allows for detailed measurements of system performance at different levels, from individual components to specific task steps.
 This provides valuable insights into the bottlenecks and areas for optimization in the system.
-We find, for example, that \glspl{RTT} for feedback-rich inputs are up to an order of magnitude greater than feedback-less inputs\footnote{%
+I find, for example, that \glspl{RTT} for feedback-rich inputs are up to an order of magnitude greater than feedback-less inputs\footnote{%
     In this context, \emph{feedback-rich} inputs refer to inputs which trigger a transition in step in the internal task model of the application and thus cause the generation of feedback which is then provided to the user.
     Conversely, \emph{feedback-less} inputs are inputs which are silently discarded at the backend and do not generated noticeable feedback.
 }; see \cref{fig:wca:rtt}.
@@ -164,12 +164,12 @@ The results also underscore the need for optimization of system components and t
 
 \subsection{Use-case: \acsp{NCS}}\label{summary:methodology:usecase_ncs}
 
-We discuss an initial use-case study of our methodology in the context of \glspl{NCS} and similar \glspl{CPS} in \cref{paper:olguinmunoz2022cleave}.
-In this work, we present \gls{CLEAVE}, a software-based framework for scalable and repeatable benchmarking of Edge-native \aclp{NCS}.
+I discuss an initial use-case study of my methodology in the context of \glspl{NCS} and similar \glspl{CPS} in \cref{paper:olguinmunoz2022cleave}.
+In this work, I present \gls{CLEAVE}, a software-based framework for scalable and repeatable benchmarking of Edge-native \aclp{NCS}.
 The growing adoption of Edge computing has made it important to understand the strengths and weaknesses of different Edge concepts for the deployment of such \glspl{CPS}.
 
-\gls{CLEAVE} is a fully virtualized benchmarking framework, inspired by our previous work in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} on benchmarking human-in-the-loop applications on the Edge.
-In the case of \gls{CLEAVE} however, we forgo the trace-based approach of EdgeDroid in favor of direct modeling of the target systems.
+\gls{CLEAVE} is a fully virtualized benchmarking framework, inspired by my previous work in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} on benchmarking human-in-the-loop applications on the Edge.
+In the case of \gls{CLEAVE} however, I forgo the trace-based approach of EdgeDroid in favor of direct modeling of the target systems.
 \gls{CLEAVE} includes a benchmarking framework and software development kit for the development of emulated physical systems and softwarized controllers.
 These virtual \glspl{CPS} can then be deployed on real networks for reparametrizable, repeatable, and reproducible benchmarking.
 
@@ -186,13 +186,13 @@ It is compatible with container technologies such as Docker~\cite{docker}, makin
 \end{figure}
 
 \medskip
-We study the validity of our methodology and the implementation of the software framework through a simple scenario, illustrated in \cref{fig:cleavesetup}.
+I study the validity of my methodology and the implementation of the software framework through a simple scenario, illustrated in \cref{fig:cleavesetup}.
 An inverted pendulum plant controlled by a proportional-differential controller is deployed on an Edge server over a Wi-Fi link, while video-streaming applications run concurrently on the setup.
 The inverted pendulum is a popular benchmark in control-system literature, and the setup allows for straightforward reparametrization and a broad range of experiments.
 Video analytics, on the other hand, is a main proposed use case for Edge computing, and it is likely that Edge \gls{NCS} deployments will be deployed in parallel with such applications in the future.
 Using Wi-Fi allows for more experimental freedom, as the system can be adapted to study both best-case and worst-case scenarios with low and high latencies, respectively.
 
-We first establish a baseline by deploying a single control loop.
+I first establish a baseline by deploying a single control loop.
 This setup is repeated multiple times with different sampling rates to obtain statistically significant results.
 The results of the single-loop scenarios show, as expected, that higher sampling rates tend to correlate with better quality of control and that network delays can be compensated for by increasing the sampling rate.
 
@@ -216,31 +216,31 @@ The results of the single-loop scenarios show, as expected, that higher sampling
     }\label{fig:cleaveresults}
 \end{figure}
 
-Next, we study the interaction between the control systems and the video-streaming applications.
+Next, I study the interaction between the control systems and the video-streaming applications.
 Six control loops are deployed, as uplink \gls{UDP} traffic from four clients is generated to emulate the load generated by Full-HD video streaming.
-Based on the baseline results, we execute scenarios with varying plant sampling rates and repeat each scenario \num{30} times.
+Based on the baseline results, I execute scenarios with varying plant sampling rates and repeat each scenario \num{30} times.
 Representative results from this experimentation are showcased in \cref{fig:cleaveresults}.
 While the baselines might lead us to think that higher sampling rates are always better for the stability of control systems, the results from these experiments show that network and resource contention are important factors when designing \glspl{NCS} for deployment on the Edge.
 As sampling rates increase, a critical point is eventually reached at which the congestion on the network link is such that it severely impacts the quality of control.
-We conclude that adaptive sampling might be thus a viable method for optimizing resource utilization in these systems.
+I conclude that adaptive sampling might be thus a viable method for optimizing resource utilization in these systems.
 
 The results of the experiments will be useful for optimizing resource utilization in Edge-bound networked control systems.
 The results of the experiments with video-streaming applications will add to the understanding of the interaction between control systems and networked applications.
-Furthermore, the success of our experimentation shows that our methodology, implemented through \gls{CLEAVE}, makes the repeated experimentation and data collection convenient compared to fully physical setups, while at the same time providing enhanced realism with respect to simulated approaches.
+Furthermore, the success of my experimentation shows that my methodology, implemented through \gls{CLEAVE}, makes the repeated experimentation and data collection convenient compared to fully physical setups, while at the same time providing enhanced realism with respect to simulated approaches.
 
 \subsection{ExPECA Testbed \& the Ainur software stack}\label{sec:testbed}
 
-After our initial implementation and experimentation with our methodology for \gls{WCA} applications, we arrived at the realization that the creation of a dedicated testbed for experimental Edge Computing research would greatly augment the scope and impact of our work.
+After my initial implementation and experimentation with my methodology for \gls{WCA} applications, I arrived at the realization that the creation of a dedicated testbed for experimental Edge Computing research would greatly augment the scope and impact of my work.
 Establishing such testbed would provide a dedicated and controlled environment that can accelerate future research by eliminating the need for ad-hoc implementations for each new study.
 Moreover, having a standardized baseline would make it easier to compare results across different studies.
 The testbed could serve as a platform for researchers to test new ideas and compare them to the results of previous experiments.
 This would enable more efficient and accurate assessments of the methodology's performance and facilitate the development of new methods and techniques.
-Additionally, by establishing a testbed, we could provide a platform for other researchers within our group to conduct their research and experiments.
+Additionally, by establishing a testbed, I could provide a platform for other researchers within my group to conduct their research and experiments.
 
 These reasons led to the establishment of the \gls{EXPECA} testbed at \pgls{KTH}.
 \gls{EXPECA} is a \gls{SSF}-funded infrastructure project targeting the development and provisioning of an Edge computing infrastructure for research into novel applications and network architectures.
 It consists of a cluster of hardware-reconfigurable \gls{COTS} computing nodes interconnected using managed switches and \glspl{SDR}.
-This allows us to quickly, on-the-fly, and in an automated fashion change the characteristics of the cluster and the network, in order to study different Edge- and Cloud-computing deployments and the applications that run on them.
+This allows for quick, on-the-fly, and automated changes to the characteristics of the cluster and the network, in order to study different Edge- and Cloud-computing deployments and the applications that run on them.
 
 \begin{figure}
     \centering
@@ -253,15 +253,15 @@ This allows us to quickly, on-the-fly, and in an automated fashion change the ch
 
 The initial prototype architecture of \gls{EXPECA} is illustrated in \cref{fig:expeca}.
 \emph{Workload hosts} act as client-side user devices;
-in our prototype, these corresponded to \num{10} Raspberry Pi 4 Model B boards.
+in my prototype, these corresponded to \num{10} Raspberry Pi 4 Model B boards.
 These devices connect to either a cloudlet or cloud computing instances over the \emph{workload data network}.
 Through clever configuration of \acsp{VLAN} and routing, traffic on this network can be forced to flow through the attached \acsp{SDR} and their associated radio processing hosts.
-This allows us to seamlessly switch out the physical layer for experiments.
-We implemented configurations wherein one of the \glspl{SDR} acted as a 4G or 5G base station and the other one as a cellular client.
+This allows for seamless switching of the physical layer for experiments.
+I implemented configurations wherein one of the \glspl{SDR} acted as a 4G or 5G base station and the other one as a cellular client.
 An alternative setup had the workload hosts connect wirelessly via Wi-Fi to one of the radios acting as an \gls{AP}
 Finally, the \emph{control network} is used for the out-of-band configuration of testbed resources, and the \acs{VPN} links allow direct tunneled connections to cloud compute nodes on \acs{AWS}.
 
-We also introduce a software framework we developed for its automation and experiment orchestration, \emph{Ainur}.
+I also introduce a software framework I developed for its automation and experiment orchestration, \emph{Ainur}.
 Ainur is a highly flexible end-to-end wireless network testbed management framework.
 Its objective is to facilitate the study of the effects of communication and computation elements on the performance of distributed applications.
 To achieve this, Ainur provides a Python \gls{API} that allows researchers to describe experiments in a procedural manner, with plans to eventually offer toolkits for declarative configuration.
@@ -275,6 +275,6 @@ This allows Ainur to remain agnostic to the nature of the workloads and support 
 Ainur also leverages containerization for the communication stack, which can nowadays be deployed on general-purpose processors using \gls{O-RAN} and \glspl{SDR}.
 This allows for the distribution of the communication stack across multiple hosts, providing researchers with the ability to study the effects of communication and computation elements on the performance of distributed applications.
 
-Finally, we note that both Ainur and \gls{EXPECA} were utilized for experimentation in \cref{paper:olguinmunoz2022cleave,paper:olguinmunoz2023realistic}.
+Finally, I note that both Ainur and \gls{EXPECA} were utilized for experimentation in \cref{paper:olguinmunoz2022cleave,paper:olguinmunoz2023realistic}.
 The use of these tools was, however, during their development and prototyping, and they have thus not been referred to by name in these works.
 Their first formal appearance was in \cref{paper:olguinmunoz2022ainur}.
