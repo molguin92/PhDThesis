@@ -41,7 +41,7 @@ The results of this investigation are presented in \cref{fig:lifetimes}.
 Compared to the reference model, our realistic model is, on average, roughly \SI{11}{\percent} faster when subject to low \glspl{TTF}.
 At higher \glspl{TTF}, the behavior of the model depends on its level of normalized neuroticism.
 At low neuroticism, the behavior of the realistic model results in total task durations that are basically indistinguishable from the reference model.
-However, at high neuroticism, the model once again results in a considerable difference in total task duration with respect to the reference --- this time extending durations by \textasciitilde\SI{11}{\percent} on average.
+However, at high neuroticism, the model once again results in a considerable difference in total task duration with respect to the reference --- this time extending durations by \ensuremath{\sim}\SI{11}{\percent} on average.
 
 \begin{figure}
     \centering
@@ -99,7 +99,7 @@ The results are presented in \cref{fig:testbed_lifetimes}.
 Owing to the low number of samples, specifically to minimize the effects of potential outliers, we opt here for the geometric rather than arithmetic mean to represent our results.
 The results are nonetheless clear, and follow the same pattern as the previously discussed results under ideal, controlled circumstances.
 With just a single client and mean \gls{RTT} of around \SI{400}{\milli\second}, all parameterizations of the realistic model achieved an average task duration \SIrange{6}{12}{\percent} shorter than the reference.
-At \num{10} clients, the results mimic those at higher \glspl{TTF} in the ideal controlled setup, with high neuroticism parameterizations reaching \textasciitilde\SI{8}{\percent} longer application lifetimes.
+At \num{10} clients, the results mimic those at higher \glspl{TTF} in the ideal controlled setup, with high neuroticism parameterizations reaching \ensuremath{\sim}\SI{8}{\percent} longer application lifetimes.
 
 These results highlight the importance of accurate execution time modeling when studying \gls{WCA} application lifetimes.
 Not only do we see considerable differences in lifetimes at relatively moderate levels of system congestion, but the sign of these differences depends on the load placed on the system.
