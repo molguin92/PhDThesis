@@ -1,4 +1,4 @@
-\section{Overview of our contributions}\label{sec:contributions}
+\section{Overview of the contributions of this dissertation}\label{sec:contributions}
 
 \begin{figure}
     \centering
@@ -18,7 +18,7 @@
                 [{Use-case\\studies} [\acs{WCA}] [\acsp{NCS}]]
                 [{Tooling} [{EdgeDroid\\(\acs{WCA})}] [{\acs{CLEAVE}\\(\acsp{NCS})}] [Ainur\\(testbed)]]
             ]
-            [{Implications of\\Accuracy in\\the Emulation}
+            [{Implications of\\accuracy in\\the emulation}
                 [{Characterization of\\human behavior in \acs{WCA}}]
                 [{Realistic human\\model for \acs{WCA}}]
                 [Exploration of avenues\\for optimization of \acs{WCA}]
@@ -29,43 +29,44 @@
 \end{figure}
 
 This thesis presents two key contributions and a number of sub-contributions to literature, as illustrated in \cref{fig:contribs}.
-Firstly, we introduce a methodology for the performance evaluation of latency-sensitive, feedback-loop-based applications enabled by Edge Computing such as \gls{MAR} and \glspl{CPS}.
-This methodology is validated by example through two representative use-cases, and we provide tooling for its implementation.
-Secondly, we study the implications improved client-side emulation accuracy has on the results produced with our methodology.
+Firstly, I introduce a methodology for the performance evaluation of latency-sensitive, feedback-loop-based applications enabled by Edge Computing such as \gls{MAR} and \glspl{CPS}.
+This methodology is validated by example through two representative use-cases, and I provide tooling for its implementation.
+Secondly, I study the implications improved client-side emulation accuracy has on the results produced with our methodology.
 These implications are again explored by example.
-We design and implement of a detailed model of human user behavior in \gls{WCA}, and then use it to study the potential for optimization of these systems.
+I design and implement of a detailed model of human user behavior in \gls{WCA}, and then use it to study the potential for optimization of these systems.
 
 \medskip
 
-Our first contribution corresponds to a methodological approach to the study and performance evaluation of Edge-enabled latency-sensitive applications. 
+My first contribution corresponds to a methodological approach to the study and performance evaluation of Edge-enabled latency-sensitive applications. 
 This approach is based on the novel idea of emulating \emph{only} the end-user component of such applications while using the \emph{real} network and compute components of the system.
-In other words, our methodology involves replacing the client side of the system with commercial off-the-shelf (COTS) general-purpose computing devices running realistic software imitations of the desired behaviors, while retaining the real network and compute hardware at the backend.
+The methodology involves replacing the client side of the system with \gls{COTS}, general-purpose computing devices running realistic software imitations of the desired behaviors, while retaining the real network and compute hardware at the backend.
 This entails modeling and emulating human inputs in \gls{MAR} applications and the physical components of \glspl{CPS}.
 
-We study and validate our methodology by example, investigating its applicability in two representative use-cases for \gls{XR} applications and \glspl{CPS}, respectively: \acf{WCA} and \acfp{NCS}.
-\cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} discuss initial explorative studies into the application of our methodology for \gls{WCA}.
-These works present the first empirical results obtained with our methodological approach, providing thus an initial validation of its utility for research, and further discuss the necessary tooling and software frameworks required for the implementation of our methodology.
-In particular, we introduce in these works a trace-based emulation tool which we call EdgeDroid.
+I study and validate this methodology by example, investigating its applicability in two representative use-cases for \gls{XR} applications and \glspl{CPS}, respectively: \acf{WCA} and \acfp{NCS}.
+\cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} discuss initial explorative studies into the application of the methodology for \gls{WCA}.
+These works present the first empirical results obtained with my methodological approach, providing an initial validation of its utility for research.
+Further, I discuss the necessary tooling and software frameworks required for the implementation of my methodology.
+In particular, my co-authors and I introduce in these works a trace-based emulation tool which we call EdgeDroid.
 It uses a trace of inputs recorded in optimal conditions, the replay of which is controlled at run-time by a simple model of human behavior based on a \gls{FSM}.
 
-\Cref{paper:olguinmunoz2022cleave} extends our methodology to the study of control systems for \glspl{NCS} on Edge Computing.
+\Cref{paper:olguinmunoz2022cleave} extends my methodology to the study of control systems for \glspl{NCS} on Edge Computing.
 These applications are similarly difficult to benchmark as \gls{WCA}, particularly at scale on multi-tenant systems, due to their client-side complexity and extreme sensitivity to latency.
-To address these challenges, we introduce yet another tool, \gls{CLEAVE}, for the emulation and subsequent deployment of these systems on edge computing infrastructure.
+To address these challenges, my co-authors and I introduce yet another tool, \gls{CLEAVE}, for the emulation and subsequent deployment of these systems on edge computing infrastructure.
 \gls{CLEAVE} allows us both to emulate the physical components of a relatively simple control system plant and deploy real algorithms for its control.
 The middleware software abstracts away the network from the development of these workloads, enabling quick prototyping and deployment.
 We then present use-case scenarios demonstrating the scalability and flexibility of their approach by deploying scenarios with a large number of loops without the need for domain-specific hardware.
 
-In \cref{paper:olguinmunoz2022ainur} we also briefly discuss Edge Computing testbed research and automation as an ancillary contribution to the methodology.
+In \cref{paper:olguinmunoz2022ainur}, we also briefly discuss Edge Computing testbed research and automation as an ancillary contribution to the methodology.
 This paper formally introduces the Ainur framework for Edge Computing testbed automation and workload orchestration.
 This framework is employed in \cref{paper:olguinmunoz2023realistic,paper:olguinmunoz2022cleave} for the orchestration of the Edge Computing testbeds on which the developed tools were deployed.
 Ainur represents an ancillary contribution, crucial for the research presented in these works.
 Without it, the experimental approach described in these works would not have been feasible.
 
-We argue that our approach presents several advantages over existing methods for the study of trade-offs in latency-sensitive applications.
-Our methodology allows for efficient and repeatable evaluation of Edge environments while avoiding many of the complications associated with experimental evaluation.
+I argue that my approach presents several advantages over existing methods for the study of trade-offs in latency-sensitive applications.
+The methodology allows for efficient and repeatable evaluation of Edge environments while avoiding many of the complications associated with experimental evaluation.
 Emulating the workload component reduces complexity by moving it into the software domain, allowing for easier horizontal scaling through the use of \gls{COTS} general-purpose hardware such as \glspl{SBC}.
 This also reduces the barrier of entry to  research, as \glspl{SBC} are for the most part cheap and easily accessible, and further preserves the realism of effects stemming from the hardware and network.
-In particular, the methodology allows us to capture effects due to network factors such as contention, congestion control, and medium access, which are often of stochastic or chaotic natures and complex to capture in simulations.
+In particular, the methodology allows for the capture of effects due to network factors such as contention, congestion control, and medium access, which are often of stochastic or chaotic natures and complex to capture in simulations.
 The softwarized nature of the client-side emulation allows for straightforward automation through general-purpose programming and scripting languages.
 Repeatability and replicability are also enhanced, as repeating a study becomes a matter of re-running the workload on the same testbed, and studies can be replicated simply by obtaining the same or equivalent software workload and deploying it on a comparable testbed.
 These are complex tasks to accomplish in real-world approaches, particularly when dealing with humans.
@@ -77,19 +78,19 @@ This elegant methodology, in combination with the EdgeDroid, \gls{CLEAVE}, and A
 \medskip
 
 The second key contribution of this dissertation relates to the exploration of the question of what degree of detail about the physical world must be captured by a client-side emulation of a latency-sensitive, feedback-loop application on Edge Computing.
-We explore this interrogative through the elaboration of a detailed model of human user behavior in \gls{WCA}, which we then combine with mathematical framework to study the potential for optimization of these applications.
+I explore this interrogative through the elaboration of a detailed model of human user behavior in \gls{WCA}, which I then combine with mathematical framework to study the potential for optimization of these applications.
 
 \cref{paper:olguinmunoz2021impact} begins this work by presenting a characterization of human behavior in \gls{WCA}, developed through a human subject study in which participants interact with an instrumented application.
-System responsiveness was altered in real-time during each execution of the task, and we recorded participants' reactions by measuring task- and system-related metrics, as well as biometrics from sensors placed on their bodies.
-Participants were also asked to fill out two personality indicator questionnaires, allowing us to later correlate individual personality traits and measured reaction to changes in system responsiveness.
+System responsiveness is altered in real-time during each execution of the task, and we record participants' reactions by measuring task- and system-related metrics, as well as biometrics from sensors placed on their bodies.
+Participants are also asked to fill out two personality indicator questionnaires, allowing to later correlate individual personality traits and measured reaction to changes in system responsiveness.
 
-Next, in \cref{paper:olguinmunoz2023realistic} we introduce the first ever data-driven model of human timings for \gls{WCA}, built upon the data and insights collected for \cref{paper:olguinmunoz2021impact}.
+Next, in \cref{paper:olguinmunoz2023realistic} my co-authors and I introduce the first ever data-driven model of human timings for \gls{WCA}, built upon the data and insights collected for \cref{paper:olguinmunoz2021impact}.
 The model is validated against previously obtained results, both through simulated, controlled executions and deployments on a real edge computing testbed.
 The paper goes on to explore potential implications of this model for \gls{WCA} system optimization potential, particularly in the domains of energy consumption and sampling strategies.
 
-We conclude that realistic, dynamic human behavior in the client-side emulation enables superior optimization approaches that would otherwise be inviable to implement.
+I conclude that realistic, dynamic human behavior in the client-side emulation enables superior optimization approaches that would otherwise be inviable to implement.
 The findings from this research highlight that simply focusing on system-related metrics or performance optimizations may not be sufficient, as human behavior and reactions play a critical role in the overall performance of such applications.
-By considering human behavior as an integral part of the emulation process, we demonstrate that it is possible to develop more realistic and effective optimization approaches that take into account the intricacies of human-computer interaction.
+By considering human behavior as an integral part of the emulation process, I demonstrate that it is possible to develop more realistic and effective optimization approaches that take into account the intricacies of human-computer interaction.
 These findings have significant implications for the design and optimization of \gls{WCA} applications, particularly in the areas of energy consumption, sampling strategies, and application lifetime.
 
 % \medskip

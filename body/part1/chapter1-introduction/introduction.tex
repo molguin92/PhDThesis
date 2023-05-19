@@ -14,7 +14,7 @@ Conversely, this results in these datacenters having a large average \emph{topol
 Topologically, end-user connections to the Cloud tend to transit a significant number of hops, i.e.\ intermediate connections through networking equipment belonging to service providers at multiple tiers of the internet.
 Data needs to be received, routed, and re-transmitted at each hop, adding delay.
 Physically, Cloud datacenters are often located hundreds or even thousands of kilometers from end-users.
-Connections are limited in their responsiveness by the speed of light, and these long physical distances directly translate into higher latencies.
+Connections are limited in their responsiveness by the speed of light, and long physical distances directly translate into higher latencies.
 
 These limitations of the Cloud make it unsuitable for a number of novel applications that require quick response times, such as real-time video processing, \gls{MAR}, or smart city systems.
 Additionally, the centralized nature of Cloud datacenters means that it can be vulnerable to outages or other disruptions, which can impact large numbers of users simultaneously.
@@ -41,10 +41,10 @@ These applications have the potential to cause a profound impact in our day-to-d
 Edge Computing allows these systems to operate in real-time, enabling near instantaneous response times, more efficient operation, and more precise control.
 These characteristics are critical for applications such as \glspl{ITS}, autonomous driving, or remote surgery.
 
-\gls{XR}, on the other hand, is a broad term that encompasses various forms of immersive application systems.
+\gls{XR}, on the other hand, is a broad term that encompasses various forms of immersive applications.
 \gls{XR} applications, such as \gls{AR}, \gls{VR}, or \gls{MR}, involve the real-time interaction between user and virtual elements in a partially to fully immersive environment.
 For instance, \gls{MAR} is an application of \gls{AR} that involves overlaying digital information onto the physical world using a mobile device.
-This definition has in later years been extended to encompass \gls{AR} deployed on wearable devices (such as Google Glass~\cite{googleglass}) as well.
+This definition has in later years been extended to encompass \gls{AR} deployed on wearable devices (such as Google Glass~\cite{googleglass}).
 \gls{MAR} allows users to, for example, view real-time information and details about products while in-store, receive instructions and guidance to perform a complex task, or contextual information while visiting a new city.
 An  example of such an application is illustrated in \cref{fig:augmentedreality}.
 By using Edge Computing and 5G, \gls{MAR} --- and other \gls{XR} systems --- can operate with much greater responsiveness and reliability, enabling highly immersive and interactive experiences.
@@ -81,10 +81,10 @@ Similarly, in \glspl{CPS}, the communication network must be designed to minimiz
 Other critical aspects with the potential to impact the latency of latency-sensitive applications on the Edge include congestion on the communication loop and fluctuations of the wireless channel.
 These issues can lead to delays in data transmission between devices on the network, leading to higher end-to-end latency.
 
-The evaluation of performance in Edge computing systems has been addressed in existing literature through analytical~\cite{chen2015efficient,champati2015one,champati2016semi,al2017reliable}, simulation~\cite{svorobej2019simulating,gupta2017ifogsim,sonmez2018edgecloudsim,qayyum2018fognetsimpp}, and experimental~\cite{das2018edgebench,lee2019iotbench,george2020openrtist,mcchesney2019defog,baurle2022comb} approaches.
-However, these systems exhibit several characteristic that make their study complex.
-One of these is unique nature of Edge computing environments, which tightly integrates compute and network.
-This demands a wide range of interdisciplinary expertise to study, spanning (but not limited to) computer science, communication networks, information theory, queuing analysis, etc.
+The evaluation of performance in Edge Computing has been addressed in existing works through analytical~\cite{chen2015efficient,champati2015one,champati2016semi,al2017reliable}, simulation~\cite{svorobej2019simulating,gupta2017ifogsim,sonmez2018edgecloudsim,qayyum2018fognetsimpp}, and experimental~\cite{das2018edgebench,lee2019iotbench,george2020openrtist,mcchesney2019defog,baurle2022comb} approaches.
+However, these systems exhibit characteristic that make their study complex.
+One of these is the unique nature of Edge computing environments, which tightly integrates compute and network.
+This demands a wide range of interdisciplinary expertise to study, spanning (but not limited to) computer science, communication networks, information theory, and queuing analysis.
 Such expertise may not always be feasible to obtain within a single research group.
 
 The highly complex effects emerging from the interaction between network and compute is another major hurdle to studying latency-sensitive applications on Edge Computing.
@@ -98,38 +98,37 @@ Thus, any study of these applications must be done in an environment that accura
 Unfortunately, replicating these conditions in a controlled experimental environment is difficult and often leads to inconsistencies in results, and traditional methods that rely on simulations may not be sufficient to accurately capture and evaluate the performance of these applications in real-world scenarios.
 
 The scalability of these systems is also a challenge.
-It may not be feasible for researchers to test the applications on a large scale due to limitations in access to specialized equipment, personnel and test subjects, as well as facilities.
+It may not be feasible for researchers to test the applications on a large scale due to limitations in access to specialized equipment, test subjects, as well as facilities.
 \glspl{CPS} often rely on physical sensors and actuators, making it difficult to replicate real-world conditions in a controlled environment at scale, and conducting experiments involving human subjects for \gls{XR} is time-consuming and expensive.
 This also makes the study of these applications hard to automate, making it challenging to conduct large-scale experiments or to collect data over an extended period of time.
 
 This has led to existing approaches to performance evaluation of Edge Computing environments to often be constrained in their scope, focusing on comprehensive characterization of either compute or network aspects (e.g.~\cite{chen2015efficient} and~\cite{al2017reliable}), resulting in potential trade-offs that may neglect one half of the larger picture.
-We argue that this limitation has led to an incomplete understanding of the overall performance of Edge systems and applications in the existing literature.
+I argue that this limitation has led to an incomplete understanding of the overall performance of Edge systems and applications in the existing literature.
 There is a need for holistic approaches that consider both network and compute characteristics of Edge workloads for accurate performance evaluation and optimization.
 
 This dissertation aims to contribute to the field by presenting two key contributions.
-First, we introduce and subsequently investigate the applications of a methodology for the study of latency-sensitive applications deployed on Edge environments.
+First, I introduce and subsequently investigate the applications of a methodology for the study of latency-sensitive applications deployed on Edge environments.
 The proposed methodology is based on the emulation of workloads and aims to enhance the accuracy and realism of results related to Edge infrastructure and 5G networks, particularly in regard to network performance.
-Next, we present a deeper exploration of the implications of improved realism in the emulated components of our methodology by studying potential avenues for optimization of a particular sub-class of \gls{MAR}.
+Next, I present a deeper exploration of the implications of improved accuracy in the emulated components of my methodology by studying potential avenues for optimization of a particular sub-class of \gls{MAR}.
 
-Our methodology is designed to tackle these challenges by employing an emulation approach to the benchmarking of latency-sensitive \gls{CPS} and \gls{XR} applications. 
-We emulate target workloads on actual Edge infrastructure by replacing the client side of the system with \gls{COTS} general-purpose computing devices\footnote{%
-    In our initial implementation, these correspond to low-cost and easily replaceable, scalable Raspberry Pi 4 Model B \acsp{SBC}.
+My methodology is designed to tackle these challenges by employing an emulation approach to the benchmarking of latency-sensitive \gls{CPS} and \gls{XR} applications. 
+I emulate target workloads on actual Edge infrastructure by replacing the client side of the system with \gls{COTS} general-purpose computing devices\footnote{%
+    In my initial implementation, these correspond to low-cost and easily replaceable, scalable Raspberry Pi 4 Model B \acsp{SBC}.
 } running a realistic software imitation of the desired behaviors.
-At the same time, our methodology retains the real network as well as the real compute hardware and software at the backend.
+At the same time, my methodology retains the real network as well as the real compute hardware and software at the backend.
 This design results in real-time benchmarking and performance evaluation of applications and Edge infrastructure, while still providing realism, scalability, and reduced complexity, as well as allowing for easier automation of these studies.
 
 Emulating the workload component reduces complexity by moving it into the software domain, allowing for improved repeatability and replicability, as well as easier horizontal scaling through the use of \gls{COTS} general-purpose hardware such as \glspl{SBC}.
 This also reduces the barrier of entry to this research, as \glspl{SBC} are for the most part cheap and easily accessible.
 Additionally, it preserves the realism of effects stemming from the hardware and network.
-In particular, the methodology allows us to capture effects due to the interaction of network factors such as contention, congestion control, and medium access, with effects arising due to process scheduling and/or resource contention at the compute level.
+In particular, the methodology allows for the capture of effects due to the interaction of network factors such as contention, congestion control, and medium access, with factors due to process scheduling and/or resource contention at the compute level.
 These effects are often of stochastic or chaotic natures and complex to capture in models or simulations.
 
-Next, we study how improved accuracy in the emulations employed by this methodology can open new avenues for the optimization of applications on Edge Computing.
-To achieve this, we develop a novel model for human behavior in a subclass of \gls{MAR} which is able to dynamically adapt to changes in system responsiveness.
-We then combine it with a mathematical framework to study the potential for optimization of resource consumption in these applications.
-We find that improved accuracy in the emulation enables otherwise inviable optimization approaches.
+Next, I study how improved accuracy in the emulations employed by this methodology can open new avenues for the optimization of applications on Edge Computing.
+To achieve this, I develop a model for human behavior in a subclass of \gls{MAR} which is able to dynamically adapt to changes in system responsiveness.
+I combine it with a mathematical framework to study the potential for optimization of resource consumption in these applications, and find that improved accuracy in the emulation enables otherwise inviable optimization approaches.
 
-We believe our contributions represent valuable tools and insights for researchers, system designers, and application developers.
+I believe my contributions represent valuable tools and insights for researchers, system designers, and application developers.
 The methodology represents a novel, holistic approach to the performance evaluation of Edge environments.
-Furthermore, our findings have significant implications for the design and optimization of applications enabled by Edge Computing, particularly in the areas of energy consumption, sampling strategies, and application lifetime.
-We hope and believe this dissertation will contribute to the development of new techniques and approaches for improving the performance and reliability of Edge Computing and 5G systems.
+Furthermore, my findings have significant implications for the design and optimization of applications enabled by Edge Computing, particularly in the areas of energy consumption, sampling strategies, and application lifetime.
+I hope and believe this dissertation will contribute to the development of new techniques and approaches for improving the performance and reliability of Edge Computing.

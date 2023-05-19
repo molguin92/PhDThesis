@@ -6,8 +6,7 @@ The performance evaluation of Edge Computing deployments is a daunting task.
 One reason for this is the inherent complexity of modeling such intricate systems, which often involve multiple layers of proxies, load balancers, virtualized computing instances, and networking functions.
 The dynamic nature of Edge Computing deployments, with their distributed architectures and diverse set of devices, makes it difficult to develop accurate models that capture the complexities of real-world deployments.
 
-Nevertheless, a small body of works has attempted to tackle this challenge through analytical approaches.
-Examples include~\cite{chen2015efficient,champati2015one,champati2016semi,al2017reliable}.
+Nevertheless, a small body of works has attempted to tackle this challenge through analytical approaches~\cite{chen2015efficient,champati2015one,champati2016semi,al2017reliable}.
 In~\cite{chen2015efficient}, the authors formulate the problem of computation offloading in \gls{MEC} as a multi-user computation offloading game, and design a distributed computation offloading algorithm that achieves a Nash equilibrium to solve it.
 They demonstrate through numerical results that the proposed algorithm achieves good computation offloading performance and has good scaling capabilities.
 Another work that tackles computation offloading is~\cite{champati2015one}, in which the authors propose a novel optimization algorithm for the cost optimization of hybrid clouds.
@@ -24,7 +23,7 @@ However, applications such as \glspl{NCS} and \gls{MAR} tend to have mostly cons
 In~\cite{champati2015one}, the authors propose canceling and re-scheduling a task as a viable scheduling strategy; however, in \glspl{CPS} the canceling of a control task could lead to catastrophic harm to equipment and/or human beings.
 
 Approaches to performance evaluation of distributed systems using simulations also exist in literature, particularly geared towards the Cloud~\cite{mansouri2020cloud}.
-Examples of such approaches include the \emph{CloudSim}, \emph{iCanCloud}, and \emph{GreenCloud} simulators.
+Examples include the \emph{CloudSim}, \emph{iCanCloud}, and \emph{GreenCloud} simulators.
 CloudSim~\cite{calheiros2011cloudsim} is a widely used event-based simulation toolkit designed for generic \gls{IaaS} Cloud Computing environments.
 iCanCloud~\cite{nunez2012icancloud} similarly focuses on simulating \gls{AWS} \gls{EC2} compute infrastructure, the project's primary objectives being performance and scalability of simulations.
 GreenCloud, on the other hand, is built upon the \acs{ns2}~\cite{nsnam} network simulator and specifically captures energy consumption details of datacenter components and communication patterns between these.
@@ -84,8 +83,8 @@ cloud-only variants of the workloads also exist.
 It includes seven representative workloads, and allows researchers to evaluate the performance of these applications on Edge infrastructure through the analysis of computational demands and resource consumption.
 Both EdgeBench and IoTBench focus exclusively on benchmarking of compute in Edge and Fog deployments, and thus do not represent comprehensive evaluations of performance including network effects in Edge Computing.
 
-\emph{OpenRTiST}~\cite{george2020openrtist} is a tool for the benchmarking and performance evaluation of Edge Computing deployments using real-time processing of a live video feed.
-Video is streamed from a source Android device to a compute node where neural style-transfer~\cite{gatys2016image} is applied to it.
+\emph{OpenRTiST}~\cite{george2020openrtist} is a tool for the performance evaluation of Edge Computing deployments using real-time processing of a live video feed.
+Video is streamed from a mobile device to a compute node where neural style-transfer~\cite{gatys2016image} is applied to it.
 The transformed video is then fed back to the source to be presented, resulting in a compute-intensive, bandwidth-hungry, and latency-sensitive benchmark.
 However, OpenRTiST is limited by its non-replaceable workload which only targets machine learning-enhanced video processing and analytics.
 
@@ -104,7 +103,7 @@ Finally, although some of the above approaches address some of the additional ch
 
 The last few years have also seen the emergence of a number of small- to mid-scale platforms and testbeds for Edge Computing research.
 Several of these are additionally driven by research interests in novel mobile networking technologies and \gls{MEC}, as well as in the virtualization of network functions.
-Of particular interest to us are the
+Of particular interest to this dissertation are the
 \begin{inlineenum}
     \item \acs{GENI}
     \item Chameleon
@@ -133,11 +132,11 @@ In~\cite{gedawy2016cumulus}, the authors propose Cumulus, a prototype testbed fo
 The authors of~\cite{rimal2018experimental} propose an experimental testbed for two-tiered Edge architectures in the context of \gls{FIWI} Edge Computing.
 This testbed is then employed to validate wireless access and compute resource scheduling strategies in these systems.
 In~\cite{yamanaka2021design}, the authors present an experimental Edge Computing testbed capable of determining the offload location of a workload based on desired latency parameters.
-\cite{diao2019scalable} propose yet another Kubernetes-based testbed based for Edge task offloading based on heterogeneous hardware including low-power single-board computers such as Raspberry Pis and Jetson Nanos.
+\cite{diao2019scalable} propose yet another Kubernetes-based testbed based for Edge task offloading based on heterogeneous hardware including low-power \glspl{SBC}.
 % \cite{moorthy2022cloudraft} proposes \gls{CLOUDRAFT}, a Cloud-based framework for mobile network experimentation, with a focus on simplifying the management of testbed resources.
 % The goal of this project is to integrate, coordinate, share, and improve upon existing testbeds through a common interface.
 
-Although the aforementioned testbeds represent valuable and powerful tools, the lack of a unified approach to testbed management and automation hinders the development and implementation of next-generation wireless systems, Cloud, and Edge computing paradigms.
+Although the aforementioned testbeds represent valuable and powerful tools, the lack of a unified approach to testbed management and automation hinders the development of next-generation wireless systems, Cloud, and Edge computing paradigms.
 General-purpose, hardware-agnostic software frameworks such as \gls{CLOUDRAFT}~\cite{moorthy2022cloudraft}  can simplify the management and automation of testbeds, promote compatibility with Cloud- and Edge-native standards, and facilitate collaboration among research groups.
 \gls{CLOUDRAFT} is a Cloud-based framework for mobile network experimentation with the goal integrate, coordinate, share, and improve upon existing testbeds through a common interface.
 There is still remains much work to be done in this area, particularly with respect to the adoption of Edge-compatible solutions that can enable faster and more reliable experimentation.
@@ -172,15 +171,15 @@ By doing so, we can develop more accurate and reliable benchmarks for \gls{MAR} 
 \subsubsection{Experimental approaches to research in \glsfmtlongpl{NCS}}
 
 A significant amount of work has been dedicated to the modeling and performance characterization of \glspl{NCS} due to their potential benefits for industrial and commercial settings~\cite{lu2016real,hespanha2007survey,zhang2013network,zhang2016survey}.
-Research in \glspl{NCS} has mostly focused on addressing the challenges imposed by the introduction of best-effort communication networks into traditional control systems.
-Network delays (latency), losses, and \emph{jitter} --- referring to the variation in random network delays --- are at the forefront of these challenges.
+Research has mostly focused on addressing the challenges imposed by the introduction of best-effort communication networks into traditional control systems.
+Network delays (latency), \emph{jitter} --- the variation in random network delays ---, and losses are at the forefront of these challenges.
 They have partially been addressed through the clever placement of the controller (e.g.\ by employing Edge Computing)~\cite{sasaki2017layered,sasaki2016vehicle}, as well as through the development of control algorithms capable of accounting for the effects of the network~\cite{zhang2013network}.
 
 Most of the large literature concerning \glspl{NCS}, however, follows a theoretical approach, with only small fraction of it dealing with experimental studies~\cite{zhang2019networked}.
 \gls{NCS} studies are complex due to the inter-domain nature of these systems, requiring expertise in the fields of communication networks, computing, and control theory.
 However, theoretical approaches can only capture network behaviors at a coarse level, and thus a body of works has emerged in later years involving experimental approaches to \gls{NCS} benchmarking.
 
-We identify two main approaches: fully practical and partially-emulated approaches.
+Two main approaches can be identified: fully practical and partially-emulated approaches.
 In a fully practical approach, the experimental setup uses real systems and hardware to test and validate the performance of the \gls{NCS}.
 Examples of the application of this approach can be found in studies such as~\cite{drew2005networked,baumann2018evaluating,li2014wireless,cuenca2019periodic}.
 These studies implemented wireless and microcontroller-based systems for control and validated them on a physical prototype.
@@ -196,9 +195,9 @@ Such approaches have, for instance, been used to study the effects of the \gls{C
 Hardware-in-the-loop approaches, referring to \gls{NCS} setups in which a real network interacts with a simulated or emulated control system, are particularly prevalent in the field of \emph{smart grid} control.
 An example of the application of such an approach can be found in~\cite{wang2020inverter}, in which the authors introduce and validate a novel three-level coordinated control method for photovoltaic inverters.
 
-To the best of our knowledge, there exist currently no generic, hardware-independent framework available for repeatable experimental research in Edge-bound \glspl{NCS}.
+To the best of my knowledge, there exist currently no generic, hardware-independent framework available for repeatable experimental research in Edge-bound \glspl{NCS}.
 While there has been some notable work in this area, such as the work by~\cite{zoppi2020ncsbench}, existing contributions still mostly rely on proprietary and hardware that is difficult to acquire.
 This limitation restricts the accessibility of the framework to researchers and practitioners, hindering the reproducibility and comparability of experimental results.
-Moreover, the existing research's reliance on hardware also poses scalability limitations.
+Moreover, existing research's reliance on hardware poses scalability limitations.
 As the field of Edge Computing-enabled \glspl{NCS} continues to evolve, there is a growing demand for scalable solutions that can be easily adapted to different hardware configurations and setups.
 A software-based framework that provides a flexible and scalable solution for performance evaluation of \glspl{NCS} in Edge-native contexts is currently lacking in the field.
