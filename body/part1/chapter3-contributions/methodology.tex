@@ -50,13 +50,13 @@ On the other hand, a simulated approach requires modeling not only the applicati
 Due to the intricate nature of contemporary cloud and Edge computing setups, which frequently involve multiple tiers of proxies, load balancers, virtualized computing units, and network functions, the modeling of such systems can quickly become an overly complex endeavor.
 
 My approach circumvents both of these limitations.
-Emulating the workload component reduces complexity by moving it into the software domain, allowing for easier scaling through the use of cheap, \gls{COTS} general-purpose hardware such as the aforementioned \glspl{SBC}.
+Emulating the workload component reduces complexity by moving it into the software domain, allowing for easier scaling through the use of cheap, \gls{COTS} general-purpose hardware such as \glspl{SBC}.
 Furthermore, it preserves the realism of effects stemming from the hardware and network.
-Employing emulations allows my methodology to realize a more realistic testing environment than a simulated approach and can provide results that are closer to what would be seen in the real-world.
+Leveraging emulation allows my methodology to realize a more realistic testing environment than a simulated approach and can provide results that are closer to what would be seen in the real-world.
 Of particular interest to this dissertation are effects due to network factors such as contention, congestion control, and medium access.
 These effects are often of stochastic or chaotic natures, and are thus complex to capture in simulations.
 
-Emulating the workload also provides improved repeatability and replicability.
+Emulating the workload also improves repeatability and replicability.
 Repeating a study becomes a matter of re-running the workload on the same testbed;
 in turn, studies can be replicated simply by obtaining the same or equivalent software workload and deploying it on a comparable testbed.
 These are complex tasks to accomplish in real-world approaches, particularly when dealing with humans.
@@ -66,7 +66,7 @@ Replicating the methodology for other workloads simply requires developing a new
 This can further be simplified by employing software platforms for the emulation of categories of workloads, as well will discuss later on in this thesis.
 
 \medskip
-In the following subsections I will discuss two illustrative use-cases for my methodology; \acl{WCA} and \acl{NCS} research and benchmarking.
+In the following subsections I will discuss two illustrative use-cases for my methodology; \glsfirst{WCA} and \glsfirst{NCS} research and benchmarking.
 \Cref{summary:methodology:usecase_wca} discusses the application of my methodology to \gls{WCA}.
 This work was originally published in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}.
 Next, in \cref{summary:methodology:usecase_ncs} I expand this discussion to \glspl{NCS}, a discussion originally approached in \cref{paper:olguinmunoz2022cleave}.
@@ -104,8 +104,8 @@ The user model attempts to navigate the task model and reach the desired system 
     }\label{fig:methodology:wca:conceptual}
 \end{figure}
 
-\Cref{fig:methodology:wca:conceptual} presents a conceptual diagram of this approach.
-The trace is fed to a model of human behavior, which then replays it to the real \gls{WCA} backend.
+\Cref{fig:methodology:wca:conceptual} illustrates this approach.
+The trace is replayed to the real \gls{WCA} backend through a model of human behavior.
 Feedback from the backend is then interpreted by the model to adapt the runtime replay of the trace.
 
 I introduce a tool, \emph{EdgeDroid \num{1.0}}, which implements the concepts outlined above.
@@ -116,22 +116,22 @@ Finally, I employ in this work a preliminary model of human behavior which is to
 This leads to a model of an ``ideal'' user who responds in a precisely reproducible and deterministic manner to the same system stimulus every time.
 
 \medskip
-I proceed to demonstrate the practical utility of my methodology as applied to \gls{WCA} by setting up a series of scenarios.
-I deployed a \emph{Gabriel}-powered~\cite{chen2018application} \gls{WCA} application on a small testbed consisting of
+The practical utility of my methodology as applied to \gls{WCA} is demonstrated through a series of scenarios.
+I deploy a \emph{Gabriel}-powered~\cite{chen2018application} \gls{WCA} application on a small testbed consisting of
 \begin{inlineenum}
     \item a server computer acting as a cloudlet
     \item a 802.11n Wi-Fi \gls{AP} connected to the cloudlet via ethernet
     \item \num{10} Android smartphones connected wirelessly to the \gls{AP}, emulating users for the application
 \end{inlineenum}.
-Three scenarios were considered, corresponding to setups under ideal network conditions with \num{1} and \num{10} clients, plus an additional scenario with \num{10} clients located at a distance from the \gls{AP} such that the signal strength was significantly degraded.
-Each scenario was repeated a \num{100} times for statistical validity.
+Three scenarios are considered, corresponding to setups under ideal network conditions with \num{1} and \num{10} clients, plus an additional scenario with \num{10} clients located at a distance from the \gls{AP} such that the signal strength was significantly degraded.
+Each scenario is repeated \num{100} times for statistical validity.
 
 \begin{figure}
     \begin{subfigure}[t]{.45\textwidth}
         \centering%
         \includegraphics[width=\textwidth]{publications/2019EdgeDroid/plots/comparison/nofonts/rtt_fb_vs_nofb}%
         \caption{
-            Comparison of round-trip-times for inputs that triggered a state transition in the task model versus inputs that did not.
+            Comparison of \acsp{RTT} for inputs that trigger a state transition in the task model versus inputs that do not.
         }\label{fig:wca:rtt}%
     \end{subfigure}%
     \hfill%
@@ -139,7 +139,7 @@ Each scenario was repeated a \num{100} times for statistical validity.
         \centering%
         \includegraphics[width=\textwidth]{publications/2019EdgeDroid/plots/comparison/nofonts/box_feedback}%
         \caption{%
-            Distribution of latency across system components for inputs that triggered a state transition in the task model.
+            Distribution of latency across system components for inputs that trigger a state transition in the task model.
         }\label{fig:wca:latency}
     \end{subfigure}%
     \caption{
@@ -148,15 +148,15 @@ Each scenario was repeated a \num{100} times for statistical validity.
     }
 \end{figure}
 
-These setups already showcase the flexibility of my approach.
+These setups showcase the flexibility of the approach.
 My trace-based implementation of the methodology allows for detailed measurements of system performance at different levels, from individual components to specific task steps.
 This provides valuable insights into the bottlenecks and areas for optimization in the system.
 I find, for example, that \glspl{RTT} for feedback-rich inputs are up to an order of magnitude greater than feedback-less inputs\footnote{%
     In this context, \emph{feedback-rich} inputs refer to inputs which trigger a transition in step in the internal task model of the application and thus cause the generation of feedback which is then provided to the user.
     Conversely, \emph{feedback-less} inputs are inputs which are silently discarded at the backend and do not generated noticeable feedback.
 }; see \cref{fig:wca:rtt}.
-The flexibility of the methodology also allows researchers to zoom into specific components or steps of the system to gain deeper insights, which can inform the design and development of future systems.
-For example, the results in \cref{fig:wca:latency} suggest that improving the quality of the wireless link should be a priority for scaling the application.
+The flexibility of the methodology also allows researchers to zoom into specific components of the system to gain deeper insights, which can inform the design and development of future systems.
+The results in \cref{fig:wca:latency} suggest that improving the quality of the wireless link should be a priority for scaling the application.
 The system scales linearly with respect to the number of clients, but the impaired Wi-Fi greatly affects the performance of feedback-rich inputs, with delays sometimes exceeding the threshold for acceptable user experience.
 
 Overall, the study demonstrates the usefulness of the trace-based methodology in evaluating system performance.
@@ -173,7 +173,7 @@ In the case of \gls{CLEAVE} however, I forgo the trace-based approach of EdgeDro
 \gls{CLEAVE} includes a benchmarking framework and software development kit for the development of emulated physical systems and softwarized controllers.
 These virtual \glspl{CPS} can then be deployed on real networks for reparametrizable, repeatable, and reproducible benchmarking.
 
-\gls{CLEAVE} is built using Python 3.8, making it highly extensible and able to use existing libraries.
+\gls{CLEAVE} is built using Python, making it highly extensible and able to use existing libraries.
 It is compatible with container technologies such as Docker~\cite{docker}, making it suitable for automated deployment, scaling, and benchmarking on industry-standard Edge setups using container orchestration solutions.
 
 \begin{figure}
@@ -230,14 +230,14 @@ Furthermore, the success of my experimentation shows that my methodology, implem
 
 \subsection{ExPECA Testbed \& the Ainur software stack}\label{sec:testbed}
 
-After my initial implementation and experimentation with my methodology for \gls{WCA} applications, I arrived at the realization that the creation of a dedicated testbed for experimental Edge Computing research would greatly augment the scope and impact of my work.
+After my initial implementation and experimentation with my methodology for \gls{WCA} applications, my research group and I arrived at the realization that the creation of a dedicated testbed for experimental Edge Computing research would greatly augment the scope and impact of my work.
 Establishing such testbed would provide a dedicated and controlled environment that can accelerate future research by eliminating the need for ad-hoc implementations for each new study.
 Moreover, having a standardized baseline would make it easier to compare results across different studies.
 The testbed could serve as a platform for researchers to test new ideas and compare them to the results of previous experiments.
 This would enable more efficient and accurate assessments of the methodology's performance and facilitate the development of new methods and techniques.
-Additionally, by establishing a testbed, I could provide a platform for other researchers within my group to conduct their research and experiments.
+Additionally, by establishing a testbed, we could provide a platform for other researchers within my group to conduct their research and experiments.
 
-These reasons led to the establishment of the \gls{EXPECA} testbed at \pgls{KTH}.
+These reasons were part of the motivation for the establishment of the \gls{EXPECA} testbed at \pgls{KTH}.
 \gls{EXPECA} is a \gls{SSF}-funded infrastructure project targeting the development and provisioning of an Edge computing infrastructure for research into novel applications and network architectures.
 It consists of a cluster of hardware-reconfigurable \gls{COTS} computing nodes interconnected using managed switches and \glspl{SDR}.
 This allows for quick, on-the-fly, and automated changes to the characteristics of the cluster and the network, in order to study different Edge- and Cloud-computing deployments and the applications that run on them.
@@ -251,22 +251,22 @@ This allows for quick, on-the-fly, and automated changes to the characteristics 
     }\label{fig:expeca}
 \end{figure}
 
-The initial prototype architecture of \gls{EXPECA} is illustrated in \cref{fig:expeca}.
+The initial prototype of \gls{EXPECA} is illustrated in \cref{fig:expeca}.
 \emph{Workload hosts} act as client-side user devices;
-in my prototype, these corresponded to \num{10} Raspberry Pi 4 Model B boards.
+in our prototype, these correspond to \num{10} Raspberry Pi 4 Model B boards.
 These devices connect to either a cloudlet or cloud computing instances over the \emph{workload data network}.
 Through clever configuration of \acsp{VLAN} and routing, traffic on this network can be forced to flow through the attached \acsp{SDR} and their associated radio processing hosts.
 This allows for seamless switching of the physical layer for experiments.
-I implemented configurations wherein one of the \glspl{SDR} acted as a 4G or 5G base station and the other one as a cellular client.
-An alternative setup had the workload hosts connect wirelessly via Wi-Fi to one of the radios acting as an \gls{AP}
+We implement configurations wherein one of the \glspl{SDR} act as a 4G or 5G base station and the other one as a cellular client.
+An alternative setup has the workload hosts connect wirelessly via Wi-Fi to one of the radios acting as an \gls{AP}
 Finally, the \emph{control network} is used for the out-of-band configuration of testbed resources, and the \acs{VPN} links allow direct tunneled connections to cloud compute nodes on \acs{AWS}.
 
-I also introduce a software framework I developed for its automation and experiment orchestration, \emph{Ainur}.
+In \cref{paper:olguinmunoz2022ainur}, my co-authors and I introduce \emph{Ainur}, a software framework developed for the automation and experiment orchestration of the \gls{EXPECA} testbed prototype.
 Ainur is a highly flexible end-to-end wireless network testbed management framework.
 Its objective is to facilitate the study of the effects of communication and computation elements on the performance of distributed applications.
 To achieve this, Ainur provides a Python \gls{API} that allows researchers to describe experiments in a procedural manner, with plans to eventually offer toolkits for declarative configuration.
 
-The architecture of Ainur closely resembles the conceptual layers of the \acs{TCP}/\acs{IP} stack, and the framework utilizes containerization throughout.
+The architecture of Ainur resembles the conceptual layers of the \acs{TCP}/\acs{IP} stack, and the framework employs containerization throughout.
 This includes the deployment and orchestration of workloads, support for different physical layer configurations, and automated collection of logs.
 To support this, the framework leverages Docker Swarm~\cite{docker,merkel2014docker,Swarm2021} as the container orchestration layer.
 Docker Swarm was chosen for its lightweight nature, simple configuration, and inclusion in the default Docker runtime installation.
@@ -275,6 +275,6 @@ This allows Ainur to remain agnostic to the nature of the workloads and support 
 Ainur also leverages containerization for the communication stack, which can nowadays be deployed on general-purpose processors using \gls{O-RAN} and \glspl{SDR}.
 This allows for the distribution of the communication stack across multiple hosts, providing researchers with the ability to study the effects of communication and computation elements on the performance of distributed applications.
 
-Finally, I note that both Ainur and \gls{EXPECA} were utilized for experimentation in \cref{paper:olguinmunoz2022cleave,paper:olguinmunoz2023realistic}.
+Note that both Ainur and \gls{EXPECA} were utilized for experimentation in \cref{paper:olguinmunoz2022cleave,paper:olguinmunoz2023realistic}.
 The use of these tools was, however, during their development and prototyping, and they have thus not been referred to by name in these works.
 Their first formal appearance was in \cref{paper:olguinmunoz2022ainur}.

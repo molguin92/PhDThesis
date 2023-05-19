@@ -1,26 +1,26 @@
 \section{Exploring the need for accuracy in client-side emulation}\label{summary:realism}
 
-In this section, we aim to delve deeper into the implications of our methodology for the optimization of \gls{WCA}.
-In particular, we wish to explore the impact improving the accuracy of the client-side emulation has on the potential for optimization of the applications under evaluation.
-We approach this question by developing an improved, more detailed version of our model of human behavior in \gls{WCA} used in the EdgeDroid tool, which we then incorporate into our methodology along with a mathematical framework to study the potential for optimizing \gls{WCA} applications. 
+In this section, I aim to delve deeper into the implications of the methodology for the optimization of \gls{WCA}.
+In particular, I wish to explore the impact improving the accuracy of the client-side emulation has on the potential for optimization of the applications under evaluation.
+I approach this question by developing an improved, more detailed version of the model of human behavior in \gls{WCA} used in the EdgeDroid tool, which I then incorporate into my methodology along with a mathematical framework to study the potential for optimizing \gls{WCA} applications. 
 
-Our work in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} has used a model that emulates a rigid and unyielding human who makes no mistakes and is not affected by low responsiveness in the system.
+The work in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid} has used a model that emulates a rigid and unyielding human who makes no mistakes and is not affected by low responsiveness in the system.
 However, this is not an accurate representation of real human behavior, and a more realistic human model must take into consideration the perceived feedback latency and its effects on human reactions.
-In order to develop a more accurate human model in the context of \gls{WCA}, we first conduct an experimental study that measures human performance in different scenarios, taking into account the impact of system latency on the behavior of humans.
+In order to develop a more accurate human model in the context of \gls{WCA}, I first conduct an experimental study that measures human performance in different scenarios, taking into account the impact of system latency on the behavior of humans.
 The results of this study serve as the foundation for building a more representative model of human behavior.
 
-Once we have established a more accurate model of human behavior, we can explore its implications for the optimization of \gls{WCA} through our methodology.
-By improving the accuracy of our model of human behavior, we aim to gain novel understanding of the challenges involved in optimizing \gls{WCA} and how our methodology can be effectively applied to address these.
-This research highlights the importance of the accuracy of emulations as  crucial factor in the application of our methodology.
+Once I have established a more accurate model of human behavior, I can explore its implications for the optimization of \gls{WCA} through my methodology.
+By improving the accuracy of the model of human behavior, I aim to gain novel understanding of the challenges involved in optimizing \gls{WCA} and how the methodology can be effectively applied to address these.
+This research highlights the importance of the accuracy of emulations as  crucial factor in the application of my methodology.
 
 \subsection{Definitions relating to the operation of \glsfmtshort{WCA} applications}
 
-In order to more easily and accurately discuss the implications of our methodology for \gls{WCA}, we first characterize these applications and provide some definitions relating to their operation.
-We focus in particular on \emph{step-based} \gls{WCA}, i.e.\ assistance applications which have as their goal the guidance of a user through a task, using a series of instructions.
+In order to more easily and accurately discuss the implications of my methodology for \gls{WCA}, I first characterize these applications and provide some definitions relating to their operation.
+I focus in particular on \emph{step-based} \gls{WCA}, i.e.\ assistive applications which have as their goal the guidance of a user through a task, using a series of instructions.
 
 As discussed above, \glspl{WCA} track the state of the real world through sampling of inputs, most commonly of video feeds.
 In step-based \glspl{WCA}, the state in question refers to the progress of some arbitrary, sequential task, such as the assembly of a LEGO model or of a piece of IKEA furniture~\cite{chen2018application}.
-We will formally define \emph{task} as a well-defined sequence of instructions to be performed in order to achieve a final goal state, and further define a \emph{step} within a task as a specific action to be performed by the user, described by a single instruction.
+I will formally define \emph{task} as a well-defined sequence of instructions to be performed in order to achieve a final goal state, and further define a \emph{step} within a task as a specific action to be performed by the user, described by a single instruction.
 A step begins when the corresponding instruction is provided to the user, and ends when the instruction for the next step is provided;
 the time interval between these two events will be referred to as the \emph{step duration}.
 
@@ -43,101 +43,41 @@ In the following, please refer to \cref{fig:wcastep}.
 \ensuremath{t_n} corresponds to the instant at which the final sample of step \ensuremath{M} is taken;
 this sample is the first sample to capture the finished state of the step.
 At this point, the application transitions to the next step \ensuremath{M + 1}, and thus \ensuremath{t_{n + 1}} is the instant at which the next instruction is provided and step \ensuremath{M + 1} begins.
-We will also refer to the interval \ensuremath{t_{n + 1} - t_n} as the \emph{last sample \gls{RTT}}.
+I will also refer to the interval \ensuremath{t_{n + 1} - t_n} as the \emph{last sample \gls{RTT}}.
 
 \glsreset{TTF}%
-From this characterization, we can define key variables relating to human behavior with respect to the sampling behavior of these applications.
-However, we first note that the combination of the characteristic of seamless interaction with the context of the user described in \cref{sec:background:wca} and in \cref{fig:wca:operation}, combined with the sampling behavior described above, lead to an interesting consequence for the perception of responsiveness in \gls{WCA}.
+From this characterization, key variables relating to human behavior with respect to the sampling behavior of these applications can be defined.
+However, it must first be noted that the combination of the characteristic of seamless interaction with the context of the user described in \cref{sec:background:wca} and in \cref{fig:wca:operation}, combined with the sampling behavior described above, lead to an interesting consequence for the perception of responsiveness in \gls{WCA}.
 The only points in time at which a user can consciously notice and interact with the application is whenever they are \emph{expecting} feedback.
 A corollary of this is that these are therefore also the \emph{only} points in time at which users can notice changes in system responsiveness.
 If we understand \ensuremath{t_c} as the point in time at which the user finishes executing the instruction for step \ensuremath{M}, then
 \begin{inlineenum}
     \item \ensuremath{t_c - t_0} corresponds to the \emph{step execution time}, that is, the time it has taken the user to complete the instruction
     \item \ensuremath{t_n - t_c} is the \emph{wait time}, an interval of time during which the task has been finished, but no sample capturing the new state has been taken yet
-    \item finally, the interval \ensuremath{t_{n + 1} - t_c} we call \emph{\gls{TTF}}, and refers to the time the user spends waiting for a new instruction.
+    \item the interval \ensuremath{t_{n + 1} - t_c} I will term \emph{\gls{TTF}}, and refers to the time the user spends waiting for a new instruction.
 \end{inlineenum}
 These values are key to understanding human perception of responsiveness in these systems, and therefore also to the optimization of resource consumption in \gls{WCA}.
-We will refer to them extensively in \cref{chap:contributions}.
+I will refer to them extensively in \cref{ssec:characterizing} onwards.
 
-%\subsection{Mechanisms relating human behavior to system responsiveness}
-%
-%The question of how people respond to delay in a computer system is grounded in how people perceive time.
-%Time perception has been described as regulated by an attentional gate that, when opened, starts a cognitive pulse counter~\cite{zakay1995attentional,zakay1996role}.
-%More recent research indicates, however, that duration perception is highly malleable and the result of multiple timing mechanisms found in overlapping, flexible neural systems~\cite{bruno2016multiple,wiener2011multiple}.
-%The estimation of an event's duration varies with context of various types
-%\begin{inlineenum}[label={(\roman*)}, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}]
-%\item events subsequent to a long or short interval are contracted or extended, respectively~\cite{heron2012duration}
-%\item repeated events tend to be perceived as shorter than novel ones~\cite{matthews2011stimulus}
-%\item arousal can expand durations~\cite{droit_volet2011emotion}.
-%\end{inlineenum}
-%
-%Expectations play a critical role in time perception as well~\cite{zakay1995attentional,zakay1996role}.
-%It has been shown that people have a general tendency to be hypersensitive to delays in worse-than-expected states, and under-sensitive to meeting or exceeding expectations~\cite{loewenstein1992anomalies}.
-%Accordingly, failures to meet expected fast response times tend to be experienced as highly negative, whereas fast latencies are not noticed.
-%Violations of expectancy have a strong impact on the acceptability of computer systems.
-%Users of a computer system anticipate the latency for events, for which the standards only become more stringent as systems improve in response time.
-%In immersive systems like \gls{WCA}, which aim to provide seamless interaction, delays are particularly noticeable.
-%
-%It has long been recognized that slow system response times can undermine cognitive processing, slow the pace of users, and lead to stereotyped behavior and errors, as well as cause negative emotional consequences~\cite{dabrowski201140}.
-%However, standards for what constitute tolerable delays have changed dramatically compared to three decades ago, when delays on the order of \SI{10}{\second} were deemed acceptable~\cite{nielsen1994usability, shneiderman2016designing, seow2008designing}.
-%Today's user context, and \gls{WCA} in particular, often demand response times orders of magnitude shorter.
-%
-%For \gls{WCA} the acceptable range for latencies was explored by Chen et al.~\cite{chen2017empirical}, by constructing assistants for tasks with a range of time constraints, including step-by-step tasks and more interactive contexts like playing Ping-Pong against a human opponent.
-%They then proposed a latency tolerance zone according to the task demands.
-%For an essentially self-paced task like LEGO assembly, they found two key ranges of latency; unnoticeable, \SIrange{0}{0.6}{\second}; and impaired, \SIrange{0.6}{2.7}{\second}.
-%Beyond that, users could begin to show the negative outcomes previously catalogued~\cite{dabrowski201140}.
-%
-%While behavioral changes and negative interaction outcomes have been well documented in prior research on system delay, the specific mechanisms that mediate these outcomes are less well understood.
-%These mechanisms could be cognitive or emotional in origin.
-%
-%A first possible explanation comes from research on cognitive and motor planning.
-%Delay may move users from relatively automatic to more attention-demanding processing.
-%Cognitive and motor tasks are commonly described as a hierarchical system, progressing from high-level goals to the sequence of commands that accomplishes them.
-%As competency in a task increases, execution of the hierarchy becomes increasingly automated.
-%Automatization has been described from a computational perspective in {Anderson's ACT-R}~model as the compiling of multiple productions into one~\cite{neves1981knowledge}.
-%Neural measurements indicate that with automaticity, control moves from frontal brain areas to more posterior ones~\cite{jeon2015degree,puttemans2005changes}, and similar distinctions have been related to temporal processing~\cite{lewis2003distinct,koch2009neural,lee2019limiting}.
-%
-%Although activities guided by a \gls{WCA} are not simple motor actions, immediate feedback after each of a series of repeated actions should promote development and automatic execution of a hierarchical plan.
-%Delays, in contrast, would disrupt such a plan through the loss of automated control~\cite{lee2019limiting}.
-%
-%A second, alternative explanation of delay effects appeals to emotional systems rather than cognitive processes.
-%As users of a system become emotionally aroused by delay, they may be subject to generalized arousal, causing decrements in performance~\cite{lee2019limiting}.
-%
-%Finally, a third potential explanation of delay effects is what has been called ``ego depletion'', the notion that expending effort on self-control eliminates resources needed for further effort~\cite{baumeister74tice,lin2020strong}.
-%
-%The various processing accounts of delay effects predict different outcomes, which we will consider in the context of the current data.
-%If delay increases attentional demands on cognitive processes, responses should be slowed and errors expected, particularly on time-critical tasks.
-%Generalized arousal triggered by emotional stress from delay should emerge in physiological measures, such as increased heart rate or skin conductivity.
-%Arousal can also reduce movement smoothness or add erratic gestures~\cite{pijpers2003anxiety}.
-%Ego depletion has been found to produce premature responses culminating in error~\cite{lin2020strong}, or to lead to abandoning a task entirely~\cite{baumeister74tice}.
-%
-%Over-arching prescriptions for tolerable system response time have not tended to take into account individual differences in users with respect to salient variables like cognitive ability or personality.
-%Relevant research can be found in studies of delay discounting, the tendency to devalue rewards for which one must wait.
-%High discounting rates, indicative of waiting intolerance, have been associated with negative social and academic outcomes.
-%Hirsh et al.~\cite{hirsh2008delay} found that higher discounting was associated with extraversion among those with low cognitive function, whereas lower discounting was associated with emotional stability (low neuroticism) for people with high cognitive function.
-%Among computer system users who tend to have relatively high cognitive ability (which presumably describes the present experimental population), this points to neuroticism as a personality factor that might modulate tolerance for waiting. Extraversion could also  be  a moderating factor among the broader target audience of \gls{WCA}, which are intended for relatively inexperienced users of an application.
-%These and other measures of individual variation were considered here.
-
-
-\subsection{Characterizing human behavior}
+\subsection{Characterizing human behavior}\label{ssec:characterizing}
 
 \Cref{paper:olguinmunoz2021impact} aims to investigate the effects of system responsiveness on human behavior in step-based \gls{WCA}.
-This corresponds to the first step in extending our EdgeDroid tool for the benchmarking of \gls{WCA}, first introduced in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}, with a more realistic model of human behavior.
-The study involved \num{40} undergraduate students who interacted with a \gls{WCA} application while the system responsiveness was systematically altered in real-time, and their behavioral and physiological reactions were recorded.
-The study attempted to answer a number of core research questions relating to human behavior in the context of these applications.
-These included
+This corresponds to the first step in extending the EdgeDroid tool for the benchmarking of \gls{WCA}, first introduced in \cref{paper:olguinmunoz2018demoscaling,paper:olguinmunoz2019edgedroid}, with a more realistic model of human behavior.
+The study involves \num{40} undergraduate students who interact with a \gls{WCA} application while system responsiveness is systematically altered in real-time, and their behavioral and physiological reactions are recorded.
+The study attempts to answer a number of core research questions relating to human behavior in the context of these applications.
+These include whether
 \begin{inlineenum}
-    \item whether users change their actions in relation to system latency
-    \item whether they show signals of arousal in physiological responses
-    \item whether their responses to delay effects are mediated by cognition and/or emotion
-    \item whether these effects are mediated by personality indicators
+    \item users change their actions in relation to system latency
+    \item they show signals of arousal in physiological responses
+    \item their responses to delay effects are mediated by cognition and/or emotion
+    \item these effects are mediated by personality indicators
 \end{inlineenum}.
 
-We found that reduced system responsiveness induces additional behavioral slow-down in \gls{WCA} users, and this effect scales with the strength of the reduction in system responsiveness.
-Furthermore, we note that humans tend to speed up as the task progresses;
+I find that reduced system responsiveness induces additional behavioral slow-down in \gls{WCA} users, and that this effect scales with the strength of the reduction in system responsiveness.
+Furthermore, humans tend to speed up as the task progresses;
 however, as system responsiveness decreases, this effect is strongly dampened.
 The effects of reduced system responsiveness on users linger for at least four steps after the system responsiveness improves, leading to longer execution times for steps immediately after a period of reduced responsiveness.
-Finally, the trait of \emph{neuroticism}~\cite{john1999big} seems to play a significant role in modulating users' response to reduced responsiveness in \gls{WCA}.
+Finally, the personality trait of \emph{neuroticism}~\cite{john1999big} seems to play a significant role in modulating users' response to reduced responsiveness in \gls{WCA}.
 
 \subsubsection{Methodology}
 
@@ -161,17 +101,17 @@ Finally, the trait of \emph{neuroticism}~\cite{john1999big} seems to play a sign
     }\label{fig:regularwca-vs-delaywca}
 \end{figure}
 
-We employed a version of the step-based \emph{Gabriel} cognitive assistant framework first introduced by \citeauthor{chen2018application}~\cite{chen2018application}.
-The assistant was instrumented to capture key application and task performance metrics in real time, in particular step execution time.
-Furthermore, the software was modified to allow for the real-time alteration of system responsiveness by extending the processing interval of each input to a temporarily fixed value denoted \emph{delay}.
+I employ a version of the step-based \emph{Gabriel} cognitive assistant framework first introduced by \citeauthor{chen2018application}~\cite{chen2018application}.
+The assistant is instrumented to capture key application and task performance metrics in real time, in particular step execution time.
+Furthermore, the software is modified to allow for the real-time alteration of system responsiveness by extending the processing interval of each input to a temporarily fixed value denoted \emph{delay}.
 This is illustrated in \cref{fig:regularwca-vs-delaywca}.
-If, during a series of steps, delay was set to a value \ensuremath{\mathbb{D}}, the feedback for each input frame was provided to the user exactly a time interval \ensuremath{\mathbb{D}} after frame capture.
+If, during a series of steps, delay is set to a value \ensuremath{\mathbb{D}}, the feedback for each input frame is provided to the user exactly a time interval \ensuremath{\mathbb{D}} after frame capture.
 That is,
 \begin{align}
     t_k - t_{k - 1} = \mathbb{D} \qquad \forall k \in [2, n + 1]
 \end{align}
 %Seven values were selected for \ensuremath{\mathbb{D}}: no added delay (which was referred to as \SI{0}{\second} delay), \SIlist{0.6;1.125;1.65;2.175;2.7;3.0}{\second}.
-In order to fully characterize the resulting \emph{\glspl{TTF}} perceived by participants, we note that the instant of final frame capture for a step, \ensuremath{t_c} (and conversely the wait time \( \mathcal{W} \) of the step), can be assumed to be uniformly distributed in \( [t_{n - 1}, t_n] \), without loss of generality.
+In order to fully characterize the resulting \emph{\glspl{TTF}} perceived by participants, we note the instant of final frame capture for a step, \ensuremath{t_c} (and conversely the wait time \( \mathcal{W} \) of the step), can be assumed to be uniformly distributed in \( [t_{n - 1}, t_n] \), without loss of generality.
 Thus the average \gls{TTF} for a step can be expressed as
 \begin{align*}
     TTF = (t_{n + 1} - t_{n}) + \frac{1}{2}(t_n - t_{n - 1})
@@ -184,7 +124,7 @@ which, for a step with a given delay \ensuremath{\mathbb{D}}, works out to\footn
     TTF &= \mathbb{D} + \frac{1}{2}\mathbb{D}\nonumber\\
     &= \frac{3}{2}\mathbb{D}
 \end{align}
-In the following, we will forgo the delay values and present results with respect to the adjusted \glspl{TTF}.
+In the following, I forgo the delay values and present results with respect to the adjusted \glspl{TTF}.
 
 \begin{figure}[tb]
     \centering
@@ -197,18 +137,16 @@ In the following, we will forgo the delay values and present results with respec
 \end{figure}
 
 \medskip
-The \gls{WCA} task employed for this study corresponded to a modified and extended version of the LEGO assembly task introduced in~\cite{chen2015early}.
-Unlike the original design of this task, in which the user is led through the assembly of a specific model, the modified LEGO task consisted of a pseudo-random sequence of steps instructing subjects to add or remove pieces.
+The \gls{WCA} task employed for this study corresponds to a modified and extended version of the LEGO assembly task introduced in~\cite{chen2015early}.
+Unlike the original design of this task, in which the user is led through the assembly of a specific model, the modified LEGO task consists of a pseudo-random sequence of steps instructing subjects to add or remove pieces.
 
-We introduced an experimental design component denoted a \emph{block}, illustrated in \cref{fig:stepblock}, corresponding to a segment of consecutive steps subject to the same delay value.
-To study the effects of a delay applied across multiple steps, we manipulated the length of blocks during the task. %, using values of \numlist[list-final-separator={, or }]{4;8;12} steps.
-Furthermore, we defined a \emph{slice} as a continuous segment of \num{4} steps within a block;
-\num{4}-step blocks were composed of a single slice, whereas \num{8}- and \num{12}-step blocks were composed respectively of \num{2} and \num{3} consecutive slices.
-Using these experimental design components, we generated a task for each participant by arranging blocks according to a \emph{Latin-square}~\cite{keedwell2015latin} design.
-%We generated a pseudo-random permutation of the combinations of block length and delay values, and assigned a unique sequence of steps to each combination in order to create \num{21} unique blocks of steps.
-%Using a \emph{Latin-square}~\cite{keedwell2015latin} design, we reordered the initial permutation to generate \num{40} tasks.
+I introduce an experimental design component denoted a \emph{block}, illustrated in \cref{fig:stepblock}, corresponding to a segment of consecutive steps subject to the same delay value.
+To study the effects of a delay applied across multiple steps, I manipulate the length of blocks during the task. %, using values of \numlist[list-final-separator={, or }]{4;8;12} steps.
+Furthermore, I define a \emph{slice} as a continuous segment of \num{4} steps within a block;
+\num{4}-step blocks are composed of a single slice, whereas \num{8}- and \num{12}-step blocks are composed respectively of \num{2} and \num{3} consecutive slices.
+Using these experimental design components, I generate a task for each participant by arranging blocks according to a \emph{Latin-square}~\cite{keedwell2015latin} design.
 
-To measure the extent to which individual differences in each subject affected obtained task-performance results, participants were asked to complete two questionnaires previous to beginning the task;
+To measure the extent to which individual differences in each subject affect obtained task-performance results, participants are asked to complete two questionnaires previous to beginning the task;
 the \gls{BFI}~\cite{john1999big} and the \gls{ITQ}~\cite{witmer1998measuring}.
 These correspond to well-established tools for the measurement of individual personality traits in humans.
 %The \gls{BFI}~\cite{john1999big} consists of \num{44} questions assessing the traits of
@@ -220,10 +158,10 @@ These correspond to well-established tools for the measurement of individual per
 %    \item openness
 %\end{inlineenum}.
 %The \gls{ITQ}~\cite{witmer1998measuring}, on the other hand, assesses involvement, focus, and the tendency to play games, using \num{29} questions.
-The scores for these questionnaires were normalized in post-processing to fall in the \ensuremath{[0, 1]} range for ease of interpretation.
+The scores for these questionnaires are normalized in post-processing to fall in the \ensuremath{[0, 1]} range for ease of interpretation.
 
-In order to try to capture metrics relating to the emotional response of humans to changes in system responsiveness, participants were asked to wear an array of biometric sensors.
-This array included devices to capture a number of physiological measures, including \gls{EEG}, \gls{HR}, and \gls{GSR}.
+In order to try to capture metrics relating to the emotional response of humans to changes in system responsiveness, participants are asked to wear an array of biometric sensors.
+This array includes devices to capture a number of physiological measures, such as \gls{EEG}, \gls{HR}, and \gls{GSR}.
 %\begin{inlineenum}
 %    [itemjoin={{, }}, itemjoin*={{, and }}, label={(\arabic*)}]
 %    \item \gls{GSR} (also known as electrodermal activity)
@@ -231,13 +169,12 @@ This array included devices to capture a number of physiological measures, inclu
 %    \item brain activity in the form of \gls{EEG}
 %    \item heart rate
 %\end{inlineenum}.
-Unfortunately, no statistically significant effects were measured in any of these variables, and as such neither will be discussed in this summary.
+Unfortunately, no statistically significant effects are measured in any of these variables, and as such neither is discussed in this summary.
 Please refer to \cref{paper:olguinmunoz2021impact} for details.
 
-Finally, we collected video recordings of participants' faces and as well as of the live feed of frames provided as input to the \gls{WCA}.
-The facial recordings will also not be discussed in this section, as they were not employed in any analyses.
-However, the recording of the live feed was employed later on in the implementation of a procedure for the generation of dynamic synthetic traces for the LEGO task in the context of the EdgeDroid load generator for \gls{WCA}.
-This will be discussed in \cref{model:traces}.
+Finally, I collect video recordings of participants' faces and as well as of the live feed of frames provided as input to the \gls{WCA}.
+The facial recordings are also not discussed in this section, as they are not employed in any analyses.
+However, the recording of the live feed is discussed in \cref{model:traces}, in the context of an implementation of a procedure for the generation of dynamic synthetic traces for the LEGO task in the context of the EdgeDroid load generator for \gls{WCA}.
 
 \subsubsection{Results}\label{impact:results}
 
@@ -263,22 +200,22 @@ This will be discussed in \cref{model:traces}.
     \caption{Effects of perceived \gls{TTF} on measured step execution times by participants.}\label{fig:ttfvsexectime}
 \end{figure*}
 
-\Cref{fig:ttfvsexectime} shows effects on the measured execution times of participants as perceived \gls{TTF} increased.
+\Cref{fig:ttfvsexectime} shows effects on the measured execution times of participants as perceived \gls{TTF} increases.
 These results have been grouped by block length (\cref{fig:ttfvsexectime:block}), showing the cumulative effects of delay over series of steps, and slice number (\cref{fig:ttfvsexectime:slice}), showing the evolution of these effects within a series of steps at the same level of impairment.
 
-\cref{fig:ttfvsexectime:block} shows that as system responsiveness decreased, the speed at which participants completed instructions tended to slow down.
-Compared to the unimpaired case, participants were on average \SI{12}{\percent} slower when subject to a mean \gls{TTF} of \SI{2.475}{\second}, and \num{26} percentage points slower at a mean \gls{TTF} of \SI{4.5}{\second}.
+\cref{fig:ttfvsexectime:block} shows that as system responsiveness decreases, the speed at which participants complete instructions tends to slow down.
+Compared to the unimpaired case, participants are on average \SI{12}{\percent} slower when subject to a mean \gls{TTF} of \SI{2.475}{\second}, and \num{26} percentage points slower at a mean \gls{TTF} of \SI{4.5}{\second}.
 \Cref{fig:ttfvsexectime:block} illustrates this effect clearly;
-for all block lengths, as \gls{TTF} grows we see an accompanying increase in execution times.
-Moreover, this effect seemed stronger for longer blocks at higher levels of impairment, indicating a slow-down which compounds with the number of steps.
+for all block lengths, as \gls{TTF} grows an accompanying increase in execution times can be observed.
+Moreover, this effect seems stronger for longer blocks at higher levels of impairment, indicating a slow-down which compounds with the number of steps.
 Note that by measuring \emph{step execution time} we are \emph{per se} compensating for the added delay in the measure, and thus this trend must result from the participants' behavioral slow-down as a response to the perceived increase in \gls{TTF}.
-This was confirmed through an \gls{ANOVA}~\cite{fujikoshi1993two} including factors of block length and \gls{TTF}; significant effects were found for both factors and their interaction (\ensuremath{p < 0.01}).
+This is confirmed through an \gls{ANOVA}~\cite{fujikoshi1993two} including factors of block length and \gls{TTF}; significant effects are found for both factors and their interaction (\ensuremath{p < 0.01}).
 
-On the other hand, in \cref{fig:ttfvsexectime:slice} we observe the evolution of execution times over \emph{slices} of \num{4} steps within blocks.
-This figure illustrates how, at the lowest levels of impairment, users tended to get faster as the task progressed.
-At the lowest \gls{TTF}, the average execution time of steps \num{9} to \num{12} in a block was roughly \ensuremath{\sim\SI{26}{\percent}} lower than for steps \num{1} to \num{4}.
+On the other hand, in \cref{fig:ttfvsexectime:slice} the evolution of execution times over \emph{slices} of \num{4} steps within blocks is illustrated.
+This figure illustrates how, at the lowest levels of impairment, users tend to get faster as the task progresses.
+At the lowest \gls{TTF}, the average execution time of steps \num{9} to \num{12} in a block is roughly \ensuremath{\sim\SI{26}{\percent}} lower than for steps \num{1} to \num{4}.
 However, this effect is strongly dampened at higher levels of impairment, with the difference between the average execution times of steps in slices \num{2} and \num{3} basically disappearing at the highest \gls{TTF}.
-This was also confirmed through an \gls{ANOVA} on factors slice and \gls{TTF}, finding significant (\ensuremath{p < 0.01}) for both factors and their interaction.
+This is also confirmed through an \gls{ANOVA} on factors slice and \gls{TTF}, finding significant (\ensuremath{p < 0.01}) for both factors and their interaction.
 
 \begin{figure}
     \begin{minipage}[t]{.45\textwidth}
@@ -292,28 +229,28 @@ This was also confirmed through an \gls{ANOVA} on factors slice and \gls{TTF}, f
         \includegraphics[height=13em]{publications/2023EdgeDroid2/figs/new_model/mu_fits_exgaussian_slice0}
         \caption{%
             Illustration of the effect of neuroticism on the \ensuremath{\mu} parameter of \acs{exGaussian} distributions fitted to the execution times of steps in slice \num{1}.
-            Fits were achieved through \gls{MLE}.
+            Fits are achieved through \gls{MLE}.
             Figure originally published in \cref{paper:olguinmunoz2023realistic}
         }\label{fig:ttfvsexgaussianmu}
     \end{minipage}
 \end{figure}
 
-As mentioned before, we found that the effects of system responsiveness on execution times lingered on after the system moved to a different level of impairment.
+As mentioned before, the effects of system responsiveness on execution times linger on after the system moves to a different level of impairment.
 \Cref{fig:prevblockvsexectime} illustrates this effect.
-On average, the mean execution time of the first four steps of blocks was roughly \SI{7}{\percent} lower when the previous block was at a \ensuremath{TTF \leq \SI{2.475}{\second}} compared to when the previous block was at a \ensuremath{TTF > \SI{2.475}{\second}} (single-tailed \ensuremath{p < 0.001}).
+On average, the mean execution time of the first four steps of blocks is roughly \SI{7}{\percent} lower when the preceding block was at a \ensuremath{TTF \leq \SI{2.475}{\second}} compared to when the preceding block was at a \ensuremath{TTF > \SI{2.475}{\second}} (single-tailed \ensuremath{p < 0.001}).
 
-Analyses of the correlation between individual subject differences and the above effects highlighted the \gls{BFI} trait of \emph{neuroticism} as an important modulating factor.
+Analyses of the correlation between individual subject differences and the above effects highlight the \gls{BFI} trait of \emph{neuroticism} as an important modulating factor.
 This trait has been linked to low tolerance for stress, high emotional reactivity, as well as higher rates of \emph{delay discounting}~\cite{hirsh2008delay}.
-Out of the three components identified by a \gls{PCA}, which cumulatively accounted for \ensuremath{\sim\SI{73}{\percent}} of the variance in the execution time results, neuroticism was present in the first two.
-Individual neuroticism scores were found to significantly linearly correlate (\ensuremath{\rho = 0.418}, two-tailed \ensuremath{p < 0.05}) with measured execution times at high \glspl{TTF}.
+Out of the three components identified by a \gls{PCA}, which cumulatively accounted for \ensuremath{\sim\SI{73}{\percent}} of the variance in the execution time results, neuroticism is present in the first two.
+Individual neuroticism scores are found to significantly linearly correlate (\ensuremath{\rho = 0.418}, two-tailed \ensuremath{p < 0.05}) with measured execution times at high \glspl{TTF}.
 
-Finally, we found that execution times were well-fit by \gls{exGaussian} distributions.
+Finally, I find that execution times are well-fit by \gls{exGaussian} distributions.
 Previous research has established strong arguments for the use of this distribution for the modeling of human reaction times and the timings of human actions~\cite{rohrer1994analysis,palmer2011what,marmolejo_ramos2022generalised}.
 When grouping execution times by low/high neuroticism\footnote{%
     \emph{Low} refers to values less than the middle value obtainable for neuroticism in the \gls{BFI}; \emph{high} to values greater than or equal to it.
-}, \gls{TTF}, and slice, the best fit statistic obtained using a Kolmogorov-Smirnov goodness-of-fit test~\cite{massey_jr1951kolmogorov} was \num{0.028}, with a \ensuremath{p}-value of \num{0.999}.
-The effects of neuroticism were most easily observed in the \ensuremath{\mu} parameter and the tails of the fitted distribution;
-an example of this can be observed in \cref{fig:ttfvsexgaussianmu}.
+}, \gls{TTF}, and slice, the best fit statistic obtained using a Kolmogorov-Smirnov goodness-of-fit test~\cite{massey_jr1951kolmogorov} is \num{0.028}, with a \ensuremath{p}-value of \num{0.999}.
+The effects of neuroticism are most easily observed in the \ensuremath{\mu} parameter and the tails of the fitted distribution;
+an example of this is presented in \cref{fig:ttfvsexgaussianmu}.
 There is a clear and direct correlation between higher neuroticism and higher \ensuremath{\mu} values and longer tails.
 
 \subsubsection{Implications for \glsfmtshort{WCA}}
@@ -333,17 +270,17 @@ The complexity of \gls{WCA} application systems makes it challenging to predict 
 \subsection{A new model of human behavior in \acs{WCA}}
 
 \cref{paper:olguinmunoz2023realistic} discusses the elaboration of a model of human behavior for \gls{WCA}.
-Built upon the data and results from \cref{paper:olguinmunoz2021impact}, our model is capable of dynamically generating realistic predictions of execution times for steps in a \gls{WCA} based on historical system state data and a parameterized level of neuroticism.
-Furthermore, we implement a new version of the EdgeDroid tool capable of using this new model, together with a novel procedure for the generation of realistic synthetic traces of frames for \gls{WCA}, to provide a fully end-to-end emulation of a human in the context of these systems.
+Built upon the data and results from \cref{paper:olguinmunoz2021impact}, this model is capable of dynamically generating realistic predictions of execution times for steps in a \gls{WCA} based on historical system state data and a parameterized level of neuroticism.
+Furthermore, I implement a new version of the EdgeDroid tool capable of using this new model, together with a novel procedure for the generation of realistic synthetic traces of frames for \gls{WCA}, to provide a fully end-to-end emulation of a human in the context of these systems.
 
 \subsubsection{Design of a more accurate model for human timings in \gls{WCA}}\label{sec:improved_model}
 
-Our current model of human behavior has a limitation that we need to address.
-The model we have discussed so far emulates a rigid and unyielding human who is not affected by low responsiveness in the system.
-This is not an accurate representation of real human behavior, and in the following we present a more realistic human model that takes into consideration the perceived feedback latency and its effects on human reactions.
+The model of human behavior that has a limitation that needs to be addressed.
+It emulates a rigid and unyielding human who is not affected by low responsiveness in the system.
+This is not an accurate representation of real human behavior, and in the following I present a more realistic human model that takes into consideration the perceived feedback latency and its effects on human reactions.
 
-Our new model is based on the comprehensive study of human behavior in the presence of feedback latency outlined in \cref{paper:olguinmunoz2021impact}, and has significant implications for the optimization of edge computing systems.
-By incorporating a more accurate representation of human behavior into our methodology, we can better assess the impact of system design choices on the end-user experience.
+This new model is based on the comprehensive study of human behavior in the presence of feedback latency outlined in \cref{paper:olguinmunoz2021impact}, and has significant implications for the optimization of edge computing systems.
+By incorporating a more accurate representation of human behavior into the methodology, the impact of system design choices on the end-user experience can better be assessed.
 This, in turn, enables future research into optimization strategies that are more effective at improving the overall quality of service for edge computing applications.
 
 \medskip
@@ -351,7 +288,7 @@ As discussed in \cref{impact:results}, the execution time for a step depends not
 Moreover, as shown in \cref{fig:prevblockvsexectime}, the effects of reduced system responsiveness on generated execution times must be taken into consideration even after the system transitions into a more responsive state.
 All of these effects are also modulated by neuroticism, adding both another layer of complexity and a means of parameterizing the model.
 
-Our new timing model generates realistic execution times for each step by taking two inputs: the most recent measured \gls{TTF} and a level of normalized neuroticism.
+The new timing model generates realistic execution times for each step by taking two inputs: the most recent measured \gls{TTF} and a level of normalized neuroticism.
 The model is stateful and calculates a weighted average of the 12 most recent \glspl{TTF}, with the most recent step accounting for approximately \SI{50}{\percent} of the weighted result.
 The resulting weighted rolling \gls{TTF} is then used to look up potential values for the execution time in the original data and generate a realistic execution time for the step based on the selected level of neuroticism.
 
@@ -389,24 +326,24 @@ The execution time is generated either by directly sampling the execution time v
 \end{figure}
 
 
-\Cref{fig:model:exectimesoversteps,fig:model:exectimestransitions} illustrate the adherence of the model to the conclusions obtained from our work in \cref{paper:olguinmunoz2021impact}.
+\Cref{fig:model:exectimesoversteps,fig:model:exectimestransitions} illustrate the adherence of the model to the conclusions obtained from the work in \cref{paper:olguinmunoz2021impact}.
 \Cref{fig:model:exectimesoversteps} shows the output of the execution time model described above over a series of steps at three levels of \gls{TTF};
 \emph{low} (instantaneous feedback), \emph{medium} (\SI{2.5}{\second}), and \emph{high} (\SI{5}{\second}).
 When the system is highly responsive (low \glspl{TTF}), the model tends to speed up as the task progresses.
 Conversely, at high levels of impairment, execution times depend on strongly on the parameterized level of neuroticism;
-as concluded from our previous discussion, higher neuroticism leads to a stronger reaction to reduced responsiveness and subsequently to longer execution times.
+as concluded from the previous discussion, higher neuroticism leads to a stronger reaction to reduced responsiveness and subsequently to longer execution times.
 
-In \cref{fig:model:exectimestransitions}, moreover, we present the lingering effects of reduced system responsiveness on \glspl{TTF} generated after the system returns to a more responsive state.
+In \cref{fig:model:exectimestransitions}, moreover, I present the lingering effects of reduced system responsiveness on \glspl{TTF} generated after the system returns to a more responsive state.
 These results were generated by first feeding a sequence of \num{25} identical \glspl{TTF} to the model, with values of either \SI{0}{\second} (i.e.\ instantaneous feedback) or \SI{5}{\second}.
 Next, a single \gls{TTF} of \SI{2.5}{\second} was fed to the model, and the generated execution time was recorded.
 This procedure was repeated \num{600} times.
-As expected from our discussion in \cref{impact:results}, transitions from a higher (\SI{5}{\second}) \gls{TTF} resulted in noticeably inflated execution times (\ensuremath{+\SI{8.5}{\percent}} at a high level of neuroticism) for the first step at \SI{2.5}{\second} \gls{TTF} compared to when the transition was from a lower \gls{TTF}.
+As expected from the discussion in \cref{impact:results}, transitions from a higher (\SI{5}{\second}) \gls{TTF} resulted in noticeably inflated execution times (\ensuremath{+\SI{8.5}{\percent}} at a high level of neuroticism) for the first step at \SI{2.5}{\second} \gls{TTF} compared to when the transition was from a lower \gls{TTF}.
 
 \subsubsection{Procedural generation of dynamic traces of video frames for \acs{WCA}}\label{model:traces}
 
-Our design for a procedure for the generation of synthetic yet realistic traces of video inputs for \gls{WCA} follows a stochastic approach.
+The design of procedure for the generation of synthetic yet realistic traces of video inputs for \gls{WCA} follows a stochastic approach.
 Analysis of the evolution of the distribution of processing results of frames over their normalized capture instant with respect to step execution time highlighted the pattern illustrated in \cref{fig:modelframes}.
-We define the normalized capture instant \ensuremath{t_\text{norm}} for each frame as the timestamp at which it was captured with respect to the beginning of the step, normalized by the total execution time of the same step.
+I define the normalized capture instant \ensuremath{t_\text{norm}} for each frame as the timestamp at which it was captured with respect to the beginning of the step, normalized by the total execution time of the same step.
 The distribution of the four possible categories of outputs of the \gls{CV} algorithm in the Gabriel LEGO Task~\cite{chen2018application} for each frame (\emph{blank}, i.e.\ no discernible board state, noise; \emph{low confidence}; \emph{success}, a frame which triggers a step transition;
 and \emph{repeat}, that is, no change since the last \emph{success} frame) were plotted against normalized capture instants.
 
@@ -423,11 +360,11 @@ More details and a longer discussion on this approach can be found in \cref{pape
 
 \subsection{Implications with respect to task completion times}
 
-In this section, we will discuss the implications of the methodology for the optimization of \gls{WCA} applications, in particular when employing the experimental results and the improved model of human timings discussed in \cref{sec:improved_model}.
+In this section, I discuss the implications of the methodology for the optimization of \gls{WCA} applications, in particular when employing the experimental results and the improved model of human timings discussed in \cref{sec:improved_model}.
 The discussion presented here is a summarized version of what \cref{paper:olguinmunoz2023realistic} exposes.
 
 The term \emph{task completion time}, in the context of \gls{WCA}, will refer to the time it takes a user to work their way through the task presented by an assistant application.
-In \cref{paper:olguinmunoz2023realistic} we refer interchangeably to task completion times as application lifetimes.
+In \cref{paper:olguinmunoz2023realistic} I refer interchangeably to task completion times as application lifetimes.
 This metric directly relates to system resource and energy consumption --- longer task completion times mean that the system is occupied for longer and thus uses more resources.
 It thus presents a relatively straightforward yet interesting starting point for the study of the implications of the model on the optimization of \gls{WCA} systems.
 
@@ -438,33 +375,33 @@ It thus presents a relatively straightforward yet interesting starting point for
     Geometric averages over \num{10} over ten total repetitions per configuration.}\label{fig:taskcompletiontimesdiff}
 \end{figure}
 
-The main question we aim to ask relates to the consequences of using our model of human timing behaviors versus using a less realistic approximation.
-Specifically, we aim to quantify the difference in task completion times when using the realistic model compared to a baseline which does not take into consideration higher order effects on execution times.
-We compare the total task durations of emulated \num{45}-step tasks using the EdgeDroid benchmarking tool with the improved model of human behavior to a baseline model.
-Our reference baseline corresponds here to a first order approximation to empirical execution time modeling, using an \gls{exGaussian} distribution fitted to \emph{all} the data points from \cref{paper:olguinmunoz2021impact} (without any grouping) which is randomly sampled to obtain execution time values.
-We perform this experiment on the edge computing testbed discussed in \cref{sec:testbed};
-for simplicity and to magnify the effects of latency, in this setup we use an \acs{IEEE} \num{802.11}b/g physical layer.
+The main question I aim to ask relates to the consequences of using this model of human timing behaviors versus using a less realistic approximation.
+Specifically, I aim to quantify the difference in task completion times when using the realistic model compared to a baseline which does not take into consideration higher order effects on execution times.
+I compare the total task durations of emulated \num{45}-step tasks using the EdgeDroid benchmarking tool with the improved model of human behavior to a baseline model.
+The reference baseline corresponds here to a first order approximation to empirical execution time modeling, using an \gls{exGaussian} distribution fitted to \emph{all} the data points from \cref{paper:olguinmunoz2021impact} (without any grouping) which is randomly sampled to obtain execution time values.
+I perform this experiment on the Edge Computing testbed discussed in \cref{sec:testbed};
+for simplicity and to magnify the effects of latency, in this setup I use an \acs{IEEE} \num{802.11}b/g physical layer.
 
 The results of the experiment, as presented in \cref{fig:taskcompletiontimesdiff}, show that there are clear and significant differences in task durations between the models.
-At low levels of resource contention, there was a reduction of up to \SI{12}{\percent} in task duration for both levels of neuroticism when using the realistic model.
-However, at higher levels of resource contention, the high neuroticism parameterization resulted in task durations that were more than \SI{8}{\percent} longer than the baseline.
+At low levels of resource contention, there is a reduction of up to \SI{12}{\percent} in task duration for both levels of neuroticism when using the realistic model.
+However, at higher levels of resource contention, the high neuroticism parameterization results in task durations that are more than \SI{8}{\percent} longer than the baseline.
 These findings demonstrate the importance of using a realistic model of human timing behavior to accurately predict and optimize task completion times.
 
-Overall, this case study highlights the potential benefits of using our methodology coupled with a realistic model of human timing behavior in edge computing systems.
-By considering higher order effects on execution times, such as the impact of neuroticism, we can improve the accuracy of our predictions and optimize system performance.
+Overall, this case study highlights the potential benefits of using my methodology coupled with a realistic model of human timing behavior in edge computing systems.
+By considering higher order effects on execution times, such as the impact of neuroticism, the accuracy of predictions can be improved and system performance can be optimized.
 However, it is important to note that the effects of using a realistic model may vary depending on the specific context and task being performed.
-Further research is needed to explore the generalizability of our findings and to investigate other factors that may impact task completion times in edge computing systems.
+Further research is needed to explore the generalizability of these findings and to investigate other factors that may impact task completion times in edge computing systems.
 
 \subsection{Implications with respect to number of samples per step}
 
-In the present section and the following we briefly discuss the implications of our methodology on the optimization potential of number of samples and energy consumption per step, respectively.
-Both these analyses depend on an understanding of the tradeoffs between resource consumption and responsiveness in \gls{WCA};
+In the present section and the following I discuss the implications of my methodology on the optimization potential of number of samples and energy consumption per step, respectively.
+These analyses depend on an understanding of the tradeoffs between resource consumption and responsiveness in \gls{WCA};
 fewer samples per step translates into longer sampling periods, and lower energy consumption tends to be made possible by processing fewer bits of data per step.
 
-We employ in these sections an optimization framework based primarily upon the work of Moothedath et al.~\cite{moothedath2021energy,moothedath2022energy1,moothedath2022energy2}.
+I employ in these sections an optimization framework based primarily upon the work of Moothedath et al.~\cite{moothedath2021energy,moothedath2022energy1,moothedath2022energy2}.
 The goal of this framework is to balance between increased responsiveness due to higher sampling rates and reduced resource consumption and network congestion caused by excessive sampling.
 In general, any objective metric in these applications which relates to sampling and the responsiveness of the system will present itself
-as a linear combination between \ensuremath{\mathbb{E}[\mathcal{S}]} and \ensuremath{\mathbb{E}[\mathcal{W}]} plus terms independent of the number of samples or wait time:
+as a linear combination between \ensuremath{\mathbb{E}[\mathcal{S}]} and \ensuremath{\mathbb{E}[\mathcal{W}]} plus terms independent of the number of samples or wait~time:
 \begin{alignat}{1}\label{eq:tradeoff}
     \Rightarrow\mathcal{E}&=\alpha\mathbb{E}[\mathcal{S}]+\beta\mathbb{E}[\mathcal{W}]+C\;
 \end{alignat}
@@ -485,8 +422,8 @@ please refer to the paper and its appendix for a detailed discussion on this opt
 A reference scheme from~\cite{wang2019towards} is introduced which adjusts the sampling rate at each sampling instant \ensuremath{t} according to the estimated likelihood of the user finishing the step.
 The scheme uses a static Gaussian distribution for all steps.
 
-We compare the effects of the optimization approach with the timing models to the reference scheme.
-We implement a sample-count-optimized aperiodic sampling scheme using \cref{eq:sampling} to determine the optimum sampling instants and the values for \ensuremath{\alpha} and \ensuremath{\beta}.
+I compare the effects of the optimization approach with the timing models to the reference scheme.
+I implement a sample-count-optimized aperiodic sampling scheme using \cref{eq:sampling} to determine the optimum sampling instants and the values for \ensuremath{\alpha} and \ensuremath{\beta}.
 The scheme includes an embedded human timing model that measures the perceived system responsiveness and updates the \ensuremath{\sigma} parameter at every step.
 The reference scheme is implemented using the Gaussian distribution fitted to the execution times in \cref{paper:olguinmunoz2021impact}.
 
@@ -500,31 +437,31 @@ The reference scheme is implemented using the Gaussian distribution fitted to th
     }\label{fig:samplingresults}
 \end{figure}
 
-Simulations were performed in Python to test different sampling schemes.
+Simulations are performed in Python to test different sampling schemes.
 The results from these simulations are presented in \Cref{fig:samplingresults}.
 The figure compares the performance of four sampling schemes:
 \begin{inlineenum}
-    \item the sample-count-optimized approach described above
+    \item the optimized approach described above
     \item \citeauthor{wang2019towards}s adaptive approach based on a Gaussian distribution
     \item a \emph{greedy}, completely unoptimized approach
     \item an \emph{offline optimum} scheme which perfectly predicts execution times in order to only sample once per step
 \end{inlineenum}.
 
-The results indicate that the sample-count-optimized aperiodic scheme results in a lower mean number of samples per step compared to the reference scheme proposed by \citeauthor{wang2019towards}.
-This was achieved while still satisfying the expected wait time bound.
+Results indicate that the optimized aperiodic scheme results in a lower mean number of samples per step compared to the reference scheme proposed by \citeauthor{wang2019towards}.
+This is achieved while still satisfying the expected wait time bound.
 
-The performance of the sample-count-optimized aperiodic scheme was further enhanced by incorporating the timing model that reflects human behavior.
+The performance of the sample-count-optimized aperiodic scheme is further enhanced by incorporating the timing model that reflects human behavior.
 The timing model allows for a more precise optimization of the sampling rate in \gls{WCA} applications, which minimizes the number of samples needed while still meeting the responsiveness requirements.
-These results highlight the effectiveness of the optimization approach and the significance of the timing model in optimizing sampling rates, as well as provide further validation of our methodology.
+These results highlight the effectiveness of the optimization approach and the significance of the timing model in optimizing sampling rates, as well as provide further validation of my methodology.
 
 
 \subsection{Implications with respect to raw energy consumption}\label{ssec:implications:energy}
 
-We also optimize for energy consumption in \gls{WCA}.
+I also optimize for energy consumption in \gls{WCA}.
 Energy consumption in these applications depends on various factors such as the number of samples captured, communication power and delays, among others.
 Hence, minimizing the number of samples captured is not a guarantee of reducing energy consumption.
-We therefore take the general solution for \cref{eq:tradeoff} and find the appropriate values of \ensuremath{\alpha} and \ensuremath{\beta} to minimize the energy consumed per step, represented by \ensuremath{\mathcal{E}=E}.
-With feedback given even to the discarded samples in our model and communication delay defined as the total delay in either direction, we have,
+I therefore take the general solution for \cref{eq:tradeoff} and find the appropriate values of \ensuremath{\alpha} and \ensuremath{\beta} to minimize the energy consumed per step, represented by \ensuremath{\mathcal{E}=E}.
+With feedback given even to the discarded samples in the model and communication delay defined as the total delay in either direction, we have,
 \begin{alignat}{2}
     \mathrm{E}=&\;\mathcal{S}\tau_cP_c+(\mathcal{T}+\mathcal{W}+\tau_\mathrm{p}+\tau_\mathrm{c}-\mathcal{S}\tau_c)P_0\nonumber\\
     % &=s\tau_c(P_c-P_0^{(t)})+wP_0^{(t)}+(\tau+\tau_c+\tau_p) P_0^{(t)}+\tau_cP_c\\
@@ -534,7 +471,7 @@ With feedback given even to the discarded samples in our model and communication
 \( \tau_\text{p} \) and \( \tau_\text{c} \) correspond to the processing and two-way communication delay for each sample.
 \( P_\text{c} \) and \( P_0 \) correspond to the communication and idle power, respectively, of the \gls{WCA} client device.
 
-We perform an experiment to implement the energy-optimized aperiodic sampling scheme, replacing the sample-count-optimized sampling scheme.
+I repeat the previous experiment with the energy-optimized aperiodic sampling scheme.
 The energy-optimized scheme uses the calculated values of \ensuremath{\alpha} and \ensuremath{\beta} to minimize energy consumption.
 The values of communication power, \ensuremath{P_{\text{c}}}, and idle power, \ensuremath{P_0}, are estimated from previous research.
 The processing delay, \ensuremath{\tau_{\text{p}}}, is set to a constant value across all experiments, and the communication delay, \ensuremath{\tau_{\text{c}}}, is calculated as the \gls{RTT} minus the processing delay.
@@ -550,11 +487,11 @@ As before, the optimized sampling scheme includes an embedded timing model to pr
     }\label{fig:energyresults}
 \end{figure}
 
-The results of our experiments, illustrated partially in \cref{fig:energyresults}, show that this energy-optimized scheme outperforms the reference schemes, with a significant reductions in energy consumption.
-Our approach is consistently consumes \SI{20}{\percent} less energy than \textcite{wang2019towards}'s approach, and is able to achieve up energy savings of up to \SI{40}{\percent} with respect to the greedy scheme.
-Furthermore, our approach is more consistent and reliable, exhibiting a flat curve of energy consumption much akin to that of the offline optimum in behavior.
+The results of my experiments, illustrated partially in \cref{fig:energyresults}, show that this energy-optimized scheme outperforms the reference schemes, with significant reductions in energy consumption.
+My approach consistently consumes \SI{20}{\percent} less energy than \textcite{wang2019towards}'s approach, and is able to achieve up energy savings of up to \SI{40}{\percent} with respect to the greedy scheme.
+Furthermore, my approach is more consistent and reliable, exhibiting a flat curve of energy consumption much akin to that of the offline optimum in behavior.
 
-Our findings have important implications for the development and deployment of \gls{WCA} systems.
-We have demonstrated that it is possible to significantly reduce the energy consumption of these systems while still maintaining a reasonable \gls{RTT}.
+These findings have important implications for the development and deployment of \gls{WCA} systems.
+I have demonstrated that it is possible to significantly reduce the energy consumption of these systems while still maintaining a reasonable \gls{RTT}.
 This can help extend the battery life of wearable devices, making  systems more practical and usable for a wider range of users.
 The results of this study can serve as a valuable reference for future work in energy optimization for \acl{WCA} systems.
