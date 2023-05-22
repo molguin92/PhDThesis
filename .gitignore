@@ -507,3 +507,5 @@ $RECYCLE.BIN/
 
 # glossaries
 *.ist
+
+split/
