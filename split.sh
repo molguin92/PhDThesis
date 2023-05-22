@@ -1,6 +1,6 @@
 #!/usr/bin/env bash +ex
 
-gs -dNOPAUSE -dQUIET -dBATCH -sOutputFile="split/kapa.pdf" -dFirstPage=1 -dLastPage=100 -sDEVICE=pdfwrite "MAIN.pdf"
+gs -dNOPAUSE -dQUIET -dBATCH -sOutputFile="split/kappa.pdf" -dFirstPage=1 -dLastPage=100 -sDEVICE=pdfwrite "MAIN.pdf"
 gs -dNOPAUSE -dQUIET -dBATCH -sOutputFile="split/paperA.pdf" -dFirstPage=101 -dLastPage=108 -sDEVICE=pdfwrite "MAIN.pdf"
 gs -dNOPAUSE -dQUIET -dBATCH -sOutputFile="split/paperB.pdf" -dFirstPage=109 -dLastPage=124 -sDEVICE=pdfwrite "MAIN.pdf"
 gs -dNOPAUSE -dQUIET -dBATCH -sOutputFile="split/paperC.pdf" -dFirstPage=125 -dLastPage=158 -sDEVICE=pdfwrite "MAIN.pdf"
