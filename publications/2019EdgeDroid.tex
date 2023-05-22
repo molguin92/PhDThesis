@@ -4,3 +4,16 @@
     \input{publications/2019EdgeDroid/abstract.tex}
 \end{abstract}
 \input{publications/2019EdgeDroid/paper_body.tex}
+
+\section*{References}
+\addcontentsline{toc}{section}{References}
+\newrefcontext[sorting=ynt]{}
+\printbibliography[
+    heading=none,
+    category=thesispapers
+]{}
+\newrefcontext[sorting=appearance-date-name]{}
+\printbibliography[
+    heading=none,
+    notcategory=thesispapers
+]{}

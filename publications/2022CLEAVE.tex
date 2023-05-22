@@ -6,3 +6,16 @@
 \input{publications/2022CLEAVE/experiments.tex}
 \input{publications/2022CLEAVE/conclusion.tex}
 \input{publications/2022CLEAVE/acks.tex}
+
+\section*{References}
+\addcontentsline{toc}{section}{References}
+\newrefcontext[sorting=ynt]{}
+\printbibliography[
+    heading=none,
+    category=thesispapers
+]{}
+\newrefcontext[sorting=appearance-date-name]{}
+\printbibliography[
+    heading=none,
+    notcategory=thesispapers
+]{}

@@ -237,6 +237,7 @@
 
 \newcommand{\thesispaper}[2]
 {
+    \endrefsection%
     \glsresetall% % reset all acronyms
     \edef\stitle{#1}
     \edef\ptitle{\citefield{#2}{title}}
@@ -265,11 +266,13 @@
         \vfill\hspace{0pt}%
     \end{titlingpage*}%
     \restorepagecolor%
+    \newrefsection% new refsection
 }
 
 \newcommand{\preprintthesispaper}[4]
 {
     \glsresetall%
+    \endrefsection%
     \edef\stitle{#1}
     \edef\ptitle{\citefield{#2}{title}}
     \edef\plabel{paper:#2}
@@ -300,6 +303,7 @@
         \vfill\hspace{0pt}%
     \end{titlingpage*}%
     \restorepagecolor%
+    \newrefsection%
 }
 
 % ``theorem'' styles for conclusions

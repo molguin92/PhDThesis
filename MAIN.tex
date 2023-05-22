@@ -36,11 +36,11 @@
 
 \clearpage%
 \tableofcontents%
-\printglossary[type=\acronymtype]%
 
 \mainmatter% Pages 1, 2, 3...
 \glsresetall{} % just to make sure
 \part{Summary}\label{part:summary}
+\newrefsection%
 \chapter{Introduction}\label{chap:introduction}
 \import{body/part1/chapter1-introduction}{introduction}
 \import{body/part1/chapter1-introduction}{structure}
@@ -58,6 +58,14 @@
 \chapter{Conclusions \& Future Work}\label{chap:conclusions}
 \import{body/part1/chapter4-conclusions}{conclusions}
 
+\printglossary[type=\acronymtype]%
+\printbibliography[
+    % heading=none,
+	heading=bibintoc,
+	title=References,
+    notcategory=thesispapers
+]%
+
 \renewcommand\chaptername{\newchaptername}
 \addtocontents{toc}{\protect\renewcommand\protect\cftchaptername{\newchaptername~}}
 \renewcommand*{\thechapter}{\Alph{chapter}}
@@ -70,8 +78,8 @@
 \input{publications/2022Ainur}
 \import{./publications}{2023EdgeDroid2}
 
-\backmatter%
-\bookmarksetup{startatroot}%
-\input{body/references}
+% \backmatter%
+% \bookmarksetup{startatroot}%
+% \input{body/references}
 
 \end{document}
